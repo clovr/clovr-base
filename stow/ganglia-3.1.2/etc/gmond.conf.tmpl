@@ -35,15 +35,13 @@ host {
    used to only support having a single channel */
 udp_send_channel {
   host = ${MASTER_IP}
-  port = 8000
+  port = 8649
   ttl = 1
 }
 
 /* You can specify as many udp_recv_channels as you like as well. */
 udp_recv_channel {
-  mcast_join = 239.2.11.71
   port = 8649
-  bind = 239.2.11.71
 }
 
 /* You can specify as many tcp_accept_channels as you like to share

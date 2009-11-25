@@ -8,6 +8,7 @@ PKG_NAME = 'ganglia-3.1.2'
 
 ensurePkg(PKG_NAME)
 dirExists('/var/lib/ganglia/rrds')
+fileExists('/var/www/ganglia')
 dirOwner('/var/lib/ganglia/rrds', 'nobody')
 executePkgTemplate(PKG_NAME, 'etc/gmetad.conf.tmpl')
 executePkgTemplate(PKG_NAME, 'etc/gmond.conf.tmpl')
