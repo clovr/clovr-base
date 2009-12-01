@@ -13,7 +13,7 @@ dirOwner('/var/lib/ganglia/rrds', 'nobody')
 executePkgTemplate(PKG_NAME, 'etc/gmetad.conf.tmpl')
 executePkgTemplate(PKG_NAME, 'etc/gmond.conf.tmpl')
 installPkg(PKG_NAME)
-run('gmond --conf=${base.dir}/etc/gmond.conf')
-run('gmetad --conf=${base.dir}/etc/gmetad.conf')
+run('gmond --conf=${stow.base_dir}/etc/gmond.conf')
+run('gmetad --conf=${stow.base_dir}/etc/gmetad.conf')
 
 
