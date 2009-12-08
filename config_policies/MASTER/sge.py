@@ -1,7 +1,7 @@
 # Just pull everything from policy
 from igs.config_manage.policy import *
 
-run("""echo ${MASTER_IP} > ${sge.root}/${sge.cell}/common/act_qmaster""")
+run("""hostname -f > ${sge.root}/${sge.cell}/common/act_qmaster""")
 run('rm -rf /var/spool/sge')
 dirExists('/var/spool/sge')
 dirOwner('/var/spool/sge', '${sge.admin_user}', '${sge.admin_user}')
