@@ -7,8 +7,8 @@ dirOwner('${sge.queues.harvesting_dir}', '${sge.exec_user}', '${sge.exec_user}')
 dirExists('${sge.queues.staging_dir}')
 dirOwner('${sge.queues.staging_dir}', '${sge.exec_user}', '${sge.exec_user}')
 
-dirExists('${sge.queue.wfworking_dir}')
-dirOwner('${sge.queue.wfworking_dir}', '${sge.exec_user}', '${sge.exec_user}')
+dirExists('${sge.queues.wfworking_dir}')
+dirOwner('${sge.queues.wfworking_dir}', '${sge.exec_user}', '${sge.exec_user}')
 
 dirExists('${misc.scratch_dir}')
 
