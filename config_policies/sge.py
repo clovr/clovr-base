@@ -13,5 +13,5 @@ dirOwner('${sge.queues.wfworking_dir}', '${sge.exec_user}', '${sge.exec_user}')
 dirExists('${misc.scratch_dir}')
 
 dirExists('/mnt/projects')
-run('tar -C /mnt/projects -xvzf /opt/project_clover.tgz')
+run('tar -C /mnt/projects -xvzf /opt/project_clovr.tgz')
 
