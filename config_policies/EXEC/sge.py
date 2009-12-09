@@ -1,6 +1,11 @@
 # Just pull everything from policy
 from igs.config_manage.policy import *
 
+import sys
+
+# Turning this config off for now
+sys.exit(0)
+
 run("""echo ${MASTER_IP} > ${sge.root}/${sge.cell}/common/act_qmaster""")
 run('rm -rf /var/spool/sge')
 dirExists('/var/spool/sge')

@@ -1,6 +1,11 @@
 # Just pull everything from policy
 from igs.config_manage.policy import *
 
+import sys
+
+# Turning this off for now
+sys.exit(0)
+
 dirExists('${sge.queues.harvesting_dir}')
 dirOwner('${sge.queues.harvesting_dir}', '${sge.exec_user}', '${sge.exec_user}')
 
