@@ -1,0 +1,29 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>celera-assembler-SGE.default</name>
+        </commandSet>
+        <commandSet type="parallel">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>metagene.default</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>ncbi-blastn.default</name>
+            </commandSet>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>ncbi-blastp.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>hmmer.default</name>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>
