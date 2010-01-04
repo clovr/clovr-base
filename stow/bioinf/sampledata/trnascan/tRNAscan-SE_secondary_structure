@@ -1,0 +1,672 @@
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna1 (31198-31274)	Length: 77 bp
+Type: Trp	Anticodon: CCA at 35-37 (31232-31234)	Score: 74.44
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: AGGGGTGTAGCTCcAATTGGCAGAGCAGCGGATTCCAAATCCGCGTGtTGGGAGTTCGAATCTCTCCACCCCTGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna2 (338226-338301)	Length: 76 bp
+Type: Glu	Anticodon: TTC at 35-37 (338260-338262)	Score: 57.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTCCCGTTCGTCTAGAGGCctAGGACACCGCCCTTTCACGGCGGTAACAGGGGTTCGACTCCCCTACGGGATACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna3 (343077-343153)	Length: 77 bp
+Type: Ile	Anticodon: GAT at 35-37 (343111-343113)	Score: 98.99
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGGTCTGTAGCTCAGTTGGTtAGAGCGCACCCCTGATAAGGGTGAGGtCGGTGGTTCAAATCCACTCAGACCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna4 (343190-343265)	Length: 76 bp
+Type: Ala	Anticodon: TGC at 34-36 (343223-343225)	Score: 86.08
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGGTTATAGCTCAGCTGGGAGAGCGCCTGCCTTGCACGCAGGAGGtCTGCGGTTCGATCCCGCATAGCTCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna5 (346686-346762)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (346720-346722)	Score: 94.55
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGTGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCACTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna6 (436569-436653)	Length: 85 bp
+Type: Leu	Anticodon: CAA at 35-37 (436603-436605)	Score: 72.42
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCCGGTATGGTGAAATTGGTaTACACGACGGATTCAAAATCCGTTGCCTTCGGGCGTGGCGGTTCAAGTCCGCCTACCGGTACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>..<<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna7 (508245-508329)	Length: 85 bp
+Type: Leu	Anticodon: GAG at 35-37 (508279-508281)	Score: 69.40
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCCGAGATGGTGAAATTGGTaGACACGCTAGCATGAGGTGCTAGTGCCTTATGGTGTGAGGGTTCAAGTCCCTCTCTCGGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>....<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna8 (571811-571902)	Length: 92 bp
+Type: Ser	Anticodon: GCT at 35-37 (571845-571847)	Score: 67.92
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    | 
+Seq: GGTGAGGTGGCCGAGAGGCtgAAGGCGCTCCCCTGCTAAGGGAGTATACGGTTTAtCCCGTATCGAGGGTTCGAATCCCTCCTTCACCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>>>......<<<<<<.>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna9 (571956-572032)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (571990-571992)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna10 (572100-572176)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (572134-572136)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna11 (572244-572320)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (572278-572280)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna12 (572388-572464)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (572422-572424)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna13 (572504-572595)	Length: 92 bp
+Type: Ser	Anticodon: GCT at 35-37 (572538-572540)	Score: 67.92
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    | 
+Seq: GGTGAGGTGGCCGAGAGGCtgAAGGCGCTCCCCTGCTAAGGGAGTATACGGTTTAtCCCGTATCGAGGGTTCGAATCCCTCCTTCACCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>>>......<<<<<<.>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna14 (572646-572722)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (572680-572682)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna15 (572787-572863)	Length: 77 bp
+Type: Arg	Anticodon: ACG at 35-37 (572821-572823)	Score: 87.23
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCTAGTAGCTCAGCTGGAtAGAGTACCTGGCTACGAACCAGGCGGtCAGAGGTTCGAATCCTCTCTGGCGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna16 (610436-610512)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (610470-610472)	Score: 94.55
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGTGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCACTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna17 (610549-610625)	Length: 77 bp
+Type: Trp	Anticodon: CCA at 35-37 (610583-610585)	Score: 74.44
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: AGGGGTGTAGCTCcAATTGGCAGAGCAGCGGATTCCAAATCCGCGTGtTGGGAGTTCGAATCTCTCCACCCCTGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna18 (842016-842092)	Length: 77 bp
+Type: Pro	Anticodon: TGG at 35-37 (842050-842052)	Score: 90.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGGTGAATAGCGCAGCTtGGTAGCGCATCTGGTTTGGGACCAGAGGGtCGGGGGTTCGAATCCCTCTTCACCGACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna19 (1066837-1066924)	Length: 88 bp
+Type: Ser	Anticodon: GGA at 35-37 (1066871-1066873)	Score: 65.79
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *  
+Seq: GGTGAGTTGTCCGAGTGGCtgAAGGAGCACGCCTGGAAAGTGTGTGTACGGCAACGTACCGAGAGTTCGAATCTCTCACTCACCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>>....<<<<<.>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna20 (1408057-1408133)	Length: 77 bp
+Type: Val	Anticodon: GAC at 35-37 (1408091-1408093)	Score: 84.30
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGTCTGTAGCTCAGTTGGTtAGAGTACTACCTTGACATGGTAGGGGtCGGTGATTCGAGTTCACTCAGACGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna21 (1408211-1408287)	Length: 77 bp
+Type: Val	Anticodon: GAC at 35-37 (1408245-1408247)	Score: 84.18
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGTCCGTAGCTCAGTTGGTtAGAGTACTACCTTGACATGGTAGGGGtCGGTGATTCGAGTTCACTCGGACGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna22 (1791478-1791561)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1791512-1791514)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna23 (1791644-1791727)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1791678-1791680)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna24 (1791810-1791893)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1791844-1791846)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna25 (1791976-1792059)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1792010-1792012)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna26 (1792142-1792225)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1792176-1792178)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna27 (1792308-1792391)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (1792342-1792344)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna28 (1884771-1884861)	Length: 91 bp
+Type: Ser	Anticodon: TGA at 35-37 (1884805-1884807)	Score: 71.18
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |
+Seq: GGAGGGATGGCTGAGTGGTcgAAAGCACCGGTCTTGAAAACCGGCAAGGGTTAATaGCCCTtCTAGGGTTCAAATCCCTATCCCTCCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<...>>>>.....<<<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna29 (1884900-1884976)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (1884934-1884936)	Score: 97.44
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGCGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCGCTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna30 (1885297-1885387)	Length: 91 bp
+Type: Ser	Anticodon: TGA at 35-37 (1885331-1885333)	Score: 71.18
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |
+Seq: GGAGGGATGGCTGAGTGGTcgAAAGCACCGGTCTTGAAAACCGGCAAGGGTTAATaGCCCTtCTAGGGTTCAAATCCCTATCCCTCCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<...>>>>.....<<<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna31 (1885427-1885503)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (1885461-1885463)	Score: 97.44
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGCGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCGCTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna32 (1886593-1886683)	Length: 91 bp
+Type: Ser	Anticodon: TGA at 35-37 (1886627-1886629)	Score: 71.18
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |
+Seq: GGAGGGATGGCTGAGTGGTcgAAAGCACCGGTCTTGAAAACCGGCAAGGGTTAATaGCCCTtCTAGGGTTCAAATCCCTATCCCTCCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<...>>>>.....<<<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna33 (1886979-1887069)	Length: 91 bp
+Type: Ser	Anticodon: TGA at 35-37 (1887013-1887015)	Score: 71.18
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |
+Seq: GGAGGGATGGCTGAGTGGTcgAAAGCACCGGTCTTGAAAACCGGCAAGGGTTAATaGCCCTtCTAGGGTTCAAATCCCTATCCCTCCGCCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<...>>>>.....<<<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna34 (2540511-2540586)	Length: 76 bp
+Type: Met	Anticodon: CAT at 34-36 (2540544-2540546)	Score: 88.04
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGCCCCTTAGCTCAGTGGTtAGAGCGCACGACTCATAATCGTTCGGtCCCCAGTTCAAGTCTGGGAGGGGCCACCA
+Str: >>>>>>>..>>>>........<<<<..>>>>.......<<<<......>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna35 (2852425-2852350)	Length: 76 bp
+Type: Glu	Anticodon: TTC at 35-37 (2852391-2852389)	Score: 57.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTCCCGTTCGTCTAGAGGCctAGGACACCGCCCTTTCACGGCGGTAACAGGGGTTCGACTCCCCTACGGGATACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna36 (2852347-2852272)	Length: 76 bp
+Type: Lys	Anticodon: TTT at 34-36 (2852314-2852312)	Score: 99.54
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGTCGTTAGCTCAGTTGGTAGAGCAGTTGACTTTTAATCAATTGGtCGCAGGTTCGAATCCTGCACGACCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna37 (2852240-2852165)	Length: 76 bp
+Type: Val	Anticodon: TAC at 34-36 (2852207-2852205)	Score: 94.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGCGATTAGCTCAGTTGGGAGAGCACCTCCCTTACAAGGAGGGGGtCACTGGTTCGAGCCCGGTATCGCCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna38 (2848732-2848656)	Length: 77 bp
+Type: Thr	Anticodon: GGT at 35-37 (2848698-2848696)	Score: 86.67
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCTGATATAGCTCAGCCcGGTAGAGCGCACCCTTGGTAAGGGTGAGGtCCCCAGTTCAAGTCTGGGTATCAGCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna39 (2837755-2837679)	Length: 77 bp
+Type: Arg	Anticodon: CCG at 35-37 (2837721-2837719)	Score: 90.29
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCCCGTAGCTCAGTTGGAtAGAGCGTTGGCCTCCGGAGCCAAAGGtCGAAGGTTCGAATCCTTTCGGGCGTGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna40 (2837644-2837569)	Length: 76 bp
+Type: His	Anticodon: GTG at 34-36 (2837611-2837609)	Score: 81.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTGGCTATAGCTCAGTTGGTAGAGCCCTGGATTGTGATTCCGGTGGtCGCGAGTTCGAATCTCGTTAGCCACCCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna41 (2837496-2837420)	Length: 77 bp
+Type: Pro	Anticodon: TGG at 35-37 (2837462-2837460)	Score: 90.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGGTGAATAGCGCAGCTtGGTAGCGCATCTGGTTTGGGACCAGAGGGtCGGGGGTTCGAATCCCTCTTCACCGACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna42 (2837378-2837303)	Length: 76 bp
+Type: His	Anticodon: GTG at 34-36 (2837345-2837343)	Score: 81.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTGGCTATAGCTCAGTTGGTAGAGCCCTGGATTGTGATTCCGGTGGtCGCGAGTTCGAATCTCGTTAGCCACCCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna43 (2837229-2837153)	Length: 77 bp
+Type: Pro	Anticodon: TGG at 35-37 (2837195-2837193)	Score: 90.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGGTGAATAGCGCAGCTtGGTAGCGCATCTGGTTTGGGACCAGAGGGtCGGGGGTTCGAATCCCTCTTCACCGACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna44 (2737503-2737428)	Length: 76 bp
+Type: Ala	Anticodon: GGC at 34-36 (2737470-2737468)	Score: 80.97
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGGCTATAGCTCAGCTGGGAGAGCGCTTCGCTGGCAGCGAAGAGGtCTGCGGTTCGATCCCGCATAGCTCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna45 (2732616-2732541)	Length: 76 bp
+Type: Glu	Anticodon: TTC at 35-37 (2732582-2732580)	Score: 57.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTCCCGTTCGTCTAGAGGCctAGGACACCGCCCTTTCACGGCGGTAACAGGGGTTCGACTCCCCTACGGGATACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna46 (2732538-2732463)	Length: 76 bp
+Type: Lys	Anticodon: TTT at 34-36 (2732505-2732503)	Score: 99.54
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGTCGTTAGCTCAGTTGGTAGAGCAGTTGACTTTTAATCAATTGGtCGCAGGTTCGAATCCTGCACGACCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna47 (2732437-2732362)	Length: 76 bp
+Type: Ala	Anticodon: TGC at 34-36 (2732404-2732402)	Score: 89.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGGCTATAGCTCAGCTGGGAGAGCGCCTGCCTTGCACGCAGGAGGtCTGCGGTTCGATCCCGCATAGCTCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna48 (2732330-2732255)	Length: 76 bp
+Type: Val	Anticodon: TAC at 34-36 (2732297-2732295)	Score: 94.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGCGATTAGCTCAGTTGGGAGAGCACCTCCCTTACAAGGAGGGGGtCACTGGTTCGAGCCCGGTATCGCCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna49 (2728817-2728741)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (2728783-2728781)	Score: 94.55
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGTGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCACTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna50 (2723107-2723032)	Length: 76 bp
+Type: Thr	Anticodon: TGT at 34-36 (2723074-2723072)	Score: 89.51
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCGACTTAGCTCAGTAGGTAGAGCAACTGACTTGTAATCAGTAGGtCACCAGTTCGACTCCGGTAGTCGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>.>.......<.<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna51 (2722997-2722914)	Length: 84 bp
+Type: Tyr	Anticodon: GTA at 35-37 (2722963-2722961)	Score: 64.75
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGAGGGGTTCCCGAGTGGCcaAAGGGAGCAGACTGTAAATCTGCCGCGAAAGCTtCGATGGTTCGAATCCGTCCCCCTCCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>....<<...>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna52 (2722878-2722804)	Length: 75 bp
+Type: Gly	Anticodon: TCC at 34-36 (2722845-2722843)	Score: 64.85
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGGCATCGTATAATGGCtATTACCTCAGCCTTCCAAGCTGATGATGCGGGTTCGATTCCCGCTGCCCGCTCCA
+Str: >>>>>>>..>>>..........<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna53 (2722791-2722716)	Length: 76 bp
+Type: Thr	Anticodon: GGT at 34-36 (2722758-2722756)	Score: 87.56
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCTGATATAGCTCAGTTGGTAGAGCGCACCCTTGGTAAGGGTGAGGtCCCCAGTTCAAATCTGGGTATTAGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna54 (2629009-2628934)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (2628976-2628974)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna55 (2628862-2628786)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (2628828-2628826)	Score: 87.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGCGGGATGGAGCAGCTtGGTAGCTCGTCGGGCTCATAACCCGAAGGtCGTAGGTTCAAATCCTGCTCCCGCAACCA
+Str: .>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<.....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna56 (2628753-2628678)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (2628720-2628718)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna57 (2628618-2628542)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (2628584-2628582)	Score: 87.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGCGGGATGGAGCAGCTtGGTAGCTCGTCGGGCTCATAACCCGAAGGtCGTAGGTTCAAATCCTGCTCCCGCAACCA
+Str: .>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<.....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna58 (2628509-2628434)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (2628476-2628474)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna59 (2628374-2628298)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (2628340-2628338)	Score: 87.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGCGGGATGGAGCAGCTtGGTAGCTCGTCGGGCTCATAACCCGAAGGtCGTAGGTTCAAATCCTGCTCCCGCAACCA
+Str: .>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<.....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna60 (2628265-2628190)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (2628232-2628230)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna61 (2628129-2628053)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (2628095-2628093)	Score: 87.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: CGCGGGATGGAGCAGCTtGGTAGCTCGTCGGGCTCATAACCCGAAGGtCGTAGGTTCAAATCCTGCTCCCGCAACCA
+Str: .>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<.....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna62 (2628020-2627945)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (2627987-2627985)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna63 (2439406-2439331)	Length: 76 bp
+Type: Phe	Anticodon: GAA at 34-36 (2439373-2439371)	Score: 88.50
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCCGGATAGCTCAGTCGGTAGAGCAGAGGATTGAAAATCCTCGTGtCGGTGGTTCGATTCCGCCTCCGGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna64 (2439278-2439203)	Length: 76 bp
+Type: Thr	Anticodon: TGT at 34-36 (2439245-2439243)	Score: 89.51
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCGACTTAGCTCAGTAGGTAGAGCAACTGACTTGTAATCAGTAGGtCACCAGTTCGACTCCGGTAGTCGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>.>.......<.<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna65 (2439173-2439098)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (2439140-2439138)	Score: 84.71
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCCTTTTAGTTCAGTCGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAAGGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna66 (2435061-2434985)	Length: 77 bp
+Type: Ile	Anticodon: GAT at 35-37 (2435027-2435025)	Score: 98.99
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGGTCTGTAGCTCAGTTGGTtAGAGCGCACCCCTGATAAGGGTGAGGtCGGTGGTTCAAATCCACTCAGACCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna67 (2434948-2434873)	Length: 76 bp
+Type: Ala	Anticodon: TGC at 34-36 (2434915-2434913)	Score: 86.08
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GGGGTTATAGCTCAGCTGGGAGAGCGCCTGCCTTGCACGCAGGAGGtCTGCGGTTCGATCCCGCATAGCTCCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna68 (2431315-2431239)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (2431281-2431279)	Score: 94.55
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGTGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCACTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna69 (2382132-2382057)	Length: 76 bp
+Type: Glu	Anticodon: TTC at 35-37 (2382098-2382096)	Score: 57.32
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GTCCCGTTCGTCTAGAGGCctAGGACACCGCCCTTTCACGGCGGTAACAGGGGTTCGACTCCCCTACGGGATACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna70 (2378535-2378459)	Length: 77 bp
+Type: Asp	Anticodon: GTC at 35-37 (2378501-2378499)	Score: 94.55
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGAGTGGTAGTTCAGTTGGTtAGAATACCGGCCTGTCACGCCGGGGGtCGCGGGTTCGAGTCCCGTCCACTCCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna71 (2018187-2018111)	Length: 77 bp
+Type: Arg	Anticodon: TCT at 35-37 (2018153-2018151)	Score: 92.27
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCGCCCTTAGCTCAGCTGGAtAGAGCACGTCCCTTCTAAGGATGTGGtCGTAGGTTCGAATCCTACAGGGCGCGCCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna72 (1850526-1850453)	Length: 74 bp
+Type: Cys	Anticodon: GCA at 33-35 (1850494-1850492)	Score: 66.82
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGCGCCTTGGCAGAGTGGCTATGCAGCGGATTGCAAATCCGTGGACCTCGGTTCGATTCCGGGAGGCGCCTCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna73 (1850434-1850359)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (1850401-1850399)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna74 (1850281-1850195)	Length: 87 bp
+Type: Leu	Anticodon: TAA at 35-37 (1850247-1850245)	Score: 73.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCCCTGGTGGTGGAATTGGTaGACACAAGGGATTTAAAATCCCTCGGCGTTCGCGCTGTGCCGGTTCAAGTCCGGCCCGGGGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>....<<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna75 (1850162-1850087)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (1850129-1850127)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna76 (1850009-1849923)	Length: 87 bp
+Type: Leu	Anticodon: TAA at 35-37 (1849975-1849973)	Score: 73.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCCCTGGTGGTGGAATTGGTaGACACAAGGGATTTAAAATCCCTCGGCGTTCGCGCTGTGCCGGTTCAAGTCCGGCCCGGGGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>....<<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna77 (1849889-1849814)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (1849856-1849854)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna78 (1774798-1774725)	Length: 74 bp
+Type: Cys	Anticodon: GCA at 33-35 (1774766-1774764)	Score: 66.82
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGCGCCTTGGCAGAGTGGCTATGCAGCGGATTGCAAATCCGTGGACCTCGGTTCGATTCCGGGAGGCGCCTCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna79 (1774710-1774635)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (1774677-1774675)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna80 (1774557-1774471)	Length: 87 bp
+Type: Leu	Anticodon: TAA at 35-37 (1774523-1774521)	Score: 73.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCCCTGGTGGTGGAATTGGTaGACACAAGGGATTTAAAATCCCTCGGCGTTCGCGCTGTGCCGGTTCAAGTCCGGCCCGGGGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>....<<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna81 (1774430-1774357)	Length: 74 bp
+Type: Cys	Anticodon: GCA at 33-35 (1774398-1774396)	Score: 66.82
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |   
+Seq: GGCGCCTTGGCAGAGTGGCTATGCAGCGGATTGCAAATCCGTGGACCTCGGTTCGATTCCGGGAGGCGCCTCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna82 (1774342-1774267)	Length: 76 bp
+Type: Gly	Anticodon: GCC at 34-36 (1774309-1774307)	Score: 85.35
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCGACACTAGCTCAGCTGGTAGAGCGCAACCTTGCCAAGGTTGAGGtCACGAGTTCGAACCTCGTGTGTCGCTCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna83 (1774081-1773995)	Length: 87 bp
+Type: Leu	Anticodon: TAA at 35-37 (1774047-1774045)	Score: 73.76
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GCCCTGGTGGTGGAATTGGTaGACACAAGGGATTTAAAATCCCTCGGCGTTCGCGCTGTGCCGGTTCAAGTCCGGCCCGGGGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>>....<<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna84 (1022664-1022589)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (1022631-1022629)	Score: 84.71
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCCTTTTAGTTCAGTCGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAAGGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna85 (1022528-1022453)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (1022495-1022493)	Score: 88.22
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCTCTTTAGTTCAGTTGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAGAGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna86 (821937-821861)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (821903-821901)	Score: 93.48
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGCTACTTAGCTCAGCTGGTtAGAGCACATCACTCATAATGATGGGGtCACAGGTTCAAATCCCGTAGTAGCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>.>>.......<<.<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna87 (821782-821698)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (821748-821746)	Score: 76.19
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGACGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCAAGGTGTGAGAGTTCAAGTCTCTCCGTCCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>....<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna88 (821672-821598)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (821640-821638)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna89 (821517-821433)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (821483-821481)	Score: 70.72
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGTCGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGACCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna90 (821407-821333)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (821375-821373)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna91 (821252-821168)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (821218-821216)	Score: 72.83
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGACGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGTCCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna92 (821142-821068)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (821110-821108)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna93 (820987-820903)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (820953-820951)	Score: 70.72
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGTCGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGACCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna94 (820892-820816)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (820858-820856)	Score: 93.48
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGCTACTTAGCTCAGCTGGTtAGAGCACATCACTCATAATGATGGGGtCACAGGTTCAAATCCCGTAGTAGCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>.>>.......<<.<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna95 (820786-820712)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (820754-820752)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna96 (820631-820547)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (820597-820595)	Score: 72.83
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGACGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGTCCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna97 (820536-820460)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (820502-820500)	Score: 93.48
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGCTACTTAGCTCAGCTGGTtAGAGCACATCACTCATAATGATGGGGtCACAGGTTCAAATCCCGTAGTAGCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>.>>.......<<.<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna98 (820375-820291)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (820341-820339)	Score: 70.72
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGTCGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGACCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna99 (820265-820191)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (820233-820231)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna100 (820110-820026)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (820076-820074)	Score: 72.83
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGACGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGTCCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna101 (820015-819939)	Length: 77 bp
+Type: Met	Anticodon: CAT at 35-37 (819981-819979)	Score: 93.48
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    * 
+Seq: GGCTACTTAGCTCAGCTGGTtAGAGCACATCACTCATAATGATGGGGtCACAGGTTCAAATCCCGTAGTAGCCACCA
+Str: >>>>>>>..>>>>.........<<<<.>>>>>.......<<<<<.....>>.>>.......<<.<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna102 (819853-819769)	Length: 85 bp
+Type: Leu	Anticodon: TAG at 35-37 (819819-819817)	Score: 70.72
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: GCGGTCGTGGCGGAATTGGTaGACGCACCAGATTTAGGTTCTGGCGCCGCGAGGTGTGAGAGTTCAAGTCTCTCCGACCGCACCA
+Str: >>>>>>>..>>>...........<<<.>>>>>.......<<<<<.>>>.><.<<<..>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna103 (819743-819669)	Length: 75 bp
+Type: Gln	Anticodon: TTG at 33-35 (819711-819709)	Score: 71.88
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    
+Seq: TGGGATATCGCCAAGCGGTAAGGCAGCGGCTTTTGATGCCGCCATtCCCTGGTTCAAATCCAGGTATCCCAGCCA
+Str: >>>>>>>..>>>.........<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna104 (438500-438425)	Length: 76 bp
+Type: Phe	Anticodon: GAA at 34-36 (438467-438465)	Score: 88.50
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCCGGATAGCTCAGTCGGTAGAGCAGAGGATTGAAAATCCTCGTGtCGGTGGTTCGATTCCGCCTCCGGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna105 (438349-438274)	Length: 76 bp
+Type: Thr	Anticodon: TGT at 34-36 (438316-438314)	Score: 89.51
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCGACTTAGCTCAGTAGGTAGAGCAACTGACTTGTAATCAGTAGGtCACCAGTTCGACTCCGGTAGTCGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>.>.......<.<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna106 (438266-438191)	Length: 76 bp
+Type: Phe	Anticodon: GAA at 34-36 (438233-438231)	Score: 87.07
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCTCGATAGCTCAGTCGGTAGAGCAGAGGATTGAAAATCCTCGTGtCGGTGGTTCGATTCCGCCTCGAGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna107 (438184-438109)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (438151-438149)	Score: 86.80
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCCTTTTAGTTCAGTTGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAAGGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna108 (438067-437992)	Length: 76 bp
+Type: Thr	Anticodon: TGT at 34-36 (438034-438032)	Score: 89.51
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCGACTTAGCTCAGTAGGTAGAGCAACTGACTTGTAATCAGTAGGtCACCAGTTCGACTCCGGTAGTCGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>.>.......<.<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna109 (437958-437883)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (437925-437923)	Score: 86.80
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCCTTTTAGTTCAGTTGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAAGGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna110 (437809-437734)	Length: 76 bp
+Type: Thr	Anticodon: TGT at 34-36 (437776-437774)	Score: 89.51
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCGACTTAGCTCAGTAGGTAGAGCAACTGACTTGTAATCAGTAGGtCACCAGTTCGACTCCGGTAGTCGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>.>.......<.<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna111 (437726-437651)	Length: 76 bp
+Type: Phe	Anticodon: GAA at 34-36 (437693-437691)	Score: 87.07
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: GCCTCGATAGCTCAGTCGGTAGAGCAGAGGATTGAAAATCCTCGTGtCGGTGGTTCGATTCCGCCTCGAGGCACCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
+CP001139.1_Vibrio_fischeri_MJ11_chromosome_1.trna112 (437644-437569)	Length: 76 bp
+Type: Asn	Anticodon: GTT at 34-36 (437611-437609)	Score: 86.80
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |    *
+Seq: TCCCTTTTAGTTCAGTTGGTAGAACGGCGGACTGTTAATCCGTATGtCGCTGGTTCAAGTCCAGCAAAGGGAGCCA
+Str: >>>>>>>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<<<<<<<....
+
