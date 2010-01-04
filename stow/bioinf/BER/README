@@ -1,0 +1,36 @@
+BER pipeline
+============
+
+ber.sh will run the pipeline for BER processing.  The pipeline processes
+precomputed blastp results (it should be able to handle both wu-blastp and
+NCBI blastp).  One of the pipeline steps requires Bioperl
+(http://bio.perl.org/) to be in the include path for PERL.  The pipeline
+supports sequence databases in the following formats: cdbfasta (TIGR),
+xdformat (WU), and formatdb (NCBI).  Given a specific database format,
+the respective fetching tools need to be in the $PATH (cdbfasta - cdbyank,
+xdformat - xdget, formatdb - fastacmd).  The databases need to have
+indexed ids (please see the corresponding database documentation for
+information).  The database searched against will often be NIAA, although
+any protein database can be used.  The BER pipeline does the following:
+
+- converts raw BLAST output to internal btab format (wu-blast2btab)
+- group btab hits by query id (group_blast_hits)
+- filter btab hits by passed cutoffs (ber_blast_hit_selector)
+- creates a "mini" database of subject sequences whose hits pass cutoffs
+  (fetch_fasta_from_db)
+- creates a nucleotide database containing the corresponding nucleotide
+  sequence for each query protein whose hits pass cutoffs
+  (fetch_fasta_from_db)
+- process each nucleotide sequence against the corresponding "mini"
+  database and performs a translating Smith-Waterman search (praze)
+
+If the input blastp hits contain multiple query proteins, a formatted
+nucleotide database and a protein id to nucleotide id map file need
+to be provided.  However, if the hits contain only one query protein,
+you can pass a nucleotide FastA file (through the -I option) with the
+nucleotide data corresponding to the given protein (this is useful is
+parallelization, where proteins are processed individually, in parallel mode).
+
+Since BER is useful for finding possible frameshifts and miscalled CDS
+start sites, the nucleotide sequence for a protein is often the genomic
+sequence surrounding the CDS (CDS + introns + some flaking sequence).
