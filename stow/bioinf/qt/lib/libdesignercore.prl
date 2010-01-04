@@ -1,0 +1,6 @@
+QMAKE_PRL_BUILD_DIR = /usr/local/bioinf/qt/tools/designer/designer
+QMAKE_PRO_INPUT = designer.pro
+QMAKE_PRL_TARGET = libdesignercore.a
+QMAKE_PRL_CONFIG = qt warn_on release incremental link_prl nocrosscompiler minimal-config small-config medium-config large-config full-config styles tools kernel widgets dialogs iconview workspace network canvas table xml sql release largefile stl ipv6 png no-gif zlib nis bigcodecs x11sm xkb dylib create_prl link_prl qt warn_on staticlib qmake_cache moc
+QMAKE_PRL_VERSION = 1.0.0
+QMAKE_PRL_LIBS = -L/usr/local/bioinf/qt/lib -L/usr/local/bioinf/qt/lib -lqui -lqassistantclient -lqt -lSM -lICE -ldl 

@@ -1,0 +1,46 @@
+Sampledata README
+
+1. Assume the current directory is mydir/. After unzip and untar the rdp_classifier.tar.gz file into mydir, go to the direcoty rdp_classifier, you should have the following files or directories:
+COPYRIGHT               docs                    rdp_classifier-2.0.jar  src
+README                  lib                     sampledata
+ 
+2. Create raw training data.
+   You need to create two raw training files. There are two sample raw training data files in sampledata: testTaxonForQuerySeq.txt and testQuerySeq.fasta.
+   -- testTaxonForQuerySeq.txt contains the hierarchical taxonomy information in the following format: 
+	taxid*taxon name*parent taxid*depth*rank". 
+	taxid, the parent taxid and depth should be in integer format. depth indicates the depth from the root taxon.
+   -- testQuerySeq.fasta contains the raw training sequences labeled with lineage in fasta format. 
+	The header of this fasta file starts with ">", followed by the sequence name, white space(s) and a list taxon names seperated by ';' with highest rank taxon first. 
+	For example: >seq1 ROOT;Ph1;Fam1;G1;
+    Note: a sequence can only be assigned to the lowest rank taxon.   
+
+3. Create parsed training files from the raw training data.
+   Assume two raw files are created in mydir/mydata: mytaxon.txt and mytrainseq.fasta.
+   Run the command to create parsed training files:
+   java -Xmx400m -cp rdp_classifier-2.0.jar edu/msu/cme/rdp/classifier/train/ClassifierTraineeMaker mydata/mytaxon.txt mydata/mytrainseq.fasta 1 version1 test mydata
+
+    The first parameter "mydata/mytaxon.txt" contains the hierarchical taxonomy information.
+    The second parameter "mydata/mytrainseq.fasta" contains the raw training sequences.
+    The third parameter "1" is the trainset_no to mark the training files generated.
+    The fourth parameter "version1" indicates the version of the hierarchical taxonomy.
+    The fifth parameter "test" holds the modification information of the taxonomy.
+    The fifth parameter 'mydata" specifies the output directory.
+
+    Four parsed training files will be created and saved into directory mydata.
+	bergeyTrainingTree.xml
+	genus_wordConditionalProbList.txt
+	logWordPrior.txt
+	wordConditionalProbIndexArr.txt
+
+4. Copy the property file sampledata/rRNAClassifier.properties to directory mydata.
+
+5. Run command line class to classify sequences. Supported formats are Fasta, Genbank and EMBL.
+   5a. Use the default training data to do classification:
+	java -Xmx400m -jar rdp_classifier-2.0.jar sampledata/testQuerySeq.fasta testquery.out 
+
+   5b. Use the user provided training data to do classification:
+	java -Xmx400m -jar rdp_classifier-2.0.jar sampledata/testQuerySeq.fasta testquery.out  mydata/rRNAClassifier.properties
+
+   The first parameter "sampledata/testQuerySeq.fasta" contains query sequences.
+   The second parameter "testquery.out" is the output file.
+   The third parameter "mydata/rRNAClassifier.properties" contains the mapping of the parsed training files..

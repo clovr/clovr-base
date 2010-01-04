@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$#" -gt 0 ]; then
+  echo yes | /usr/local/bioinf/qt/configure  "$@"
+else
+  echo yes | /usr/local/bioinf/qt/configure 
+fi
