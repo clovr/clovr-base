@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>tRNAscan-SE README</title>
+</head>
+<body>
+<h2>Using the tRNAscan-SE Web Server</h2>
+The tRNAscan-SE server is accessed via the Lowe Lab Webserver Interface
+at&nbsp; http://lowelab.cse.ucsc.edu/tRNAscan-SE/. <br>
+<br>
+<span style="font-weight: bold;">User Interface</span><br>
+<br>
+<span style="font-family: monospace;">The tRNAscan-SE interface
+consists of three major components:<br>
+* Search mode selection<br>
+* Query sequence selection<br>
+* Configuration of search-mode and options for displaying results<br>
+<br>
+The search mode determines which probabilistic model to use in searches
+&#8211; each model is based on tRNA training data from selected species or
+phylogenetic groups (i.e., mammals, yeasts, archaea). If no explicit
+model for the species of interest is available in the user interface,
+specifying either a general model or a model from a related species
+generally yields good results. Different search modes can offer varying
+speed and sensitivity.&nbsp; For tRNAscan-SE, the standard search modes
+are fast and very sensitive in most instances.&nbsp; However, for short
+sequences that contain extremely atypical tRNAs, the &#8220;Cove only&#8221; mode
+offers slightly improved sensitivity (this is the default search mode
+for organellar sequence searches). <br>
+<br>
+Query sequence selection is used to specify the sequences to be
+searched for tRNAs. Raw or formatted sequence data can be pasted
+directly into the query sequence box or can be uploaded from a local
+file. Links to <a href="sampleYeastTrna.fa">sample query sequence data</a>
+are also available for demonstration purposes. <br>
+<br>
+The server also has a set of program-specific search and output-display
+options such as the tRNA isotype code. In addition, the server has an
+adjustable cutoff score enabling tradeoffs between scan sensitivity and
+specificity. In most cases, the default parameter choices will be
+satisfactory and should be selected &#8211; especially by new users. However,
+more experienced users are able to exert some control over the
+program&#8217;s results by manipulating these parameters.<br>
+<span style="font-weight: bold;"></span></span>
+<h4><span style="font-weight: bold;">Output format</span><br
+ style="font-weight: bold;">
+</h4>
+<span style="font-family: monospace;"><span style="font-weight: bold;"><span
+ style="font-weight: bold;"></span></span></span><span
+ style="font-family: monospace;">The default output for tRNAscan-SE
+includes overall statistics for the various component programs
+(trnascan(14), eufindtrna(15) and cove(16)) as well as summary data for
+the entire search. The summary data includes counts of the total number
+of tRNAs found, the number of tRNA pseudogenes found, number of tRNAs
+with introns and which anticodons were detected. Finally, the output
+shows the predicted secondary structure for each identified
+sequence.&nbsp; With an additional click on the &#8220;View tRNA&#8221; button to
+the right of each tRNA, a two-dimensional representation of the tRNA
+structure can be displayed, producing the familiar tRNA clover-leaf
+structure.&nbsp; The output also displays the overall length of the
+sequence, the location of the anticodon and the overall tRNAscan-SE
+score. tRNAscan-SE scores for known tRNA sequences for various species
+are included on the website to facilitate evaluation of the
+significance of the score.<br>
+<br>
+<br>
+Sample (abbreviated) tRNAscan-SE Output<br>
+<br>
+<PRE>
+Sequence		tRNA	Bounds	tRNA	Anti	Intron Bounds	Cove
+Name			tRNA #	Begin	End	Type	Codon  Begin	End	Score
+--------		------	----	------	----	-----  -----	----	------
+
+Your-seq		1	1	73	Ala	AGC    0	0	74.48
+
+
+Summary
+--------
+Overall scan speed: 730.0 bp/sec
+
+tRNAs decoding Standard 20 AA:              1
+Selenocysteine tRNAs (TCA):                 0
+Possible suppressor tRNAs (CTA,TTA):        0
+tRNAs with undetermined/unknown isotypes:   0
+Predicted pseudogenes:                      0
+                                            -------
+Total tRNAs:                                1
+
+tRNAs with introns:			    0
+
+
+Isotype / Anticodon Counts:
+
+Ala   : 1   AGC: 1       GGC:         CGC:         TGC:       
+
+------------------------------------------------------------------------
+
+Predicted tRNA Secondary Structures:
+
+Your-seq.trna1 (1-73)	       Length: 73 bp
+Type: Ala      Anticodon: AGC at 34-36 (34-36)	Score: 74.48
+         *    |    *    |    *    |    *    |    *    |    *    |    *    |  
+Seq: GGGCGTGTGGCGTAGTCGGTAGCGCGCTCCCTTAGCATGGGAGAGGtCTCCGGTTCGATTCCGGACTCGTCCA
+Str: >>>>>.>..>>>>........<<<<.>>>>>.......<<<<<.....>>>>>.......<<<<<<.<<<<<.
+
+</PRE>
+
+<h4>Further information<br>
+</h4>
+The tRNAscan-SE algorithm is described in:<br>
+<br>
+Lowe, T.M. and Eddy, S.R. (1997) 
+<a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&pubmedid=9023104"
+>tRNAscan-SE: a program for improved
+detection of transfer RNA genes in genomic sequence. </A><I>Nucleic Acids Research</I>,
+<B>25</B>, 955-964.<br>
+<br>
+Additional information can be found in the <a
+ href="Manual/">User Manual</a> for
+command-line UNIX version of the program.<br>
+<br>
+<br>
+<br>
+</body>
+</html>
