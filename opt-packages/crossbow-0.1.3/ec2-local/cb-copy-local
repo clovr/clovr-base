@@ -1,0 +1,139 @@
+#!/bin/bash
+
+#
+# cb-copy-local
+#
+#  Author: Ben Langmead
+#    Date: 6/26/2009
+#
+# Automatically recruits an ec2 cluster and runs a FASTQ read bulk-copy
+# job.
+#
+
+d=`dirname $0`
+source $d/cb-shared-local
+
+export MAP_MAX=3
+export REDUCE_MAX=3
+export FAIL_MAX=10
+export INSTANCE_TYPE="c1.medium"
+
+usage() {
+	echo
+	echo "Usage: cb-copy-local -n <int> -i <path> -o <path> [options*]"
+	echo
+	echo "  -n <int>    number of worker nodes to launch"
+	echo "  -i <path>   input file (1 input file per line, 2 for mated files)"
+	echo "  -o <path>   output path"
+	echo "  -m <int>    set max mappers per node (default: $MAP_MAX)"
+	echo "  -f <int>    set max node failures before blacklisting (default: $FAIL_MAX)"
+	echo "  -t <name>   EC2 instance type to recruit; default: \"$INSTANCE_TYPE\""
+	echo "  -r <int>    number of reducers (default=0: 1 output file per input file/pair)"
+	echo "  -u <int>    stop after <int> reads per input file"
+	echo "  -M <int>    set maximum number of preprocessed reads per output file"
+	echo "  -c <name>   set cluster name"
+	echo "  -d          don't launch cluster; assume it exists"
+	echo "  -?          print usage message"
+	echo
+	echo "AWS_ACCOUNT_ID, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and EC2_PRIVATE_KEY"
+	echo "environment variables must be set properly."
+	echo
+}
+
+usagedie() {
+	usage ; exit 1
+}
+
+check_env
+
+# Parse command line arguments
+dont_launch=0
+cluster_name="bulkcopy"
+inp=
+outp=
+num_reducers=0
+stop_after=0
+max_reads=0
+
+while getopts n:t:di:o:m:r:f:\?c:r:u:M: OPT; do
+	case "$OPT" in
+	n)	n=$OPTARG
+		;;
+	t)	export INSTANCE_TYPE=$OPTARG
+		;;
+	i)	inp=$OPTARG
+		;;
+	o)	outp=$OPTARG
+		;;
+	d)	dont_launch=1
+		;;
+	m)	export MAP_MAX=$OPTARG
+		;;
+	f)	export FAIL_MAX=$OPTARG
+		;;
+	c)	cluster_name=$OPTARG
+		;;
+	r)	num_reducers=$OPTARG
+		;;
+	u)	stop_after=$OPTARG
+		;;
+	M)	max_reads=$OPTARG
+		;;
+	\?)	# getopts issues an error message
+		usagedie
+		;;
+	esac
+done
+
+[ -z "$n"     ] && echo "Error, specify # of workers with -n" && usagedie
+[ -z "$outp"  ] && echo "Error, specify output directory with -o"  && usagedie
+[ -z "$inp"   ] && echo "Error, specify input file with -i" && usagedie
+[ ! -f "$inp" ] && echo "Error, input file $inp doesn't exist" && usagedie
+
+install_env
+
+# Launch the cluster
+if [ $dont_launch -eq 0 ] ; then
+	launch_cluster
+fi
+
+# Get master node's public name so that we can scp/ssh
+echo -n "  getting name of master at: " ; date
+MASTER=`cat ${mafile}`
+[ -z "$MASTER" ] && echo "Can't extract master-node name from ${mafile}" && exit 1
+echo "  got $MASTER"
+
+ec2_ssh_master="${ec2_ssh} root@${MASTER} "
+
+# Push the bulkcopy_master script and the experiment-specific script to
+# the master
+echo -n "  pushing files to master at: " ; date
+${ec2_ssh_master} mkdir -p /mnt/tmp
+${ec2_scp} $d/../ec2-master/copy_mapper.pl \
+           $d/../ec2-master/copy_master \
+           $d/../ec2-master/shared_master \
+           $inp \
+           $d/../contrib/s3cmd/s3cmd-0.9.9.tar.gz \
+           .s3cfg \
+           root@${MASTER}:/mnt/
+inp=`basename $inp`
+
+push_env
+get_worker_names
+wait_for_workers_to_join $n "namenode"
+check_jobtracker
+wait_for_workers_to_join $n "jobtracker"
+
+echo -n "All workers joined at: " ; date
+
+# Run the copy
+echo -n "Running $n on master at: " ; date
+${ec2_ssh_master} \
+	"source .bash_profile && hadoop dfs -put /mnt/$inp /tmp/input/$inp"
+${ec2_ssh_master} \
+	"source .bash_profile && cd /mnt && sh -x copy_master -b -i /tmp/input -o $outp -r $num_reducers -u $stop_after -M $max_reads"
+
+echo -n "Finished at: " ; date
+
+# Let user decide whether to terminate the cluster immediately
+$d/bin/hadoop-ec2 terminate-cluster ${cluster_name}

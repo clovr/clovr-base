@@ -1,0 +1,54 @@
+#!/usr/bin/perl -w
+
+#
+# sanity_check
+#
+#  Authors: Ben Langmead & Michael C. Schatz
+#     Date: 10/12/2009
+#
+# Run from the root directory of an expanded reference har to see how
+# often the reference character matches one of the SNP alleles at all
+# positions with SNPs.  If only about half of them match, chances are
+# good that the refernce FASTA files are mismatched or misaligned with
+# the dbSNP snps.
+# 
+
+use warnings;
+use strict;
+
+for my $f (split(/\s+/, `ls sequences/*.fa`)) {
+	my $bad = 0;
+	my $good = 0;
+	open FA, $f || die;
+	my $s = $f;
+	$s =~ s/\.fa$/.snps/;
+	$s =~ s/^sequences/snps/;
+	print STDERR "Processing $f/$s\n";
+	my $seq = "";
+	while(<FA>) {
+		chomp;
+		next if /^>/;
+		$seq .= $_;
+	}
+	close(FA);
+	open SNPS, $s || die;
+	while(<SNPS>) {
+		chomp;
+		my @s = split;
+		my ($a, $c, $g, $t) = ($s[5], $s[6], $s[7], $s[8]);
+		my $refc = uc substr($seq, $s[1]-1, 1);
+		if($refc eq 'A' && $a == 0.0) {
+			$bad++;
+		} elsif($refc eq 'C' && $c == 0.0) {
+			$bad++;
+		} elsif($refc eq 'G' && $g == 0.0) {
+			$bad++;
+		} elsif($refc eq 'T' && $t == 0.0) {
+			$bad++;
+		} else {
+			$good++;
+		}
+	}
+	close(SNPS);
+	print "Matched: $good, Mismatched: $bad\n";
+}

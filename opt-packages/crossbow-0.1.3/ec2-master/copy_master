@@ -1,0 +1,102 @@
+#!/bin/sh
+
+##
+# copy_master
+#
+#  Authors: Ben Langmead and Michael C. Schatz
+#     Date: June 26, 2009
+#
+# Invoke bulk copy streaming job from EC2 master node.
+#
+
+d=`dirname $0`
+source $d/shared_master
+echo -n "Running copy_master at: " ; date
+
+usage() {
+	echo
+	echo "Usage: copy_master -i <path> -o <path> [options*]"
+	echo
+	echo "  -i <path>   input file"
+	echo "  -o <path>   output path"
+	echo "  -b          preemtively delete output path"
+	echo "  -m <path>   path to \"hadoop-<verion>-streaming.jar\""
+	echo "  -h <path>   path to \"hadoop\" script"
+	echo "  -M <int>    set maximum number of preprocessed reads per output file"
+	echo "  -r <int>    number of reducers (default=0: 1 output file per input file/pair)"
+	echo "  -u <int>    stop after <int> reads per input file"
+	echo
+}
+
+check_env
+
+outp=
+inp=
+streaming_jar=/usr/local/hadoop-0.20.0/contrib/streaming/hadoop-0.20.0-streaming.jar
+bulldoze_dirs=0
+hadoop_script=hadoop
+compress=gzip
+stop_after=0
+max_reads=0
+
+# parse command line arguments
+while getopts i:h:\?o:m:br:u:M: OPT; do
+	case "$OPT" in
+	h)	hadoop_script=$OPTARG
+		;;
+	m)	streaming_jar=$OPTARG
+		;;
+	o)	outp=$OPTARG
+		;;
+	i)	inp=$OPTARG
+		;;
+	b)	bulldoze_dirs=1
+		;;
+	u)	stop_after=$OPTARG
+		;;
+	M)	max_reads=$OPTARG
+		;;
+	\?)	# getopts issues an error message
+		usage
+		exit 1
+		;;
+	esac
+done
+
+outp=`add_s3_key $outp`
+
+[ -z "$outp" ] && echo "Error, must specify output path with -o" && exit 1
+[ -z "$inp" ] && echo "Error, must specify input file with -i" && exit 1
+
+echo "Input file: $inp"
+echo "Output dir: $outp"
+echo "Hadoop script: $hadoop_script"
+echo "Hadoop streaming jar: $streaming_jar"
+
+# Try to run 'hadoop version' with the configured hadoop script
+if ! $hadoop_script version > /dev/null ; then
+	echo "Could not run hadoop script $hadoop_script"
+	exit 1
+fi
+
+echo "Hadoop version:"
+$hadoop_script version
+
+# Deal with output dirs
+echo -n "Checking whether to bulldoze $outp at: " ; date
+bulldoze "$outp"
+echo -n "Checking whether to bulldoze /tmp/logs at: " ; date
+bulldoze "/tmp/logs"
+
+echo -n "Launching bulk copy job at: " ; date
+$hadoop_script jar \
+	$streaming_jar \
+	-D mapred.reduce.tasks=0 \
+	-inputformat org.apache.hadoop.mapred.lib.NLineInputFormat \
+	-input $inp \
+	-output /tmp/logs \
+	-mapper "bash -c 'cp .s3cfg /root/ && cp .s3cfg / && tar zxvfs s3cmd-0.9.9.tar.gz && export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID && export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY && perl copy_mapper.pl -push=$outp -compress=$compress -s -stop=$stop_after -maxperfile=$max_reads'" \
+	-reducer "cat" \
+	-file copy_mapper.pl \
+	-file s3cmd-0.9.9.tar.gz \
+	-file .s3cfg

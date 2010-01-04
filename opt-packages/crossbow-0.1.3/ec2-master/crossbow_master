@@ -1,0 +1,296 @@
+#!/bin/sh
+
+##
+# crossbow_master
+#
+#  Authors: Ben Langmead and Michael C. Schatz
+#     Date: May 28, 2009
+#
+# Invoke crossbow streaming job on the EC2 master node.
+#
+
+d=`dirname $0`
+source $d/shared_master
+echo -n "Running crossbow_driver at: " ; date
+
+check_env
+
+EC2KEY="$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY"
+in_dir=
+# out_dir assumed to be in HDFS
+out_dir=/tmp/output
+unsorted_out_dir=/tmp/unsorted_output
+part_sz=2000000
+verbose=0
+hadoop_script=hadoop
+streaming_jar=/usr/local/hadoop-0.20.0/contrib/streaming/hadoop-0.20.0-streaming.jar
+bulldoze_dirs=0
+btie_args=
+# -2: use known SNPs
+# -u: use rank-sum test
+# -n: use binomial test
+# -q: just output SNPs
+ssnp_args="-2 -u -n -q"
+max_len=45
+bits=32
+reduce=1
+debug=
+haploids=none
+reduce_tasks=32
+num_nodes=1
+qual_arg=phred33
+btie_qual=
+ssnp_qual='!'
+haploid_args="-r 0.0001"
+diploid_args="-r 0.00005 -e 0.0001"
+
+[ `arch` == "x86_64" ] && bits=64
+
+usage() {
+	echo
+	echo "Usage: crossbow_master -i <path> [options*]"
+	echo
+	echo "  -i <path>   path to input directory w/ preprocessed reads"
+	echo "  -A <path>   path to \"hadoop\" script"
+	echo "  -o <path>   path where output is deposited"
+	echo "  -m <path>   path to \"hadoop-<verion>-streaming.jar\""
+	echo "  -s <int>    set partition size"
+	echo "  -t <int>    set number of total reduce tasks"
+	echo "  -b          overwrite -o path if it already exists"
+	echo "  -a \"<args>\" arguments to pass to bowtie"
+	echo "  -n \"<args>\" arguments to pass to soapsnp"
+	echo "  -d \"<args>\" pass <args> to soapsnp when reference is diploid"
+	echo "  -h \"<args>\" pass <args> to soapsnp when reference is haploid"
+	echo "  -D          run debug versions of bowtie and soapsnp"
+	echo "  -q <format> qual encoding: phred33 | phred66 | solexa64"
+	echo "  -H <list>   comma-separated list of haploid chromosome idxs"
+	echo "  -L <int>    maximum read length to pass to SOAPsnp"
+	echo "  -f          use -file instead of -cacheArchive/-archives"
+	echo "  -N <int>    # nodes; determines # reducers"
+	echo "  -B          override 'bowtie' binary with one in /mnt"
+	echo "  -S          override 'soapsnp' binary with one in /mnt"
+	echo "  -?          print usage message"
+	echo
+	echo "I think this host is ${bits}-bit"
+	echo
+}
+
+# parse command line arguments
+while getopts i:A:vo:s:t:b\?m:n:ud:h:DH:a:t:N:L:q: OPT; do
+	case "$OPT" in
+	A)	hadoop_script=$OPTARG
+		;;
+	H)	haploids=$OPTARG
+		;;
+	L)	max_len=$OPTARG
+		;;
+	v)	verbose=1
+		;;
+	i)	in_dir=$OPTARG
+		;;
+	o)	out_dir=$OPTARG
+		;;
+	s)	part_sz=$OPTARG
+		;;
+	m)	streaming_jar=$OPTARG
+		;;
+	a)	btie_args=$OPTARG
+		;;
+	n)	ssnp_args=$OPTARG
+		;;
+	b)	bulldoze_dirs=1
+		;;
+	u)	reduce=0
+		;;
+	D)	debug=-debug
+		;;
+	d)	diploid_args=$OPTARG
+		;;
+	h)	haploid_args=$OPTARG
+		;;
+	t)	reduce_tasks=$OPTARG
+		;;
+	N)	num_nodes=$OPTARG
+		;;
+	q)	qual_arg=$OPTARG
+		;;
+	\?)	# getopts issues an error message
+		usage
+		exit 1
+		;;
+	esac
+done
+
+HADOOP_VERSION=`${hadoop_script} version | head -1 | sed 's/Hadoop //' | sed 's/-.*//'`
+
+[ -z "$in_dir" ] && echo "Must specify input dir with -i" && exit -1
+
+in_dir=`add_s3_key $in_dir`
+out_dir=`add_s3_key $out_dir`
+unsorted_out_dir=`add_s3_key $unsorted_out_dir`
+
+[ ${num_nodes} != "0" ] && reduce_tasks=`expr ${num_nodes} \* 8`
+
+[ "$qual_arg" == "phred33"  ] && btie_qual='--phred33-quals'
+[ "$qual_arg" == "phred64"  ] && btie_qual='--phred64-quals'
+[ "$qual_arg" == "solexa64" ] && btie_qual='--solexa-quals'
+[ -z "$btie_qual" ] && echo "Could not interpret -q argument $qual_arg" && exit 1
+
+if [ $verbose -eq 1 ] ; then
+	echo "Hadoop version: ${HADOOP_VERSION}"
+	echo "Input dir: ${in_dir}"
+	echo "Unsorted output dir: ${unsorted_out_dir}"
+	echo "Output dir: ${out_dir}"
+	echo "Partition size: ${part_sz}"
+	echo "bowtie arguments: ${btie_args}"
+	echo "bowtie quality arg: ${btie_qual}"
+	echo "soapsnp arguments: ${ssnp_args}"
+	echo "soapsnp quality char: ${ssnp_qual}"
+	echo "Num reduce tasks: ${reduce_tasks}"
+	echo "Hadoop script: ${hadoop_script}"
+	echo "Hadoop streaming jar: ${streaming_jar}"
+	echo "Hadoop version:"
+	${hadoop_script} version
+fi
+
+if [ ${part_sz} -lt 1000 ] ; then
+	echo "Warning: partition size of ${part_sz} is very small; consider using a larger partition size"
+fi
+
+# Deal with unsorted output dir
+echo -n "Checking ${unsorted_out_dir} at: " ; date
+if ${hadoop_script} fs -stat ${unsorted_out_dir} 2>/dev/null ; then
+	# The output dir already exists.  Either print a message and
+	# abort or bulldoze it.
+	if [ ${bulldoze_dirs} = "1" ] ; then
+		${hadoop_script} fs -rmr ${unsorted_out_dir}
+	else
+		echo "The output directory ${unsorted_out_dir} already exists; either remove it or run crossbow_master with the -b option."
+		exit 1
+	fi
+fi
+
+# Deal with output dir
+echo -n "Checking ${out_dir} at: " ; date
+if ${hadoop_script} fs -stat ${out_dir} 2>/dev/null ; then
+	# The output dir already exists.  Either print a message and
+	# abort or bulldoze it.
+	if [ ${bulldoze_dirs} = "1" ] ; then
+		${hadoop_script} fs -rmr ${out_dir}
+	else
+		echo "The output directory ${out_dir} already exists; either remove it or run crossbow_master with the -b option."
+		exit 1
+	fi
+fi
+
+index_basename=/mnt/index/index
+ref_dir=/mnt/sequences
+snp_dir=/mnt/snps
+bowtie_push=/mnt/bowtie${debug}
+soapsnp_push=/mnt/soapsnp${debug}
+bowtie_bin=./bowtie${debug}
+ssnp_bin=./soapsnp${debug}
+
+# Use the -file option to push files to workers
+push_args="-file $bowtie_push -file $soapsnp_push"
+
+######################################
+#
+# Run the alignment/SNP calling step
+#
+######################################
+
+mapper="sh -c \"perl bowtie_wrap.pl"
+mapper="${mapper} ${bowtie_bin}"
+mapper="${mapper} ${index_basename}"
+mapper="${mapper} --partition ${part_sz}"
+mapper="${mapper} ${btie_args}"
+mapper="${mapper} ${btie_qual}"
+mapper="${mapper} --shmem -t"
+mapper="${mapper} --hadoopout"
+mapper="${mapper} --startverbose"
+mapper="${mapper} --12\""
+
+if [ ${reduce} -eq 0 ] ; then
+	reducer="cat"
+else
+	reducer="sh -c 'perl soapsnp_wrap.pl "
+	reducer="${reducer} --args=\"${ssnp_args}\""
+	reducer="${reducer} --diploid_args=\"${diploid_args}\""
+	reducer="${reducer} --haploid_args=\"${haploid_args}\""
+	reducer="${reducer} --soapsnp=${ssnp_bin}"
+	reducer="${reducer} --refdir=${ref_dir}"
+	reducer="${reducer} --snpdir=${snp_dir}"
+	reducer="${reducer} --maxlen=${max_len}"
+	reducer="${reducer} --basequal=${ssnp_qual}"
+	reducer="${reducer} --partition=${part_sz}"
+	reducer="${reducer} --haploids=\"${haploids}\"'"
+fi
+
+conf_flag="-D"
+conf_args="             ${conf_flag} stream.num.map.output.key.fields=3"
+conf_args="${conf_args} ${conf_flag} mapred.output.compress=false"
+conf_args="${conf_args} ${conf_flag} mapred.compress.map.output=true"
+conf_args="${conf_args} ${conf_flag} mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec"
+conf_args="${conf_args} ${conf_flag} mapred.text.key.partitioner.options=-k1,2"
+conf_args="${conf_args} ${conf_flag} mapred.job.name=AlignAndCall"
+
+snp_reduce_tasks=`expr ${reduce_tasks} \* 4`
+
+echo -n "Launching alignment/SNP calling job at: " ; date
+${hadoop_script} jar \
+	${streaming_jar} \
+	${conf_args} \
+	${push_args} \
+	-file soapsnp_wrap.pl \
+	-file bowtie_wrap.pl \
+	-input ${in_dir} \
+	-output ${unsorted_out_dir} \
+	-mapper "${mapper}" \
+	-reducer "${reducer}" \
+	-partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+	-numReduceTasks ${snp_reduce_tasks}
+
+#
+# Now run a job to bin and sort the SNPs called from the previous step.
+#
+
+conf_args_sort="                  ${conf_flag} stream.num.map.output.key.fields=2"
+conf_args_sort="${conf_args_sort} ${conf_flag} mapred.output.compress=true"
+conf_args_sort="${conf_args_sort} ${conf_flag} mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec"
+conf_args_sort="${conf_args_sort} ${conf_flag} mapred.job.name=FinalSort"
+
+reducer_sort="sh -c \"perl finish.pl"
+reducer_sort="${reducer_sort} -cmap /mnt/cmap.txt"
+reducer_sort="${reducer_sort} \""
+
+echo -n "Launching final sort job at: " ; date
+${hadoop_script} jar \
+	${streaming_jar} \
+	${conf_args_sort} \
+	-file finish.pl \
+	-input ${unsorted_out_dir} \
+	-output ${out_dir} \
+	-mapper /bin/cat \
+	-reducer "${reducer_sort}" \
+	-partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+	-numReduceTasks ${reduce_tasks}
+
+# Tar-and-gz up the results
+echo -n "Tarring output at: " ; date
+${hadoop_script} dfs -get ${out_dir} .
+
+# Remove empty outputs and rename non-empty outputs according to the
+# chromosome the results are for
+out_dir=`basename ${out_dir}`
+for f in `ls ${out_dir}` ; do
+	# Does the file have any output in it?
+	if [ `gzip -dc ${out_dir}/$f | head | wc -c` -gt 1 ] ; then
+		chr=`gzip -dc ${out_dir}/$f | head -1 | awk '{print \$1}'`
+		mv ${out_dir}/$f ${out_dir}/$chr.gz
+	else
+		# No output; delete it
+		rm -f ${out_dir}/$f
+	fi
+done
+tar cvf output.tar ${out_dir}

@@ -1,0 +1,53 @@
+#!/bin/sh
+
+##
+# ce6_jar
+#
+#  Authors: Ben Langmead & Michael C. Schatz
+#     Date: 10/11/2009
+#
+# Driver script for building a reference jar for the ce6 worm genome
+# assembly.
+#
+# TODO: There doesn't seem to be a single, comprehensive list of SNPs
+# for C. elegans (perhaps for good biological reasons that I don't
+# understand) and there is also some confusion about which assembly the
+# dbSNP SNPs line up with.  So there is almost no overlap between the
+# SNPs called by SOAPsnp (e.g. for the tutorial) and those in the dbSNP
+# database.
+
+CE6_BASE=ftp://hgdownload.cse.ucsc.edu/goldenPath/ce6/chromosomes
+
+mkdir -p .ce6
+mkdir -p .ce6/sequences
+
+BUILD_INPUTS=
+
+j=0
+for i in I II III IV V X ; do
+	wget $CE6_BASE/chr$i.fa.gz -O .ce6/sequences/zchr$j.fa.gz
+	gunzip .ce6/sequences/zchr$j.fa.gz
+	sed -e "s/^>.*/>$j/" .ce6/sequences/zchr$j.fa > .ce6/sequences/chr$j.fa
+	rm -f .ce6/sequences/zchr$j.fa
+	[ ! -f .ce6/sequences/chr$j.fa ] && echo "Didn't get .ce6/sequences/chr$j.fa" && exit 1
+	if [ -z "$BUILD_INPUTS" ] ; then
+		BUILD_INPUTS=".ce6/sequences/chr$j.fa"
+	else
+		BUILD_INPUTS="$BUILD_INPUTS,.ce6/sequences/chr$j.fa"
+	fi
+	j=`expr $j + 1`
+done
+
+mkdir -p .ce6/index
+bowtie-build $BUILD_INPUTS .ce6/index/index
+
+sh db2ssnp_ce6
+mv ce6snps .ce6/snps
+mv .ce6 ce6
+echo "Output in ce6"
+pushd ce6
+mv snps/cmap.txt .
+touch cmap.txt
+echo "Running jar cf ce6.jar sequences snps index cmap.txt"
+jar cf ce6.jar sequences snps index cmap.txt
+popd

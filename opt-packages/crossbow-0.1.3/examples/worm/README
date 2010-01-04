@@ -1,0 +1,117 @@
+Mouse Chromosome 17 Example
+===========================
+
+ This example guides you through (a) preprocessing and copying a public
+ short-read dataset from the NCBI short read archive into Amazon S3,
+ (b) creating a reference jar using public data from dbSNP and UCSC,
+ then (c) running a Crossbow job that aligns and calls SNPs from that
+ dataset.  The datasets used here are for C. elegans.  This example is
+ intended to show how each step of the process works without taking up
+ much time or money.  This example is NOT intended to highlight
+ Crossbow's speed or scalability.  Those features are far better
+ demonstrated using much larger datasets.
+  
+ This example assumes that you have already set up your AWS accounts
+ and credentials as described in the "Checklist for Preparing to Run on
+ Amazon Web Services" section of the MANUAL.
+ 
+ Reads are taken from the following study, conducted at Washignton
+ University:
+ 
+  http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?study=SRP000244
+
+ Step 1. Preprocess and copy the reads from the SRA
+ --------------------------------------------------
+
+  The quickest way to get started with a copy/preprocessing job is to
+  simply run the 'cb-copy-interactive' script and answer the prompts.
+  When asked for the manifest file, specify the copy.manifiest file in
+  this (examples/worm) directory.  Alternately, change the this
+  (examples/worm) directory and issue this command:
+
+    cb-copy-local \
+      -n 1 -i \
+      -r 50 \
+      ./copy.manifest \
+      -o s3n://<read-bucket-name>/worm \
+      -m 2 -t c1.medium \
+      -M 2000000 \
+      -c crossbowcopy<your-account-#-without-dashes>
+
+  These are reasonable defaults.  In our experiments, this job took
+  about 30-40 minutes.  Remember to terminate it when it completes.
+
+  Once the job is complete, you should see that the destination
+  directory in S3 contains a set of about 40 files with names that
+  start with SRR003808.fastq or SRR003809.fastq and end with .gz.
+
+ Step 2. Create and upload the reference jar
+ -------------------------------------------
+ 
+  Scripts have already been created to create a reference jar from
+  publicly available C. elegans genome data (at UCSC) and SNP data (at
+  dbSNP).  Change to the 'reftools' subdirectory and run the 'ce6_jar'
+  shell script.  When the script completes, a 'ce6' subdirectory should
+  have been created containing a jar file named 'reference-ce6.jar'.
+  Upload this jar file to an S3 bucket (e.g. using s3cmd's 'put'
+  command, Hadoop's 'hadoop fs -put' command, or a graphical user
+  interface such as the S3 Firefox Organizer or Bucket Explorer) and
+  change its permissions to be readable by Everyone.  You should now be
+  able to access it through the following URL:
+  
+    http://<bucket-name>.s3.amazonaws.com/<path-to-jar>
+  
+  Make a note of the URL for the next step.  You may also want to make
+  a note of the reference jar file's MD5 checksum either by running a
+  tool like 'md5sum' on the local 'reference-ce6.jar', or by running
+  something like 's3cmd ls --list-md5' on the jar in S3.
+
+ Step 3. Start the Crossbow job
+ ------------------------------
+ 
+  The quickest way to get started with a Crossbow job is to simply run
+  the 'cb-interactive' script and answer the prompts.  When asked for
+  the reference jar file, specify the URL from the previous step.  For
+  extra data integrity, also specify the MD5 checksum from the previous
+  step when prompted.  The maximum read length in this dataset is 33.
+  When prompted for an instance type, select option 4 (c1.medium).
+  When prompted for number of nodes, select 1.  Alternately, issue this
+  command (portions in square brackets are optional):
+
+    cb-local \
+      -r http://<bucket-name>.s3.amazonaws.com/<path-to-jar>[::<MD5>] \
+      -n 3 \
+      -i s3n://<read-bucket-name>/worm \
+      -t c1.xlarge \
+      -a "-v 2 --strata --best -m 1" \
+      -b "-2 -u -n -q" \
+      -L 33 \
+      -s 2000000 \
+      -q phred33 \
+      -c crossbow<your-account-#-without-dashes>
+  
+  These are reasonable defaults.  In our experiments, this job took
+  about 30-40 minutes.  Remember to terminate it when it completes.
+  
+  Note that these are not reasonable defaults for genomes larger than
+  than a few hundred megabases.  For larger genomes, always use the
+  c1.xlarge instance type (option "-t c1.xlarge").
+  
+  See the manual for instructions on how to monitor your EC2 job.  In
+  our experiments, this job took about 30-35 minutes.
+
+ Step 4. Sanity-check the results
+ --------------------------------
+
+  Results are automatically downloaded from the EC2 cluster into the
+  directory from which Crossbow was run and saved in a tar archive with
+  name <cluster-name>-output.tar.  To unpack the tar archive, run:
+  
+    tar xvf <cluster-name>-output.tar
+  
+  or a similar command.  The archive will be unpacked to a subdirectory
+  named "output", which will contain a set of files named chrXX.gz,
+  where XX is a chromosome name as specified in the chromosome map
+  (cmap) file when the reference jar was built.  Each chrXX.gz file
+  contains all of the SNPs on chromosome XX sorted along the forward
+  reference strand.

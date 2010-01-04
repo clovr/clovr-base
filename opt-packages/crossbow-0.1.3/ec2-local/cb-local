@@ -1,0 +1,197 @@
+#!/bin/bash
+
+#
+# cb-local
+#
+#  Author: Ben Langmead
+#    Date: 6/7/2009
+#
+# Automatically recruits an ec2 cluster and runs a crossbow experiment,
+# making plenty of time measurements along the way.  It's recommended
+# that you save the stdout and stderr from this script to a file so
+# that you can refer back to the timing information.
+#
+
+d=`dirname $0`
+source $d/cb-shared-local
+
+export MAP_MAX=8
+export REDUCE_MAX=8
+export FAIL_MAX=20
+export INSTANCE_TYPE="c1.xlarge"
+
+usage() {
+	echo
+	echo "Usage: cb-local -i <path> -n <int> -x <name> [options*]"
+	echo
+	echo "  -i <path>   path to input directory w/ preprocessed reads"
+	echo "  -n <int>    number of worker nodes to launch"
+	echo "  -r <path>   set reference to use"
+	echo "  -s <int>    set partition size"
+	echo "  -t <name>   name of instance type to use; default: \"$INSTANCE_TYPE\""
+	echo "  -m <int>    set max mappers per node (default: $MAP_MAX)"
+	echo "  -R <int>    set max reducers per node (default: $REDUCE_MAX)"
+	echo "  -f <int>    set max node failures before blacklisting (default: $FAIL_MAX)"
+	echo "  -L <int>    maximum read length to pass to SOAPsnp"
+	echo "  -q <format> qual encoding: phred33 | phred66 | solexa64"
+	echo "  -c <name>   set cluster name (default: \"crossbow\")"
+	echo "  -B <path>   override 'bowtie' binary in crossbow jar with the one at <path>"
+	echo "  -S <path>   override 'soapsnp' binary in crossbow jar with the one at <path>"
+	echo "  -a \"<args>\" pass <args> as arguments to bowtie"
+	echo "  -b \"<args>\" pass <args> as arguments to soapsnp"
+	echo "  -d \"<args>\" pass <args> to SOAPsnp when reference is diploid"
+	echo "  -h \"<args>\" pass <args> to SOAPsnp when reference is haploid"
+	echo "  -D          don't launch crossbow cluster; assume it exists"
+	echo "  -?          print usage message"
+	echo
+}
+
+usagedie() {
+	usage ; exit 1
+}
+
+check_env
+
+# Parse command line arguments
+dont_launch=0
+cluster_name="crossbow"
+over_bowtie=
+over_soapsnp=
+r=
+partition_sz=2000000
+bowtie_args=
+soapsnp_args="-2 -u -n -q"
+haploid=none
+input_path=
+max_len=45
+qual_format=phred33
+diploid_args="-r 0.00005 -e 0.0001"
+haploid_args="-r 0.0001"
+
+while getopts n:t:Dd:h:\?m:R:f:c:B:S:r:H:a:b:i:L:s:q: OPT; do
+	case "$OPT" in
+	i)	input_path=$OPTARG
+		;;
+	n)	n=$OPTARG
+		;;
+	t)	export INSTANCE_TYPE=$OPTARG
+		;;
+	D)	dont_launch=1
+		;;
+	m)	export MAP_MAX=$OPTARG
+		;;
+	R)	export REDUCE_MAX=$OPTARG
+		;;
+	r)	r=$OPTARG
+		;;
+	f)	export FAIL_MAX=$OPTARG
+		;;
+	c)	cluster_name=$OPTARG
+		;;
+	B)	over_bowtie=$OPTARG
+		;;
+	S)	over_soapsnp=$OPTARG
+		;;
+	a)	bowtie_args=$OPTARG
+		;;
+	b)	soapsnp_args=$OPTARG
+		;;
+	s)	partition_sz=$OPTARG
+		;;
+	H)	haploid=$OPTARG
+		;;
+	d)	diploid_args=$OPTARG
+		;;
+	h)	haploid_args=$OPTARG
+		;;
+	L)	max_len=$OPTARG
+		;;
+	q)	qual_format=$OPTARG
+		;;
+	\?)	# getopts issues an error message
+		usagedie
+		;;
+	esac
+done
+
+bits=
+[ "$INSTANCE_TYPE" == "m1.small" ]  && bits=32
+[ "$INSTANCE_TYPE" == "m1.large" ]  && bits=64
+[ "$INSTANCE_TYPE" == "m1.xlarge" ] && bits=64
+[ "$INSTANCE_TYPE" == "c1.medium" ] && bits=32
+[ "$INSTANCE_TYPE" == "c1.xlarge" ] && bits=64
+[ -z "$bits" ] && echo "Bad instance type: $INSTANCE_TYPE" && exit -1
+
+[ -z "$over_bowtie" ] && over_bowtie="$d/../bin/linux$bits/bowtie"
+[ -z "$over_soapsnp" ] && over_soapsnp="$d/../bin/linux$bits/soapsnp"
+
+[ -z "$n" ] && echo "Error, must specify # of workers with -n" && usagedie
+if [ -n "$over_bowtie" ] ; then
+	if [ ! -f "$over_bowtie" ] ; then
+		echo "Error, override bowtie $over_bowtie doesn't exist"
+		usagedie
+	fi
+fi
+if [ -n "$over_soapsnp" ] ; then
+	if [ ! -f "$over_soapsnp" ] ; then
+		echo "Error, override soapsnp $over_soapsnp doesn't exist"
+		usagedie
+	fi
+fi
+[ -z "$r" ] && echo "Must specify reference using -r option" && usagedie
+[ -z "$haploid" ] && echo "Must not specify empty string for -H" && usagedir
+
+r=`echo $r | sed -e 's/^crossbow:\/\//http:\/\/crossbow.s3.amazonaws.com\//'`
+export WORKER_FILES=$r
+install_env
+
+# Launch the cluster
+if [ $dont_launch -eq 0 ] ; then
+	launch_cluster
+fi
+
+# Get master node's public name so that we can scp/ssh
+echo -n "  getting name of master at: " ; date
+MASTER=`cat ${mafile}`
+[ -z "$MASTER" ] && echo "Can't get master-node name from ${mafile}" && exit 1
+echo "  got $MASTER"
+
+ec2_ssh_master="${ec2_ssh} root@${MASTER} "
+
+# Push the crossbow_master script and the experiment-specific script to
+# the master
+echo -n "  pushing files to master at: " ; date
+${ec2_scp} $d/../ec2-master/crossbow_master \
+           $d/../ec2-master/shared_master \
+           $d/../ec2-master/bowtie_wrap.pl \
+           $d/../ec2-master/soapsnp_wrap.pl \
+           $d/../ec2-master/finish.pl \
+           $over_bowtie $over_soapsnp \
+           root@${MASTER}:/mnt/
+
+push_env
+wait_for_workers_to_join $n "namenode"
+
+# Get the names of the workers
+get_worker_names
+check_jobtracker
+wait_for_workers_to_join $n "jobtracker"
+
+echo -n "All workers joined at: " ; date
+
+# Run the experiment!
+echo -n "Running crossbow_master on master node at: " ; date
+set -x
+${ec2_ssh_master} \
+	"source .bash_profile && cd /mnt && nohup sh -x crossbow_master -i $input_path -N $n -s $partition_sz -a \"$bowtie_args\" -n \"$soapsnp_args\" -H \"$haploid\" -L $max_len -q $qual_format -d \"$diploid_args\" -h \"$haploid_args\" -b"
+set +x
+
+# Fetch the results
+echo -n "Fetching results from $x at: " ; date
+${ec2_scp} root@${MASTER}:/mnt/output.tar ./${cluster_name}-output.tar
+
+echo -n "Finished at: " ; date
+echo "Results are in ./${cluster_name}-output.tar"
+
+# Let user decide whether to terminate the cluster immediately or not
+$d/bin/hadoop-ec2 terminate-cluster ${cluster_name}

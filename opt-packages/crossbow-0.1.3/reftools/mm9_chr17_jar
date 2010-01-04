@@ -1,0 +1,45 @@
+#!/bin/sh
+
+##
+# mm9_chr17_jar
+#
+#  Authors: Ben Langmead & Michael C. Schatz
+#     Date: 10/9/2009
+#
+# Driver script for building a reference jar for mm9 chromosome 17.
+
+MM9_BASE=ftp://hgdownload.cse.ucsc.edu/goldenPath/mm9/chromosomes
+
+mkdir -p .mm9chr17
+mkdir -p .mm9chr17/sequences
+
+BUILD_INPUTS=
+
+j=0
+for i in 17 ; do
+	wget $MM9_BASE/chr$i.fa.gz -O .mm9chr17/sequences/zchr$j.fa.gz
+	gunzip .mm9chr17/sequences/zchr$j.fa.gz
+	sed -e "s/^>.*/>$j/" .mm9chr17/sequences/zchr$j.fa > .mm9chr17/sequences/chr$j.fa
+	rm -f .mm9chr17/sequences/zchr$j.fa
+	[ ! -f .mm9chr17/sequences/chr$j.fa ] && echo "Didn't get .mm9chr17/sequences/chr$j.fa" && exit 1
+	if [ -z "$BUILD_INPUTS" ] ; then
+		BUILD_INPUTS=".mm9chr17/sequences/chr$j.fa"
+	else
+		BUILD_INPUTS="$BUILD_INPUTS,.mm9chr17/sequences/chr$j.fa"
+	fi
+	j=`expr $j + 1`
+done
+
+mkdir -p .mm9chr17/index
+bowtie-build $BUILD_INPUTS .mm9chr17/index/index
+
+sh db2ssnp_mm9_chr17
+mv mm9chr17snps .mm9chr17/snps
+mv .mm9chr17 mm9chr17
+echo "Output in mm9chr17"
+pushd mm9chr17
+mv snps/cmap.txt .
+touch cmap.txt
+echo "Running jar cf mm9_chr17.jar sequences snps index cmap.txt"
+jar cf mm9_chr17.jar sequences snps index cmap.txt
+popd

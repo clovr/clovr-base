@@ -1,0 +1,286 @@
+#!/bin/sh
+
+#
+# cb-interactive
+#
+# Authors: Ben Langmead and Michael C. Schatz
+#    Date: 9/26/2009
+#
+# Guides the user through setting up a Crossbow run.
+#
+
+d=`dirname $0`
+
+if ! which ec2-describe-instances ; then
+	echo "Error: Could not find ec2-describe-instances tool in the PATH; please check that"
+	echo "the Amazon EC2 command-line tools are installed properly"
+	exit 1
+fi
+if ! which ec2-run-instances ; then
+	echo "Error: Could not find ec2-run-instances tool in the PATH; please check that"
+	echo "the Amazon EC2 command-line tools are installed properly"
+	exit 1
+fi
+
+echo
+echo "This script guides you through the process of running Crossbow on Amazon's"
+echo "Elastic Compute Cloud (EC2) utility-computing service.  Use of EC2 is subject to"
+echo "Amazon's and Service Level Agreement (SLA) and AWS Customer Agreement. See:"
+echo
+echo "   http://aws.amazon.com/agreement/"
+echo " and"
+echo "   http://aws.amazon.com/ec2-sla/"
+echo
+echo "Before continuing, make sure that (a) you are willing to be subject to the above"
+echo "agreements, (b) that your input data has been preprocessed and uploaded to a S3"
+echo "location (e.g. using the 'cb-copy-interactive' script) and that you know the"
+echo "bucket name and path for that location, and (c) that you know the URL for a"
+echo "reference jar for the species under study.  For help with (b) and (c), see the"
+echo "Crossbow manual."
+echo
+read -p "Continue? [Y/n]: " CONT
+if [ "$CONT" == "N" -o "$CONT" == "n" -o "$CONT" == "NO" -o "$CONT" == "no" ] ; then
+	exit 0
+fi
+
+#
+# Get reference jar
+#
+while true ; do
+	echo
+	echo "What is the ftp:// or http:// URL for the reference .jar file to use?"
+	echo " e.g.: ftp://ftp.cbcb.umd.edu/pub/data/crossbow_refs/reference-hs_ref_chr22.jar"
+	echo
+	read -p "URL: " REF_URL
+	[ -z "$REF_URL" ] && continue
+	echo "Using reference URL $REF_URL"
+	break
+done
+
+#
+# Get MD5 of reference jar
+#
+echo
+echo "What is the MD5 sum of the reference jar? (if blank, check is disabled)"
+echo " e.g.: 48cbc34ceec55a1d65fd97ad371d905f"
+echo
+read -p "32-character MD5: " MD5
+if [ -z "$MD5" ] ; then
+	echo "Blank; won't check reference MD5"
+else
+	REF_URL="$REF_URL::$MD5"
+	echo "Using reference string $REF_URL"
+fi
+
+#
+# Get S3 bucket name
+#
+while true ; do
+	echo
+	echo "What S3 bucket are the preprocessed reads stored in?"
+	echo "  Note: input reads must have already been preprocessed and uploaded to S3."
+	echo "  If this hasn't been done, quit and run the 'cb-copy-interactive' script,"
+	echo "  which will guide you through that process."
+	read -p "Bucket name: " INPUT_BUCKET
+	[ -z "$INPUT_BUCKET" ] && continue
+	echo "Using S3 bucket name $INPUT_BUCKET"
+	break
+done
+
+#
+# Get S3 path
+#
+while true ; do
+	echo
+	echo "What subdirectory of $INPUT_BUCKET are the reads stored in?"
+	read -p "Subdirectory: " INPUT_SUBDIR
+	INPUT_PATH="s3n://$INPUT_BUCKET/$INPUT_SUBDIR"
+	echo "Using S3 path $INPUT_PATH"
+	break
+done
+
+#
+# Get max read length
+#
+while true ; do
+	echo
+	echo "What is maximum read length in the dataset?"
+	read -p "Length: " MAX_LEN
+	[ -z "$MAX_LEN" ] && continue
+	echo "Maximum read length is $MAX_LEN"
+	break
+done
+
+HAPLOIDS=
+echo 
+echo "What reference sequences, if any, are haploid in this sequencing experiment?"
+echo "  List 0-based numeric sequence ids separated by commas."
+read -p "Enter selection [Default: none]: " HAPLOIDS
+HAPLOIDS=`echo $HAPLOIDS | sed 's/[^0-9,]//g'`
+[ -z "$HAPLOIDS" ] && HAPLOIDS=none
+echo "Haploid sequences: $HAPLOIDS"
+
+#
+# Get instance type
+#
+echo
+echo "What Amazon EC2 instance type should be used?"
+echo "Options:"
+echo "  (1) m1.small"
+echo "  (2) m1.large"
+echo "  (3) m1.xlarge"
+echo "  (4) c1.medium"
+echo "  (5) c1.xlarge (recommended)"
+NODE_TYPE=5
+read -p "Enter selection [Default: $NODE_TYPE]: " NODE_TYPE
+[ -z "$NODE_TYPE" ] && NODE_TYPE=5
+NODE_TYPE=`echo $NODE_TYPE | sed 's/1/m1.small/'`
+NODE_TYPE=`echo $NODE_TYPE | sed 's/2/m1.large/'`
+NODE_TYPE=`echo $NODE_TYPE | sed 's/3/m1.xlarge/'`
+NODE_TYPE=`echo $NODE_TYPE | sed 's/4/c1.medium/'`
+NODE_TYPE=`echo $NODE_TYPE | sed 's/5/c1.xlarge/'`
+echo "Using node type $NODE_TYPE"
+
+# Don't let user configure this for now
+PER_NODE=
+[ "$NODE_TYPE" == "m1.small" ]  && PER_NODE=1
+[ "$NODE_TYPE" == "m1.large" ]  && PER_NODE=2
+[ "$NODE_TYPE" == "m1.xlarge" ] && PER_NODE=4
+[ "$NODE_TYPE" == "c1.medium" ] && PER_NODE=2
+[ "$NODE_TYPE" == "c1.xlarge" ] && PER_NODE=8
+[ -z "$PER_NODE" ] && echo "Bad node type: $NODE_TYPE" && exit -1
+
+BITS=
+[ "$NODE_TYPE" == "m1.small" ]  && BITS=32
+[ "$NODE_TYPE" == "m1.large" ]  && BITS=64
+[ "$NODE_TYPE" == "m1.xlarge" ] && BITS=64
+[ "$NODE_TYPE" == "c1.medium" ] && BITS=32
+[ "$NODE_TYPE" == "c1.xlarge" ] && BITS=64
+[ -z "$PER_NODE" ] && echo "Bad node type: $NODE_TYPE" && exit -1
+
+#
+# Get number of nodes
+#
+echo
+echo "How many worker nodes should be used?  Note that Amazon imposes a ceiling on the"
+echo "total number of nodes you can recruit.  The default ceiling is 20 nodes.  To"
+echo "request that the ceiling be lifted, fill out the form at"
+echo "http://aws.amazon.com/contact-us/ec2-request/"
+echo
+NUM_NODES=10
+read -p "Enter selection [Default: $NUM_NODES]: " NUM_NODES
+[ -z "$NUM_NODES" ] && NUM_NODES=10
+echo "Using $NUM_NODES nodes"
+
+echo
+echo "What reference partition size should Crossbow use?"
+PART_SZ=2000000
+read -p "Enter partition size [Default: $PART_SZ]: " PART_SZ
+[ -z "$PART_SZ" ] && PART_SZ=2000000
+
+echo
+echo "What Bowtie binary should Crossbow use?"
+BOWTIE_BIN="$d/../bin/linux$BITS/bowtie"
+read -p "Enter selection [Default: $BOWTIE_BIN]: " BOWTIE_BIN
+[ -z "$BOWTIE_BIN" ] && BOWTIE_BIN="$d/../bin/linux$BITS/bowtie"
+[ ! -f "$BOWTIE_BIN" ] && echo "Bowtie binary $BOWTIE_BIN doesn't exist" && exit -1
+
+echo
+echo "What additional arguments should Crossbow pass to Bowtie?"
+echo "  Mandatory arguments: \"--partition $PART_SZ --shmem -t --hadoopout --startverbose\""
+echo "  If input includes paired-end reads, be sure to specify accurate minimum and"
+echo "  maximum insert size with -I and -X options."
+BOWTIE_ARGS=
+BOWTIE_ARGS_DEF="-v 2 --strata --best -m 1 -I 100 -X 500"
+read -p "Enter additional arguments [Default: \"$BOWTIE_ARGS_DEF\"]: " BOWTIE_ARGS
+[ -z "$BOWTIE_ARGS" ] && BOWTIE_ARGS=$BOWTIE_ARGS_DEF
+echo "Using arguments: $BOWTIE_ARGS"
+
+echo
+echo "What SOAPsnp binary should Crossbow use?"
+echo
+SSNP_BIN="$d/../bin/linux$BITS/soapsnp"
+read -p "Enter selection [Default: $SSNP_BIN]: " SSNP_BIN
+[ -z "$SSNP_BIN" ] && SSNP_BIN="$d/../bin/linux$BITS/soapsnp"
+[ ! -f "$SSNP_BIN" ] && echo "Bowtie binary $SSNP_BIN doesn't exist" && exit -1
+echo "Using binary: $SSNP_BIN"
+
+echo
+echo "What arguments should Crossbow always pass to SOAPsnp, regardless of reference"
+echo "ploidy?"
+echo "  Note: do not specify -i, -d, -o, -s, -c, or -T, as these are set by Crossbow"
+echo
+SSNP_ARGS="-2 -u -n -q"
+read -p "Enter arguments [Default: -2 -u -n -q]: " SSNP_ARGS
+[ -z "$SSNP_ARGS" ] && SSNP_ARGS="-2 -u -n -q"
+echo "Using arguments: $SSNP_ARGS"
+
+echo
+echo "What additional arguments should Crossbow pass to SOAPsnp when the reference"
+echo "sequence is haploid?"
+echo "  Note: -m argument is added by Crossbow"
+SSNP_ARGS_HAP=
+SSNP_ARGS_HAP_DEF="-r 0.0001"
+read -p "Enter arguments [Default: $SSNP_ARGS_HAP_DEF]: " SSNP_ARGS_HAP
+[ -z "$SSNP_ARGS_HAP" ] && SSNP_ARGS_HAP=$SSNP_ARGS_HAP_DEF
+echo "Using arguments: $SSNP_ARGS_HAP"
+
+echo
+echo "What additional arguments should Crossbow pass to SOAPsnp when the reference"
+echo "sequence is diploid?"
+SSNP_ARGS_DIP=
+SSNP_ARGS_DIP_DEF="-r 0.00005 -e 0.0001"
+read -p "Enter arguments [Default: $SSNP_ARGS_DIP_DEF]: " SSNP_ARGS_DIP
+[ -z "$SSNP_ARGS_DIP" ] && SSNP_ARGS_DIP=$SSNP_ARGS_DIP_DEF
+echo "Using arguments: $SSNP_ARGS_DIP"
+
+echo
+echo "How are the FASTQ quality values encoded?"
+echo "  Note: Qualities MUST be ASCII encoded, they cannot be numbers"
+echo
+echo "Options:"
+echo "  (1) phred+33 (default)"
+echo "  (2) phred+64"
+echo "  (3) solexa+64"
+QUAL_FORMAT=1
+read -p "Enter selection [Default: $QUAL_FORMAT]: " QUAL_FORMAT
+[ -z "$QUAL_FORMAT" ] && QUAL_FORMAT=1
+QUAL_FORMAT=`echo $QUAL_FORMAT | sed 's/^1/phred33/'`
+QUAL_FORMAT=`echo $QUAL_FORMAT | sed 's/^2/phred64/'`
+QUAL_FORMAT=`echo $QUAL_FORMAT | sed 's/^3/solexa64/'`
+QUAL_FORMAT=`echo $QUAL_FORMAT | sed 's/\+//g'`
+echo "Using quality format $QUAL_FORMAT"
+
+while true ; do
+	CLUSTER_NAME=
+	CLUSTER_NAME_DEF="crossbow$AWS_ACCOUNT_ID"
+	CLUSTER_NAME_DEF=`echo $CLUSTER_NAME_DEF | sed 's/[^0-9a-zA-Z]//g'`
+	echo
+	echo "What name would you like to give to the Crossbow cluster?"
+	echo "  Use only letters and numbers.  The name must be globally unique, so please"
+	echo "  include your AWS account ID or other identifier somewhere in the name."
+	read -p "Enter selection [Default: $CLUSTER_NAME_DEF]: " CLUSTER_NAME
+	[ -z "$CLUSTER_NAME" ] && CLUSTER_NAME=$CLUSTER_NAME_DEF
+	
+	echo
+	echo "Checking if that cluster name is already being used..."
+	HOST=`ec2-describe-instances | awk '"RESERVATION" == $1 && "'$CLUSTER_NAME-master'" == $4, "RESERVATION" == $1 && "'$CLUSTER_NAME-master'" != $4'`
+	HOST=`echo "$HOST" | awk '"INSTANCE" == $1 && "running" == $6 {print $4}'`
+	
+	if [ ! -z "$HOST" ]; then
+		echo "Master for cluster $CLUSTER_NAME is already running on: $HOST"
+		continue
+	fi
+	echo "OK, Cluster with name $CLUSTER_NAME does not yet exist"
+	break
+done
+
+echo
+echo "The full command to launch your Crossbow job is:"
+echo "bash $d/cb-local -r $REF_URL -n $NUM_NODES -i $INPUT_PATH -m $PER_NODE -t $NODE_TYPE -B $BOWTIE_BIN -S $SSNP_BIN -a \"$BOWTIE_ARGS\" -b \"$SSNP_ARGS\" -L $MAX_LEN -s $PART_SZ -q $QUAL_FORMAT -d \"$SSNP_ARGS_DIP\" -h \"$SSNP_ARGS_HAP\" -c $CLUSTER_NAME -H $HAPLOIDS" | tee .cb-interactive.cmd
+
+echo
+read -p "Execute this command now? [Y/n]: " NOW
+if [ -z "$NOW" -o "$NOW" == "Y" -o "$NOW" == "y" -o "$NOW" == "YES" -o "$NOW" == "yes" ] ; then
+	bash $d/cb-local -r $REF_URL -n $NUM_NODES -i $INPUT_PATH -m $PER_NODE -t $NODE_TYPE -B $BOWTIE_BIN -S $SSNP_BIN -a "$BOWTIE_ARGS" -b "$SSNP_ARGS" -L $MAX_LEN -s $PART_SZ -q $QUAL_FORMAT -d "$SSNP_ARGS_DIP" -h "$SSNP_ARGS_HAP" -c $CLUSTER_NAME -H $HAPLOIDS
+fi
