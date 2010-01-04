@@ -11,5 +11,5 @@ ensureOptPkg(PKG_NAME)
 ##
 # we don't want to kill this now, so we'll back it up and then link our package there
 run('mv /usr/local/bioinf /usr/local/bioinf.bak')
-run('ln -s %s /usr/local/bioinf' % (PKG_DIR + PKG_NAME))
+run('ln -s %s /usr/local/bioinf' % PKG_DIR)
 
