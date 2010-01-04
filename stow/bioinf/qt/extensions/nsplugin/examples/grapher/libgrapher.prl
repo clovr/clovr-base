@@ -1,5 +1,0 @@
-QMAKE_PRL_BUILD_DIR = /usr/local/bioinf/qt/extensions/nsplugin/examples/grapher
-QMAKE_PRO_INPUT = grapher.pro
-QMAKE_PRL_TARGET = libgrapher.so.1.0.0
-QMAKE_PRL_CONFIG = qt warn_on release incremental link_prl nocrosscompiler minimal-config small-config medium-config large-config full-config styles tools kernel widgets dialogs iconview workspace network canvas table xml sql release dll largefile stl ipv6 png no-gif zlib nis bigcodecs x11sm xkb dylib create_prl link_prl qt dll release moc x11lib
-QMAKE_PRL_VERSION = 1.0.0
