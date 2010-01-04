@@ -1,0 +1,38 @@
+MetaGeneAnnotator
+2008/8/19
+Hideki Noguchi
+hide@cb.k.u-tokyo.ac.jp
+
+MetaGene is a prokaryotic gene-finding program and can be widely applied to 
+fragmented anonymous genomic sequences, such as metagenomic data.
+
+MetaGeneAnnotator can predict phage genes in addition to bacterial and 
+archaeal genes, and precisely predicts translation initiation sites of genes 
+by using an RBS model.
+
+
+
+usage: mga [multi-fasta] <-m/-s>
+         -m: multiple species (sequences are individually treated)
+         -s: single species (sequences are treated as a unit)
+
+output format:
+    # [sequence name]
+    # gc = [gc%], rbs = [rbs%]
+    # self: [(b)acteria/(a)rchaea/(p)hage/unused(-)]
+    [gene ID] [start pos.] [end pos.] [strand] [frame] [complete/partial]
+    [gene score] [used model] [rbs start] [rbs end] [rbs score]
+    . . .
+    . . .
+    . . .
+
+<explanations of output column>
+    *The value of [frame] (0/1/2) indicates the number of surplus
+    (untranslated) nucleotides at the 5'-end of the predicted ORF.
+    *The value of [score] indicates the estimated score of predicted gene. All
+    predicted genes are more than 0.
+    *The value of [complete/partial] indicates that the predicted gene
+    structure is whether complete (contains both of start and stop codons[11])
+    or partial (lacks start[01] or stop[10] or both of them[00]).
+    *The value of [model] indicates a selected model
+    ((s)elf/(b)acteria/(a)rchaea/(p)hage) for predicting the gene. 
