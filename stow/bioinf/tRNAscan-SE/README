@@ -1,0 +1,97 @@
+-------------------------------------------------------------
+tRNAscan-SE: An improved tool for transfer RNA detection
+
+Todd Lowe (1) & Sean Eddy (2)
+
+(1) School of Engineering, University of California, Santa Cruz, CA
+(2) Dept. of Genetics, Washington U. School of Medicine, St. Louis, MO
+--------------------------------------------------------------
+Current release: 1.23 (Apr 2002)
+
+tRNAscan-SE was written in the PERL (version 5.0) script language.
+Input consists of DNA or RNA sequences in FASTA format.  tRNA
+predictions are output in standard tabular or ACeDB format.
+tRNAscan-SE does no tRNA detection itself, but instead combines the
+strengths of three independent tRNA prediction programs by negotiating
+the flow of information between them, performing a limited amount of
+post-processing, and outputting the results in one of several
+formats.
+
+tRNAscan-SE combines the specificity of the Cove probabilistic RNA
+prediction package (1) with the speed and sensitivity of tRNAscan 1.3
+(2) plus an implementation of an algorithm described by Pavesi and
+colleagues (3), which searches for eukaryotic pol III tRNA promoters
+(our implementation referred to as EufindtRNA).  tRNAscan and
+EufindtRNA are used as first-pass prefilters to identify "candidate"
+tRNA regions of the sequence.  These subsequences are then passed to
+Cove for further analysis, and output if Cove confirms the initial
+tRNA prediction.  In this way, tRNAscan-SE attains the best of both
+worlds: (1) a false positive rate equally low to using Cove analysis,
+(2) the combined sensitivities of tRNAscan and EufindtRNA (detection
+of 98-99% of true tRNAs), and (3) search speed 1,000 to 3,000 times
+faster than Cove analysis and 30 to 90 times faster than the original
+tRNAscan 1.3 (tRNAscan-SE uses both a code-optimized version of
+tRNAscan 1.3 which gives a 300-fold increase in speed, and a fast C
+implementation of the Pavesi et al. algorithm).
+
+This distribution includes the PERL script tRNAscan-SE, all the files
+necessary to compile and run the complete COVE package (version
+2.4.4), all the files necessary to compile and run the modified
+version of tRNAscan (version 1.4), and all the files needed to compile
+and run eufindtRNA 1.0 (the cove programs, tRNAscan 1.4, and
+eufindtRNA are included for use with the tRNAscan-SE program, but may
+also be run as stand-alone programs).  Installation of the PERL
+(Practical Extraction and Report Language, Larry Wall) interpreter
+package version 5.0 or later is required to run the tRNAscan-SE PERL
+script.
+
+For more detailed information, please read the following files:
+
+  MANUAL       -- decription of program, run options & demo examples
+                  (text) 
+  Manual.ps    -- decription of program, run options & demo examples
+                  (postscript format)
+  INSTALL      -- instructions for installing the programs
+  COPYING      -- copyright notice, and information on distribution policy
+  FILES        -- overview of what the source files are
+  GNULICENSE   -- Gnu Public License, version 2 (see COPYING)
+
+
+You can obtain a copy of this software from
+http://lowelab.ucsc.edu/software/tRNAscan-SE.tar.Z
+or
+ftp://ftp.genetics.wustl.edu/pub/eddy/software/tRNAscan-SE.tar.Z
+
+If you use this software, please cite the Nucleic Acids Research paper
+describing the program & its analysis of several genomes (4).
+
+If you have any questions, complaints, or suggestions, please e-mail me
+
+   Todd Lowe
+   lowe@soe.ucsc.edu
+
+   227 Sinsheimer Labs
+   University of California
+   1156 High Street
+   Santa Cruz, ZA 95064
+
+
+References
+
+1. Eddy, S.R. and Durbin, R. (1994) "RNA sequence analysis using
+   covariance models", Nucl. Acids Res., 22, 2079-2088.
+
+2. Fichant, G.A. and Burks, C. (1991) "Identifying potential tRNA
+   genes in genomic DNA sequences", J. Mol. Biol., 220, 659-671.
+
+3. Pavesi, A., Conterio, F., Bolchi, A., Dieci, G., Ottonello,
+   S. (1994) "Identification of new eukaryotic tRNA genes in genomic DNA
+   databases by a multistep weight matrix analysis of transcriptional
+   control regions", Nucl. Acids Res., 22, 1247-1256.
+
+4. Lowe, T.M. & Eddy, S.R. (1997) "tRNAscan-SE: A program
+   for improved detection of transfer RNA genes in genomic
+   sequence", Nucl. Acids Res., 25, 955-964.
+
+
+

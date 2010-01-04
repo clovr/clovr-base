@@ -1,0 +1,2 @@
+setenv PATH "$PATH"":""/usr/local/packages/tRNAscan/bin"
+setenv MANPATH "$MANPATH"":""/usr/local/packages/tRNAscan/man"
