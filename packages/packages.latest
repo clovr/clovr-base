@@ -52,6 +52,7 @@ diff						install
 dmidecode					install
 dmsetup						install
 dnsutils					install
+dpatch						install
 dpkg						install
 dpkg-dev					install
 e2fslibs					install
@@ -60,6 +61,8 @@ eject						install
 emboss						install
 emboss-data					install
 emboss-lib					install
+ethtool						install
+fakeroot					install
 file						install
 findutils					install
 fontconfig					install
@@ -154,6 +157,7 @@ libdirectfb-dev					install
 libdirectfb-extra				install
 libdns45					install
 libdns46					install
+libdumbnet1					install
 libedit2					install
 libept0						install
 libexpat1					install
@@ -200,6 +204,7 @@ libhtml-tagset-perl				install
 libhtml-tree-perl				install
 libice-dev					install
 libice6						install
+libicu38					install
 libidn11					install
 libio-compress-base-perl			install
 libio-compress-zlib-perl			install
@@ -374,6 +379,7 @@ mawk						install
 menu						install
 mime-support					install
 mktemp						install
+module-assistant				install
 module-init-tools				install
 mount						install
 mysql-common					install
@@ -386,6 +392,8 @@ netbase						install
 netcat						install
 netcat-traditional				install
 ntpdate						install
+open-vm-source					install
+open-vm-tools					install
 openjdk-6-jre					install
 openjdk-6-jre-headless				install
 openjdk-6-jre-lib				install
@@ -394,6 +402,7 @@ openssh-server					install
 openssl						install
 passwd						install
 patch						install
+patchutils					install
 pciutils					install
 perl						install
 perl-base					install
@@ -495,5 +504,6 @@ xkb-data					install
 xml-core					install
 xstow						install
 xtrans-dev					install
+zerofree					install
 zlib1g						install
 zlib1g-dev					install
