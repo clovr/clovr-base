@@ -33,7 +33,7 @@
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>ncbi-tblastn.default</name>
+                <name>ncbi-blastn.default</name>
             </commandSet>
         </commandSet>
         <commandSet type="serial">
