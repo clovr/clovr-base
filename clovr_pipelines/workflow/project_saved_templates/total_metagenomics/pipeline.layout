@@ -4,17 +4,36 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>sff_to_CA.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>celera-assembler-SGE.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.default</name>
         </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>metagene.default</name>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>metagene.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>split_multifasta.metagene</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>translate_sequence.default</name>
+                </commandSet>
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>ncbi-blastn.default</name>
+                <name>ncbi-tblastn.default</name>
             </commandSet>
         </commandSet>
         <commandSet type="serial">
@@ -23,7 +42,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>hmmer.default</name>
+            <name>hmmpfam.default</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
