@@ -402,6 +402,7 @@ linux-headers-2.6.28-11				install
 linux-headers-2.6.28-11-generic			install
 linux-libc-dev					install
 locales						install
+locate						install
 lockfile-progs					install
 login						install
 lsb-base					install
