@@ -5,15 +5,13 @@ import time
 # Just pull everything from policy
 from igs.config_manage.policy import *
 
-PKG_NAME = 'ganglia-3.1.2'
 
-ensurePkg(PKG_NAME)
 dirExists('/var/lib/ganglia/rrds')
 fileExists('/var/www/ganglia')
 dirOwner('/var/lib/ganglia/rrds', 'nobody')
-executePkgTemplate(PKG_NAME, 'etc/gmetad.conf.tmpl')
-executePkgTemplate(PKG_NAME, 'etc/gmond.conf.tmpl')
-installPkg(PKG_NAME)
+executeTemplate('${stow.base_dir}/etc/gmetad.conf.tmpl')
+executeTemplate('${stow.base_dir}/etc/gmond.conf.tmpl')
+
 run('gmond --conf=${stow.base_dir}/etc/gmond.conf')
 run('gmetad --conf=${stow.base_dir}/etc/gmetad.conf')
 
