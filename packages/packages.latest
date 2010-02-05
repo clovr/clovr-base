@@ -466,8 +466,11 @@ pulseaudio-module-x11				install
 pulseaudio-utils				install
 pvm						install
 python						install
+python-central					install
 python-dev					install
 python-minimal					install
+python-pkg-resources				install
+python-setuptools				install
 python2.6					install
 python2.6-dev					install
 python2.6-minimal				install
