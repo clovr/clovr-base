@@ -9,6 +9,12 @@ from igs.config_manage.policy import *
 
 PKG_DIR = '${opt.base_dir}/hadoop'
 
-run(PKG_DIR + '/bin/hadoop namenode -format')
-run(PKG_DIR + '/bin/hadoop-daemon.sh start namenode')
-run(PKG_DIR + '/bin/hadoop-daemon.sh start jobtracker')
+def startup():
+    run(PKG_DIR + '/bin/hadoop namenode -format')
+    run(PKG_DIR + '/bin/hadoop-daemon.sh start namenode')
+    run(PKG_DIR + '/bin/hadoop-daemon.sh start jobtracker')
+
+
+def shutdown():
+    pass
+
