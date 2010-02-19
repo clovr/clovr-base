@@ -4,6 +4,7 @@ Array::Compare 2.01
 Aspect 0.21
 Benchmark::Timer 0.7102
 Bio 
+Bio::Tools::PSort 3
 CDB_File 0.96
 Cache::Cache 1.06
 Class::Data::Inheritable 0.08
