@@ -10,7 +10,9 @@ from igs.config_manage.policy import *
 PKG_DIR = '${opt.base_dir}/hadoop'
 
 def startup():
-    run(PKG_DIR + '/bin/hadoop namenode -format')
+    ##
+    # We do not want to format it if it's already been created
+    run('yes N | ' + PKG_DIR + '/bin/hadoop namenode -format')
     run(PKG_DIR + '/bin/hadoop-daemon.sh start namenode')
     run(PKG_DIR + '/bin/hadoop-daemon.sh start jobtracker')
 
