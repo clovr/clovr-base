@@ -9,13 +9,11 @@ PKG_DIR = '${opt.package_dir}/' + PKG_NAME
 
 def startup():
     ensureOptPkg(PKG_NAME)
-    ##
-    # we don't want to kill this now, so we'll back it up and then link our package there
-    run('mv /usr/local/bioinf /usr/local/bioinf.bak')
     run('ln -s %s /usr/local/bioinf' % PKG_DIR)
 
 
 def shutdown():
-    pass
+    run('rm /usr/local/bioinf')
+    
 
 

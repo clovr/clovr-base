@@ -14,5 +14,6 @@ def startup():
     run(PKG_DIR + '/bin/hadoop-daemon.sh start tasktracker')
 
 def shutdown():
-    pass
+    run(PKG_DIR + '/bin/hadoop-daemon.sh stop datanode')
+    run(PKG_DIR + '/bin/hadoop-daemon.sh stop tasktracker')
 

@@ -8,5 +8,6 @@ def startup():
     run('mongod --dbpath=/opt/db/mongo --logpath=/var/log/mongodb.log --fork > /dev/null 2>&1')
 
 def shutdown():
-    pass
+    run('killall mongod')
+    
 

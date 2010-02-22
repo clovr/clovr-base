@@ -26,4 +26,5 @@ def startup():
 
 
 def shutdown():
-    pass
+    run('killall gmond')
+    run('killall gmetad')

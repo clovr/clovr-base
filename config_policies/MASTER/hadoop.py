@@ -16,5 +16,5 @@ def startup():
 
 
 def shutdown():
-    pass
-
+    run(PKG_DIR + '/bin/hadoop-daemon.sh stop namenode')
+    run(PKG_DIR + '/bin/hadoop-daemon.sh stop jobtracker')    
