@@ -9,6 +9,8 @@ PKG_DIR = '${opt.package_dir}/' + PKG_NAME
 
 def startup():
     ensureOptPkg(PKG_NAME)
+    # Just get rid of this dir, for now
+    run('rm -rf /usr/local/bioinf')
     run('ln -s %s /usr/local/bioinf' % PKG_DIR)
 
 
