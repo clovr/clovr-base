@@ -76,6 +76,10 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>tabula_rasa.prep_ber</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>ber.pre_overlap_analysis</name>
         </commandSet>
         <commandSet type="serial">
