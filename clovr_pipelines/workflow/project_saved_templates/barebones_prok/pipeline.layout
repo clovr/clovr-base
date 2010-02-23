@@ -92,10 +92,6 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>start_site_curation.default</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>translate_sequence.final_polypeptides</name>
         </commandSet>
         <commandSet type="serial">
