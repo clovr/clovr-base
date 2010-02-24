@@ -61,7 +61,7 @@ MAIN: {
 
   my $root = '/usr/local/stow/psortb-3.0';
   my $blastdir = '/usr/bin/';
-  my $pftools = 'NOTINSTALLED';
+  my $pftools = '/opt/opt-packages/pftools-2.3';
   my $pfscan_module = 'Profile';
 
   # Pull any options off of the command line.
