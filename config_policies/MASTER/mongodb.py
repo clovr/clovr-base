@@ -7,7 +7,7 @@ from igs.config_manage.policy import *
 # We are going to add the 'local' cluster to Mongo on start up
 # It might be possible that this should be moved to another script
 # but this will do for right now
-from igs.utils.config import configFromStream
+from igs.utils.config import configFromStream, configFromEnv
 
 from vappio.cluster.persist_mongo import dump
 from vappio.cluster.control import Cluster
@@ -25,7 +25,7 @@ def startup():
     ##
     # let mongo come up
     time.sleep(1)
-    cluster = Cluster('local', ec2control, configFromStream(open('/tmp/machine.conf')))
+    cluster = Cluster('local', ec2control, configFromStream(open('/tmp/machine.conf'), configFromEnv()))
     cluster.setMaster(ec2control.Instance(instanceId='local',
                                           amiId=None,
                                           pubDns=cluster.config('MASTER_IP'),
