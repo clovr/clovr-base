@@ -126,5 +126,13 @@
             <state>incomplete</state>
             <name>pipeline_summary.default</name>
         </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2tbl.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tbl2asn.default</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
