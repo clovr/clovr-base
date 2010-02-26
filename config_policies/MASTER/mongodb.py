@@ -37,7 +37,9 @@ def startup():
                                           launch=None,
                                           availabilityZone=None,
                                           monitor=None))
-    dump(cluster)
+    ##
+    # this caues issues, undoing for now
+    #dump(cluster)
                                            
     
 def shutdown():
