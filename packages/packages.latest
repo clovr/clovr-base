@@ -314,6 +314,7 @@ libsm6						install
 libsmbios2					install
 libsndfile1					install
 libspeexdsp1					install
+libsplashy1					install
 libsqlite3-0					install
 libss2						install
 libssl-dev					install
@@ -422,6 +423,7 @@ mummer						install
 mysql-common					install
 nano						install
 ncbi-data					install
+ncbi-tools-bin					install
 ncurses-base					install
 ncurses-bin					install
 net-tools					install
@@ -502,6 +504,7 @@ sed						install
 sgml-base					install
 shared-mime-info				install
 smartdimmer					install
+splashy						install
 ssh						install
 ssl-cert					install
 startup-tasks					install
