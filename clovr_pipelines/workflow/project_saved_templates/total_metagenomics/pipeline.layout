@@ -16,25 +16,32 @@
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>split_multifasta.metagene</name>
+                    <name>translate_sequence.default</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>translate_sequence.default</name>
+                    <name>bsml2fasta.default</name>
                 </commandSet>
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>ncbi-blastn.default</name>
+                <name>ncbi-blastx.default</name>
             </commandSet>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>ncbi-blastp.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>hmmpfam.default</name>
         </commandSet>
+	<commandSet type="parallel">
+	    <state>incomplete</state>		
+	    <commandSet type="serial">
+            	<state>incomplete</state>
+	        <name>ncbi-blastn.default</name>
+            </commandSet>
+            <commandSet type="serial">
+            	<state>incomplete</state>
+            	<name>ncbi-blastp.default</name>
+            </commandSet>
+	</commandSet>
     </commandSet>
 </commandSetRoot>
