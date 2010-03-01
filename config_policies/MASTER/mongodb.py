@@ -25,13 +25,13 @@ def startup():
     ##
     # let mongo come up
     time.sleep(1)
-    options = configFromStream(open('/tmp/machine.conf')
+    options = configFromStream(open('/tmp/machine.conf'), configFromEnv())
     options = configFromMap(
-        {'cluster': {'master_groups': [f.strip() for f in options('cluster.master_groups').split(',')],
-                     'exec_groups': [f.strip() for f in options('cluster.exec_groups').split(',')],
-                     }
-         }, options)
-    cluster = Cluster('local', ec2control, options, configFromEnv()))
+            {'cluster': {'master_groups': [f.strip() for f in options('cluster.master_groups').split(',')],
+                         'exec_groups': [f.strip() for f in options('cluster.exec_groups').split(',')],
+                         }
+             }, options)
+    cluster = Cluster('local', ec2control, options)
     cluster.setMaster(ec2control.Instance(instanceId='local',
                                           amiId=None,
                                           pubDns=cluster.config('MASTER_IP'),
