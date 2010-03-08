@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_gridftp_server" >
+<Aging_Version Age="3" Major="3" Minor="19" />
+<Description >Globus GridFTP Server</Description>
+<Functional_Group ></Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<dev_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbgpthr</Flavor>
+<Binary_Dependencies Type="Compile" >
+<Dependency Name="globus_authz" Package="dev" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_ftp_control" Package="dev" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+<Dependency Name="globus_gfork" Package="dev" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_gridftp_server_control" Package="dev" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_usage" Package="dev" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+<Dependency Name="globus_xio" Package="dev" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_xio_gsi_driver" Package="dev" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+<Build_Environment >
+<cflags ></cflags>
+<external_includes ></external_includes>
+<external_libs ></external_libs>
+</Build_Environment>
+</dev_pkg>
+</gpt_package_metadata>

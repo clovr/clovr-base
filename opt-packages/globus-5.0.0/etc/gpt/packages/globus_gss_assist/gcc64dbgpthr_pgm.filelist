@@ -1,0 +1,5 @@
+/sbin/grid-mapfile-add-entry
+/sbin/grid-mapfile-delete-entry
+/sbin/grid-mapfile-check-consistency
+/etc/globus_packages/globus_gss_assist/gcc64dbgpthr_pgm.filelist
+/etc/globus_packages/globus_gss_assist/pkg_data_gcc64dbgpthr_pgm.gpt

@@ -1,0 +1,6 @@
+/lib/libglobus_gass_transfer_gcc64dbgpthr.a
+/lib/libglobus_gass_transfer_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_gass_transfer.h
+/include/gcc64dbgpthr/globus_gass_transfer_proto.h
+/etc/globus_packages/globus_gass_transfer/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_gass_transfer/pkg_data_gcc64dbgpthr_dev.gpt

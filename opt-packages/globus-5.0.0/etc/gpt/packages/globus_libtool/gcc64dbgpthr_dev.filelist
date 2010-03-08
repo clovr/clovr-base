@@ -1,0 +1,4 @@
+lib/libltdl_gcc64dbgpthr.a
+include/gcc64dbgpthr/ltdl.h
+etc/gpt/packages/globus_libtool/gcc64dbgpthr_dev.filelist
+etc/gpt/packages/globus_libtool/pkg_data_gcc64dbgpthr_dev.gpt

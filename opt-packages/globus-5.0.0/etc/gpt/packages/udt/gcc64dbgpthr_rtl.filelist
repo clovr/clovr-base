@@ -1,0 +1,3 @@
+lib/libudt_gcc64dbgpthr.la
+etc/gpt/packages/udt/gcc64dbgpthr_rtl.filelist
+etc/gpt/packages/udt/pkg_data_gcc64dbgpthr_rtl.gpt

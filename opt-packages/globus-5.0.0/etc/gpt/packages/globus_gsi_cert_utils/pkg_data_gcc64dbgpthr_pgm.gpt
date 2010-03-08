@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.01" Name="globus_gsi_cert_utils" >
+<Aging_Version Age="6" Major="6" Minor="4" />
+<Description > Globus GSI Cert Utils Library</Description>
+<Functional_Group >Security</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<pgm_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbgpthr</Flavor>
+<Binary_Dependencies Type="Runtime" >
+<Dependency Name="globus_openssl" Package="pgm" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+
+<Setup_Dependency Name="globus_common_setup" >
+<Version >
+<Simple_Version Major="2" />
+</Version>
+</Setup_Dependency>
+
+
+<Setup_Dependency Name="trusted_ca_setup" >
+<Version >
+<Simple_Version Major="2" />
+</Version>
+</Setup_Dependency>
+
+</pgm_pkg>
+</gpt_package_metadata>

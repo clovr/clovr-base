@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_core" >
+<Aging_Version Age="1" Major="5" Minor="15" />
+<Description >Globus Core</Description>
+<Functional_Group >Core</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<dev_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbgpthr</Flavor>
+<Build_Environment >
+<cflags >-D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64 </cflags>
+<external_includes ></external_includes>
+<external_libs ></external_libs>
+</Build_Environment>
+</dev_pkg>
+</gpt_package_metadata>

@@ -1,0 +1,5 @@
+/lib/libglobus_xio_gridftp_driver_gcc64dbgpthr.a
+/lib/libglobus_xio_gridftp_driver_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_xio_gridftp_driver.h
+/etc/globus_packages/globus_xio_gridftp_driver/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_xio_gridftp_driver/pkg_data_gcc64dbgpthr_dev.gpt

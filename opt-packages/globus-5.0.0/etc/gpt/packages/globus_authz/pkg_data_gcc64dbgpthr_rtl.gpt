@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_authz" >
+<Aging_Version Age="0" Major="0" Minor="7" />
+<Description >Globus authz library</Description>
+<Functional_Group >Security</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<rtl_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbgpthr</Flavor>
+<Binary_Dependencies Type="Runtime_Link" >
+<Dependency Name="globus_authz_callout_error" Package="rtl" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_callout" Package="rtl" >
+<Version >
+<Simple_Version Major="0" />
+</Version>
+</Dependency>
+<Dependency Name="globus_gssapi_gsi" Package="rtl" >
+<Version >
+<Simple_Version Major="4" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+</rtl_pkg>
+</gpt_package_metadata>

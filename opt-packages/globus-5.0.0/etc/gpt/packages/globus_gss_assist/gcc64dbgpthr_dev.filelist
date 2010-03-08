@@ -1,0 +1,6 @@
+/lib/libglobus_gss_assist_gcc64dbgpthr.a
+/lib/libglobus_gss_assist_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_gss_assist.h
+/include/gcc64dbgpthr/globus_gss_assist_constants.h
+/etc/globus_packages/globus_gss_assist/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_gss_assist/pkg_data_gcc64dbgpthr_dev.gpt

@@ -1,0 +1,9 @@
+include/gcc64dbgpthr/packet.h
+include/gcc64dbgpthr/udt.h
+include/gcc64dbgpthr/ccc.h
+bin/udt_appserver
+bin/udt_sendfile
+bin/udt_appclient
+bin/udt_recvfile
+etc/gpt/packages/udt/gcc64dbgpthr_pgm.filelist
+etc/gpt/packages/udt/pkg_data_gcc64dbgpthr_pgm.gpt

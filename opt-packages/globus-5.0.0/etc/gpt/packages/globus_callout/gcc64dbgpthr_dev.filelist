@@ -1,0 +1,6 @@
+/lib/libglobus_callout_gcc64dbgpthr.a
+/lib/libglobus_callout_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_callout.h
+/include/gcc64dbgpthr/globus_callout_constants.h
+/etc/globus_packages/globus_callout/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_callout/pkg_data_gcc64dbgpthr_dev.gpt

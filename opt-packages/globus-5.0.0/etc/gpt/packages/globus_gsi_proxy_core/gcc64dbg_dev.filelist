@@ -1,0 +1,6 @@
+/lib/libglobus_gsi_proxy_core_gcc64dbg.a
+/lib/libglobus_gsi_proxy_core_gcc64dbg.la
+/include/gcc64dbg/globus_gsi_proxy.h
+/include/gcc64dbg/globus_gsi_proxy_constants.h
+/etc/globus_packages/globus_gsi_proxy_core/gcc64dbg_dev.filelist
+/etc/globus_packages/globus_gsi_proxy_core/pkg_data_gcc64dbg_dev.gpt

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="gaa_plugin" >
+<Aging_Version Age="0" Major="1" Minor="2" />
+<Description >Authorization framework plugin library</Description>
+<Functional_Group >Security</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<rtl_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbgpthr</Flavor>
+<Binary_Dependencies Type="Runtime_Link" >
+<Dependency Name="gaa_core" Package="rtl" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+<Dependency Name="gaa_util" Package="rtl" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+<Dependency Name="globus_libtool" Package="rtl" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+</rtl_pkg>
+</gpt_package_metadata>

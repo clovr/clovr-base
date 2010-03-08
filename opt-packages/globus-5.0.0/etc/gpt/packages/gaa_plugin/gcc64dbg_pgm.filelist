@@ -1,0 +1,4 @@
+/etc/globus_packages/gaa_plugin/gcc64dbg_pgm.filelist
+/etc/globus_packages/gaa_plugin/pkg_data_gcc64dbg_pgm.gpt
+/setup/globus/globus_gaa.conf
+/setup/globus/globus_gaa_custom.conf

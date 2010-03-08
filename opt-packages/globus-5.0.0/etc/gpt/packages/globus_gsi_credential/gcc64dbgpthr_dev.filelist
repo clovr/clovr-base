@@ -1,0 +1,6 @@
+/lib/libglobus_gsi_credential_gcc64dbgpthr.a
+/lib/libglobus_gsi_credential_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_gsi_credential.h
+/include/gcc64dbgpthr/globus_gsi_cred_constants.h
+/etc/globus_packages/globus_gsi_credential/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_gsi_credential/pkg_data_gcc64dbgpthr_dev.gpt

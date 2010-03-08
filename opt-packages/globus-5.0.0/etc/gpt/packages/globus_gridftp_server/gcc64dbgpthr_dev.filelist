@@ -1,0 +1,6 @@
+/lib/libglobus_gridftp_server_gcc64dbgpthr.a
+/lib/libglobus_gridftp_server_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_gridftp_server.h
+/include/gcc64dbgpthr/globus_gridftp_server_embed.h
+/etc/globus_packages/globus_gridftp_server/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_gridftp_server/pkg_data_gcc64dbgpthr_dev.gpt

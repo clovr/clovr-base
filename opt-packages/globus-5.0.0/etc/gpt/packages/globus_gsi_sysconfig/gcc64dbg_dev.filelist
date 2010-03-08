@@ -1,0 +1,6 @@
+/lib/libglobus_gsi_sysconfig_gcc64dbg.a
+/lib/libglobus_gsi_sysconfig_gcc64dbg.la
+/include/gcc64dbg/globus_gsi_system_config.h
+/include/gcc64dbg/globus_gsi_system_config_constants.h
+/etc/globus_packages/globus_gsi_sysconfig/gcc64dbg_dev.filelist
+/etc/globus_packages/globus_gsi_sysconfig/pkg_data_gcc64dbg_dev.gpt

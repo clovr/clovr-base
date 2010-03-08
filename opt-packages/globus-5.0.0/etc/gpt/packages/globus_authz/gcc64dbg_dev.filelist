@@ -1,0 +1,5 @@
+/lib/libglobus_authz_gcc64dbg.a
+/lib/libglobus_authz_gcc64dbg.la
+/include/gcc64dbg/globus_gsi_authz.h
+/etc/globus_packages/globus_authz/gcc64dbg_dev.filelist
+/etc/globus_packages/globus_authz/pkg_data_gcc64dbg_dev.gpt

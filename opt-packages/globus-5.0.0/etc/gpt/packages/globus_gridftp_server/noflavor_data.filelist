@@ -1,0 +1,5 @@
+/etc/gridftp.gfork
+/etc/gridftp-fe.gfork
+/etc/gridftp-be.gfork
+/etc/globus_packages/globus_gridftp_server/noflavor_data.filelist
+/etc/globus_packages/globus_gridftp_server/pkg_data_noflavor_data.gpt

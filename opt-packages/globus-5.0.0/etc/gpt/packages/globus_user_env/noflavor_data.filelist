@@ -1,0 +1,4 @@
+/etc/globus-user-env.sh
+/etc/globus-user-env.csh
+/etc/globus_packages/globus_user_env/noflavor_data.filelist
+/etc/globus_packages/globus_user_env/pkg_data_noflavor_data.gpt

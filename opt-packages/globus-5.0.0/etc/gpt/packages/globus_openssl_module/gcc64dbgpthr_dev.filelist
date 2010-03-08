@@ -1,0 +1,5 @@
+/lib/libglobus_openssl_gcc64dbgpthr.a
+/lib/libglobus_openssl_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_openssl.h
+/etc/globus_packages/globus_openssl_module/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_openssl_module/pkg_data_gcc64dbgpthr_dev.gpt

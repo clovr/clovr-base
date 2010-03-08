@@ -1,0 +1,6 @@
+/lib/libglobus_gsi_cert_utils_gcc64dbgpthr.a
+/lib/libglobus_gsi_cert_utils_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_gsi_cert_utils.h
+/include/gcc64dbgpthr/globus_gsi_cert_utils_constants.h
+/etc/globus_packages/globus_gsi_cert_utils/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_gsi_cert_utils/pkg_data_gcc64dbgpthr_dev.gpt

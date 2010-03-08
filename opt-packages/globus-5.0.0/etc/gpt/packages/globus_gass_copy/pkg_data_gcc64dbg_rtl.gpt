@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_gass_copy" >
+<Aging_Version Age="3" Major="5" Minor="3" />
+<Description >Globus Gass Copy</Description>
+<Functional_Group >FileAccess</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<rtl_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbg</Flavor>
+<Binary_Dependencies Type="Runtime_Link" >
+<Dependency Name="globus_common" Package="rtl" >
+<Version >
+<Simple_Version Major="6" />
+</Version>
+</Dependency>
+<Dependency Name="globus_ftp_client" Package="rtl" >
+<Version >
+<Simple_Version Major="5" />
+</Version>
+</Dependency>
+<Dependency Name="globus_ftp_control" Package="rtl" >
+<Version >
+<Simple_Version Major="1" />
+</Version>
+</Dependency>
+<Dependency Name="globus_gass_transfer" Package="rtl" >
+<Version >
+<Simple_Version Major="2" />
+</Version>
+</Dependency>
+<Dependency Name="globus_gssapi_gsi" Package="rtl" >
+<Version >
+<Simple_Version Major="4" />
+</Version>
+</Dependency>
+<Dependency Name="globus_io" Package="rtl" >
+<Version >
+<Simple_Version Major="3" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+</rtl_pkg>
+</gpt_package_metadata>

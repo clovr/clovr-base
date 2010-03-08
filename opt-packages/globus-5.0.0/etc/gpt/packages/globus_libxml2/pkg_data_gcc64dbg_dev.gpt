@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_libxml2" >
+<Aging_Version Age="1" Major="1" Minor="8" />
+<Description >LibXML2 Library</Description>
+<Functional_Group >C WS Core</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<dev_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbg</Flavor>
+<Binary_Dependencies Type="Compile" >
+<Dependency Name="globus_core" Package="dev" >
+<Version >
+<Simple_Version Major="5" />
+</Version>
+</Dependency>
+</Binary_Dependencies>
+<Build_Environment >
+<cflags ></cflags>
+<external_includes ></external_includes>
+<pkg_libs >-lxml2_gcc64dbg</pkg_libs>
+<external_libs >  -lm</external_libs>
+</Build_Environment>
+</dev_pkg>
+</gpt_package_metadata>

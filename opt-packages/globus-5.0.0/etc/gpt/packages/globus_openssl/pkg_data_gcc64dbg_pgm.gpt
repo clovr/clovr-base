@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.02" Name="globus_openssl" >
+<Aging_Version Age="3" Major="4" Minor="0" />
+<Description >Openssl Library</Description>
+<Functional_Group >Openssl</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<pgm_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbg</Flavor>
+<Version_Label >0.9.7</Version_Label>
+
+<Setup_Dependency Name="globus_openssl_setup" >
+<Version >
+<Simple_Version Major="2" />
+</Version>
+</Setup_Dependency>
+
+</pgm_pkg>
+</gpt_package_metadata>

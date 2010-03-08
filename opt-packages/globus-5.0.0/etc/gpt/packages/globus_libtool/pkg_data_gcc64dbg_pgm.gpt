@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gpt_package_metadata SYSTEM "globus_package.dtd">
+<gpt_package_metadata Format_Version="0.01" Name="globus_libtool" >
+<Aging_Version Age="0" Major="1" Minor="2" />
+<Description > Globus libtool package</Description>
+<Functional_Group >MDS</Functional_Group>
+<Version_Stability Release="Experimental" />
+<PackagingTool ToolName="GPT" ToolVersion="3.2" />
+<pgm_pkg >
+<Flavor ColocateLibraries="yes" >gcc64dbg</Flavor>
+<Version_Label >1.5.26</Version_Label>
+</pgm_pkg>
+</gpt_package_metadata>

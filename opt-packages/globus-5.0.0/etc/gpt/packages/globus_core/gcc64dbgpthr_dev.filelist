@@ -1,0 +1,4 @@
+/etc/globus_core/flavor_gcc64dbgpthr.gpt
+/include/gcc64dbgpthr/globus_config.h
+/etc/globus_packages/globus_core/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_core/pkg_data_gcc64dbgpthr_dev.gpt

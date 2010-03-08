@@ -1,0 +1,5 @@
+/lib/libglobus_usage_gcc64dbgpthr.a
+/lib/libglobus_usage_gcc64dbgpthr.la
+/include/gcc64dbgpthr/globus_usage.h
+/etc/globus_packages/globus_usage/gcc64dbgpthr_dev.filelist
+/etc/globus_packages/globus_usage/pkg_data_gcc64dbgpthr_dev.gpt
