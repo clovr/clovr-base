@@ -8,6 +8,7 @@ from igs.config_manage.policy import *
 # It might be possible that this should be moved to another script
 # but this will do for right now
 from igs.utils.config import configFromStream, configFromEnv
+from igs.utils.functional import tryUntil
 
 from vappio.cluster.persist_mongo import dump
 from vappio.cluster.control import Cluster
@@ -17,7 +18,15 @@ from vappio.cluster.control import Cluster
 # even if it is just a dummy implemetnation
 from vappio.ec2 import control as ec2control
 
+def tryDump(cluster):
+    def _():
+        try:
+            dump(cluster)
+            return True
+        except:
+            return False
 
+    return _
 
 def startup():
     dirExists('/opt/db/mongo')
@@ -43,9 +52,13 @@ def startup():
                                           launch=None,
                                           availabilityZone=None,
                                           monitor=None))
-    
-    dump(cluster)
-                                           
+
+
+    ##
+    # Try to save the cluster a bunch of times, waitign 2 seconds between
+    # attempts
+    tryUntil(5, lambda : time.sleep(2), tryDump(cluster))
+
     
 def shutdown():
     run('killall mongod')
