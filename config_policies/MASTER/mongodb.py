@@ -24,7 +24,7 @@ def startup():
     run('mongod --dbpath=/opt/db/mongo --logpath=/var/log/mongodb.log --fork > /dev/null 2>&1')
     ##
     # let mongo come up
-    time.sleep(1)
+    time.sleep(3)
     options = configFromStream(open('/tmp/machine.conf'), configFromEnv())
     options = configFromMap(
             {'cluster': {'master_groups': [f.strip() for f in options('cluster.master_groups').split(',')],
