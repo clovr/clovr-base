@@ -20,7 +20,15 @@
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
+                    <name>mothur_screen_seqs.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
                     <name>mothur_filter_seqs.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>fast_tree.default</name>
                 </commandSet>
             </commandSet>
             <commandSet type="serial">
@@ -28,35 +36,61 @@
                 <name>rdp_classifier.default</name>
             </commandSet>
         </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>mothur_unique_seqs.otu_assignment</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>mothur_dist_seqs.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>mothur_cluster.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>mothur_read_otu.default</name>
+        </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_unique_seqs.otu</name>
+                    <name>mothur_collect_single.default</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_dist_seqs.default</name>
+                    <name>mothur_rarefaction_single.default</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_cluster.default</name>
+                    <name>mothur_summary.single</name>
                 </commandSet>
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>fast_tree.default</name>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_summary.shared</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                   <name>mothur_tree_shared.default</name>
+                </commandSet>
+            </commandSet>                
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_get_oturep.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_classify_seqs.default</name>
+                </commandSet>
             </commandSet>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>mothur_collect_single.default</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>mothur_rarefaction_single.default</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
