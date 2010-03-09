@@ -6,18 +6,17 @@
             <state>incomplete</state>
             <name>split_multifasta.default</name>
         </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>metagene.default</name>
-                </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>metagene.default</name>
+        </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
                 <name>ncbi-blastx.default</name>
             </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
+            <commandSet type="serial">
                 <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
@@ -26,30 +25,31 @@
                 <commandSet type="serial">
                     <state>incomplete</state>
                     <name>bsml2fasta.default</name>
-		</commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>split_multifasta.gene</name>
-		</commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>split_multifasta.polypeptide</name>
-		</commandSet>
-            <commandSet type="parallel">
-            <state>incomplete</state>
-	    <commandSet type="serial">
-            <name>hmmpfam.default</name>
-        </commandSet>
-	    <commandSet type="serial">
-            	<state>incomplete</state>
-	        <name>ncbi-blastn.default</name>
-            </commandSet>
-            <commandSet type="serial">
-            	<state>incomplete</state>
-            	<name>ncbi-blastp.default</name>
-            </commandSet>
-	</commandSet>
-	</commandSet>
+                </commandSet>
+            	<commandSet type="serial">
+            	    <state>incomplete</state>
+                	<name>split_multifasta.gene</name>
+            	</commandSet>
+            	<commandSet type="serial">
+            		<state>incomplete</state>
+            		<name>split_multifasta.polypeptide</name>
+            	</commandSet>
+                <commandSet type="parallel">
+                    <state>incomplete</state>
+                	<commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>hmmpfam.default</name>
+                    </commandSet>
+                	<commandSet type="serial">
+            	        <state>incomplete</state>
+                	    <name>ncbi-blastn.default</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>ncbi-blastp.default</name>
+                    </commandSet>
+            	</commandSet>
+        	</commandSet>
         </commandSet>
     </commandSet>
 </commandSetRoot>
