@@ -22,7 +22,7 @@
                     <state>incomplete</state>
                     <name>translate_sequence.default</name>
                 </commandSet>
-                <comamndSet type="parallel">
+                <commandSet type="parallel">
                     <state>incomplete</state>
                     <commandSet type="serial">
                         <state>incomplete</state>
