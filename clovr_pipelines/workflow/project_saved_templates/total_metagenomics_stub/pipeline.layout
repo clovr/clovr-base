@@ -8,6 +8,10 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>tabula_rasa.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>metagene.default</name>
         </commandSet>
         <commandSet type="parallel">
@@ -21,7 +25,7 @@
                 <commandSet type="serial">
                         <state>incomplete</state>
                         <name>bsml2fasta.default</name>
-                </comamandSet>
+                </commandSet>
             	<commandSet type="serial">
             		<state>incomplete</state>
             		<name>split_multifasta.polypeptide</name>
