@@ -23,12 +23,16 @@
                     <name>translate_sequence.default</name>
                 </commandSet>
                 <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>bsml2fasta.default</name>
+                    <state>incomplete</state>
+                    <name>uclust.default</name>
                 </commandSet>
             	<commandSet type="serial">
             		<state>incomplete</state>
-            		<name>split_multifasta.polypeptide</name>
+            		<name>split_multifasta.single</name>
+            	</commandSet>
+            	<commandSet type="serial">
+            		<state>incomplete</state>
+            		<name>split_multifasta.multi</name>
             	</commandSet>
                 <commandSet type="parallel">
                     <state>incomplete</state>
