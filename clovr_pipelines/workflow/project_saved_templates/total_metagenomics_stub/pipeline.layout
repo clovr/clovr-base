@@ -4,6 +4,10 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>uclust.reads</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>split_multifasta.default</name>
         </commandSet>
         <commandSet type="serial">
@@ -14,38 +18,25 @@
             <state>incomplete</state>
             <name>metagene.default</name>
         </commandSet>
-        <commandSet type="parallel">
-            <state>incomplete</state>
-            <commandSet type="serial">
-                <state>incomplete</state>
-                <commandSet type="serial">
+        <commandSet type="serial">
                     <state>incomplete</state>
                     <name>translate_sequence.default</name>
-                </commandSet>
-                <commandSet type="serial">
+        </commandSet>
+        <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>uclust.default</name>
-                </commandSet>
-            	<commandSet type="serial">
+                    <name>uclust.polypeptide</name>
+        </commandSet>
+        <commandSet type="serial">
             		<state>incomplete</state>
             		<name>split_multifasta.single</name>
-            	</commandSet>
-            	<commandSet type="serial">
+        </commandSet>
+        <commandSet type="serial">
             		<state>incomplete</state>
             		<name>split_multifasta.multi</name>
-            	</commandSet>
-                <commandSet type="parallel">
-                    <state>incomplete</state>
-                	<commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>hmmpfam.default</name>
-                    </commandSet>
-                    <commandSet type="serial">
+        </commandSet>
+        <commandSet type="serial">
                         <state>incomplete</state>
                         <name>ncbi-blastp.default</name>
-                    </commandSet>
-            	</commandSet>
-        	</commandSet>
-        </commandSet>
+         </commandSet>
     </commandSet>
 </commandSetRoot>
