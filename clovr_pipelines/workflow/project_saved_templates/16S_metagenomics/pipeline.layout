@@ -52,10 +52,6 @@
             <state>incomplete</state>
             <name>mothur_read_otu.default</name>
         </commandSet>
-        <commandSet type="parallel">
-            <state>incomplete</state>
-            <commandSet type="serial">
-                <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
                     <name>mothur_collect_single.default</name>
@@ -68,9 +64,6 @@
                     <state>incomplete</state>
                     <name>mothur_summary.single</name>
                 </commandSet>
-            </commandSet>
-            <commandSet type="serial">
-                <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
                     <name>mothur_summary.shared</name>
@@ -79,9 +72,6 @@
                     <state>incomplete</state>
                    <name>mothur_tree_shared.default</name>
                 </commandSet>
-            </commandSet>                
-            <commandSet type="serial">
-                <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
                     <name>mothur_get_oturep.default</name>
@@ -90,7 +80,5 @@
                     <state>incomplete</state>
                     <name>mothur_classify_seqs.default</name>
                 </commandSet>
-            </commandSet>
-        </commandSet>
     </commandSet>
 </commandSetRoot>
