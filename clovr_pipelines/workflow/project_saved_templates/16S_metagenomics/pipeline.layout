@@ -72,13 +72,5 @@
                     <state>incomplete</state>
                    <name>mothur_tree_shared.default</name>
                 </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>mothur_get_oturep.default</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>mothur_classify_seqs.default</name>
-                </commandSet>
     </commandSet>
 </commandSetRoot>
