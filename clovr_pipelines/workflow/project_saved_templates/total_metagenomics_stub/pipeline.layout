@@ -28,10 +28,6 @@
         </commandSet>
         <commandSet type="serial">
             		<state>incomplete</state>
-            		<name>split_multifasta.single</name>
-        </commandSet>
-        <commandSet type="serial">
-            		<state>incomplete</state>
             		<name>split_multifasta.multi</name>
         </commandSet>
         <commandSet type="serial">
