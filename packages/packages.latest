@@ -104,6 +104,7 @@ initscripts					install
 intltool-debian					install
 iproute						install
 iputils-ping					install
+iso-codes					install
 java-common					install
 kbd						install
 klibc-utils					install
@@ -468,9 +469,11 @@ pulseaudio-module-x11				install
 pulseaudio-utils				install
 pvm						install
 python						install
+python-apt					install
 python-central					install
 python-dev					install
 python-minimal					install
+python-newt					install
 python-pkg-resources				install
 python-setuptools				install
 python2.6					install
@@ -500,6 +503,8 @@ rrdtool						install
 rsync						install
 ruby						install
 ruby1.8						install
+screen						install
+screen-profiles					install
 sed						install
 sgml-base					install
 shared-mime-info				install
@@ -541,6 +546,8 @@ ubuntu-minimal					install
 ucf						install
 udev						install
 unzip						install
+update-motd					install
+update-notifier-common				install
 upstart						install
 upstart-compat-sysv				install
 upstart-logd					install
