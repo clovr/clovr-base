@@ -64,13 +64,5 @@
                     <state>incomplete</state>
                     <name>mothur_summary.single</name>
                 </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>mothur_summary.shared</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                   <name>mothur_tree_shared.default</name>
-                </commandSet>
     </commandSet>
 </commandSetRoot>
