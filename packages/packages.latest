@@ -71,6 +71,7 @@ file						install
 findutils					install
 fontconfig					install
 fontconfig-config				install
+ftp						install
 g++						install
 g++-4.3						install
 gawk						install
@@ -513,6 +514,7 @@ splashy						install
 ssh						install
 ssl-cert					install
 startup-tasks					install
+strace						install
 subversion					install
 sudo						install
 sysklogd					install
