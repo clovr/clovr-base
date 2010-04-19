@@ -8,7 +8,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>celera-assembler-SGE.default</name>
+            <name>celera_assembler_cloud.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
