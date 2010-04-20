@@ -62,6 +62,11 @@ e2fsprogs					install
 ec2-ami-tools					install
 ec2-api-tools					install
 eject						install
+emacs						install
+emacs22						install
+emacs22-bin-common				install
+emacs22-common					install
+emacsen-common					install
 emboss						install
 emboss-data					install
 emboss-lib					install
@@ -95,6 +100,7 @@ gzip						install
 hal						install
 hal-info					install
 hdparm						install
+hicolor-icon-theme				install
 hmmer						install
 hostname					install
 html2text					install
@@ -123,6 +129,8 @@ libapr1-dev					install
 libaprutil1					install
 libasound2					install
 libasound2-plugins				install
+libatk1.0-0					install
+libatk1.0-data					install
 libatm1						install
 libattr1					install
 libavahi-client3				install
@@ -212,6 +220,9 @@ libgraphviz-perl				install
 libgraphviz4					install
 libgstreamer-plugins-base0.10-0			install
 libgstreamer0.10-0				install
+libgtk2.0-0					install
+libgtk2.0-bin					install
+libgtk2.0-common				install
 libhal-storage1					install
 libhal1						install
 libhtml-format-perl				install
@@ -230,6 +241,7 @@ libipc-run-perl					install
 libisc45					install
 libisccc40					install
 libisccfg40					install
+libjasper1					install
 libjaxp1.3-java					install
 libjaxp1.3-java-gcj				install
 libjpeg62					install
@@ -361,6 +373,8 @@ libxcb-render0					install
 libxcb-render0-dev				install
 libxcb1						install
 libxcb1-dev					install
+libxcomposite1					install
+libxcursor1					install
 libxdamage1					install
 libxdmcp-dev					install
 libxdmcp6					install
@@ -392,6 +406,7 @@ libxmu6						install
 libxmuu1					install
 libxpm-dev					install
 libxpm4						install
+libxrandr2					install
 libxrender-dev					install
 libxrender1					install
 libxss1						install
@@ -572,6 +587,7 @@ x11proto-kb-dev					install
 x11proto-render-dev				install
 x11proto-xext-dev				install
 xauth						install
+xaw3dg						install
 xbitmaps					install
 xfonts-encodings				install
 xfonts-utils					install
