@@ -79,7 +79,7 @@ where supported options are:\n\
 
 #ifndef TSCANDIR
 /* #define TSCANDIR "/usr/local/lib/trnascan" */
-#define TSCANDIR "/usr/local/packages/tRNAscan/lib/tRNAscan-SE"
+#define TSCANDIR "/usr/local/bioinf/tRNAscan-SE"
 #endif  
 
 

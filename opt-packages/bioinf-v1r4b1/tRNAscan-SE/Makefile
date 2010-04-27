@@ -20,9 +20,9 @@ PERLDIR = /usr/bin
 PERLBIN = perl
 
 ## where you want things installed
-BINDIR  = /usr/local/packages/tRNAscan/bin
-LIBDIR  = /usr/local/packages/tRNAscan/lib/tRNAscan-SE
-MANDIR  = /usr/local/packages/tRNAscan/man
+BINDIR  = /usr/local/bioinf/tRNAscan-SE/bin
+LIBDIR  = /usr/local/bioinf/tRNAscan-SE/lib/tRNAscan-SE
+MANDIR  = /usr/local/bioinf/tRNAscan-SE/man
 
 ## NOTE !!  If you later manually move the location of 
 ## binaries or data files in the BINDIR or LIBDIR directories,
