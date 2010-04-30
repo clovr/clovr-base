@@ -590,6 +590,7 @@ sub Set_defaults {
 
     $tscan_version = 1.4;    # version of tRNAscan used by tRNAscan-SE
 
+    #SVA Disabling use of TMPDIR because causing problems under SGE
     if ($ENV{TMPDIR}) {		  # set location of temp files
 	$temp_dir = $ENV{TMPDIR}; 
     } 
