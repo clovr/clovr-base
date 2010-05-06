@@ -29,6 +29,7 @@ busybox-initramfs				install
 bzip2						install
 ca-certificates					install
 ca-certificates-java				install
+chkconfig					install
 clustalw					install
 console-setup					install
 console-terminus				install
@@ -40,6 +41,7 @@ cpp-4.3						install
 cron						install
 csh						install
 curl						install
+daemon						install
 dbus						install
 dbus-x11					install
 debconf						install
@@ -104,10 +106,12 @@ hicolor-icon-theme				install
 hmmer						install
 hostname					install
 html2text					install
+hudson						install
 icedtea-6-jre-cacao				install
 ifupdown					install
 initramfs-tools					install
 initscripts					install
+insserv						install
 intltool-debian					install
 iproute						install
 iputils-ping					install
