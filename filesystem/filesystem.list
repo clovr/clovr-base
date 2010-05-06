@@ -887,7 +887,14 @@ lrwxrwxrwx 1 root root 16  /etc/alternatives/c99 -> /usr/bin/c99-gcc
 lrwxrwxrwx 1 root root 16  /etc/alternatives/emacs -> /usr/bin/emacs22
 lrwxrwxrwx 1 root root 16  /etc/alternatives/rename -> /usr/bin/prename
 lrwxrwxrwx 1 root root 16  /etc/alternatives/wish -> /usr/bin/wish8.5
+lrwxrwxrwx 1 root root 16  /etc/rc0.d/K20hudson -> ../init.d/hudson
+lrwxrwxrwx 1 root root 16  /etc/rc1.d/K20hudson -> ../init.d/hudson
 lrwxrwxrwx 1 root root 16  /etc/rc1.d/S90single -> ../init.d/single
+lrwxrwxrwx 1 root root 16  /etc/rc2.d/K20hudson -> ../init.d/hudson
+lrwxrwxrwx 1 root root 16  /etc/rc3.d/K20hudson -> ../init.d/hudson
+lrwxrwxrwx 1 root root 16  /etc/rc4.d/K20hudson -> ../init.d/hudson
+lrwxrwxrwx 1 root root 16  /etc/rc5.d/K20hudson -> ../init.d/hudson
+lrwxrwxrwx 1 root root 16  /etc/rc6.d/K20hudson -> ../init.d/hudson
 lrwxrwxrwx 1 root root 16  /etc/rc6.d/S90reboot -> ../init.d/reboot
 lrwxrwxrwx 1 root root 16  /etc/rcS.d/S17procps -> ../init.d/procps
 lrwxrwxrwx 1 root root 16  /lib/libattr.so.1 -> libattr.so.1.1.0
@@ -1948,6 +1955,7 @@ lrwxrwxrwx 1 root root 19  /usr/share/man/man3/wnoutrefresh.3ncurses.gz -> refre
 lrwxrwxrwx 1 root root 19  /usr/share/man/man3/wredrawln.3ncurses.gz -> refresh.3ncurses.gz
 lrwxrwxrwx 1 root root 19  /usr/share/man/man3/wrefresh.3ncurses.gz -> refresh.3ncurses.gz
 lrwxrwxrwx 1 root root 19  /usr/share/man/man3/wsetscrreg.3ncurses.gz -> outopts.3ncurses.gz
+lrwxrwxrwx 1 root root 19  /usr/share/man/man5/daemon.conf.5.gz -> ../man1/daemon.1.gz
 lrwxrwxrwx 1 root root 19  /usr/share/terminfo/s/sun -> /lib/terminfo/s/sun
 lrwxrwxrwx 1 root root 19  /usr/share/vim/vimrc.tiny -> /etc/vim/vimrc.tiny
 lrwxrwxrwx 1 root root 20  /bin/mt -> /etc/alternatives/mt
@@ -5794,6 +5802,7 @@ lrwxrwxrwx 1 root root 62  /etc/ssl/certs/GlobalSign_Root_CA_-_R2.pem -> /usr/sh
 lrwxrwxrwx 1 root root 62  /etc/ssl/certs/Thawte_Time_Stamping_CA.pem -> /usr/share/ca-certificates/mozilla/Thawte_Time_Stamping_CA.crt
 lrwxrwxrwx 1 root root 62  /etc/ssl/certs/signet_ocspklasa2_pem.pem -> /usr/share/ca-certificates/signet.pl/signet_ocspklasa2_pem.crt
 lrwxrwxrwx 1 root root 62  /etc/ssl/certs/signet_ocspklasa3_pem.pem -> /usr/share/ca-certificates/signet.pl/signet_ocspklasa3_pem.crt
+lrwxrwxrwx 1 root root 62  /opt/globus-5.0.0/lib/libglobus_xio_udt_driver_gcc64dbg.so -> /opt/globus-5.0.0/lib/libglobus_xio_udt_driver_gcc64dbgpthr.so
 lrwxrwxrwx 1 root root 62  /usr/src/linux-headers-2.6.28-11-generic/include/linux/apm-emulation.h -> ../../../linux-headers-2.6.28-11/include/linux/apm-emulation.h
 lrwxrwxrwx 1 root root 62  /usr/src/linux-headers-2.6.28-11-generic/include/linux/cgroup_subsys.h -> ../../../linux-headers-2.6.28-11/include/linux/cgroup_subsys.h
 lrwxrwxrwx 1 root root 62  /usr/src/linux-headers-2.6.28-11-generic/include/linux/compiler-gcc3.h -> ../../../linux-headers-2.6.28-11/include/linux/compiler-gcc3.h
