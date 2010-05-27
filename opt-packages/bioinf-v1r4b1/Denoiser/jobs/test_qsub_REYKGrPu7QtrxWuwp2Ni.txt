@@ -1,0 +1,33 @@
+# Walltime Limit: hh:nn:ss 
+#PBS -l walltime=72:00:00 
+
+# Node Specification:
+#PBS -l ncpus=1 -l nodes=1
+
+# Queue: Defaults to friendlyq 
+#PBS -q friendlyq 
+
+# Mail: options are (a) aborted, (b) begins execution, (e) ends execution
+# use -M <email> for additional recipients
+# supress email notification
+#PBS -m n
+
+# Job Name:
+#PBS -N test_qsub 
+
+# Keep output
+#PBS -k oe
+
+echo ------------------------------------------------------
+echo SGE: qsub is running on $SGE_O_HOST
+echo SGE: originating queue is $QUEUE
+echo SGE executing queue is $QUEUE
+echo SGE: working directory is $SGE_O_WORKDIR
+echo SGE: job identifier is $JOBID
+echo SGE: job name is $JOB_NAME
+echo SGE: current home directory is $SGE_O_HOME
+echo SGE: PATH = $SGE_O_PATH
+echo ------------------------------------------------------
+cd $SGE_O_WORKDIR
+echo hello > /root/test_hello_8827366253.txt
+

@@ -1,0 +1,13 @@
+The 'rRNA16S.gold.fasta' contains a fasta database of 16S rRNA sequences that are nearly full-length, relatively chimera-free (derived from type strains and downloaded from RDP or extracted from bacterial genome sequences)
+
+NAST alignments of these sequences are provided as: rRNA16S.gold.NAST_ALIGNED.fasta
+
+These files can be used with the WigeoN, ChimeraSlayer, and other microbiome utilities provided at http://microbiomeutil.sf.net
+
+**********************************************************************************************************************************************
+** Thanks to Jim Cole of the Ribosomal Database Project for providing these sequences and allowing us to make them available here. **
+**********************************************************************************************************************************************
+
+Questions, comments, etc?  Contact Brian Haas (bhaas@broadinstitute.org)
+
+ 
