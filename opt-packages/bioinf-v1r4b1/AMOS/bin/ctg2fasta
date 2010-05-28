@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+use lib "/opt/opt-packages/bioinf-v1r4b1/AMOS//lib";
+
+
+use strict;
+use AMOS::AmosLib;
+use AMOS::ParseFasta;
+
+my $parser = new AMOS::ParseFasta(\*STDIN, '#', '');
+
+while (my ($head, $data) = $parser->getRecord()){
+
+    if ($head =~ /^\#(\S+)/){
+	my $name = $1;
+	$data =~ s/-//g;
+	printFastaSequence(\*STDOUT, $name, $data);
+    }
+
+}
+
+exit(0);
