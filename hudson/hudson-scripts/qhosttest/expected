@@ -1,0 +1,11 @@
+HOSTNAME                ARCH         NCPU  LOAD  MEMTOT  MEMUSE  SWAPTO  SWAPUS
+-------------------------------------------------------------------------------
+global                  -               -     -       -       -       -       -
+clovr-10-90-136-86      lx24-amd64      1  0.26    1.9G  371.1M     0.0     0.0
+   wf.q                 BIP   0/0/5         
+   repository.q         BIP   0/0/1         
+   staging.q            BIP   0/0/2         
+   stagingsub.q         BIP   0/0/1         
+   harvesting.q         BIP   0/0/2         
+   exec.q               BIP   0/0/2         
+   pipeline.q           BIP   0/0/3         

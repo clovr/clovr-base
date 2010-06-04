@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>source /opt/vappio-scripts/clovrEnv.sh
+qhost -q &gt; /opt/hudson/qhosttest/expected                                                         
+qhost -q -xml | xpath -e &apos;//queue/@name&apos; &gt; /opt/hudson/qhosttest/queues 
+hostname -f &gt; /opt/hudson/qhosttest/expectedhosts
+qhost -q -xml | xpath -e &apos;//host/@name&apos; &gt; /opt/hudson/qhosttest/hosts
+
+/opt/hudson/qhosttest/qhost.pl
+/opt/hudson/qhosttest/qhost2.pl</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

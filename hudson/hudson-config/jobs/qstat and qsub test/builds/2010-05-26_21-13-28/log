@@ -1,0 +1,5 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson149687032975024641.sh
++ sudo -u www-data /var/lib/hudson/qsubtest.sh
+sudo: unable to execute /var/lib/hudson/qsubtest.sh: Permission denied
+Finished: FAILURE

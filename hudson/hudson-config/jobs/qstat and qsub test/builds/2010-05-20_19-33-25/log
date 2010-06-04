@@ -1,0 +1,7 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson3570744727084294849.sh
++ sudo -u www-data /tmp/test3
+/opt/vappio-scripts/clovrEnv.sh: line 29: ulimit: open files: cannot modify limit: Operation not permitted
+Your job 76 ("sleep") has been submitted
+Job 76 exited with exit code 0.
+Finished: SUCCESS

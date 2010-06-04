@@ -1,0 +1,100 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson864172438859633021.sh
++ sudo /opt/vappio-scripts/stop_master.sh
+There are no jobs registered
+root@clovr-10-90-137-95 removed "clovr-10-90-137-95" from submit host list
+root@clovr-10-90-137-95 removed "exec.q" from cluster queue list
+root@clovr-10-90-137-95 removed "harvesting.q" from cluster queue list
+root@clovr-10-90-137-95 removed "pipeline.q" from cluster queue list
+root@clovr-10-90-137-95 removed "repository.q" from cluster queue list
+root@clovr-10-90-137-95 removed "staging.q" from cluster queue list
+root@clovr-10-90-137-95 removed "stagingsub.q" from cluster queue list
+root@clovr-10-90-137-95 removed "wf.q" from cluster queue list
+sent shutdown and kill notification to  execd host clovr-10-90-137-95
+root@clovr-10-90-137-95 removed "clovr-10-90-137-95" from execution host list
+denied: can't delete master host "clovr-10-90-137-95" from admin host list
+root@clovr-10-90-137-95 removed "global" from project list
+   shutting down Grid Engine qmaster
+qconf -kej appears to have failed. Checking /opt/sge/default/spool/clovr-10-90-137-95/execd.pid
+Killing 1104
+/opt/vappio-scripts/stop_master.sh: line 29: kill: (1104) - No such process
+++ cat /mnt/clovr/runtime/node_type
++ node=OFFLINE
++ '[' OFFLINE '!=' OFFLINE ']'
++ sudo /opt/vappio-scripts/start_master.sh
+chown: changing ownership of `/mnt/staging': Operation not permitted
+chown: changing ownership of `/mnt/wf-working': Operation not permitted
+chown: changing ownership of `/mnt/harvesting': Operation not permitted
+clovr/
+clovr/workflow/
+clovr/workflow/project_saved_templates/
+clovr/workflow/project_saved_templates/blastp_test/
+clovr/workflow/project_saved_templates/blastp_test/pipeline.layout
+tar: clovr/workflow/project_saved_templates/blastp_test/pipeline.layout: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/blastp_test/ncbi-blastp.default.config
+tar: clovr/workflow/project_saved_templates/blastp_test/ncbi-blastp.default.config: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/blastp_test/split_multifasta.default.config
+tar: clovr/workflow/project_saved_templates/blastp_test/split_multifasta.default.config: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/clovr_test_proteins/
+tar: clovr/workflow/project_saved_templates/blastp_test: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/clovr_test_proteins/pipeline.layout
+tar: clovr/workflow/project_saved_templates/clovr_test_proteins/pipeline.layout: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/clovr_test_proteins/hmmpfam.default.config
+tar: clovr/workflow/project_saved_templates/clovr_test_proteins/hmmpfam.default.config: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_saved_templates/clovr_test_proteins/split_multifasta.default.config
+tar: clovr/workflow/project_saved_templates/clovr_test_proteins/split_multifasta.default.config: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_id_repository/
+tar: clovr/workflow/project_saved_templates/clovr_test_proteins: Cannot change ownership to uid 33, gid 33: Operation not permitted
+tar: clovr/workflow/project_saved_templates: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project_id_repository/valid_id_repository
+tar: clovr/workflow/project_id_repository/valid_id_repository: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/runtime/
+tar: clovr/workflow/project_id_repository: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/runtime/pipeline/
+clovr/workflow/lock_files/
+tar: clovr/workflow/runtime/pipeline: Cannot change ownership to uid 33, gid 33: Operation not permitted
+tar: clovr/workflow/runtime: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/workflow/project.config
+tar: clovr/workflow/lock_files: Cannot change ownership to uid 33, gid 33: Operation not permitted
+tar: clovr/workflow/project.config: Cannot change ownership to uid 33, gid 33: Operation not permitted
+clovr/output_repository/
+tar: clovr/workflow: Cannot change ownership to uid 33, gid 33: Operation not permitted
+tar: clovr/output_repository: Cannot change ownership to uid 33, gid 33: Operation not permitted
+tar: clovr: Cannot change ownership to uid 0, gid 0: Operation not permitted
+tar: Error exit delayed from previous errors
+   starting sge_qmaster
+no submit host defined
+no cqueue list defined
+"clovr-10-90-137-95" is not an execution host
+no execution host defined
+denied: can't delete master host "clovr-10-90-137-95" from admin host list
+denied: project "global" does not exist
+   starting sge_execd
+operator "guest" already exists
+manager "guest" already exists
+manager "www-data" already exists
+adminhost "clovr-10-90-137-95" already exists
+clovr-10-90-137-95 added to submit host list
+root@clovr-10-90-137-95 added "global" to project list
+root@clovr-10-90-137-95 added "exec.q" to cluster queue list
+root@clovr-10-90-137-95 added "pipeline.q" to cluster queue list
+root@clovr-10-90-137-95 added "staging.q" to cluster queue list
+root@clovr-10-90-137-95 added "stagingsub.q" to cluster queue list
+root@clovr-10-90-137-95 added "wf.q" to cluster queue list
+root@clovr-10-90-137-95 added "harvesting.q" to cluster queue list
+root@clovr-10-90-137-95 added "repository.q" to cluster queue list
+root@clovr-10-90-137-95 modified "staging.q" in cluster queue list
+root@clovr-10-90-137-95 modified "stagingsub.q" in cluster queue list
+root@clovr-10-90-137-95 modified "wf.q" in cluster queue list
+root@clovr-10-90-137-95 modified "repository.q" in cluster queue list
+root@clovr-10-90-137-95 modified "harvesting.q" in cluster queue list
+root@clovr-10-90-137-95 modified "staging.q" in cluster queue list
+root@clovr-10-90-137-95 modified "stagingsub.q" in cluster queue list
+root@clovr-10-90-137-95 modified "harvesting.q" in cluster queue list
+root@clovr-10-90-137-95 modified "exec.q" in cluster queue list
+root@clovr-10-90-137-95 modified "exec.q" in cluster queue list
+root@clovr-10-90-137-95 modified "pipeline.q" in cluster queue list
+++ cat /mnt/clovr/runtime/node_type
++ node2=MASTER_NODE
++ '[' MASTER_NODE '!=' MASTER_NODE ']'
+Finished: SUCCESS

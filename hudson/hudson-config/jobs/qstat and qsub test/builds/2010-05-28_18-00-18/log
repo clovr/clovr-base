@@ -1,0 +1,6 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson1373320198237214888.sh
++ sudo /var/lib/hudson/qsubtest.sh
+Your job 89 ("sleep") has been submitted
+Job 89 exited with exit code 0.
+Finished: SUCCESS

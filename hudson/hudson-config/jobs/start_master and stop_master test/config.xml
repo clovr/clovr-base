@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Checks if stop_master.sh and start_master.sh work properly.&#xd;
+&#xd;
+</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>sudo /opt/vappio-scripts/stop_master.sh
+
+node=`cat /mnt/clovr/runtime/node_type`
+if [  $node  != &quot;OFFLINE&quot; ]; then
+echo &quot;node is $node&quot;
+echo &quot;error, node should be offline&quot;
+exit 1
+fi
+
+sudo /opt/vappio-scripts/start_master.sh
+
+
+node2=`cat /mnt/clovr/runtime/node_type`
+if [ $node2 != &quot;MASTER_NODE&quot; ]; then 
+echo &quot;node is $node2&quot;
+echo &quot;error, node should be MASTER_NODE&quot;
+exit 1
+fi
+
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

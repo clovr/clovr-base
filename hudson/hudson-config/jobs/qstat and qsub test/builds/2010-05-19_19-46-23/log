@@ -1,0 +1,4 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson8800794715199040863.sh
++ /opt/sge/bin/lx24-amd64/qstat
+Finished: SUCCESS

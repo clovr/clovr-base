@@ -1,0 +1,5 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson1081927254430493455.sh
++ sudo /opt/hudson/syncdata/syncdata.sh
+sudo: /opt/hudson/syncdata/syncdata.sh: command not found
+Finished: FAILURE

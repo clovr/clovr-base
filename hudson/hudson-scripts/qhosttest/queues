@@ -1,0 +1,7 @@
+ name="wf.q"
+ name="repository.q"
+ name="staging.q"
+ name="stagingsub.q"
+ name="harvesting.q"
+ name="exec.q"
+ name="pipeline.q"

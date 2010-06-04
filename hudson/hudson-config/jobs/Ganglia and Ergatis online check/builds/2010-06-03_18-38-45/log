@@ -1,0 +1,4 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson8682199456024774446.sh
++ sudo /opt/hudson/hostname.pl
+Finished: SUCCESS
