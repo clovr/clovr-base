@@ -85,6 +85,8 @@ parameter strings, run velveth and return results.
 
 =item POSIX qw(strftime)
 
+=back
+
 =head2 Private Fields
 
 =over 8
@@ -109,11 +111,11 @@ Private method which checks for a correctly formatted velveth string.  Returns 1
 
 =item objectVelveth
 
-Accepts a VelvetAssembly object, looks for the velveth parameter string it contains, checks it, sends it to _runVelveth, collects the results and stores them in the VelvetAssembly object.
+Accepts a VelvetAssembly object and the number of categories velvet was compiled with, looks for the velveth parameter string it contains, checks it, sends it to _runVelveth, collects the results and stores them in the VelvetAssembly object.
 
 =item stringVelveth
 
-Accepts a velveth parameter string, checks it, sends it to _runVelveth and then collects and returns the velveth output messages.
+Accepts a velveth parameter string and the number of categories velvet was compiled with, checks it, sends it to _runVelveth and then collects and returns the velveth output messages.
 
 =back
 
@@ -127,6 +129,23 @@ use POSIX qw(strftime);
 
 my $interested = 0;
 
+my $usage = "Incorrect velveth parameter string: Needs to be of the form\n{[-file_format][-read_type] filename}\n";
+$usage .= "Where:\n\tFile format options:
+        -fasta
+        -fastq
+        -fasta.gz
+        -fastq.gz
+        -eland
+        -gerald
+
+Read type options:
+        -short
+        -shortPaired
+        -short2
+        -shortPaired2
+        -long
+        -longPaired\n\nThere can be more than one filename specified as long as its a different type.\nStopping run\n";
+
 sub _runVelveth {
     my $cmdline = shift;
     my $output = "";
@@ -137,28 +156,36 @@ sub _runVelveth {
 }
 
 sub _checkVHString {
-    my %fileform = ();
+    
+	my $line = shift;
+	my $cats = shift;
+	
+	my %fileform = ();
     my %readform = ();
 
     my @Fileformats = qw(-fasta -fastq -fasta.gz -fastq.gz -eland -gerald);
-    my @Readtypes = qw(-short -shortPaired -short2 -shortPaired2 -long -longPaired);
+    my @Readtypes = qw(-short -shortPaired -long -longPaired);
+	
+	for(my $i = 2; $i <= $cats; $i++){
+		push @Readtypes, "-short$i";
+		push @Readtypes, "-shortPaired$i";
+	}
 
     foreach(@Fileformats){ $fileform{$_} = 1;}
     foreach(@Readtypes){ $readform{$_} = 1;}
 
-    my $line = shift;
     my @l = split /\s+/, $line;
 
     #first check for a directory name as the first parameter...
     my $dir = shift @l;
     if(!($dir =~ /\w+/) || ($dir =~ /^\-/)){
-        carp "**** $line\n\tNo directory name specified as first parameter in velveth string. Internal error!\n";
+        carp "**** $line\n\tNo directory name specified as first parameter in velveth string. Internal error!\n$usage";
         return 0;
     }
     #print "VH Check passed directory..\n";
     my $hash = shift @l;
     unless($hash =~ /^\d+$/){
-        carp "**** $line\n\tHash value in velveth string not a number. Internal error!\n";
+        carp "**** $line\n\tHash value in velveth string not a number. Internal error!\n$usage";
         return 0;
     }
 
@@ -170,24 +197,24 @@ sub _checkVHString {
         if(/^-/){
             #s/-//;
             if(!$fileform{$_} && !$readform{$_}){
-                carp "**** $line\n\tIncorrect fileformat or readformat specified.\n\t$_ is an invalid velveth switch.\n";
+                carp "**** $line\n\tIncorrect fileformat or readformat specified.\n\t$_ is an invalid velveth switch.\n$usage";
                 return 0;
             }
             elsif($fileform{$_}){
                 if(($i + 1) > $#l){
-                    carp "$line\n\tNo filename supplied after file format type $l[$i].\n";
+                    carp "$line\n\tNo filename supplied after file format type $l[$i].\n$usage";
                     return 0;
                 }
                 if($readform{$l[$i+1]}){
                     if(($i+2) > $#l){
-                        carp "$line\n\tNo filename supplied after read format type $l[$i+1].\n";
+                        carp "$line\n\tNo filename supplied after read format type $l[$i+1].\n$usage";
                         return 0;
                     }
                     if(-e $l[$i+2]){
                         $ok = 1;
                     }
                     else{
-                        carp "**** $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n";
+                        carp "**** $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n$usage";
                         return 0;
                     }
                 }
@@ -195,25 +222,25 @@ sub _checkVHString {
                     $ok = 1;
                 }
                 else {
-                   carp "**** $line\n\tVelveth filename " . $l[$i+1] . " doesn't exist.\n";
+                   carp "**** $line\n\tVelveth filename " . $l[$i+1] . " doesn't exist.$usage\n";
                     return 0;
                 }
             }
             elsif($readform{$_}){
                 if(($i + 1) > $#l){
-                    carp "$line\n\tNo filename supplied after read format type $l[$i].\n";
+                    carp "$line\n\tNo filename supplied after read format type $l[$i].\n$usage";
                     return 0;
                 }
                 if($fileform{$l[$i+1]}){
                     if(($i+2) > $#l){
-                        carp "$line\n\tNo filename supplied after file format type $l[$i+1].\n";
+                        carp "$line\n\tNo filename supplied after file format type $l[$i+1].\n$usage";
                         return 0;
                     }
                     if(-e $l[$i+2]){
                         $ok = 1;
                     }
                     else{
-                        carp "**** $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n";
+                        carp "**** $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n$usage";
                         return 0;
                     }
                 }
@@ -221,13 +248,13 @@ sub _checkVHString {
                     $ok = 1;
                 }
                 else {
-                    carp "**** $line\n\tVelveth filename " . $l[$i+1] ." doesn't exist.\n";
+                    carp "**** $line\n\tVelveth filename " . $l[$i+1] ." doesn't exist.\n$usage";
                     return 0;
                 }
             }
         }
         elsif(!-e $_){
-            carp "**** $line\n\tVelveth filename $_ doesn't exist.\n";
+            carp "**** $line\n\tVelveth filename $_ doesn't exist.\n$usage";
             return 0;
         }
         $i ++;
@@ -239,8 +266,9 @@ sub _checkVHString {
 
 sub objectVelveth {
     my $va = shift;
+	my $cats = shift;
     my $cmdline = $va->{pstringh};
-    if(_checkVHString($cmdline)){
+    if(_checkVHString($cmdline, $cats)){
         $va->{velvethout} = _runVelveth($cmdline);
         my @t = split /\n/, $va->{velvethout};
         $t[$#t] =~ s/Timestamp:\s+//;
@@ -248,18 +276,19 @@ sub objectVelveth {
         return 1;
     }
     else {
-        $va->{velvethout} = "Formatting errors in velveth parameter string.";
+        $va->{velvethout} = "Formatting errors in velveth parameter string.$usage";
         return 0;
     }
 }
 
 sub stringVelveth {
     my $cmdline = shift;
-    if(_checkVHString($cmdline)){
+	my $cats = shift;
+    if(_checkVHString($cmdline,$cats)){
         return _runVelveth($cmdline);
     }
     else {
-        return "Formatting errors in velveth parameter string.";
+        return "Formatting errors in velveth parameter string.$usage";
     }
 }
 

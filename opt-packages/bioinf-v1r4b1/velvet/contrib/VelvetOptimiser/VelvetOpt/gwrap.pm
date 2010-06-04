@@ -85,6 +85,8 @@ parameter strings, run velvetg and return results.
 
 =item POSIX qw(strftime)
 
+=back
+
 =head2 Private Fields
 
 =over 8

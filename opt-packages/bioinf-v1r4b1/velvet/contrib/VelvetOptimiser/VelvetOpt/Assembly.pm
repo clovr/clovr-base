@@ -1,6 +1,6 @@
 #       VelvetOpt::Assembly.pm
 #
-#       Copyright 2008 Simon Gladman <simon.gladman@csiro.au>
+#       Copyright 2008,2009 Simon Gladman <simon.gladman@csiro.au>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -16,6 +16,21 @@
 #       along with this program; if not, write to the Free Software
 #       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #       MA 02110-1301, USA.
+
+#	Version 2.1.2
+#
+#	Changes for 2.0.1
+#	*Bug fix in CalcAssemblyScore.  Now returns 0 if there is no calculable score instead of crashing.
+#
+#	Changes for 2.1.0
+#	*Added 2 stage optimisation functions for optimising kmer size and cov_cutoff differently if required.
+#
+#	Changes for 2.1.1
+#	*Allowed for non-word characters in prefix names.  (. - etc.)  Still no spaces allowed in prefix name or any filenames.
+#
+#	Changes for 2.1.2
+#	*Now warns nicely of optimisation function returning undef or 0. Suggests you choose and alternative.
+
 package VelvetOpt::Assembly;
 
 =head1 NAME
@@ -28,7 +43,7 @@ Simon Gladman, CSIRO, 2007, 2008.
 
 =head1 LICENSE
 
-Copyright 2008 Simon Gladman <simon.gladman@csiro.au>
+Copyright 2008, 2009 Simon Gladman <simon.gladman@csiro.au>
 
        This program is free software; you can redistribute it and/or modify
        it under the terms of the GNU General Public License as published by
@@ -61,6 +76,8 @@ Copyright 2008 Simon Gladman <simon.gladman@csiro.au>
 A container class to hold the results of a Velvet assembly.  Includes timestamps,
 version information, parameter strings and assembly output metrics.
 
+Version 1.1
+
 =head2 Uses
 
 =over 8
@@ -70,6 +87,8 @@ version information, parameter strings and assembly output metrics.
 =item warnings
 
 =item Carp
+
+=back
 
 =head2 Fields
 
@@ -164,7 +183,6 @@ The velveth output
 The velvetg output
 
 =back
-=back
 
 =head2 Methods
 
@@ -177,10 +195,6 @@ Returns a new VelvetAssembly object.
 =item accessor methods
 
 Accessor methods for all fields.
-
-=item _checkVHString
-
-Checks the velveth parameter string for completeness..  Returns 1 if correct or 0 if not
 
 =item calcAssemblyScore
 
@@ -202,6 +216,10 @@ Returns a string representation of the object's contents.
 
 Returns a string representation of the object's contents without the velvet outputs which are large.
 
+=item opt_func_toString
+
+Returns the usage of the optimisation function.
+
 =back
 
 =cut
@@ -209,38 +227,36 @@ Returns a string representation of the object's contents without the velvet outp
 use strict;
 use Carp;
 use warnings;
+#use base "Storable";
 use Cwd;
+use Bio::SeqIO;
 
-my $usage = "Incorrect velveth parameter string: Needs to be of the form\n{[-file_format][-read_type] filename}\n";
-$usage .= "Where:\n\tFile format options:
-        -fasta
-        -fastq
-        -fasta.gz
-        -fastq.gz
-        -eland
-        -gerald
+my $interested = 0;
 
-Read type options:
-        -short
-        -shortPaired
-        -short2
-        -shortPaired2
-        -long
-        -longPaired\n\nThere can be more than one filename specified as long as its a different type.\nStopping run\n";
+
 
 #constructor
 sub new {
     my $class = shift;
     my $self = {@_};
-    if($self->{pstringh}){
-        my $vhcheck = &_checkVHString($self->{pstringh});
-        if(!$vhcheck){
-            croak $usage;
-        }
-    }
     bless ($self, $class);
     return $self;
 }
+
+#optimisation function options...
+my %f_opts;
+	$f_opts{'ncon'}->{'intname'} = 'nconts';
+	$f_opts{'ncon'}->{'desc'} = "The total number of contigs";
+	$f_opts{'n50'}->{'intname'} = 'n50';
+	$f_opts{'n50'}->{'desc'} = "The n50";
+	$f_opts{'max'}->{'intname'} = 'maxlength';
+	$f_opts{'max'}->{'desc'} = "The length of the longest contig";
+	$f_opts{'Lcon'}->{'intname'} = 'nconts1k';
+	$f_opts{'Lcon'}->{'desc'} = "The number of large contigs";
+	$f_opts{'tbp'}->{'intname'} = 'totalbp';
+	$f_opts{'tbp'}->{'desc'} = "The total number of basepairs in contigs";
+	$f_opts{'Lbp'}->{'intname'} = 'totalbp1k';
+	$f_opts{'Lbp'}->{'desc'} = "The total number of base pairs in large contigs";
 
 #accessor methods
 sub assmscore{ $_[0]->{assmscore}=$_[1] if defined $_[1]; $_[0]->{assmscore}}
@@ -264,122 +280,55 @@ sub totalbp1k{ $_[0]->{totalbp1k}=$_[1] if defined $_[1]; $_[0]->{totalbp1k}}
 sub velvethout{ $_[0]->{velvethout}=$_[1] if defined $_[1]; $_[0]->{velvethout}}
 sub velvetgout{ $_[0]->{velvetgout}=$_[1] if defined $_[1]; $_[0]->{velvetgout}}
 sub sequences{ $_[0]->{sequences}=$_[1] if defined $_[1]; $_[0]->{sequences}}
+sub assmfunc{ $_[0]->{assmfunc}=$_[1] if defined $_[1]; $_[0]->{assmfunc}}
+sub assmfunc2{ $_[0]->{assmfunc2}=$_[1] if defined $_[1]; $_[0]->{assmfunc2}}
 
-#velveth parameter string checking function.
-sub _checkVHString {
-    my %fileform = ();
-    my %readform = ();
-
-    my @Fileformats = qw(-fasta -fastq -fasta.gz -fastq.gz -eland -gerald);
-    my @Readtypes = qw(-short -shortPaired -short2 -shortPaired2 -long -longPaired);
-
-    foreach(@Fileformats){ $fileform{$_} = 1;}
-    foreach(@Readtypes){ $readform{$_} = 1;}
-
-    my $line = shift;
-    my @l = split /\s+/, $line;
-
-    #first check for a directory name as the first parameter...
-    my $dir = shift @l;
-    if(!($dir =~ /\w+/) || ($dir =~ /^\-/)){
-        carp "**** $line\n\tNo directory name specified as first parameter in velveth string. Internal error!\n";
-        return 0;
-    }
-    #print "VH Check passed directory..\n";
-    my $hash = shift @l;
-    unless($hash =~ /^\d+$/){
-        carp "**** $line\n\tHash value in velveth string not a number. Internal error!\n";
-        return 0;
-    }
-
-    #print "VH check passed hash value..\n";
-
-    my $i = 0;
-    my $ok = 1;
-    foreach(@l){
-        #print $_ . "\n";
-        if(/^-/){
-            #print "Got a dash..\n";
-            #s/-//;
-            if(!$fileform{$_} && !$readform{$_}){
-                carp "**** $line\n\tIncorrect fileformat or readformat specified.\n\t$_ is an invalid velveth switch.\n";
-                return 0;
-            }
-            elsif($fileform{$_}){
-                if(($i + 1) > $#l){
-                    carp "$line\n\tNo filename supplied after file format type $l[$i].\n";
-                    return 0;
-                }
-                if($readform{$l[$i+1]}){
-                    if(($i+2) > $#l){
-                        carp "$line\n\tNo filename supplied after read format type $l[$i+1].\n";
-                        return 0;
-                    }
-                    if(-e $l[$i+2]){
-                        $ok = 1;
-                    }
-                    else{
-                        carp "**** 320 $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n";
-                        return 0;
-                    }
-                }
-                elsif (-e $l[$i+1]){
-                    $ok = 1;
-                }
-                else {
-                   carp "**** 328 $line\n\tVelveth filename " . $l[$i+1] . " doesn't exist.\n";
-                    return 0;
-                }
-            }
-            elsif($readform{$_}){
-                if(($i + 1) > $#l){
-                    carp "$line\n\tNo filename supplied after read format type $l[$i].\n";
-                    return 0;
-                }
-                #print "i + 1: " . $l[$i+1] . "\n";
-                if($fileform{$l[$i+1]}){
-                    if(($i+2) > $#l){
-                        carp "$line\n\tNo filename supplied after file format type $l[$i+1].\n";
-                        return 0;
-                    }
-                    if(-e $l[$i+2]){
-                        $ok = 1;
-                    }
-                    else{
-                        carp "**** 346 $line\n\tVelveth filename " . $l[$i+2] . " doesn't exist.\n";
-                        return 0;
-                    }
-                }
-                elsif (-e $l[$i+1]){
-                    $ok = 1;
-                }
-                else {
-                    carp "**** 354 $line\n\tVelveth filename " . $l[$i+1] ." doesn't exist.\n";
-                    return 0;
-                }
-            }
-        }
-        elsif(!-e $_){
-
-            carp "**** 361 $line\n\tVelveth filename $_ doesn't exist.\n";
-            return 0;
-        }
-        $i ++;
-    }
-    if($ok){
-        return 1;
-    }
-}
 #assemblyScoreCalculator
 sub calcAssemblyScore {
-    my $self = shift;
-    unless(!$self->nconts1k || !$self->n50){
-        #$self->{assmscore} = $self->totalbp1k / $self->nconts1k * $self->n50 / 10000;
-        $self->{assmscore} = $self->totalbp1k;
-        return 1;
-    }
-    $self->{assmscore} = -1;
-    return 0;
+    use Safe;
+	
+	my $self = shift;
+	my $func = shift;
+	
+	my $cpt = new Safe;
+	
+	#Basic variable IO and traversal
+	$cpt->permit(qw(null scalar const padany lineseq leaveeval rv2sv rv2hv helem hslice each values keys exists delete rv2cv));
+	#Comparators
+	$cpt->permit(qw(lt i_lt gt i_gt le i_le ge i_ge eq i_eq ne i_ne ncmp i_ncmp slt sgt sle sge seq sne scmp));
+	#Base math
+	$cpt->permit(qw(preinc i_preinc predec i_predec postinc i_postinc postdec i_postdec int hex oct abs pow multiply i_multiply divide i_divide modulo i_modulo add i_add subtract i_subtract));
+	#Binary math
+	$cpt->permit(qw(left_shift right_shift bit_and bit_xor bit_or negate i_negate not complement));
+	#Regex
+	$cpt->permit(qw(match split qr));
+	#Conditionals
+	$cpt->permit(qw(cond_expr flip flop andassign orassign and or xor));
+	#Advanced math
+	$cpt->permit(qw(atan2 sin cos exp log sqrt rand srand));
+
+	foreach my $key (keys %f_opts){
+		print "\nkey: $key\tintname: ", $f_opts{$key}->{'intname'}, "\n" if $interested;
+		
+		$func =~ s/\b$key\b/$self->{$f_opts{$key}->{'intname'}}/g;
+	}
+		
+	my $r = $cpt->reval($func);
+	warn $@ if $@;
+	$self->{assmscore} = $r;
+	unless($r =~ /^\d+/){ 
+		warn "Optimisation function did not return a single float.\nOptimisation function was not evaluatable.\nOptfunc: $func";
+		warn "Setting assembly score to 0\n"; 
+		$self->{assmscore} = 0;
+	}
+	if($r == 0){
+		print STDERR "**********\n";
+		print STDERR "Warning: Assembly score for assembly_id " . $self->{ass_id} .  " is 0\n";
+		print STDERR "You may want to consider choosing a different optimisation variable or function.\n";
+		print STDERR "Current optimisation functions are ", $self->{assmfunc}, " for k value and ", $self->{assmfunc2}, " for cov_cutoff\n";
+		print STDERR "**********\n";
+	}
+	return 1;
 }
 
 #getHashingDetails
@@ -387,7 +336,7 @@ sub getHashingDetails {
     my $self = shift;
     unless(!$self->timestamph || !$self->pstringh){
         my $programPath = cwd;
-        $self->pstringh =~ /^(\w+)\s+(\d+)\s+(.*)$/;
+        $self->pstringh =~ /^(\S+)\s+(\d+)\s+(.*)$/;
         $self->{ass_dir} = $programPath . "/" . $1;
         $self->{rmapfs} = -s $self->ass_dir . "/Roadmaps";
         $self->{hashval} = $2;
@@ -407,44 +356,101 @@ sub getHashingDetails {
 #getAssemblyDetails
 sub getAssemblyDetails {
     my $self = shift;
-    unless(!$self->timestampg || !$self->pstringg || !$self->velvetgout){
-        my @t = split /\n/, $self->velvetgout;
-        foreach(@t){
-            if(/^Final graph/){
-                /(\d+) nodes/;
-                $self->{nconts} = $1;
-                /n50 of (\d+), max (\d+)/;
-                $self->{n50} = $1;
-                $self->{maxlength} = $2;
-                last;
-            }
-        }
-        unless(!(-e $self->ass_dir . "/stats.txt")){
-            open IN, $self->ass_dir . "/stats.txt";
-            my $b = 0;
-            my $l = 0;
-            my $tb = 0;
-            while(<IN>){
-                if(/^\d+\s+(\d+)/){
-                    my $c = $1;
-                    if($c >= 1000){
-                        $l ++;
-                        $b += $c;
-                    }
-                    $tb += $c;
-                }
-            }
-            $self->{nconts1k} = $l;
-            $self->{totalbp} = $tb;
-            $self->{totalbp1k} = $b;
-            close IN;
-        }
-        $self->calcAssemblyScore();
+	my $file = $self->ass_dir . "/contigs.fa";
+    unless(!(-e $file)){
+		
+		my $all = &contigStats($file,1);
+		my $large = &contigStats($file,1000);
+		
+		$self->{nconts} = defined $all->{numSeqs} ? $all->{numSeqs} : 0;
+		$self->{n50} = defined $all->{n50} ? $all->{n50} : 0;
+		$self->{maxlength} = defined $all->{maxLen} ? $all->{maxLen} : 0;
+		$self->{nconts1k} = defined $large->{numSeqs} ? $large->{numSeqs} : 0;
+		$self->{totalbp} = defined $all->{numBases} ? $all->{numBases} : 0;
+		$self->{totalbp1k} = defined $large->{numBases} ? $large->{numBases} : 0;
+		
+		if($self->pstringg =~ m/cov_cutoff/){
+			$self->calcAssemblyScore($self->{assmfunc2});
+		}
+		else {
+			$self->calcAssemblyScore($self->{assmfunc});
+		}
 
         return 1;
-    }
+	}
     return 0;
 }
+
+#contigStats
+#Original script fa-show.pl by Torsten Seemann (Monash University, Melbourne, Australia)
+#Modified by Simon Gladman to suit.
+sub contigStats {
+	
+	my $file = shift;
+	my $minsize = shift;
+	
+	print "In contigStats with $file, $minsize\n" if $interested;
+	
+	my $numseq=0;
+	my $avglen=0;
+	my $minlen=1E9;
+	my $maxlen=0;
+	my @len;
+	my $toosmall=0;
+	my $nn=0;
+	
+	my $in = Bio::SeqIO->new(-file => $file, -format => 'Fasta');
+	while(my $seq = $in->next_seq()){
+		my $L = $seq->length;
+		#check > minsize
+		if($L < $minsize){
+			$toosmall ++;
+			next;
+		}
+		#count Ns
+		my $s = $seq->seq;
+		my $n = $s =~ s/N/N/gi;
+		$n ||= 0;
+		$nn += $n;
+		#count seqs and other stats
+		$numseq ++;
+		$avglen += $L;
+		$maxlen = $L if $L > $maxlen;
+		$minlen = $L if $L < $minlen;
+		push @len, $L;
+	}
+	@len = sort { $a <=> $b } @len;
+	my $cum = 0;
+	my $n50 = 0;
+	for my $i (0 .. $#len){
+		$cum += $len[$i];
+		if($cum >= $avglen/2) {
+			$n50 = $len[$i];
+			last;
+		}
+	}
+	
+	my %out;
+	if($numseq > 0){
+		$out{numSeqs} = $numseq;
+		$out{numBases} = $avglen;
+		$out{numOK} = ($avglen - $nn);
+		$out{numNs} = $nn;
+		$out{minLen} = $minlen;
+		$out{avgLen} = $avglen/$numseq;
+		$out{maxLen} = $maxlen;
+		$out{n50} = $n50;
+		$out{minsize} = $minsize;
+		$out{numTooSmall} = $toosmall;
+	}
+	else {
+		$out{$numseq} = 0;
+	}
+	
+	print "Leaving contigstats!\n" if $interested;
+	return (\%out);
+}
+
 
 #toString method
 sub toString {
@@ -524,6 +530,17 @@ sub toStringNoV {
     }
     $tmp .= "**********************************************************\n";
     return $tmp;
+}
+
+sub opt_func_toString {
+	my $out = "\nVelvet optimiser assembly optimisation function can be built from the following variables.\n";
+	foreach my $key (sort keys %f_opts){
+		$out .= "\t$key = " . $f_opts{$key}->{'desc'} . "\n";
+	}
+	$out .= "Examples are:\n\t'Lbp' = Just the total basepairs in contigs longer than 1kb\n";
+	$out .= "\t'n50*Lcon' = The n50 times the number of long contigs.\n";
+	$out .= "\t'n50*Lcon/tbp+log(Lbp)' = The n50 times the number of long contigs divided\n\t\tby the total bases in all contigs plus the log of the number of bases\n\t\tin long contigs.\n";
+	return $out
 }
 
 1;
