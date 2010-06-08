@@ -1,0 +1,55 @@
+CloVR pipelines should use the clovr_wrapper framework whenever
+possible.  The wrapper framework provides a mechanism for starting a
+cluster, doing QC, and uploading and downloading data.
+
+An example pipeline is provided in clovr_sleep.  clovr_sleep is a
+pipeline with a single component that runs "wait/sleep". New pipelines
+can use clovr_sleep as a template.
+
+The files that define the pipeline are
+
+clovr_sleep/clovr_sleep.config        - configuration file for the wrapper pipeline. All runtime parameters are defined here.
+
+clovr_sleep/clovr_sleep.prerun.xml    - tag input data
+clovr_sleep/clovr_sleep.prestart.xml  - upload data to cluster
+clovr_sleep/clovr_sleep.postrun.xml   - noop
+
+clovr_sleep/pipeline.layout           - XML pipeline description
+clovr_sleep/pipeline_tmpl.config      - parameters for the "clovr_sleep" pipeline
+clovr_sleep/wait.default.config       - wait component configuration
+
+In addition, the file vappio-py/vappio/pipelines/clovr_sleep.py must
+be defined.  This file defines the valid parameters for
+PIPELINE_ARGS in clovr_sleep.config.
+
+
+------------
+Steps provided in clovr_wrapper 
+
+1)Pre-start workflow template
+This template is run BEFORE cluster start. Possible actions include tagging
+input data and QC on inputs (tagData.py).  We can specify a custom template for
+each pipeline.
+
+2)startCluster.py
+
+3)Pre-run workflow template
+This template is run AFTER cluster start but BEFORE pipeline start.  Possible
+actions include tagging and uploading data sets to the cluster (uploadTag.py)
+or resizing the cluster (addInstances.py)
+
+4)runPipeline.py
+This invokes the clovr pipeline. For example, the clovr_metagenomics pipeline
+would be invoked from here.  This command returns successful if the pipeline is
+invoked successfully. It does not wait for pipeline completion
+
+5)pipelineStatus.py
+This command will wait for pipeline completion and return zero on success only
+
+6)downloadOutput.py
+This command will download pipeline outputs to the local VM
+
+7)Post-run workflow template.
+This template is the last commands run in the pipeline. Possible actions
+include down sizing the cluster (terminateCluster.py) or loading a GBrowse
+instance
