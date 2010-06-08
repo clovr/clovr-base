@@ -1,0 +1,34 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_workflow.prestart</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.startcluster</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_workflow.prerun</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.runpipeline</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.pipelinestatus</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.downloadoutput</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_workflow.postrun</name>
+        </commandSet>
+</commandSet>
+</commandSetRoot>
