@@ -4,13 +4,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_sleep.prestart</name>
-    <command>
-      <name>Touch files</name>
-      <type>RunUnixCommand</type>
-      <executable>touch</executable>
-      <arg>touch $;INPUT_FILES$;</arg>
-    </command>
+    <name>clovr_microbe454.prestart</name>
     <command>
       <name>Tag data</name>
       <type>RunUnixCommand</type>
