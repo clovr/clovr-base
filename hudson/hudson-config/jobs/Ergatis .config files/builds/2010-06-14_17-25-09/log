@@ -1,0 +1,7 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson2722325556273244201.sh
++ find /opt/clovr_pipelines/workflow/project_saved_templates/ -name '*.config'
++ grep -v pipeline_tmpl.config
++ /opt/hudson/ergatisparse.pl
+/opt/clovr_pipelines/workflow/project_saved_templates/celera_assembler/celera-assembler-SGE.default.config cannot be found in /opt/ergatis/docs/ 
+Finished: FAILURE

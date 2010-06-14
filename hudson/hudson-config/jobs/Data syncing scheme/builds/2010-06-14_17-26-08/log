@@ -1,0 +1,16 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson4992951086602243437.sh
++ sudo /opt/hudson/syncdata/syncdata.sh
+Warning: Permanently added 'clovr-10-90-137-126,10.90.137.126' (RSA) to the list of known hosts.
+WARNING: ENABLED NONE CIPHER
+Warning: Permanently added 'clovr-10-90-137-126,10.90.137.126' (RSA) to the list of known hosts.
+Changes 
+No modification because "clovr-10-90-137-126" already exists in "hostlist" of "exec.q"
+Queue instance "exec.q@clovr-10-90-137-126" is already in the specified state: enabled
+PING clovr-10-90-137-126 (10.90.137.126) 56(84) bytes of data.
+64 bytes from clovr-10-90-137-126 (10.90.137.126): icmp_seq=1 ttl=64 time=0.027 ms
+
+--- clovr-10-90-137-126 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.027/0.027/0.027/0.000 ms
+Finished: SUCCESS
