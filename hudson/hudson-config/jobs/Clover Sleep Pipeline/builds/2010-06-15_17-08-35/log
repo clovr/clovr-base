@@ -1,0 +1,4 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson6384754447290955368.sh
++ sudo /opt/hudson/clovr_sleep.sh
+Finished: SUCCESS
