@@ -10,5 +10,12 @@ sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
 bootStrapKeys.py
 
-runPipeline.py --name local --pipeline-name microbe-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf 
+TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name microbe-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
+
+taskStatus.py --name local --exit-code --block $TASK_NAME
+
+exit $?
+
+
+
 
