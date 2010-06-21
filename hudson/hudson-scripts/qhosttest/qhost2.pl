@@ -1,9 +1,9 @@
 #! /usr/bin/perl
 
 $temp;
-$expected=`cat /var/lib/hudson/qhosttest/expectedhosts`;
+$expected=`cat /tmp/expectedhosts.txt`;
 
-open (MYFILE, '/var/lib/hudson/qhosttest/hosts');
+open (MYFILE, '/tmp/hosts.txt');
 while (<MYFILE>) {
     chomp;
     $temp=substr "$_",6; 
