@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Builds all the jobs in hudson</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/pipelineLocal.sh</command>
+      <command>sudo /opt/hudson/launchAll.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

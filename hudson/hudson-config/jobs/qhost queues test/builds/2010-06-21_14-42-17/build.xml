@@ -9,13 +9,13 @@
       </causes>
     </hudson.model.CauseAction>
   </actions>
-  <number>2</number>
+  <number>7</number>
   <result>SUCCESS</result>
-  <duration>439</duration>
+  <duration>990</duration>
   <charset>US-ASCII</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
-  <workspace>/var/lib/hudson/jobs/Pipelilne test on Local/workspace</workspace>
+  <workspace>/var/lib/hudson/jobs/qhost queues test/workspace</workspace>
   <hudsonVersion>1.352</hudsonVersion>
   <scm class="hudson.scm.NullChangeLogParser"/>
   <culprits/>

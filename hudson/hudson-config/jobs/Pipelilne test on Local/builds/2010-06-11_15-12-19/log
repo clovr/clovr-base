@@ -1,9 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson3903741677472191335.sh
-+ sudo /opt/hudson/pipelineLocal.pl
-Traceback (most recent call last):
-  File "/opt/vappio-py/vappio/cli/bootStrapKeys.py", line 6, in <module>
-    from igs.utils.cli import buildConfigN, notNone
-ImportError: No module named igs.utils.cli
-The environment variable $VAPPIO_HOME is not set. Please point to a local copy of the vappio checkout at /opt/vappio-scripts/run_prokaryotic_pipeline.pl line 499.
-Finished: SUCCESS
