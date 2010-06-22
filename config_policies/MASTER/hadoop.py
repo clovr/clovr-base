@@ -12,8 +12,12 @@ PKG_DIR = '${opt.base_dir}/hadoop'
 
 def startup():
     ##
-    # We do not want to format it if it's already been created
-    run('yes N | ' + PKG_DIR + '/bin/hadoop namenode -format', ignoreError=True)
+    # Hadoop has some funkyness going on where HDFS stops working, so this just delets
+    # any HDFS there and starts from scratch.
+    # We don't plan on storing any data on hadoop long term so for now this is
+    # an acceptable trade-off
+    run('rm -rf /tmp/hadoop-root /mnt/hadoop', ignoreError=True)
+    run(PKG_DIR + '/bin/hadoop namenode -format', ignoreError=True)
     run(PKG_DIR + '/bin/hadoop-daemon.sh start namenode')
     time.sleep(5)
     run(PKG_DIR + '/bin/hadoop-daemon.sh start jobtracker')
