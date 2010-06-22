@@ -1,0 +1,57 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+TIME={"display": "Time", "default": 10, "desc": "Number of seconds to wait per file"}
+INPUT_FILES={"display": "Input Files", "default": "/mnt/user_data/myfile1 /mnt/user_data/myfile2 /mnt/user_data/myfile3", "desc": "Dummy files to use as input"}
+
+
+PIPELINE_NAME={"display": "Pipeline Name", "default": "mypipeline", "desc": "Name of pipeline"}
+
+INPUT_TAG={"default": "clovrsleepfiles", "default_hidden": True, "desc": "Input tag name, should only specify if running multiple clovr_sleeps"}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+CLUSTER_TAG={"display": "Cluster Name", "default": "local", "default_hidden": True, "desc": "Cluster name to run this on, shouldn't need to specify manually"}
+EXEC_NODES={"default": 1, "default_hidden": True, "desc": "Number of exec nodes, should not need to specify manually"}
+CLOVR_CONF={"default": "clovr.conf", "default_hidden": True, "desc": "Config file, should not need to specify manually"}
+CLUSTER_TYPE={"display": "Cluster Type", "default": "local", "default_hidden": True, "desc": "Not sure"}
+
+#key=/mnt/devel1.pem
+#host=localhost
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+log_file={"default": "/mnt/clovr_sleep.log", "default_hidden": True, "desc": "Log file, should only be needed if something goes wrong"}
+## the higher, the more output (3 = most verbose)
+debug_level={"default": 3, "default_hidden": True, "desc": "Debug level, I don't think this is needed anymore"}
+
+[pipeline]
+PIPELINE_TEMPLATE={"default": "clovr_sleep", "default_hidden": True, "desc": "The type of the pipeline we are running"}
+PIPELINE_ARGS={"default": "--INPUT_FILE=${input.INPUT_FILES} --TIME=${input.TIME}", "default_hidden": True, "desc": "Default way to compose variables"}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.prestart.xml", "default_hidden": True, "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.prerun.xml", "default_hidden": True, "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.postrun.xml", "default_hidden": True, "desc": null}
+
+
+
