@@ -14,6 +14,7 @@ def startup():
     run(PKG_DIR + '/bin/hadoop-daemon.sh start tasktracker')
 
 def shutdown():
-    run(PKG_DIR + '/bin/hadoop-daemon.sh stop datanode')
-    run(PKG_DIR + '/bin/hadoop-daemon.sh stop tasktracker')
+    run('kill `cat /tmp/hadoop-*-datanode.pid`', ignoreError=True)
+    run('kill `cat /tmp/hadoop-*-tasktracker.pid`', ignoreError=True)
+    run('rm -f /tmp/hadoop-*-*.pid')
 
