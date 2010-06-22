@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Builds all the jobs in hudson</description>
+  <description>Builds all the jobs in hudson.&#xd;
+&#xd;
+WARNING:&#xd;
+DO NOT CHANGE THE NAME OF THIS JOB. DOING SO WILL CAUSE IT TO RUN RECURSIVELY. </description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
