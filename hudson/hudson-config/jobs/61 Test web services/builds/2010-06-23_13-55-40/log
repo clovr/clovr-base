@@ -1,0 +1,70 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson4200421942382457566.sh
++ sudo /opt/hudson/webService.sh
+[
+ true, 
+ {
+  "name": "local", 
+  "execNodes": [], 
+  "dataNodes": [], 
+  "master": {
+   "privateDNS": "clovr-10-90-137-207", 
+   "index": null, 
+   "availabilityZone": null, 
+   "monitor": null, 
+   "launch": null, 
+   "instanceId": "local", 
+   "publicDNS": "clovr-10-90-137-207", 
+   "amiId": null, 
+   "state": "running", 
+   "key": null, 
+   "instanceType": null
+  }, 
+  "ctype": "vappio.ec2.control", 
+  "config": "{\"cluster.key\": \"vappio_00\", \"instance.config_file\": \"/opt/vappio-conf/machine.conf\", \"cluster.master_type\": \"m1.large\", \"env.QIIME_CONFIG_FP\": \"/opt/opt-packages/bioinf-v1r4b1//qiime/.qiime_config\", \"sge.queues.repositoryq\": \"repository.q\", \"sge.queues.stagingq_conf\": \"/opt/vappio-scripts/sge/staging.q\", \"sge.queues.harvesting_dir\": \"/mnt/harvesting\", \"sge.queues.waitonharvest\": \"y\", \"MASTER_IP\": \"clovr-10-90-137-207\", \"env.runlevel\": \"2\", \"sge.queues.stagingsubq_conf\": \"/opt/vappio-scripts/sge/stagingsub.q\", \"env.vappio_cloud_type\": \"vmware\", \"env.SHLVL\": \"2\", \"dirs.staging_dir\": \"/mnt/staging\", \"NODE_TYPE\": \"MASTER\", \"sge.exec_user\": \"guest\", \"ssh.options\": \"-oNoneSwitch=yes -oNoneEnabled=yes -o PasswordAuthentication=no -o ConnectTimeout=30 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o UserKnownHostsFile=/dev/null -q -i /mnt/keys/devel1.pem\", \"cluster.exec_type\": \"m1.large\", \"cluster.cluster_private_key\": \"/mnt/keys/devel1.pem\", \"env.HISTFILE\": \"\", \"env.RUNLEVEL\": \"2\", \"env.SGE_ROOT\": \"/opt/sge\", \"env.EC2_PRIVATE_KEY\": \"/tmp/ec2-pk.pem\", \"env.VAPPIO_HOME\": \"/opt\", \"env.SGE_CELL\": \"default\", \"env.PYTHON_EGG_CACHE\": \"/tmp/python-eggs\", \"env.ARCH\": \"lx24-amd64\", \"sge.apache_user\": \"www-data\", \"sge.queues.wfq_conf\": \"/opt/vappio-scripts/sge/wf.q\", \"dirs.clovr_pipelines_template_dir\": \"/opt/clovr_pipelines/workflow/project_saved_templates/\", \"env.PYTHONPATH\": \":/opt/vappio-py:/opt/opt-packages/bioinf-v1r4b1//Denoiser/:/opt/opt-packages/bioinf-v1r4b1//PyNAST/lib/:/opt/opt-packages/bioinf-v1r4b1//qiime/lib/\", \"sge.project\": \"/opt/vappio-scripts/sge/global.project\", \"env.EC2_CERT\": \"/tmp/ec2-cert.pem\", \"sge.queues.execq\": \"exec.q\", \"dirs.tag_dir\": \"/mnt/staging/tags\", \"dirs.pipeline_runtime\": \"/mnt/projects/clovr/workflow/runtime/pipeline/\", \"sge.queues.execq_conf\": \"/opt/vappio-scripts/sge/exec.q\", \"env.BASH_ENV\": \"\", \"env.HOME\": \"/root\", \"env.UPSTART_JOB\": \"rc2\", \"env.EC2_HOME\": \"/usr\", \"env.PWD\": \"/\", \"env.UPSTART_JOB_ID\": \"8\", \"env.previous\": \"N\", \"env.BIOINF_HOME\": \"/opt/opt-packages/bioinf-v1r4b1/\", \"env.PATH\": \"/opt/opt-packages/globus-5.0.0/bin:/opt/opt-packages/globus-5.0.0/sbin:/opt/sge/bin/lx24-amd64:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/opt/vappio-py/vappio/cli:/opt/vappio-py/vappio/cli/remote:/opt/vappio-scripts:/opt/vappio-scripts/pipelines:/opt/crossbow/ec2-local:/opt/crossbow/local:/opt/samtools:/opt/cufflinks:/opt/opt-packages/bioinf-v1r4b1//cd-hit/:/opt/opt-packages/bioinf-v1r4b1//FastTree:/opt/opt-packages/bioinf-v1r4b1//rdp_classifier:/opt/opt-packages/bioinf-v1r4b1//UCLUST/:/opt/opt-packages/bioinf-v1r4b1//MUSCLE/:/opt/opt-packages/bioinf-v1r4b1//mafft/bin/:/opt/opt-packages/bioinf-v1r4b1//PyNAST/bin/:/opt/opt-packages/bioinf-v1r4b1//qiime/bin/:/opt/opt-packages/bioinf-v1r4b1//mothur/:/opt/opt-packages/bioinf-v1r4b1//microbiomeutil/ChimeraSlayer/\", \"cluster.master_groups\": [\"vappio\", \"web\"], \"env.MANPATH\": \"/opt/opt-packages/globus-5.0.0/man:/opt/sge/man:/usr/share/man:/usr/local/share/man\", \"sge.seeding_script\": \"seedingSGE.py\", \"env.LIBPATH\": \"/opt/opt-packages/globus-5.0.0/lib:/usr/lib:/lib\", \"vappio.scripts_dir\": \"/opt/vappio-scripts\", \"sge.queues.stagingq\": \"staging.q\", \"misc.scratch_dir\": \"/mnt/scratch\", \"sge.queues.wfworking_dir\": \"/mnt/wf-working\", \"sge.root\": \"/opt/sge\", \"sge.queues.harvestingq\": \"harvesting.q\", \"env.TERM\": \"linux\", \"env.UPSTART_EVENT\": \"runlevel\", \"sge.queues.execslots\": \"1\", \"dirs.upload_dir\": \"/mnt/staging/data\", \"env.PERL5LIB\": \"/opt/opt-packages/globus-5.0.0/lib/perl\", \"sge.queues.wfq\": \"wf.q\", \"env.LD_LIBRARY_PATH\": \"/opt/opt-packages/globus-5.0.0/lib\", \"env.PREVLEVEL\": \"N\", \"env.SHLIB_PATH\": \"/opt/opt-packages/globus-5.0.0/lib\", \"sge.queues.harvestingslots\": \"2\", \"dirs.clovr_project\": \"/mnt/projects/clovr\", \"MY_IP\": \"`hostname -f`\", \"general.secure_tmp\": \"/tmp\", \"env.DYLD_LIBRARY_PATH\": \"/opt/opt-packages/globus-5.0.0/lib\", \"env.BLASTMAT\": \"/usr/share/ncbi/data/\", \"env.RDP_JAR_PATH\": \"/opt/opt-packages/bioinf-v1r4b1//rdp_classifier/rdp_classifier-2.0.jar\", \"env.JAVA_HOME\": \"/usr\", \"env.SGE_CLUSTER_NAME\": \"p6444\", \"env.GLOBUS_LOCATION\": \"/opt/opt-packages/globus-5.0.0\", \"cluster.ami\": \"ami-26d43c4f\", \"sge.queues.staging_dir\": \"/mnt/staging\", \"vappio.user\": \"www-data\", \"sge.admin_user\": \"sgeadmin\", \"cluster.exec_groups\": [\"vappio\", \"web\"], \"env.GLOBUS_PATH\": \"/opt/opt-packages/globus-5.0.0\", \"sge.cell\": \"default\", \"general.ctype\": \"UNKNOWN\", \"env._\": \"/opt/vappio-py/vappio/cli/remote/startUpNode.py\", \"sge.queues.stagingslots\": \"2\", \"cluster.master_user_data_tmpl\": \"/opt/vappio-scripts/cli/master_user-data.tmpl\", \"sge.queues.repositoryq_conf\": \"/opt/vappio-scripts/sge/repository.q\", \"env.VERBOSE\": \"no\", \"sge.queues.harvestingq_conf\": \"/opt/vappio-scripts/sge/harvesting.q\", \"sge.arch\": \"`/opt/sge/util/arch`\", \"cluster.exec_user_data_tmpl\": \"/opt/vappio-scripts/cli/exec_user-data.tmpl\", \"ssh.user\": \"root\"}"
+ }
+]
+[
+ true, 
+ [
+  "local"
+ ]
+]
+[
+ true, 
+ []
+]
+[
+ true, 
+ [
+  {
+   "phantom.cluster.ec2.tag_options": "-e", 
+   "name": "clovr-prok-db", 
+   "phantom_tag": true, 
+   "phantom.cluster.ec2.command": "wget -c --quiet -P ${base_dir} http://clovr-prok-db.s3.amazonaws.com/clovr-prok-db.tar.gz", 
+   "phantom.cluster.UNKNOWN.command": "wget -c --quiet -P ${base_dir} http://clovr-prok-db.s3.amazonaws.com/clovr-prok-db.tar.gz", 
+   "phantom.cluster.UNKNOWN.tag_options": "-e"
+  }, 
+  {
+   "phantom.cluster.ec2.tag_options": "-e", 
+   "name": "clovr-16s-db", 
+   "phantom_tag": true, 
+   "phantom.cluster.ec2.command": "wget -c --quiet -P ${base_dir} http://clovr-16s-db.s3.amazonaws.com/clovr-16s-metagenomics-db.tgz", 
+   "phantom.cluster.UNKNOWN.command": "wget -c --quiet -P ${base_dir} http://clovr-16s-db.s3.amazonaws.com/clovr-16s-metagenomics-db.tgz", 
+   "phantom.cluster.UNKNOWN.tag_options": "-e"
+  }, 
+  {
+   "phantom.cluster.ec2.tag_options": "-e", 
+   "name": "clovr-total-metagenomics-stub-db", 
+   "phantom_tag": true, 
+   "phantom.cluster.ec2.command": "wget -c --quiet -P ${base_dir} http://clovr-total-metagenomics-stub-db.s3.amazonaws.com/clovr-total-metagenomics-stub-db.tgz", 
+   "phantom.cluster.UNKNOWN.command": "wget -c --quiet -P ${base_dir} http://clovr-total-metagenomics-stub-db.s3.amazonaws.com/clovr-total-metagenomics-stub-db.tgz", 
+   "phantom.cluster.UNKNOWN.tag_options": "-e"
+  }
+ ]
+]
+[
+ true, 
+ []
+]
+Finished: SUCCESS
