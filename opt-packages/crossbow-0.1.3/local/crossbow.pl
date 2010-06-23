@@ -40,46 +40,40 @@ use Getopt::Long;
 #################################################################
 
 ## Set as the URL for your hdfs
-my $HDFSURL = "hdfs://szhdname00:9000";
+my $hostname = `hostname`;
+chomp($hostname);
+
+my $HDFSURL = "hdfs://" . $hostname;
 
 ## Path on local system to your hadoop command
-my $HADOOP = "/opt/UMhadoop/bin/hadoop";
+my $HADOOP = "/opt/opt-packages/hadoop-0.20.1/bin/hadoop";
 
 ## Path on local system to your hadoop streaming jar, with version matching the hadoop command
-my $STREAMING = "/opt/UMhadoop/contrib/streaming/hadoop-0.20.0-streaming.jar";
+my $STREAMING = "/opt/opt-packages/hadoop-0.20.1/contrib/streaming/hadoop-0.20.1-streaming.jar";
 
 ## Path on the local system to the crossbow preprocessor
-my $preproc_path = "~mschatz/build/crossbow/ec2-master/copy_mapper.pl";
+my $preproc_path = "/opt/opt-packages/crossbow-0.1.3/ec2-master/copy_mapper.pl";
 
 ## Path of the local system to bowtie  (compiled for the for hadoop worker nodes)
-my $bowtie_path  = "~mschatz/build/crossbow/cbcb/bowtie";
+my $bowtie_path  = "/opt/bowtie/bowtie";
 
 ## Path on the local system to the soapsnp (compiled for the hadoop worker nodes)
-my $soapsnp_path = "~mschatz/build/crossbow/soapsnp/soapsnp";
+my $soapsnp_path = "/opt/opt-packages/crossbow-0.1.3/soapsnp";
 
 ## Path on the local system to the soapsnp wrapper
-my $sswrap_path  = "~mschatz/build/crossbow/ec2-master/soapsnp_wrap.pl";
+my $sswrap_path  = "/opt/opt-packages/crossbow-0.1.3/ec2-master/soapsnp_wrap.pl";
 
 ## Path on the local system to the filter script
-my $filter_path  = "~mschatz/build/crossbow/cbcb/filter_alignments.pl";
+my $filter_path  = "/opt/opt-packages/crossbow-0.1.3/local/filter_alignments.pl";
 
-my $owner = `whoami`;
+my $owner = "clovr";
 chomp ($owner);
 
 ## Default hdfs base directory will be $hdfsbase/<PROJECT>/..., override with crossbow -base
 my $hdfsbase     = "/users/$owner/";
 
 ## Number of reducers to use, typically the number of nodes in the cluster
-my $numReducers = 20;
-
-
-## Once your environment is configured, delete the following line
-die "Edit crossbow.pl to configure\n";
-
-
-
-
-
+my $numReducers = 1;
 
 ## Default Run parameters
 #################################################################
@@ -110,7 +104,7 @@ my $runFilter   = 0;
 my $runAlignSnp = 0;
 my $dryrun = 0;
 
-
+my $output_dir;
 
 
 ## Process the command line arguments
@@ -141,6 +135,8 @@ my $result = GetOptions(
  "haploid_args=s" => \$snp_haploid_args,
  "diploid_args=s" => \$snp_diploid_args,
  "fetchsnps"      => \$fetch_snps,
+
+ "output_dir=s"   => \$output_dir,
 
  "filter"         => \$runFilter,
  "fchr=s"         => \$fchr,
