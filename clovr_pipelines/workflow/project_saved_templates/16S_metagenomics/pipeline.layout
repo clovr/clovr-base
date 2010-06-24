@@ -26,10 +26,6 @@
                     <state>incomplete</state>
                     <name>mothur_filter_seqs.default</name>
                 </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>fast_tree.default</name>
-                </commandSet>
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
