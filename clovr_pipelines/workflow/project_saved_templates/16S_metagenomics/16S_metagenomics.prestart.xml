@@ -8,13 +8,31 @@
       <name>Touch files</name>
       <type>RunUnixCommand</type>
       <executable>touch</executable>
-      <arg>touch $;INPUT_FILES$;</arg>
+      <arg>touch $;FASTA_FILES$; $;OLIGOS_FILE$; $;QUALITY_FILE$; $;META_FILE$;</arg>
     </command>
     <command>
-      <name>Tag data</name>
+      <name>Tag fasta data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-      <arg>--name local --tag-name $;INPUT_TAG$; --overwrite --recursive $;INPUT_FILES$;</arg>
+      <arg>--name local --tag-name $;FASTA_TAG$; --overwrite --recursive $;FASTA_FILES$;</arg>
+    </command>
+    <command>
+      <name>Tag oligos data</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
+      <arg>--name local --tag-name $;OLIGOS_TAG$; --overwrite --recursive $;OLIGOS_FILE$;</arg>
+    </command>
+    <command>
+      <name>Tag quality data</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
+      <arg>--name local --tag-name $;QUALITY_TAG$; --overwrite --recursive $;QUALITY_FILE$;</arg>
+    </command>
+    <command>
+      <name>Tag meta data</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
+      <arg>--name local --tag-name $;META_TAG$; --overwrite --recursive $;META_FILE$;</arg>
     </command>
   </commandSet>
 </commandSetRoot>
