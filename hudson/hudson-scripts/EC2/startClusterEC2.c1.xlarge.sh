@@ -6,7 +6,7 @@ ec2-describe-instances
 
 if [ "$?" != "0" ] ; then
 echo "EC2 isn't working"
-exit 0
+exit 1
 fi
 
 cp /opt/vappio-conf/clovr.conf /opt/vappio-conf/temp.conf
