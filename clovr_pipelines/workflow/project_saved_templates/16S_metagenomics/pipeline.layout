@@ -29,8 +29,22 @@
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>rdp_classifier.default</name>
-            </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>rdp_classifier.default</name>
+                </commandSet>
+                <commandSet type="parallel">
+                    <state>incomplete</state>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>skiff.default</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>metastats.default</name>
+                    </commandSet>
+                </commandSet>
+            </commandSet> 
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>

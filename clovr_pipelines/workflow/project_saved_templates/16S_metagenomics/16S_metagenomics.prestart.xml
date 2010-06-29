@@ -8,7 +8,7 @@
       <name>Touch files</name>
       <type>RunUnixCommand</type>
       <executable>touch</executable>
-      <arg>touch $;FASTA_FILES$; $;OLIGOS_FILE$; $;QUALITY_FILE$; $;META_FILE$;</arg>
+      <arg>$;FASTA_FILES$; $;OLIGOS_FILE$; $;QUALITY_FILE$; $;META_FILE$;</arg>
     </command>
     <command>
       <name>Tag fasta data</name>
