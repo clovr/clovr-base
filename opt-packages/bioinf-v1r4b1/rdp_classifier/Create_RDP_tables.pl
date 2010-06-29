@@ -52,7 +52,7 @@ my %groupnames = ();
 #*********************************************************************
 # Begin parsing files
 #*********************************************************************
-open IN, "$opt_g" or die "Can't open RDP output file for reading!!\n";
+open IN, "$opt_g" or die "Can't open Mothur groups file for reading!!\n";
 while(<IN>){
   chomp($_);
   my @A = split "\t", $_;
@@ -63,15 +63,19 @@ while(<IN>){
 }
 close IN;
 
-open IN, "$opt_m" or die "Can't open RDP output file for reading!!\n";
+open IN, "$opt_m" or die "Can't open Meta file for reading!!\n";
 while(<IN>){
   chomp($_);
   my @A = split /\,/, $_;
   $A[2] =~s/^\s+|\s+$//g;
-  $A[3] =~s/^\s+|\s+$//g;
-  $samples{$A[2]} = $A[3];
-  push @{$groups{$A[3]}}, $A[2];  
-  $groupnames{$A[3]} = 1;
+  if (!defined($A[3])){ # then there are no classes for the samples
+    push @{$groups{"NoClassDef"}}, $A[2];    
+  }else{
+    $A[3] =~s/^\s+|\s+$//g;
+    $samples{$A[2]} = $A[3];
+    push @{$groups{$A[3]}}, $A[2];  
+    $groupnames{$A[3]} = 1;
+  }
 }
 close IN;
 

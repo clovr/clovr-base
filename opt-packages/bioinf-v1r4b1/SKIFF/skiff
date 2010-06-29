@@ -93,8 +93,16 @@ while(<IN>){
 }
 close IN;
 
+
+
 $numfeatures = $row-1;
 $numsamples  = $numheadtitles;
+
+if ($numsamples == 1){
+  print "Cannot cluster on one sample.\nGoodbye.\n";
+  exit;
+}
+
 print 
 "\n**Sanity check passed:
 Filename: $matrixfile
