@@ -5,7 +5,7 @@
 #########################################################
 [input]
 INPUT_TAG={"display": "Input Tag", "default": nil, "desc": "Input tag of sequences to BLAST against"}
-REF_DB_PATH={"display": "Reference database tag", "default": nil, "desc": "Reference database tag to BLAST against"}
+REF_DB_TAG={"display": "Reference database tag", "default": nil, "desc": "Reference database tag to BLAST against"}
 
 PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
@@ -14,6 +14,9 @@ PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "d
 SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "default_hidden": true, "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
 EXPECT={"display": "Expect value", "default": "1e-5", "default_hidden": true, "desc": "Expect cutoff value for BLAST"}
 OTHER_OPTS={"display": "Other options", "default": "-m8", "default_hidden": true, "desc": "Other options to pass to BLAST"}
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run"}
+
+
 
 ##########################################################
 ## Cluster info.
@@ -45,13 +48,13 @@ PIPELINE_ARGS={"default": "--INPUT_TAG=${input.INPUT_TAG} --REF_DB_TAG=${input.R
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/blastall/blastall.prestart.xml", "default_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "default_hidden": true, "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/blastall/blastall.prerun.xml", "default_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_blastall/clovr_blastall.prerun.xml", "default_hidden": true, "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/blastall/blastall.postrun.xml", "default_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "default_hidden": true, "desc": null}
 
 
 
