@@ -8,7 +8,7 @@
       <name>Touch files</name>
       <type>RunUnixCommand</type>
       <executable>touch</executable>
-      <arg>$;FASTA_FILES$; $;OLIGOS_FILE$; $;QUALITY_FILE$; $;META_FILE$; $;DB_PATH$;</arg>
+      <arg>$;FASTA_FILES$; $;OLIGOS_FILE$; $;QUALITY_FILE$; $;META_FILE$;</arg>
     </command>
     <command>
       <name>Tag fasta data</name>
@@ -33,12 +33,6 @@
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
       <arg>--name local --tag-name $;META_TAG$; --overwrite --recursive $;META_FILE$;</arg>
-    </command>
-        <command>
-      <name>Tag 16S db data</name>
-      <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-      <arg>--name local --tag-name $;DB_TAG$; --overwrite --recursive $;DB_PATH$;</arg>
     </command>
   </commandSet>
 </commandSetRoot>
