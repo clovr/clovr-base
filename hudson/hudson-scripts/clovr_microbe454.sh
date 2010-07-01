@@ -13,7 +13,7 @@ bootStrapKeys.py
 
 TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name microbe-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
 
-if[ "$?" == 1]; then
+if[ "$?" == "1"]; then
     echo "runPipeline.py failed to run"
     exit 1
 fi
