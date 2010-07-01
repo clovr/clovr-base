@@ -3588,7 +3588,7 @@ lrwxrwxrwx 1 root root 31  /opt/bioinf -> /opt/opt-packages/bioinf-v1r4b1
 lrwxrwxrwx 1 root root 31  /opt/bowtie -> /opt/opt-packages/bowtie-0.12.0
 lrwxrwxrwx 1 root root 31  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbg.so -> libglobus_xio_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 31  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbg.so.0 -> libglobus_xio_gcc64dbg.so.0.0.0
-lrwxrwxrwx 1 root root 31  /opt/hadoop -> /opt/opt-packages/hadoop-0.20.1
+lrwxrwxrwx 1 root root 31  /opt/hadoop -> /opt/opt-packages/hadoop-0.20.2
 lrwxrwxrwx 1 root root 31  /usr/lib/R/COPYING -> ../../share/common-licenses/GPL
 lrwxrwxrwx 1 root root 31  /usr/lib/graphviz/libgvplugin_dot_layout.so.5 -> libgvplugin_dot_layout.so.5.0.0
 lrwxrwxrwx 1 root root 31  /usr/lib/libblas-3gf.a -> /etc/alternatives/libblas-3gf.a
