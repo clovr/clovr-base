@@ -29,6 +29,7 @@ function clovrQuery(req) {
 Ext.onReady(function() {
     clovrQuery({
 	url: '../vappio/queryTag_ws.py',
+	//params: {name: "local",tag_name: "samtag"},
 	params: {name: "local"},
 	success: function(response) {
 	    var v = response.map(function(val) {
