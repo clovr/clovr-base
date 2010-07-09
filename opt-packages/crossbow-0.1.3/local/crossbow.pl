@@ -46,10 +46,10 @@ chomp($hostname);
 my $HDFSURL = "hdfs://" . $hostname;
 
 ## Path on local system to your hadoop command
-my $HADOOP = "/opt/opt-packages/hadoop-0.20.1/bin/hadoop";
+my $HADOOP = "/opt/hadoop/bin/hadoop";
 
 ## Path on local system to your hadoop streaming jar, with version matching the hadoop command
-my $STREAMING = "/opt/opt-packages/hadoop-0.20.1/contrib/streaming/hadoop-0.20.1-streaming.jar";
+my $STREAMING = "/opt/hadoop/contrib/streaming/hadoop-0.20.2-streaming.jar";
 
 ## Path on the local system to the crossbow preprocessor
 my $preproc_path = "/opt/opt-packages/crossbow-0.1.3/ec2-master/copy_mapper.pl";
@@ -58,7 +58,7 @@ my $preproc_path = "/opt/opt-packages/crossbow-0.1.3/ec2-master/copy_mapper.pl";
 my $bowtie_path  = "/opt/bowtie/bowtie";
 
 ## Path on the local system to the soapsnp (compiled for the hadoop worker nodes)
-my $soapsnp_path = "/opt/opt-packages/crossbow-0.1.3/soapsnp";
+my $soapsnp_path = "/opt/crossbow/bin/linux64/soapsnp-debug";
 
 ## Path on the local system to the soapsnp wrapper
 my $sswrap_path  = "/opt/opt-packages/crossbow-0.1.3/ec2-master/soapsnp_wrap.pl";
@@ -262,7 +262,7 @@ if (defined $haploid) { $haploid = "--haploids $haploid"; }
 else                  { $haploid = ""; }
 
 my $bowtie_cmd = "\"./bowtie index/index -p 2 --partition $partition_size -X $insert_size -m 1 -v 2 --best --strata --mm --12 - --startverbose --mmsweep\"";
-my $snp_cmd    = "\"sh -c \'chmod +x soapsnp_wrap.pl && ./soapsnp_wrap.pl --soapsnp=./soapsnp --haploid_args=\\\"$snp_haploid_args\\\" --diploid_args=\\\"$snp_diploid_args\\\" --refdir=index --snpdir=index --partition=$partition_size $haploid\'\"";
+my $snp_cmd    = "\"sh -c \'chmod +x soapsnp_wrap.pl && ./soapsnp_wrap.pl --soapsnp=$soapsnp_path --haploid_args=\\\"$snp_haploid_args\\\" --diploid_args=\\\"$snp_diploid_args\\\" --refdir=index --snpdir=index --partition=$partition_size $haploid\'\"";
 
 $hdfsbase .= "/$prefix";
 
@@ -531,9 +531,9 @@ if ($runFilter)
 }
 
 
-hdfs_fetch($aligndir, "$prefix.align", 0) if $fetch_alignments;
-hdfs_fetch($snpsdir, "$prefix.snps", 1) if $fetch_snps;
-hdfs_fetch($filterdir, "$prefix.$fchr.$fstart.$fend.aligns", 1) if $fetch_filtered;
+hdfs_fetch($aligndir, "$output_dir/$prefix.align", 0) if $fetch_alignments;
+hdfs_fetch($snpsdir, "$output_dir/$prefix.snps", 1) if $fetch_snps;
+hdfs_fetch($filterdir, "$output_dir/$prefix.$fchr.$fstart.$fend.aligns", 1) if $fetch_filtered;
 
 
 my $ENDTIME = time;
