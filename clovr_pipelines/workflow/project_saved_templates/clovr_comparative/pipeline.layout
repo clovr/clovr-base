@@ -1,0 +1,42 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>genbank2bsml.default</name>
+        </commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>bsml2fasta.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>split_multifasta.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>formatdb.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>ncbi-blastp.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>jaccard.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>muscle.jaccard</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>j_ortholog_clusters.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>muscle.JOCs</name>
+	</commandSet>
+    </commandSet>
+</commandSetRoot>

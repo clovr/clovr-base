@@ -1,0 +1,26 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>bsml2fasta.genomic</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>concatenate_files.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>mugsyprep.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>mugsycog.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>muscle.default</name>
+	</commandSet>
+    </commandSet>
+</commandSetRoot>
