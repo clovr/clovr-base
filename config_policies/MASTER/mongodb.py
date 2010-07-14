@@ -51,7 +51,9 @@ def startup():
                                           instanceType=None,
                                           launch=None,
                                           availabilityZone=None,
-                                          monitor=None))
+                                          monitor=None,
+                                          spotRequestId=None,
+                                          bidPrice=None))
 
 
     ##
