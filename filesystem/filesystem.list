@@ -2123,6 +2123,7 @@ lrwxrwxrwx 1 root root 20  /usr/lib/libz.so -> /lib/libz.so.1.2.3.3
 lrwxrwxrwx 1 root root 20  /usr/lib/sasl2/libcrammd5.so -> libcrammd5.so.2.0.22
 lrwxrwxrwx 1 root root 20  /usr/lib/sasl2/libcrammd5.so.2 -> libcrammd5.so.2.0.22
 lrwxrwxrwx 1 root root 20  /usr/lib/ssl/openssl.cnf -> /etc/ssl/openssl.cnf
+lrwxrwxrwx 1 root root 20  /usr/local/conf -> stow/psortb-3.0/conf
 lrwxrwxrwx 1 root root 20  /usr/share/doc/libpolkit-dbus2/README -> ../libpolkit2/README
 lrwxrwxrwx 1 root root 20  /usr/share/doc/libpolkit-grant2/README -> ../libpolkit2/README
 lrwxrwxrwx 1 root root 20  /usr/share/doc/libsysfs-dev/AUTHORS -> ../libsysfs2/AUTHORS
@@ -2560,6 +2561,7 @@ lrwxrwxrwx 1 root root 22  /usr/lib/vmware-tools/lib32/libvmGuestLib.so.0 -> lib
 lrwxrwxrwx 1 root root 22  /usr/lib/vmware-tools/lib32/libvmGuestLibJava.so -> libvmGuestLibJava.so.0
 lrwxrwxrwx 1 root root 22  /usr/lib/vmware-tools/lib64/libvmGuestLib.so.0 -> libvmGuestLib.so.0.0.0
 lrwxrwxrwx 1 root root 22  /usr/lib/vmware-tools/lib64/libvmGuestLibJava.so -> libvmGuestLibJava.so.0
+lrwxrwxrwx 1 root root 22  /usr/local/server -> stow/psortb-3.0/server
 lrwxrwxrwx 1 root root 22  /usr/share/aptitude/COPYING -> ../common-licenses/GPL
 lrwxrwxrwx 1 root root 22  /usr/share/doc/cpp/README.Bugs -> ../gcc-4.3/README.Bugs
 lrwxrwxrwx 1 root root 22  /usr/share/doc/dbus/AUTHORS -> ../libdbus-1-3/AUTHORS
@@ -2725,6 +2727,7 @@ lrwxrwxrwx 1 root root 23  /usr/lib/libsvn_delta-1.so.1 -> libsvn_delta-1.so.1.0
 lrwxrwxrwx 1 root root 23  /usr/lib/libsvn_fs_fs-1.so.1 -> libsvn_fs_fs-1.so.1.0.0
 lrwxrwxrwx 1 root root 23  /usr/lib/libsvn_repos-1.so.1 -> libsvn_repos-1.so.1.0.0
 lrwxrwxrwx 1 root root 23  /usr/lib/pvm3/lib/pvmgetarch -> ../../../bin/pvmgetarch
+lrwxrwxrwx 1 root root 23  /usr/local/sbin -> stow/ganglia-3.1.2/sbin
 lrwxrwxrwx 1 root root 23  /usr/share/doc/gettext/ABOUT-NLS -> ../../gettext/ABOUT-NLS
 lrwxrwxrwx 1 root root 23  /usr/share/doc/libgd2-xpm-dev/README.gz -> ../libgd2-xpm/README.gz
 lrwxrwxrwx 1 root root 23  /usr/share/doc/pulseaudio-esound-compat/README -> ../libpulsecore9/README
@@ -3340,6 +3343,7 @@ lrwxrwxrwx 1 root root 28  /usr/bin/servertool -> /etc/alternatives/servertool
 lrwxrwxrwx 1 root root 28  /usr/lib/libgstpbutils-0.10.so.0 -> libgstpbutils-0.10.so.0.16.0
 lrwxrwxrwx 1 root root 28  /usr/lib/python2.6/dist-packages/pylab.py -> /usr/share/pyshared/pylab.py
 lrwxrwxrwx 1 root root 28  /usr/lib/vmware-tools/sbin -> /usr/lib/vmware-tools/sbin64
+lrwxrwxrwx 1 root root 28  /usr/local/bin/psort -> ../stow/psortb-3.0/bin/psort
 lrwxrwxrwx 1 root root 28  /usr/share/doc/libopenssl-ruby1.8/NEWS.Debian.gz -> ../libruby1.8/NEWS.Debian.gz
 lrwxrwxrwx 1 root root 28  /usr/share/doc/python2.6/python-policy.html -> ../python/python-policy.html
 lrwxrwxrwx 1 root root 28  /usr/share/doc/ruby1.8/NEWS.Debian.gz -> ../libruby1.8/NEWS.Debian.gz
@@ -3399,6 +3403,7 @@ lrwxrwxrwx 1 root root 29  /etc/fonts/conf.d/69-unifont.conf -> ../conf.avail/69
 lrwxrwxrwx 1 root root 29  /etc/ssl/certs/3ad48a91.0 -> Baltimore_CyberTrust_Root.pem
 lrwxrwxrwx 1 root root 29  /opt/globus-5.0.0/lib/libltdl_gcc64dbgpthr.so -> libltdl_gcc64dbgpthr.so.3.1.6
 lrwxrwxrwx 1 root root 29  /opt/globus-5.0.0/lib/libltdl_gcc64dbgpthr.so.3 -> libltdl_gcc64dbgpthr.so.3.1.6
+lrwxrwxrwx 1 root root 29  /opt/pftools -> /opt/opt-packages/pftools-2.3
 lrwxrwxrwx 1 root root 29  /usr/bin/emacsclient -> /etc/alternatives/emacsclient
 lrwxrwxrwx 1 root root 29  /usr/bin/pyversions -> ../share/python/pyversions.py
 lrwxrwxrwx 1 root root 29  /usr/bin/rcs-checkin -> /etc/alternatives/rcs-checkin
@@ -3488,6 +3493,7 @@ lrwxrwxrwx 1 root root 30  /etc/ssl/certs/412bea73.0 -> Thawte_Personal_Premium_
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/46b2fd3b.0 -> SwissSign_Platinum_CA_-_G2.pem
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/4d654d1d.0 -> GTE_CyberTrust_Global_Root.pem
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/4e18c148.0 -> deutsche-telekom-root-ca-2.pem
+lrwxrwxrwx 1 root root 30  /opt/globus -> /opt/opt-packages/globus-5.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libglobus_io_gcc64dbg.so -> libglobus_io_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libglobus_io_gcc64dbg.so.0 -> libglobus_io_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libxml2_gcc64dbgpthr.so -> libxml2_gcc64dbgpthr.so.2.6.11
@@ -3578,8 +3584,11 @@ lrwxrwxrwx 1 root root 31  /etc/ssl/certs/17b51fe6.0 -> Certplus_Class_2_Primary
 lrwxrwxrwx 1 root root 31  /etc/ssl/certs/69105f4f.0 -> DigiCert_Assured_ID_Root_CA.pem
 lrwxrwxrwx 1 root root 31  /etc/ssl/certs/709afd2b.0 -> Thawte_Personal_Freemail_CA.pem
 lrwxrwxrwx 1 root root 31  /etc/ssl/certs/9ec3a561.0 -> UTN_USERFirst_Email_Root_CA.pem
+lrwxrwxrwx 1 root root 31  /opt/bioinf -> /opt/opt-packages/bioinf-v1r4b1
+lrwxrwxrwx 1 root root 31  /opt/bowtie -> /opt/opt-packages/bowtie-0.12.0
 lrwxrwxrwx 1 root root 31  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbg.so -> libglobus_xio_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 31  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbg.so.0 -> libglobus_xio_gcc64dbg.so.0.0.0
+lrwxrwxrwx 1 root root 31  /opt/hadoop -> /opt/opt-packages/hadoop-0.20.2
 lrwxrwxrwx 1 root root 31  /usr/lib/R/COPYING -> ../../share/common-licenses/GPL
 lrwxrwxrwx 1 root root 31  /usr/lib/graphviz/libgvplugin_dot_layout.so.5 -> libgvplugin_dot_layout.so.5.0.0
 lrwxrwxrwx 1 root root 31  /usr/lib/libblas-3gf.a -> /etc/alternatives/libblas-3gf.a
@@ -3589,6 +3598,8 @@ lrwxrwxrwx 1 root root 31  /usr/lib/libgstinterfaces-0.10.so.0 -> libgstinterfac
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.5/site-packages/site.py -> ../../../share/pyshared/site.py
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.6/dist-packages/site.py -> ../../../share/pyshared/site.py
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.6/sitecustomize.py -> /etc/python2.6/sitecustomize.py
+lrwxrwxrwx 1 root root 31  /usr/local/bin/gstat -> ../stow/ganglia-3.1.2/bin/gstat
+lrwxrwxrwx 1 root root 31  /usr/local/bioinf -> /opt/opt-packages/bioinf-v1r4b1
 lrwxrwxrwx 1 root root 31  /usr/share/doc/klibc-utils/changelog.Debian.gz -> ../libklibc/changelog.Debian.gz
 lrwxrwxrwx 1 root root 31  /usr/share/doc/libavahi-common3/NEWS.gz -> ../libavahi-common-data/NEWS.gz
 lrwxrwxrwx 1 root root 31  /usr/share/doc/python2.6/python-policy.sgml.gz -> ../python/python-policy.sgml.gz
@@ -3664,6 +3675,7 @@ lrwxrwxrwx 1 root root 32  /etc/fonts/conf.d/70-no-bitmaps.conf -> ../conf.avail
 lrwxrwxrwx 1 root root 32  /etc/ssl/certs/124bbd54.0 -> Comodo_Trusted_Services_root.pem
 lrwxrwxrwx 1 root root 32  /etc/ssl/certs/ccb919f9.0 -> UTN_USERFirst_Object_Root_CA.pem
 lrwxrwxrwx 1 root root 32  /etc/ssl/certs/ed524cf5.0 -> Entrust.net_Secure_Server_CA.pem
+lrwxrwxrwx 1 root root 32  /opt/crossbow -> /opt/opt-packages/crossbow-0.1.3
 lrwxrwxrwx 1 root root 32  /opt/globus-5.0.0/lib/libxmlsec1_gcc64dbgpthr.so -> libxmlsec1_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 32  /opt/globus-5.0.0/lib/libxmlsec1_gcc64dbgpthr.so.0 -> libxmlsec1_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 32  /usr/bin/grep-changelog -> /etc/alternatives/grep-changelog
@@ -3674,6 +3686,8 @@ lrwxrwxrwx 1 root root 32  /usr/lib/libpyglib-2.0-python2.5.so.0 -> libpyglib-2.
 lrwxrwxrwx 1 root root 32  /usr/lib/libpyglib-2.0-python2.6.so.0 -> libpyglib-2.0-python2.6.so.0.0.0
 lrwxrwxrwx 1 root root 32  /usr/lib/python2.5/site-packages/snack.py -> ../../../share/pyshared/snack.py
 lrwxrwxrwx 1 root root 32  /usr/lib/python2.6/dist-packages/snack.py -> ../../../share/pyshared/snack.py
+lrwxrwxrwx 1 root root 32  /usr/local/bin/check-sig -> ../stow/psortb-3.0/bin/check-sig
+lrwxrwxrwx 1 root root 32  /usr/local/bin/tophat -> ../stow/tophat-1.0.12/bin/tophat
 lrwxrwxrwx 1 root root 32  /usr/share/doc/consolekit/changelog.gz -> ../libck-connector0/changelog.gz
 lrwxrwxrwx 1 root root 32  /usr/share/doc/libpam-ck-connector/changelog.gz -> ../libck-connector0/changelog.gz
 lrwxrwxrwx 1 root root 32  /usr/share/doc/libpulse-browse0/changelog.Debian.gz -> ../libpulse0/changelog.Debian.gz
@@ -3723,6 +3737,9 @@ lrwxrwxrwx 1 root root 33  /usr/lib/graphviz/libgvplugin_neato_layout.so.5 -> li
 lrwxrwxrwx 1 root root 33  /usr/lib/libgstdataprotocol-0.10.so.0 -> libgstdataprotocol-0.10.so.0.19.0
 lrwxrwxrwx 1 root root 33  /usr/lib/liblapackgf-3.a -> /etc/alternatives/liblapackgf-3.a
 lrwxrwxrwx 1 root root 33  /usr/lib/python2.6/dist-packages/numpy/dual.py -> /usr/share/pyshared/numpy/dual.py
+lrwxrwxrwx 1 root root 33  /usr/local/bin/gmetric -> ../stow/ganglia-3.1.2/bin/gmetric
+lrwxrwxrwx 1 root root 33  /usr/local/bin/psort.tmpt -> ../stow/psortb-3.0/bin/psort.tmpt
+lrwxrwxrwx 1 root root 33  /usr/local/bin/wiggles -> ../stow/tophat-1.0.12/bin/wiggles
 lrwxrwxrwx 1 root root 33  /usr/share/doc/libgd2-xpm-dev/changelog.Debian.gz -> ../libgd2-xpm/changelog.Debian.gz
 lrwxrwxrwx 1 root root 33  /usr/share/doc/libopenssl-ruby1.8/changelog.Debian.gz -> ../libruby1.8/changelog.Debian.gz
 lrwxrwxrwx 1 root root 33  /usr/share/doc/libpolkit-dbus2/changelog.Debian.gz -> ../libpolkit2/changelog.Debian.gz
@@ -3778,6 +3795,8 @@ lrwxrwxrwx 1 root root 34  /usr/lib/liblapackgf-3.so -> /etc/alternatives/liblap
 lrwxrwxrwx 1 root root 34  /usr/lib/python2.6/dist-packages/numpy/setup.py -> /usr/share/pyshared/numpy/setup.py
 lrwxrwxrwx 1 root root 34  /usr/lib/python2.6/dist-packages/pytz/tzfile.py -> /usr/share/pyshared/pytz/tzfile.py
 lrwxrwxrwx 1 root root 34  /usr/lib/python2.6/dist-packages/pytz/tzinfo.py -> /usr/share/pyshared/pytz/tzinfo.py
+lrwxrwxrwx 1 root root 34  /usr/local/bin/juncs_db -> ../stow/tophat-1.0.12/bin/juncs_db
+lrwxrwxrwx 1 root root 34  /usr/local/bin/mask_sam -> ../stow/tophat-1.0.12/bin/mask_sam
 lrwxrwxrwx 1 root root 34  /usr/share/doc/dbus/changelog.Debian.gz -> ../libdbus-1-3/changelog.Debian.gz
 lrwxrwxrwx 1 root root 34  /usr/share/doc/libgcrypt11-dev/changelog.Debian.gz -> ../libgcrypt11/changelog.Debian.gz
 lrwxrwxrwx 1 root root 34  /usr/share/doc/libssl-dev/changelog.Debian.gz -> ../libssl0.9.8/changelog.Debian.gz
@@ -3853,6 +3872,8 @@ lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_or
 lrwxrwxrwx 1 root root 35  /usr/lib/python2.6/dist-packages/numpy/lib/io.py -> /usr/share/pyshared/numpy/lib/io.py
 lrwxrwxrwx 1 root root 35  /usr/lib/python2.6/dist-packages/numpy/matlib.py -> /usr/share/pyshared/numpy/matlib.py
 lrwxrwxrwx 1 root root 35  /usr/lib/vmware-tools/libconf -> /usr/lib/vmware-tools/lib64/libconf
+lrwxrwxrwx 1 root root 35  /usr/local/bin/gff_juncs -> ../stow/tophat-1.0.12/bin/gff_juncs
+lrwxrwxrwx 1 root root 35  /usr/local/lib64/ganglia -> ../stow/ganglia-3.1.2/lib64/ganglia
 lrwxrwxrwx 1 root root 35  /usr/share/doc/ttf-dejavu-extra/langcover.txt.gz -> ../ttf-dejavu-core/langcover.txt.gz
 lrwxrwxrwx 1 root root 35  /usr/share/man/man1/pg_resetxlog.1.gz -> /etc/alternatives/pg_resetxlog.1.gz
 lrwxrwxrwx 1 root root 35  /usr/share/man/man3/SSL_CTX_sess_get_cache_size.3ssl.gz -> SSL_CTX_sess_set_cache_size.3ssl.gz
@@ -3895,6 +3916,9 @@ lrwxrwxrwx 1 root root 36  /usr/lib/python2.6/dist-packages/numpy/version.py -> 
 lrwxrwxrwx 1 root root 36  /usr/lib/python2.6/dist-packages/pytz/__init__.py -> /usr/share/pyshared/pytz/__init__.py
 lrwxrwxrwx 1 root root 36  /usr/lib/security/classpath.security -> /var/lib/security/classpath.security
 lrwxrwxrwx 1 root root 36  /usr/local/bin/gaps -> /usr/local/bioinf/mummer/mummer/gaps
+lrwxrwxrwx 1 root root 36  /usr/local/bin/prep_reads -> ../stow/tophat-1.0.12/bin/prep_reads
+lrwxrwxrwx 1 root root 36  /usr/local/lib/libhmmer.a -> ../stow/libpsortb-1.0/lib/libhmmer.a
+lrwxrwxrwx 1 root root 36  /usr/local/lib/libsquid.a -> ../stow/libpsortb-1.0/lib/libsquid.a
 lrwxrwxrwx 1 root root 36  /usr/share/doc/apache2/README.Debian.gz -> ../apache2.2-common/README.Debian.gz
 lrwxrwxrwx 1 root root 36  /usr/share/doc/pulseaudio-esound-compat/changelog.Debian.gz -> ../libpulsecore9/changelog.Debian.gz
 lrwxrwxrwx 1 root root 36  /usr/share/doc/pulseaudio-module-hal/changelog.Debian.gz -> ../libpulsecore9/changelog.Debian.gz
@@ -3981,6 +4005,12 @@ lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/numpy/ma/bench.py ->
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/numpy/ma/setup.py -> /usr/share/pyshared/numpy/ma/setup.py
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/pytz/reference.py -> /usr/share/pyshared/pytz/reference.py
 lrwxrwxrwx 1 root root 37  /usr/local/bin/mgaps -> /usr/local/bioinf/mummer/mummer/mgaps
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libhmmer.la -> ../stow/libpsortb-1.0/lib/libhmmer.la
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libhmmer.so -> ../stow/libpsortb-1.0/lib/libhmmer.so
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libmodhmm.a -> ../stow/libpsortb-1.0/lib/libmodhmm.a
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libsquid.la -> ../stow/libpsortb-1.0/lib/libsquid.la
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libsquid.so -> ../stow/libpsortb-1.0/lib/libsquid.so
+lrwxrwxrwx 1 root root 37  /usr/local/lib/libsvmloc.a -> ../stow/libpsortb-1.0/lib/libsvmloc.a
 lrwxrwxrwx 1 root root 37  /usr/share/doc/postgresql-8.3/README.Debian.gz -> ../postgresql-common/README.Debian.gz
 lrwxrwxrwx 1 root root 37  /usr/share/man/man1/pg_controldata.1.gz -> /etc/alternatives/pg_controldata.1.gz
 lrwxrwxrwx 1 root root 37  /usr/share/man/man3/SSL_CTX_set_default_passwd_cb_userdata.3ssl.gz -> SSL_CTX_set_default_passwd_cb.3ssl.gz
@@ -4036,9 +4066,17 @@ lrwxrwxrwx 1 root root 38  /usr/lib/python2.6/dist-packages/numpy/lib/setup.py -
 lrwxrwxrwx 1 root root 38  /usr/lib/python2.6/dist-packages/numpy/lib/utils.py -> /usr/share/pyshared/numpy/lib/utils.py
 lrwxrwxrwx 1 root root 38  /usr/lib/python2.6/dist-packages/numpy/ma/extras.py -> /usr/share/pyshared/numpy/ma/extras.py
 lrwxrwxrwx 1 root root 38  /usr/lib/python2.6/dist-packages/setuptools.pth -> ../../../share/pyshared/setuptools.pth
+lrwxrwxrwx 1 root root 38  /usr/local/README -> stow/mongodb-linux-x86_64-1.2.2/README
+lrwxrwxrwx 1 root root 38  /usr/local/bin/bed_to_juncs -> ../stow/tophat-1.0.12/bin/bed_to_juncs
 lrwxrwxrwx 1 root root 38  /usr/local/bin/mummer -> /usr/local/bioinf/mummer/mummer/mummer
 lrwxrwxrwx 1 root root 38  /usr/local/bin/nucmer -> /usr/local/bioinf/mummer/mummer/nucmer
 lrwxrwxrwx 1 root root 38  /usr/local/bin/promer -> /usr/local/bioinf/mummer/mummer/promer
+lrwxrwxrwx 1 root root 38  /usr/local/include/gm_mmn.h -> ../stow/ganglia-3.1.2/include/gm_mmn.h
+lrwxrwxrwx 1 root root 38  /usr/local/include/gm_msg.h -> ../stow/ganglia-3.1.2/include/gm_msg.h
+lrwxrwxrwx 1 root root 38  /usr/local/lib/libmodhmm.la -> ../stow/libpsortb-1.0/lib/libmodhmm.la
+lrwxrwxrwx 1 root root 38  /usr/local/lib/libmodhmm.so -> ../stow/libpsortb-1.0/lib/libmodhmm.so
+lrwxrwxrwx 1 root root 38  /usr/local/lib/libsvmloc.la -> ../stow/libpsortb-1.0/lib/libsvmloc.la
+lrwxrwxrwx 1 root root 38  /usr/local/lib/libsvmloc.so -> ../stow/libpsortb-1.0/lib/libsvmloc.so
 lrwxrwxrwx 1 root root 38  /usr/share/doc/hal/changelog.Debian.gz -> ../libhal-storage1/changelog.Debian.gz
 lrwxrwxrwx 1 root root 38  /usr/share/doc/policykit/changelog.Debian.gz -> ../libpolkit-dbus2/changelog.Debian.gz
 lrwxrwxrwx 1 root root 38  /usr/share/doc/ttf-dejavu-extra/changelog.Debian.gz -> ../ttf-dejavu-core/changelog.Debian.gz
@@ -4110,8 +4148,15 @@ lrwxrwxrwx 1 root root 39  /usr/lib/python2.6/dist-packages/numpy/ma/version.py 
 lrwxrwxrwx 1 root root 39  /usr/lib/python2.6/dist-packages/numpy/setupscons.py -> /usr/share/pyshared/numpy/setupscons.py
 lrwxrwxrwx 1 root root 39  /usr/lib/python2.6/dist-packages/python-support.pth -> /var/lib/python-support/python2.6/.path
 lrwxrwxrwx 1 root root 39  /usr/lib/python2.6/dist-packages/pytz-2008h.egg-info -> /usr/share/pyshared/pytz-2008h.egg-info
+lrwxrwxrwx 1 root root 39  /usr/local/bin/closure_juncs -> ../stow/tophat-1.0.12/bin/closure_juncs
 lrwxrwxrwx 1 root root 39  /usr/local/bin/dnadiff -> /usr/local/bioinf/mummer/mummer/dnadiff
+lrwxrwxrwx 1 root root 39  /usr/local/bin/extract_reads -> ../stow/tophat-1.0.12/bin/extract_reads
+lrwxrwxrwx 1 root root 39  /usr/local/bin/library_stats -> ../stow/tophat-1.0.12/bin/library_stats
 lrwxrwxrwx 1 root root 39  /usr/local/bin/mapview -> /usr/local/bioinf/mummer/mummer/mapview
+lrwxrwxrwx 1 root root 39  /usr/local/bin/segment_juncs -> ../stow/tophat-1.0.12/bin/segment_juncs
+lrwxrwxrwx 1 root root 39  /usr/local/include/ganglia.h -> ../stow/ganglia-3.1.2/include/ganglia.h
+lrwxrwxrwx 1 root root 39  /usr/local/lib/libhmmer.so.0 -> ../stow/libpsortb-1.0/lib/libhmmer.so.0
+lrwxrwxrwx 1 root root 39  /usr/local/lib/libsquid.so.0 -> ../stow/libpsortb-1.0/lib/libsquid.so.0
 lrwxrwxrwx 1 root root 39  /usr/sbin/update-gtk-immodules -> ../lib/libgtk2.0-0/update-gtk-immodules
 lrwxrwxrwx 1 root root 39  /usr/share/doc/consolekit/changelog.Debian.gz -> ../libck-connector0/changelog.Debian.gz
 lrwxrwxrwx 1 root root 39  /usr/share/doc/libpam-ck-connector/changelog.Debian.gz -> ../libck-connector0/changelog.Debian.gz
@@ -4194,6 +4239,12 @@ lrwxrwxrwx 1 root root 40  /usr/lib/python2.6/dist-packages/numpy/random/info.py
 lrwxrwxrwx 1 root root 40  /usr/lib/python2.6/dist-packages/pkg_resources.py -> ../../../share/pyshared/pkg_resources.py
 lrwxrwxrwx 1 root root 40  /usr/lib/python2.6/dist-packages/pyExcelerator/Row.py -> /usr/share/pyshared/pyExcelerator/Row.py
 lrwxrwxrwx 1 root root 40  /usr/local/bin/annotate -> /usr/local/bioinf/mummer/mummer/annotate
+lrwxrwxrwx 1 root root 40  /usr/local/bin/ganglia-config -> ../stow/ganglia-3.1.2/bin/ganglia-config
+lrwxrwxrwx 1 root root 40  /usr/local/bin/tophat_reports -> ../stow/tophat-1.0.12/bin/tophat_reports
+lrwxrwxrwx 1 root root 40  /usr/local/include/gm_value.h -> ../stow/ganglia-3.1.2/include/gm_value.h
+lrwxrwxrwx 1 root root 40  /usr/local/lib/libmodhmm.so.0 -> ../stow/libpsortb-1.0/lib/libmodhmm.so.0
+lrwxrwxrwx 1 root root 40  /usr/local/lib/libsvmloc.so.0 -> ../stow/libpsortb-1.0/lib/libsvmloc.so.0
+lrwxrwxrwx 1 root root 40  /usr/local/lib64/libganglia.a -> ../stow/ganglia-3.1.2/lib64/libganglia.a
 lrwxrwxrwx 1 root root 40  /usr/share/doc/postgresql-common/changelog.gz -> ../postgresql-client-common/changelog.gz
 lrwxrwxrwx 1 root root 40  /usr/share/man/fr.ISO8859-1/man1/view.1.gz -> /etc/alternatives/view.fr.ISO8859-1.1.gz
 lrwxrwxrwx 1 root root 40  /usr/share/man/it.ISO8859-1/man1/view.1.gz -> /etc/alternatives/view.it.ISO8859-1.1.gz
@@ -4263,6 +4314,10 @@ lrwxrwxrwx 1 root root 41  /usr/lib/python2.6/dist-packages/pyExcelerator/Deco.p
 lrwxrwxrwx 1 root root 41  /usr/local/bin/show-diff -> /usr/local/bioinf/mummer/mummer/show-diff
 lrwxrwxrwx 1 root root 41  /usr/local/bin/show-snps -> /usr/local/bioinf/mummer/mummer/show-snps
 lrwxrwxrwx 1 root root 41  /usr/local/bin/tRNAscan-SE -> /usr/local/bioinf/tRNAscan-SE/tRNAscan-SE
+lrwxrwxrwx 1 root root 41  /usr/local/etc/gmond.conf.tmpl -> ../stow/ganglia-3.1.2/etc/gmond.conf.tmpl
+lrwxrwxrwx 1 root root 41  /usr/local/include/gm_metric.h -> ../stow/ganglia-3.1.2/include/gm_metric.h
+lrwxrwxrwx 1 root root 41  /usr/local/lib64/libganglia.la -> ../stow/ganglia-3.1.2/lib64/libganglia.la
+lrwxrwxrwx 1 root root 41  /usr/local/lib64/libganglia.so -> ../stow/ganglia-3.1.2/lib64/libganglia.so
 lrwxrwxrwx 1 root root 41  /usr/share/fonts/truetype/ttf-japanese-gothic.ttf -> /etc/alternatives/ttf-japanese-gothic.ttf
 lrwxrwxrwx 1 root root 41  /usr/share/fonts/truetype/ttf-japanese-mincho.ttf -> /etc/alternatives/ttf-japanese-mincho.ttf
 lrwxrwxrwx 1 root root 41  /usr/src/linux-headers-2.6.28-11-generic/arch/parisc -> ../../linux-headers-2.6.28-11/arch/parisc
@@ -4295,6 +4350,7 @@ lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_gssapi_gsi_gcc64dbgpt
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_gssapi_gsi_gcc64dbgpthr.so.0 -> libglobus_gssapi_gsi_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64dbg.so -> libglobus_xio_gsi_driver_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64dbg.so.0 -> libglobus_xio_gsi_driver_gcc64dbg.so.0.0.0
+lrwxrwxrwx 1 root root 42  /opt/samtools -> /opt/opt-packages/samtools-unknown_version
 lrwxrwxrwx 1 root root 42  /usr/bin/gtk-query-immodules-2.0 -> ../lib/libgtk2.0-0/gtk-query-immodules-2.0
 lrwxrwxrwx 1 root root 42  /usr/bin/vmware-toolbox -> /usr/lib/vmware-tools/bin64/vmware-toolbox
 lrwxrwxrwx 1 root root 42  /usr/include/numpy -> ../share/pyshared/numpy/core/include/numpy
@@ -4327,10 +4383,12 @@ lrwxrwxrwx 1 root root 42  /usr/lib/python2.6/dist-packages/numpy/testing/utils.
 lrwxrwxrwx 1 root root 42  /usr/lib/python2.6/dist-packages/pyExcelerator/Style.py -> /usr/share/pyshared/pyExcelerator/Style.py
 lrwxrwxrwx 1 root root 42  /usr/lib/python2.6/dist-packages/pyExcelerator/Utils.py -> /usr/share/pyshared/pyExcelerator/Utils.py
 lrwxrwxrwx 1 root root 42  /usr/local/bin/afetch -> /usr/local/bioinf/hmmer/hmmer/squid/afetch
+lrwxrwxrwx 1 root root 42  /usr/local/bin/fix_map_ordering -> ../stow/tophat-1.0.12/bin/fix_map_ordering
 lrwxrwxrwx 1 root root 42  /usr/local/bin/mummerplot -> /usr/local/bioinf/mummer/mummer/mummerplot
 lrwxrwxrwx 1 root root 42  /usr/local/bin/sindex -> /usr/local/bioinf/hmmer/hmmer/squid/sindex
 lrwxrwxrwx 1 root root 42  /usr/local/bin/test -> /usr/local/bioinf/glimmer/glimmer/bin/test
 lrwxrwxrwx 1 root root 42  /usr/local/bin/weight -> /usr/local/bioinf/hmmer/hmmer/squid/weight
+lrwxrwxrwx 1 root root 42  /usr/local/etc/gmetad.conf.tmpl -> ../stow/ganglia-3.1.2/etc/gmetad.conf.tmpl
 lrwxrwxrwx 1 root root 42  /usr/share/doc/libxcb-render-util0-dev/changelog.Debian.gz -> ../libxcb-render-util0/changelog.Debian.gz
 lrwxrwxrwx 1 root root 42  /usr/share/man/man1/x-terminal-emulator.1.gz -> /etc/alternatives/x-terminal-emulator.1.gz
 lrwxrwxrwx 1 root root 42  /usr/share/man/man7/drop_operator_class.7.gz -> /etc/alternatives/drop_operator_class.7.gz
@@ -4401,6 +4459,9 @@ lrwxrwxrwx 1 root root 43  /usr/local/bin/show-aligns -> /usr/local/bioinf/mumme
 lrwxrwxrwx 1 root root 43  /usr/local/bin/show-coords -> /usr/local/bioinf/mummer/mummer/show-coords
 lrwxrwxrwx 1 root root 43  /usr/local/bin/show-tiling -> /usr/local/bioinf/mummer/mummer/show-tiling
 lrwxrwxrwx 1 root root 43  /usr/local/bin/shuffle -> /usr/local/bioinf/hmmer/hmmer/squid/shuffle
+lrwxrwxrwx 1 root root 43  /usr/local/include/gm_protocol.h -> ../stow/ganglia-3.1.2/include/gm_protocol.h
+lrwxrwxrwx 1 root root 43  /usr/local/lib/libhmmer.so.0.0.0 -> ../stow/libpsortb-1.0/lib/libhmmer.so.0.0.0
+lrwxrwxrwx 1 root root 43  /usr/local/lib/libsquid.so.0.0.0 -> ../stow/libpsortb-1.0/lib/libsquid.so.0.0.0
 lrwxrwxrwx 1 root root 43  /usr/sbin/update-gdkpixbuf-loaders -> ../lib/libgtk2.0-0/update-gdkpixbuf-loaders
 lrwxrwxrwx 1 root root 43  /usr/sbin/vmware-checkvm -> /usr/lib/vmware-tools/sbin64/vmware-checkvm
 lrwxrwxrwx 1 root root 43  /usr/sbin/vmware-rpctool -> /usr/lib/vmware-tools/sbin64/vmware-rpctool
@@ -4454,9 +4515,13 @@ lrwxrwxrwx 1 root root 44  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/mis
 lrwxrwxrwx 1 root root 44  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/mlab.py -> /usr/share/pyshared/numpy/oldnumeric/mlab.py
 lrwxrwxrwx 1 root root 44  /usr/lib/python2.6/dist-packages/numpy/random/__init__.py -> /usr/share/pyshared/numpy/random/__init__.py
 lrwxrwxrwx 1 root root 44  /usr/lib/python2.6/dist-packages/numpy/random/randomkit.h -> /usr/share/pyshared/numpy/random/randomkit.h
+lrwxrwxrwx 1 root root 44  /usr/local/GNU-AGPL-3.0 -> stow/mongodb-linux-x86_64-1.2.2/GNU-AGPL-3.0
 lrwxrwxrwx 1 root root 44  /usr/local/bin/delta-filter -> /usr/local/bioinf/mummer/mummer/delta-filter
+lrwxrwxrwx 1 root root 44  /usr/local/bin/mongo -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongo
 lrwxrwxrwx 1 root root 44  /usr/local/bin/repeat-match -> /usr/local/bioinf/mummer/mummer/repeat-match
 lrwxrwxrwx 1 root root 44  /usr/local/bin/seqsplit -> /usr/local/bioinf/hmmer/hmmer/squid/seqsplit
+lrwxrwxrwx 1 root root 44  /usr/local/lib/libmodhmm.so.0.0.0 -> ../stow/libpsortb-1.0/lib/libmodhmm.so.0.0.0
+lrwxrwxrwx 1 root root 44  /usr/local/lib/libsvmloc.so.0.0.0 -> ../stow/libpsortb-1.0/lib/libsvmloc.so.0.0.0
 lrwxrwxrwx 1 root root 44  /usr/share/man/man7/alter_operator_family.7.gz -> /etc/alternatives/alter_operator_family.7.gz
 lrwxrwxrwx 1 root root 44  /usr/share/man/man7/create_operator_class.7.gz -> /etc/alternatives/create_operator_class.7.gz
 lrwxrwxrwx 1 root root 44  /usr/share/man/man7/rollback_to_savepoint.7.gz -> /etc/alternatives/rollback_to_savepoint.7.gz
@@ -4511,7 +4576,11 @@ lrwxrwxrwx 1 root root 45  /usr/lib/python2.6/dist-packages/setuptools/gui.exe -
 lrwxrwxrwx 1 root root 45  /usr/local/bin/anomaly -> /usr/local/bioinf/glimmer/glimmer/bin/anomaly
 lrwxrwxrwx 1 root root 45  /usr/local/bin/exact-tandems -> /usr/local/bioinf/mummer/mummer/exact-tandems
 lrwxrwxrwx 1 root root 45  /usr/local/bin/extract -> /usr/local/bioinf/glimmer/glimmer/bin/extract
+lrwxrwxrwx 1 root root 45  /usr/local/bin/long_spanning_reads -> ../stow/tophat-1.0.12/bin/long_spanning_reads
+lrwxrwxrwx 1 root root 45  /usr/local/bin/mongod -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongod
+lrwxrwxrwx 1 root root 45  /usr/local/bin/mongos -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongos
 lrwxrwxrwx 1 root root 45  /usr/local/bin/sreformat -> /usr/local/bioinf/hmmer/hmmer/squid/sreformat
+lrwxrwxrwx 1 root root 45  /usr/local/include/ganglia_gexec.h -> ../stow/ganglia-3.1.2/include/ganglia_gexec.h
 lrwxrwxrwx 1 root root 45  /usr/share/doc/build-essential/essential-packages-list -> ../../build-essential/essential-packages-list
 lrwxrwxrwx 1 root root 45  /usr/share/man/man7/create_operator_family.7.gz -> /etc/alternatives/create_operator_family.7.gz
 lrwxrwxrwx 1 root root 45  /usr/src/linux-headers-2.6.28-11-generic/arch/x86/kvm -> ../../../linux-headers-2.6.28-11/arch/x86/kvm
@@ -4545,6 +4614,7 @@ lrwxrwxrwx 1 root root 46  /etc/ssl/certs/47996b5c.0 -> beTRUSTed_Root_CA_-_Entr
 lrwxrwxrwx 1 root root 46  /etc/ssl/certs/f3cf1e8e.0 -> beTRUSTed_Root_CA-Baltimore_Implementation.pem
 lrwxrwxrwx 1 root root 46  /etc/ssl/certs/root.pem -> /usr/share/ca-certificates/cacert.org/root.crt
 lrwxrwxrwx 1 root root 46  /lib/modules/2.6.28-11-generic/misc/vmmemctl.ko -> /lib/modules/2.6.28-11-generic/misc/vmmemctl.o
+lrwxrwxrwx 1 root root 46  /opt/cufflinks -> /opt/opt-packages/cufflinks-0.7.0.Linux_x86_64
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_authz_null_callout_gcc64dbg.so -> libglobus_authz_null_callout_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_authz_null_callout_gcc64dbg.so.0 -> libglobus_authz_null_callout_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_gridftp_server_gcc64dbgpthr.so -> libglobus_gridftp_server_gcc64dbgpthr.so.0.0.0
@@ -4585,6 +4655,7 @@ lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/numpy/random/setupsc
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/numpy/testing/numpytest.py -> /usr/share/pyshared/numpy/testing/numpytest.py
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/pyExcelerator/ImportXLS.py -> /usr/share/pyshared/pyExcelerator/ImportXLS.py
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/pyExcelerator/Worksheet.py -> /usr/share/pyshared/pyExcelerator/Worksheet.py
+lrwxrwxrwx 1 root root 46  /usr/local/bin/contig_to_chr_coords -> ../stow/tophat-1.0.12/bin/contig_to_chr_coords
 lrwxrwxrwx 1 root root 46  /usr/local/bin/glimmer3 -> /usr/local/bioinf/glimmer/glimmer/bin/glimmer3
 lrwxrwxrwx 1 root root 46  /usr/local/bin/hmmemit -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmemit
 lrwxrwxrwx 1 root root 46  /usr/local/bin/hmmpfam -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmpfam
@@ -4690,6 +4761,8 @@ lrwxrwxrwx 1 root root 48  /usr/lib/python2.6/dist-packages/pyExcelerator/Compou
 lrwxrwxrwx 1 root root 48  /usr/lib/python2.6/dist-packages/setuptools/depends.py -> ../../../../share/pyshared/setuptools/depends.py
 lrwxrwxrwx 1 root root 48  /usr/lib/python2.6/dist-packages/setuptools/sandbox.py -> ../../../../share/pyshared/setuptools/sandbox.py
 lrwxrwxrwx 1 root root 48  /usr/local/bin/hmmsearch -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmsearch
+lrwxrwxrwx 1 root root 48  /usr/local/bin/mongodump -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongodump
+lrwxrwxrwx 1 root root 48  /usr/local/include/mongo -> ../stow/mongodb-linux-x86_64-1.2.2/include/mongo
 lrwxrwxrwx 1 root root 48  /usr/share/man/man7/create_constraint_trigger.7.gz -> /etc/alternatives/create_constraint_trigger.7.gz
 lrwxrwxrwx 1 root root 48  /usr/share/man/man7/create_text_search_parser.7.gz -> /etc/alternatives/create_text_search_parser.7.gz
 lrwxrwxrwx 1 root root 48  /usr/share/man/man7/drop_text_search_template.7.gz -> /etc/alternatives/drop_text_search_template.7.gz
@@ -4750,8 +4823,10 @@ lrwxrwxrwx 1 root root 49  /usr/lib/python2.6/dist-packages/python_apt-0.7.9.egg
 lrwxrwxrwx 1 root root 49  /usr/lib/python2.6/dist-packages/setuptools/__init__.py -> ../../../../share/pyshared/setuptools/__init__.py
 lrwxrwxrwx 1 root root 49  /usr/local/bin/build-fixed -> /usr/local/bioinf/glimmer/glimmer/bin/build-fixed
 lrwxrwxrwx 1 root root 49  /usr/local/bin/hmmconvert -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmconvert
+lrwxrwxrwx 1 root root 49  /usr/local/bin/mongofiles -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongofiles
 lrwxrwxrwx 1 root root 49  /usr/local/bin/score-fixed -> /usr/local/bioinf/glimmer/glimmer/bin/score-fixed
 lrwxrwxrwx 1 root root 49  /usr/local/bin/window-acgt -> /usr/local/bioinf/glimmer/glimmer/bin/window-acgt
+lrwxrwxrwx 1 root root 49  /usr/local/lib64/libganglia-3.1.2.so.0 -> ../stow/ganglia-3.1.2/lib64/libganglia-3.1.2.so.0
 lrwxrwxrwx 1 root root 49  /usr/share/man/man7/alter_text_search_template.7.gz -> /etc/alternatives/alter_text_search_template.7.gz
 lrwxrwxrwx 1 root root 49  /usr/src/linux-headers-2.6.28-11-generic/arch/x86/Kconfig -> ../../../linux-headers-2.6.28-11/arch/x86/Kconfig
 lrwxrwxrwx 1 root root 49  /usr/src/linux-headers-2.6.28-11-generic/arch/x86/include -> ../../../linux-headers-2.6.28-11/arch/x86/include
@@ -4822,6 +4897,8 @@ lrwxrwxrwx 1 root root 50  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/set
 lrwxrwxrwx 1 root root 50  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/user_array.py -> /usr/share/pyshared/numpy/oldnumeric/user_array.py
 lrwxrwxrwx 1 root root 50  /usr/lib/python2.6/dist-packages/setuptools/extension.py -> ../../../../share/pyshared/setuptools/extension.py
 lrwxrwxrwx 1 root root 50  /usr/local/bin/hmmpfam-pvm -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmpfam-pvm
+lrwxrwxrwx 1 root root 50  /usr/local/bin/mongoexport -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongoexport
+lrwxrwxrwx 1 root root 50  /usr/local/bin/mongoimport -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongoimport
 lrwxrwxrwx 1 root root 50  /usr/sbin/vmware-guestd -> /usr/lib/vmware-tools/sbin64/vmware-guestd-wrapper
 lrwxrwxrwx 1 root root 50  /usr/sbin/vmware-tools-upgrader -> /usr/lib/vmware-tools/sbin64/vmware-tools-upgrader
 lrwxrwxrwx 1 root root 50  /usr/share/man/man7/create_text_search_template.7.gz -> /etc/alternatives/create_text_search_template.7.gz
@@ -4871,8 +4948,10 @@ lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/numpy/ma/tests/test_
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/numpy/numarray/numpy/nummacro.h -> /usr/share/pyshared/numpy/numarray/numpy/nummacro.h
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/alter_code1.py -> /usr/share/pyshared/numpy/oldnumeric/alter_code1.py
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/alter_code2.py -> /usr/share/pyshared/numpy/oldnumeric/alter_code2.py
+lrwxrwxrwx 1 root root 51  /usr/local/THIRD-PARTY-NOTICES -> stow/mongodb-linux-x86_64-1.2.2/THIRD-PARTY-NOTICES
 lrwxrwxrwx 1 root root 51  /usr/local/bin/entropy-score -> /usr/local/bioinf/glimmer/glimmer/bin/entropy-score
 lrwxrwxrwx 1 root root 51  /usr/local/bin/hmmcalibrate -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmcalibrate
+lrwxrwxrwx 1 root root 51  /usr/local/bin/mongorestore -> ../stow/mongodb-linux-x86_64-1.2.2/bin/mongorestore
 lrwxrwxrwx 1 root root 51  /usr/local/bin/multi-extract -> /usr/local/bioinf/glimmer/glimmer/bin/multi-extract
 lrwxrwxrwx 1 root root 51  /usr/share/man/man7/alter_text_search_dictionary.7.gz -> /etc/alternatives/alter_text_search_dictionary.7.gz
 lrwxrwxrwx 1 root root 51  /usr/src/linux-headers-2.6.28-11-generic/include/linux/amba -> ../../../linux-headers-2.6.28-11/include/linux/amba
@@ -5080,6 +5159,7 @@ lrwxrwxrwx 1 root root 53  /usr/lib/python2.6/dist-packages/numpy/random/tests/t
 lrwxrwxrwx 1 root root 53  /usr/lib/python2.6/dist-packages/numpy/testing/tests/test_utils.py -> /usr/share/pyshared/numpy/testing/tests/test_utils.py
 lrwxrwxrwx 1 root root 53  /usr/lib/python2.6/dist-packages/setuptools/archive_util.py -> ../../../../share/pyshared/setuptools/archive_util.py
 lrwxrwxrwx 1 root root 53  /usr/local/bin/entropy-profile -> /usr/local/bioinf/glimmer/glimmer/bin/entropy-profile
+lrwxrwxrwx 1 root root 53  /usr/local/lib64/libganglia-3.1.2.so.0.0.0 -> ../stow/ganglia-3.1.2/lib64/libganglia-3.1.2.so.0.0.0
 lrwxrwxrwx 1 root root 53  /usr/share/man/man7/drop_text_search_configuration.7.gz -> /etc/alternatives/drop_text_search_configuration.7.gz
 lrwxrwxrwx 1 root root 53  /usr/src/linux-headers-2.6.28-11-generic/arch/x86/Kconfig.cpu -> ../../../linux-headers-2.6.28-11/arch/x86/Kconfig.cpu
 lrwxrwxrwx 1 root root 53  /usr/src/linux-headers-2.6.28-11-generic/include/linux/Kbuild -> ../../../linux-headers-2.6.28-11/include/linux/Kbuild
@@ -5682,6 +5762,7 @@ lrwxrwxrwx 1 root root 57  /usr/lib/python2.6/dist-packages/setuptools/command/a
 lrwxrwxrwx 1 root root 57  /usr/lib/python2.6/dist-packages/setuptools/command/sdist.py -> ../../../../../share/pyshared/setuptools/command/sdist.py
 lrwxrwxrwx 1 root root 57  /usr/lib/python2.6/dist-packages/setuptools/tests/doctest.py -> ../../../../../share/pyshared/setuptools/tests/doctest.py
 lrwxrwxrwx 1 root root 57  /usr/local/bin/start-codon-distrib -> /usr/local/bioinf/glimmer/glimmer/bin/start-codon-distrib
+lrwxrwxrwx 1 root root 57  /usr/local/lib64/libmongoclient.a -> ../stow/mongodb-linux-x86_64-1.2.2/lib64/libmongoclient.a
 lrwxrwxrwx 1 root root 57  /usr/src/linux-headers-2.6.28-11-generic/arch/x86/Makefile_32.cpu -> ../../../linux-headers-2.6.28-11/arch/x86/Makefile_32.cpu
 lrwxrwxrwx 1 root root 57  /usr/src/linux-headers-2.6.28-11-generic/include/linux/8250_pci.h -> ../../../linux-headers-2.6.28-11/include/linux/8250_pci.h
 lrwxrwxrwx 1 root root 57  /usr/src/linux-headers-2.6.28-11-generic/include/linux/amifdreg.h -> ../../../linux-headers-2.6.28-11/include/linux/amifdreg.h
