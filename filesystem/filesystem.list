@@ -3865,6 +3865,7 @@ lrwxrwxrwx 1 root root 35  /opt/globus-5.0.0/lib/libglobus_openssl_gcc64dbg.so -
 lrwxrwxrwx 1 root root 35  /opt/globus-5.0.0/lib/libglobus_openssl_gcc64dbg.so.0 -> libglobus_openssl_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 35  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbgpthr.so -> libglobus_xio_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 35  /opt/globus-5.0.0/lib/libglobus_xio_gcc64dbgpthr.so.0 -> libglobus_xio_gcc64dbgpthr.so.0.0.0
+lrwxrwxrwx 1 root root 35  /opt/mugsy_x86-64 -> /opt/opt-packages/mugsy_x86-64-v1r1
 lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_best.so -> libasound_module_rate_samplerate.so
 lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_linear.so -> libasound_module_rate_samplerate.so
 lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_medium.so -> libasound_module_rate_samplerate.so
@@ -4278,6 +4279,7 @@ lrwxrwxrwx 1 root root 41  /etc/alternatives/view.it.ISO8859-1.1.gz -> /usr/shar
 lrwxrwxrwx 1 root root 41  /etc/alternatives/view.pl.ISO8859-2.1.gz -> /usr/share/man/pl.ISO8859-2/man1/vim.1.gz
 lrwxrwxrwx 1 root root 41  /etc/ssl/certs/5cf9d536.0 -> QuoVadis_Root_Certification_Authority.pem
 lrwxrwxrwx 1 root root 41  /etc/ssl/certs/d2adc77d.0 -> Entrust.net_Global_Secure_Personal_CA.pem
+lrwxrwxrwx 1 root root 41  /opt/ec2-api-tools-1.3 -> /opt/opt-packages/ec2-api-tools-1.3-53907
 lrwxrwxrwx 1 root root 41  /opt/globus-5.0.0/lib/libglobus_gaa_debug_gcc64dbgpthr.so -> libglobus_gaa_debug_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 41  /opt/globus-5.0.0/lib/libglobus_gaa_debug_gcc64dbgpthr.so.0 -> libglobus_gaa_debug_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 41  /opt/globus-5.0.0/lib/libglobus_gass_copy_gcc64dbgpthr.so -> libglobus_gass_copy_gcc64dbgpthr.so.0.0.0
