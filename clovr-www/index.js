@@ -42,18 +42,12 @@
 				var n = pipe.name;
 				var c = new Array();
 				
-				// add pipeline to global list
-				availablePipelines.push(n);
-				
-				//console.group(n);
-				
 				if ( pipe.config != null ) {
 					
-					//console.log( pipe.config );
+					// add pipeline to global list
+	                                availablePipelines.push(n);
 					
-					//console.log( 'config length: ' + pipe.config.length );
-					
-					c = new Array();
+					c = new Array(); // temp holder
 					
 					for ( i=0; i<pipe.config.length; i++ ) {
 						//console.log( pipe.config[i] );
@@ -67,13 +61,7 @@
 					}
 					
 					pipelineConfigs[n] = c;
-					
-					//console.log( pipelineConfigs[n] );
-					
 				}
-				
-				//console.groupEnd();
-				
 			});
 		}
 		
@@ -82,20 +70,6 @@
 			success: function( response ) {
 				clovrParsePipelines( response );
 			}
-				
-				/*
-				function( response ) {
-					var p = response.map( function( val ) {
-						console.info(val.name);
-						
-						for ( var i in val.config ) {
-							console.info(val.config[i][0]);
-						}
-						
-						return [val.name, val.config];
-					});
-				}
-				*/
 		});
 		
 		
@@ -105,14 +79,6 @@
 			//params: {name: "local",tag_name: "mytag"}, // filter specific tags
 			params: {name: "local"},
 			success: function(response) {
-				
-				/*
-				console.info( 'availablePipelines:' );
-				console.info( availablePipelines );
-				
-				console.info( 'pipelineConfigs:' );
-				console.info( pipelineConfigs );
-				*/
 
 				var v = response.map(function(val) {
 					var numFiles = 0;
@@ -154,7 +120,6 @@
 					colModel: colModel,
 					height: 400,
 					width: 600,
-					//title: 'CloVR Data Sets',
 					sm: new Ext.grid.RowSelectionModel({singleSelect: false}),
 					viewConfig: {
 						forceFit: true
@@ -163,51 +128,51 @@
 					region: 'west',
 					border: true
 				});
+
+				var clovrButtons = new Array();
+
+				for ( i=0; i<availablePipelines.length; i++ ) {
+					
+					var thisPipe = availablePipelines[i];
+					
+					clovrButtons.push({
+						'text': thisPipe,
+						'handler': function() {
+							var itemArray = new Array();
+							
+							Ext.each( pipelineConfigs[thisPipe], function( arg, index, arr  ) {
+                                                        	itemArray.push( {
+                                                                	hidden: arg.default_hidden,
+                                                                        fieldLabel: arg.display,
+                                                                        name: arg.field,
+                                                                        value: arg['default']
+                                                                } );
+                                                        });
+
+							Ext.getCmp('form_clovr_pipe_config').add(itemArray);
+
+
+							/******************************************
+							window title is always set to the last button; need to fix
+							******************************************/
+
+							win_clovr_pipe_config.setTitle('Pipeline Configuration: ' + thisPipe);
+                                                        win_clovr_pipe_config.show(details);
+
+							//console.log( thisPipe );
+						}
+					});
+				}
+
+				//console.log( clovrButtons );
 				
 				var details = new Ext.Panel({
-					//renderTo: 'clovr-form-grid',
 					frame: true,
 					title: 'CloVR Data Sets',
 					region: 'center',
 					width: 960,
 					height: 400,
-					buttons:[
-						/*
-						{
-							text: 'CloVR Search Blast',
-							handler: function() {
-								// mainContainer.layout.setActiveItem(gridFormBlast);
-								// new Ext.Window({title: 'Win', items: [gridFormBlast], manager: windows}).show();
-								blastWin.show(details);
-							}
-
-						}
-						*/
-						{
-							text: 'clovr_microbe454',
-							handler: function() {
-								// mainContainer.layout.setActiveItem(gridFormClovrMicrobe454);
-								// new Ext.Window({title: 'Win', items: [gridFormClovrMicrobe454], manager: windows}).show();
-								
-								var itemArray = new Array();
-
-								Ext.each( pipelineConfigs['clovr_microbe454'], function( arg, index, arr  ) {
-									itemArray.push( {
-										hidden: arg.default_hidden,
-										fieldLabel: arg.display,
-										name: arg.field,
-										value: arg['default']
-									} );
-								});
-
-								Ext.getCmp('form_clovr_microbe454').add(itemArray);
-
-
-								//console.info( pipelineConfigs['clovr_microbe454'] );
-								win_clovr_microbe454.show(details);
-							}
-						}
-					],
+					buttons: clovrButtons,
 					layout: 'border',
 					items: [
 						grid,
@@ -246,15 +211,6 @@
 					'<h3>Total Files: {fileCountTotal}</h3>',
 					'</div>'
 				]);
-				
-				/*
-					'<h3>Available Pipelines:</h3>',
-					'<ul>',
-					'<li><a href="#" id="clovr-search-blast">CloVR Search (blast)</a></li>',
-					'<li><a href="#" id="clovr-microbe">CloVR Microbe</a></li>',
-					'</ul>',
-				*/
-				
 				
 				// initialize the config data container
 				dataToConfig = new Array();
@@ -330,82 +286,15 @@
 					}
 				});
 				
-				var gridFormBlast = new Ext.FormPanel({
-					id: 'pipeConfig',
+				var gridForm_clovr_pipe_config = new Ext.Panel({
+					id: 'pipe_clovr_config',
 					hidden: false,
 					frame: true,
 					labelAlign: 'left',
-					//title: 'Pipeline Configuration: Blast',
-					bodyStyle:'padding:5px',
-					width: 960,
-					layout: 'column',    // Specifies that the items will now be arranged in columns
-					items: [
-						{
-							columnWidth: 0.60,
-							layout: 'fit',
-							items: {
-								xtype: 'grid',
-								ds: configStore,
-								cm: configColModel,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true,
-									listeners: {
-										rowselect: function(sm, row, rec) {
-											Ext.getCmp("pipeConfig").getForm().loadRecord(rec);
-										}
-									}
-								}),
-								autoExpandColumn: 'cName',
-								height: 350,
-								//title:'Company Data',
-								border: true,
-								listeners: {
-									viewready: function(g) {
-										g.getSelectionModel().selectRow(0);
-									} // Allow rows to be rendered.
-								}
-							}
-						},
-						{
-							columnWidth: 0.4,
-							xtype: 'fieldset',
-							labelWidth: 90,
-							title:'Click a row to view details or make changes.',
-							defaults: {width: 140, border:false},    // Default config options for child items
-							defaultType: 'textfield',
-							autoHeight: true,
-							bodyStyle: Ext.isIE ? 'padding:0 0 5px 15px;' : 'padding:10px 15px;',
-							border: false,
-							style: {
-								"margin-left": "10px", // when you add custom margin in IE 6...
-								"margin-right": Ext.isIE6 ? (Ext.isStrict ? "-10px" : "-13px") : "0"  // you have to adjust for it somewhere else
-							},
-							items: [
-								//{fieldLabel: 'Name', name: 'cName'},
-								{fieldLabel: 'Trim', name: 'trim'},
-								{fieldLabel: 'Chop', name: 'chop'},
-								{fieldLabel: 'Time', name: 'time'}
-							]
-						}
-					]
-					//, renderTo: 'clovr-form-grid'
-				});
-				
-				
-				
-				
-				
-				var gridForm_clovr_microbe454 = new Ext.Panel({
-					id: 'pipe_clovr_microbe454',
-					hidden: false,
-					frame: true,
-					//autoScroll: true,
-					labelAlign: 'left',
-					//title: 'Pipeline Configuration: CloVR Microbe 454',
 					bodyStyle:'padding:5px',
 					width: 960,
 					height: 400,
-					layout: 'column',    // Specifies that the items will now be arranged in columns
+					layout: 'column',
 					items: [{
 						columnWidth: 0.60,
 						layout: 'fit',
@@ -423,7 +312,6 @@
 							}),
 							autoExpandColumn: 'cName',
 							height: 350,
-							//title:'Company Data',
 							border: true,
 							listeners: {
 								viewready: function(g) {
@@ -432,7 +320,7 @@
 							}
 						}
 					},{
-						id: 'form_clovr_microbe454',
+						id: 'form_clovr_pipe_config',
 						autoScroll: true,
 						columnWidth: 0.4,
 						xtype: 'fieldset',
@@ -441,12 +329,12 @@
 						title:'Click a row to view details or make changes.',
 						defaults: {width: 160, border:false},    // Default config options for child items
 						defaultType: 'textfield',
-						//autoHeight: true,
 						bodyStyle: Ext.isIE ? 'padding:0 0 5px 15px;' : 'padding:10px 15px;',
 						border: false,
 						style: {
 							"margin-left": "10px", // when you add custom margin in IE 6...
-							"margin-right": Ext.isIE6 ? (Ext.isStrict ? "-10px" : "-13px") : "0"  // you have to adjust for it somewhere else
+							"margin-right": Ext.isIE6 ? (Ext.isStrict ? "-10px" : "-13px") : "0",  // you have to adjust for it somewhere else
+							"text-align": "left"
 						}
 						/*
 						,
@@ -457,7 +345,6 @@
 						]
 						*/
 					}]
-					//, renderTo: 'clovr-form-grid'
 				});
 				
 				
@@ -473,8 +360,14 @@
 					frame: false
 				});
 				
-				//var blastWin = new Ext.Window({title: 'Pipeline Configuration: Blast', items: [gridFormBlast], manager: windows, closeAction: 'hide', modal: true});
-				var win_clovr_microbe454  = new Ext.Window({title: 'Pipeline Configuration: CloVR Microbe 454', items: [gridForm_clovr_microbe454], manager: windows, closeAction: 'hide', modal: true, height: 400 });
+				var win_clovr_pipe_config = new Ext.Window({
+					title: '', // set when pipeline button is pressed
+					items: [gridForm_clovr_pipe_config],
+					manager: windows,
+					closeAction: 'hide',
+					modal: true,
+					height: 400
+				});
 				
 			},
 			
@@ -486,6 +379,7 @@
 	});
 	
 	// clearly, this is a work in progress...
+
 
 
 
