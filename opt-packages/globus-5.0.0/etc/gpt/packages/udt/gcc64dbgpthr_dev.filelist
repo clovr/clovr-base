@@ -1,6 +1,0 @@
-lib/libudt_gcc64dbgpthr.a
-include/gcc64dbgpthr/packet.h
-include/gcc64dbgpthr/udt.h
-include/gcc64dbgpthr/ccc.h
-etc/gpt/packages/udt/gcc64dbgpthr_dev.filelist
-etc/gpt/packages/udt/pkg_data_gcc64dbgpthr_dev.gpt

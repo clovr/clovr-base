@@ -1,7 +1,0 @@
-/lib/libglobus_gaa_core_gcc64dbgpthr.a
-/lib/libglobus_gaa_core_gcc64dbgpthr.la
-/include/gcc64dbgpthr/gaa.h
-/include/gcc64dbgpthr/gaa_constants.h
-/include/gcc64dbgpthr/gaa_core.h
-/etc/globus_packages/gaa_core/gcc64dbgpthr_dev.filelist
-/etc/globus_packages/gaa_core/pkg_data_gcc64dbgpthr_dev.gpt

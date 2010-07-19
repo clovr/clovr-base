@@ -1,6 +1,0 @@
-/libexec/gfs-gfork-master
-/libexec/gfs-dynbe-client
-/sbin/globus-gridftp-server
-/sbin/gridftp-password.pl
-/etc/globus_packages/globus_gridftp_server/gcc64dbgpthr_pgm.filelist
-/etc/globus_packages/globus_gridftp_server/pkg_data_gcc64dbgpthr_pgm.gpt

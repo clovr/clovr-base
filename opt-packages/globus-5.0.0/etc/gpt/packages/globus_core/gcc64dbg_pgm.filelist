@@ -1,6 +1,0 @@
-/libexec/globus-bootstrap.sh
-/sbin/globus-build-doxygen-dependencies
-/sbin/globus-update-doxygen-index
-/sbin/globus-vararg-enums-doxygen-filter.pl
-/etc/globus_packages/globus_core/gcc64dbg_pgm.filelist
-/etc/globus_packages/globus_core/pkg_data_gcc64dbg_pgm.gpt

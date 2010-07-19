@@ -1,6 +1,0 @@
-/bin/grid-cert-info
-/bin/grid-change-pass-phrase
-/bin/grid-cert-request
-/bin/grid-default-ca
-/etc/globus_packages/globus_gsi_cert_utils/gcc64dbgpthr_pgm.filelist
-/etc/globus_packages/globus_gsi_cert_utils/pkg_data_gcc64dbgpthr_pgm.gpt

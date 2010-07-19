@@ -1,6 +1,0 @@
-/bin/grid-proxy-init
-/bin/grid-proxy-info
-/bin/grid-proxy-destroy
-/bin/grid-cert-diagnostics
-/etc/globus_packages/globus_proxy_utils/gcc64dbg_pgm.filelist
-/etc/globus_packages/globus_proxy_utils/pkg_data_gcc64dbg_pgm.gpt

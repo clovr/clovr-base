@@ -1,4 +1,0 @@
-/etc/globus_packages/globus_core/gcc64dbgpthr_rtl.filelist
-/etc/globus_packages/globus_core/pkg_data_gcc64dbgpthr_rtl.gpt
-/libexec/globus-build-env-gcc64dbgpthr.sh
-/sbin/libtool-gcc64dbgpthr

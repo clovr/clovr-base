@@ -1,9 +1,0 @@
-/etc/globus_packages/globus_common_setup/noflavor_pgm.filelist
-/etc/globus_packages/globus_common_setup/pkg_data_noflavor_pgm.gpt
-/setup/globus/globus-script-initializer.in
-/setup/globus/globus-sh-tools-vars.sh.in
-/setup/globus/Paths.in
-/setup/globus/findshelltools
-/setup/globus/setup-tmpdirs
-/setup/globus/setup-globus-common
-/setup/globus/setup-globus-common.pl
