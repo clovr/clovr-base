@@ -368,7 +368,12 @@ sub runCmd
 
   print "Running $desc... \n";
   print "  $cmd\n" if $verbose;
-  system($cmd) if (!$dryrun);
+  my $res = system($cmd) if (!$dryrun);
+  $res = $res >> 8;
+
+  unless ($res == 0) {
+    die "Could not execute $cmd";
+  }  
 
   my $jobendtime = time;
   my $duration = $jobendtime - $jobstarttime;
