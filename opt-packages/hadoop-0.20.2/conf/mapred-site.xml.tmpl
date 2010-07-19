@@ -8,5 +8,15 @@
 <name>mapred.job.tracker</name>
 <value>${MASTER_IP}:50000</value>
 </property>
-</configuration>
 
+<property>
+    <name>mapred.tasktracker.map.tasks.maximum</name>
+    <value>75</value>
+</property>
+
+<property>
+    <name>mapred.tasktracker.reduce.tasks.maximum</name>
+    <value>75</value>
+</property>
+    
+</configuration>
