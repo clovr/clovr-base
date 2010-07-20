@@ -3439,7 +3439,6 @@ lrwxrwxrwx 1 root root 30  /etc/ssl/certs/412bea73.0 -> Thawte_Personal_Premium_
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/46b2fd3b.0 -> SwissSign_Platinum_CA_-_G2.pem
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/4d654d1d.0 -> GTE_CyberTrust_Global_Root.pem
 lrwxrwxrwx 1 root root 30  /etc/ssl/certs/4e18c148.0 -> deutsche-telekom-root-ca-2.pem
-lrwxrwxrwx 1 root root 30  /opt/globus -> /opt/opt-packages/globus-5.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libglobus_io_gcc64dbg.so -> libglobus_io_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libglobus_io_gcc64dbg.so.0 -> libglobus_io_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 30  /opt/globus-5.0.0/lib/libxml2_gcc64dbgpthr.so -> libxml2_gcc64dbgpthr.so.2.6.11
@@ -4733,6 +4732,7 @@ lrwxrwxrwx 1 root root 53  /etc/alternatives/drop_operator.7.gz -> /usr/share/po
 lrwxrwxrwx 1 root root 53  /etc/alternatives/drop_sequence.7.gz -> /usr/share/postgresql/8.3/man/man7/drop_sequence.7.gz
 lrwxrwxrwx 1 root root 53  /etc/alternatives/keytool.1.gz -> /usr/lib/jvm/java-6-openjdk/jre/man/man1/keytool.1.gz
 lrwxrwxrwx 1 root root 53  /etc/alternatives/pack200.1.gz -> /usr/lib/jvm/java-6-openjdk/jre/man/man1/pack200.1.gz
+lrwxrwxrwx 1 root root 53  /etc/pam.d/vmtoolsd -> /usr/lib/vmware-tools/configurator/pam.d/vmtoolsd-x64
 lrwxrwxrwx 1 root root 53  /etc/ssl/certs/Certum_Root_CA.pem -> /usr/share/ca-certificates/mozilla/Certum_Root_CA.crt
 lrwxrwxrwx 1 root root 53  /etc/ssl/certs/DST_ACES_CA_X6.pem -> /usr/share/ca-certificates/mozilla/DST_ACES_CA_X6.crt
 lrwxrwxrwx 1 root root 53  /etc/ssl/certs/DST_Root_CA_X3.pem -> /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt
@@ -4923,7 +4923,6 @@ lrwxrwxrwx 1 root root 57  /usr/lib/python2.6/dist-packages/setuptools/command/s
 lrwxrwxrwx 1 root root 57  /usr/lib/python2.6/dist-packages/setuptools/tests/doctest.py -> ../../../../../share/pyshared/setuptools/tests/doctest.py
 lrwxrwxrwx 1 root root 57  /usr/local/bin/start-codon-distrib -> /usr/local/bioinf/glimmer/glimmer/bin/start-codon-distrib
 lrwxrwxrwx 1 root root 57  /var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType/DejaVuSerif-Bold.ttf -> /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf
-lrwxrwxrwx 1 root root 58  /etc/pam.d/vmware-guestd -> /usr/lib/vmware-tools/configurator/pam.d/vmware-guestd-x64
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/Go_Daddy_Class_2_CA.pem -> /usr/share/ca-certificates/mozilla/Go_Daddy_Class_2_CA.crt
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/IPS_Servidores_root.pem -> /usr/share/ca-certificates/mozilla/IPS_Servidores_root.crt
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/ValiCert_Class_1_VA.pem -> /usr/share/ca-certificates/mozilla/ValiCert_Class_1_VA.crt
