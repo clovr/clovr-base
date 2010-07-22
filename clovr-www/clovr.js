@@ -342,7 +342,7 @@
 									'request': Ext.util.JSON.encode({
 										'name':'local',
 										'pipeline':'clovr_wrapper',
-										'pipeline_name':'Clovr Form Test 230948234',
+										'pipeline_name':'Clovr Web Test '+ new Date().getTime(),
 										'pipeline_config': clovrForm.getFieldValues()
 									})
 								};
