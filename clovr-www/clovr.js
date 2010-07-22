@@ -1,3 +1,8 @@
+/*
+(03:57:55 PM) Malcolm Matalka: runPipeline_ws.py, You'll pass it the name of a cluster ('local' i think will always be the case for you), pipeline will be 'clovr_wrapper', and pipelie_config will be a dictionary of config keys to values
+(03:58:03 PM) Malcolm Matalka: (what you got from listPipelines_ws
+*/
+
 
 	function clovrQuery(req) {
 		var reqObj = {
@@ -131,15 +136,18 @@
 
 				var clovrButtons = new Array();
 
-				for ( i=0; i<availablePipelines.length; i++ ) {
+				Ext.each( availablePipelines, function( thisPipe, i, all ) {
+
+				
+				//for ( i=0; i<availablePipelines.length; i++ ) {
 					
-					var thisPipe = availablePipelines[i];
+					//var thisPipe = availablePipelines[i];
 					
 					clovrButtons.push({
 						'text': thisPipe,
 						'handler': function() {
 							var itemArray = new Array();
-							
+							//console.log('button ' + i + ' = ' + thisPipe);
 							Ext.each( pipelineConfigs[thisPipe], function( arg, index, arr  ) {
                                                         	itemArray.push( {
                                                                 	hidden: arg.default_hidden,
@@ -149,12 +157,9 @@
                                                                 } );
                                                         });
 
+							Ext.getCmp('form_clovr_pipe_config').removeAll();
+
 							Ext.getCmp('form_clovr_pipe_config').add(itemArray);
-
-
-							/******************************************
-							window title is always set to the last button; need to fix
-							******************************************/
 
 							win_clovr_pipe_config.setTitle('Pipeline Configuration: ' + thisPipe);
                                                         win_clovr_pipe_config.show(details);
@@ -162,9 +167,10 @@
 							//console.log( thisPipe );
 						}
 					});
-				}
+				//}
+				});
 
-				//console.log( clovrButtons );
+				//console.info( clovrButtons );
 				
 				var details = new Ext.Panel({
 					frame: true,
@@ -322,8 +328,39 @@
 					},{
 						id: 'form_clovr_pipe_config',
 						autoScroll: true,
+						xtype: 'form',
+						buttons:[{
+							text: 'Run Pipeline',
+							type: 'submit',
+							handler: function() {
+								
+								//console.log(Ext.getCmp('form_clovr_pipe_config'));
+								
+								var clovrForm = Ext.getCmp('form_clovr_pipe_config').getForm();
+
+								var formPipeConfig = {
+									'request': Ext.util.JSON.encode({
+										'name':'local',
+										'pipeline':'clovr_wrapper',
+										'pipeline_name':'Clovr Form Test 230948234',
+										'pipeline_config': clovrForm.getFieldValues()
+									})
+								};
+								
+								console.log(formPipeConfig);
+
+								Ext.Ajax.request({
+									url: '../vappio/runPipeline_ws.py',
+									success: alert('Good News!', 'Form submission worked'),
+									failure: alert('Sorry', 'Failed to Ajax the form'),
+									headers: {'my-header': 'foo'},
+									params: formPipeConfig
+								});
+							}
+						}],
+						buttonAlign: 'center',
 						columnWidth: 0.4,
-						xtype: 'fieldset',
+						//xtype: 'fieldset',
 						labelWidth: 120,
 						height: 350,
 						title:'Click a row to view details or make changes.',
@@ -346,8 +383,6 @@
 						*/
 					}]
 				});
-				
-				
 				
 				var mainContainer = new Ext.Panel({
 					id: 'top-container',
