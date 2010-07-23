@@ -1,8 +1,3 @@
-/*
-(03:57:55 PM) Malcolm Matalka: runPipeline_ws.py, You'll pass it the name of a cluster ('local' i think will always be the case for you), pipeline will be 'clovr_wrapper', and pipelie_config will be a dictionary of config keys to values
-(03:58:03 PM) Malcolm Matalka: (what you got from listPipelines_ws
-*/
-
 
 	function clovrQuery(req) {
 		var reqObj = {
@@ -134,20 +129,19 @@
 					border: true
 				});
 
+
+
 				var clovrButtons = new Array();
 
+				// iterate through the pipelines that have config values
 				Ext.each( availablePipelines, function( thisPipe, i, all ) {
-
-				
-				//for ( i=0; i<availablePipelines.length; i++ ) {
-					
-					//var thisPipe = availablePipelines[i];
 					
 					clovrButtons.push({
 						'text': thisPipe,
 						'handler': function() {
+							
 							var itemArray = new Array();
-							//console.log('button ' + i + ' = ' + thisPipe);
+							
 							Ext.each( pipelineConfigs[thisPipe], function( arg, index, arr  ) {
                                                         	itemArray.push( {
                                                                 	hidden: arg.default_hidden,
@@ -157,21 +151,21 @@
                                                                 } );
                                                         });
 
+							// clear the form config before adding new config values
 							Ext.getCmp('form_clovr_pipe_config').removeAll();
-
 							Ext.getCmp('form_clovr_pipe_config').add(itemArray);
 
+							// set the title for the pop-up window
 							win_clovr_pipe_config.setTitle('Pipeline Configuration: ' + thisPipe);
-                                                        win_clovr_pipe_config.show(details);
 
-							//console.log( thisPipe );
+							// display the window
+                                                        win_clovr_pipe_config.show(details);
 						}
 					});
-				//}
 				});
 
-				//console.info( clovrButtons );
 				
+
 				var details = new Ext.Panel({
 					frame: true,
 					title: 'CloVR Data Sets',
@@ -340,20 +334,24 @@
 
 								var formPipeConfig = {
 									'request': Ext.util.JSON.encode({
-										'name':'local',
-										'pipeline':'clovr_wrapper',
-										'pipeline_name':'Clovr Web Test '+ new Date().getTime(),
+										'name': 'local',
+										'pipeline': 'clovr_wrapper',
+										'pipeline_name': 'Clovr Web Test '+ new Date().getTime(),
 										'pipeline_config': clovrForm.getFieldValues()
 									})
 								};
 								
-								console.log(formPipeConfig);
+								//console.log(formPipeConfig);
 
 								Ext.Ajax.request({
 									url: '../vappio/runPipeline_ws.py',
-									success: alert('Good News!', 'Form submission worked'),
-									failure: alert('Sorry', 'Failed to Ajax the form'),
-									headers: {'my-header': 'foo'},
+									success: function() {
+										Ext.Msg.alert('Good News!', 'Form submission worked. Check ergatis for more info.');
+									},
+									failure: function() {
+										Ext.Msg.alert('Fail', 'Form submission failed.');
+									},
+									headers: {'clovr-web-pipeline': 'please to start'},
 									params: formPipeConfig
 								});
 							}
