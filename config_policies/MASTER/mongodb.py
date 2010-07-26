@@ -41,19 +41,19 @@ def startup():
                          }
              }, options)
     cluster = Cluster('local', ec2control, options)
-    cluster.setMaster(ec2control.Instance(instanceId='local',
-                                          amiId=None,
-                                          pubDns=cluster.config('MASTER_IP'),
-                                          privDns=cluster.config('MASTER_IP'),
-                                          state='running',
-                                          key=None,
-                                          index=None,
-                                          instanceType=None,
-                                          launch=None,
-                                          availabilityZone=None,
-                                          monitor=None,
-                                          spotRequestId=None,
-                                          bidPrice=None))
+    cluster = cluster.setMaster(ec2control.Instance(instanceId='local',
+                                                    amiId=None,
+                                                    pubDns=cluster.config('MASTER_IP'),
+                                                    privDns=cluster.config('MASTER_IP'),
+                                                    state='running',
+                                                    key=None,
+                                                    index=None,
+                                                    instanceType=None,
+                                                    launch=None,
+                                                    availabilityZone=None,
+                                                    monitor=None,
+                                                    spotRequestId=None,
+                                                    bidPrice=None))
 
 
     ##
