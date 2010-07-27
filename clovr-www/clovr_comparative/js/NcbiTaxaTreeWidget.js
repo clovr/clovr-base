@@ -14,7 +14,7 @@ function buildTree() {
 				split : true,
 				loader : new Ext.tree.TreeLoader({
 					//url : 'cgi-bin/NcbiJsonSender.cgi'
-					url : '../cgi_scripts/FilteredNcbiJsonSender.cgi'
+					url : '../cgi-bin/FilteredNcbiJsonSender.cgi'
 				}),
 				root : new Ext.tree.AsyncTreeNode({
 					text : 'Root Node',
