@@ -56,6 +56,7 @@ lrwxrwxrwx 1 hudson nogroup 19  /var/lib/hudson/jobs/60 Ergatis .config files/bu
 lrwxrwxrwx 1 hudson nogroup 19  /var/lib/hudson/jobs/61 Test web services/builds/2 -> 2010-06-23_13-54-52
 lrwxrwxrwx 1 hudson nogroup 19  /var/lib/hudson/jobs/61 Test web services/builds/3 -> 2010-06-23_13-55-40
 lrwxrwxrwx 1 hudson nogroup 19  /var/lib/hudson/jobs/70 Clover Sleep Pipeline/builds/1 -> 2010-06-15_17-08-35
+lrwxrwxrwx 1 hudson nogroup 19  /var/lib/hudson/jobs/83 blastall pipeline/builds/3 -> 2010-07-29_18-28-33
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/10 Ganglia and Ergatis online check/lastStable -> builds/2010-06-03_18-38-45
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/10 Ganglia and Ergatis online check/lastSuccessful -> builds/2010-06-03_18-38-45
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/20 start_master and stop_master test/lastStable -> builds/2010-06-04_14-00-08
@@ -72,6 +73,8 @@ lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/61 Test web services/lastSt
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/61 Test web services/lastSuccessful -> builds/2010-06-23_13-55-40
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/70 Clover Sleep Pipeline/lastStable -> builds/2010-06-15_17-08-35
 lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/70 Clover Sleep Pipeline/lastSuccessful -> builds/2010-06-15_17-08-35
+lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/83 blastall pipeline/lastStable -> builds/2010-07-29_18-28-33
+lrwxrwxrwx 1 hudson nogroup 26  /var/lib/hudson/jobs/83 blastall pipeline/lastSuccessful -> builds/2010-07-29_18-28-33
 lrwxrwxrwx 1 root root 1  /usr/bin/X11 -> .
 lrwxrwxrwx 1 root root 10  /etc/ssl/certs/e5662767.0 -> class3.pem
 lrwxrwxrwx 1 root root 10  /lib/terminfo/r/rxvt-m -> rxvt-basic
@@ -1529,6 +1532,7 @@ lrwxrwxrwx 1 root root 18  /usr/lib/sasl2/liblogin.so -> liblogin.so.2.0.22
 lrwxrwxrwx 1 root root 18  /usr/lib/sasl2/liblogin.so.2 -> liblogin.so.2.0.22
 lrwxrwxrwx 1 root root 18  /usr/lib/sasl2/libplain.so -> libplain.so.2.0.22
 lrwxrwxrwx 1 root root 18  /usr/lib/sasl2/libplain.so.2 -> libplain.so.2.0.22
+lrwxrwxrwx 1 root root 18  /usr/lib/vmware-tools/sbin64/vmware-hgfsmounter -> /sbin/mount.vmhgfs
 lrwxrwxrwx 1 root root 18  /usr/local/stow/libpsortb-1.0/lib/libmodhmm.so -> libmodhmm.so.0.0.0
 lrwxrwxrwx 1 root root 18  /usr/local/stow/libpsortb-1.0/lib/libmodhmm.so.0 -> libmodhmm.so.0.0.0
 lrwxrwxrwx 1 root root 18  /usr/local/stow/libpsortb-1.0/lib/libsvmloc.so -> libsvmloc.so.0.0.0
@@ -3162,6 +3166,8 @@ lrwxrwxrwx 1 root root 27  /usr/lib/libpangoxft-1.0.so -> libpangoxft-1.0.so.0.2
 lrwxrwxrwx 1 root root 27  /usr/lib/libpangoxft-1.0.so.0 -> libpangoxft-1.0.so.0.2400.1
 lrwxrwxrwx 1 root root 27  /usr/lib/libxcb-render-util.so -> libxcb-render-util.so.0.0.0
 lrwxrwxrwx 1 root root 27  /usr/lib/libxcb-render-util.so.0 -> libxcb-render-util.so.0.0.0
+lrwxrwxrwx 1 root root 27  /usr/lib/vmware-tools/bin -> /usr/lib/vmware-tools/bin64
+lrwxrwxrwx 1 root root 27  /usr/lib/vmware-tools/lib -> /usr/lib/vmware-tools/lib64
 lrwxrwxrwx 1 root root 27  /usr/share/R/doc/COPYING -> ../../common-licenses/GPL-2
 lrwxrwxrwx 1 root root 27  /usr/share/doc/consolekit/AUTHORS -> ../libck-connector0/AUTHORS
 lrwxrwxrwx 1 root root 27  /usr/share/doc/consolekit/NEWS.gz -> ../libck-connector0/NEWS.gz
@@ -3298,6 +3304,7 @@ lrwxrwxrwx 1 root root 28  /usr/bin/policytool -> /etc/alternatives/policytool
 lrwxrwxrwx 1 root root 28  /usr/bin/servertool -> /etc/alternatives/servertool
 lrwxrwxrwx 1 root root 28  /usr/lib/libgstpbutils-0.10.so.0 -> libgstpbutils-0.10.so.0.16.0
 lrwxrwxrwx 1 root root 28  /usr/lib/python2.6/dist-packages/pylab.py -> /usr/share/pyshared/pylab.py
+lrwxrwxrwx 1 root root 28  /usr/lib/vmware-tools/sbin -> /usr/lib/vmware-tools/sbin64
 lrwxrwxrwx 1 root root 28  /usr/share/doc/libopenssl-ruby1.8/NEWS.Debian.gz -> ../libruby1.8/NEWS.Debian.gz
 lrwxrwxrwx 1 root root 28  /usr/share/doc/python2.6/python-policy.html -> ../python/python-policy.html
 lrwxrwxrwx 1 root root 28  /usr/share/doc/ruby1.8/NEWS.Debian.gz -> ../libruby1.8/NEWS.Debian.gz
@@ -3534,6 +3541,7 @@ lrwxrwxrwx 1 root root 31  /usr/lib/libgstinterfaces-0.10.so.0 -> libgstinterfac
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.5/site-packages/site.py -> ../../../share/pyshared/site.py
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.6/dist-packages/site.py -> ../../../share/pyshared/site.py
 lrwxrwxrwx 1 root root 31  /usr/lib/python2.6/sitecustomize.py -> /etc/python2.6/sitecustomize.py
+lrwxrwxrwx 1 root root 31  /usr/lib/vmware-tools/plugins -> /usr/lib/vmware-tools/plugins64
 lrwxrwxrwx 1 root root 31  /usr/share/doc/klibc-utils/changelog.Debian.gz -> ../libklibc/changelog.Debian.gz
 lrwxrwxrwx 1 root root 31  /usr/share/doc/libavahi-common3/NEWS.gz -> ../libavahi-common-data/NEWS.gz
 lrwxrwxrwx 1 root root 31  /usr/share/doc/python2.6/python-policy.sgml.gz -> ../python/python-policy.sgml.gz
@@ -3785,6 +3793,7 @@ lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_me
 lrwxrwxrwx 1 root root 35  /usr/lib/alsa-lib/libasound_module_rate_samplerate_order.so -> libasound_module_rate_samplerate.so
 lrwxrwxrwx 1 root root 35  /usr/lib/python2.6/dist-packages/numpy/lib/io.py -> /usr/share/pyshared/numpy/lib/io.py
 lrwxrwxrwx 1 root root 35  /usr/lib/python2.6/dist-packages/numpy/matlib.py -> /usr/share/pyshared/numpy/matlib.py
+lrwxrwxrwx 1 root root 35  /usr/lib/vmware-tools/libconf -> /usr/lib/vmware-tools/lib64/libconf
 lrwxrwxrwx 1 root root 35  /usr/share/doc/ttf-dejavu-extra/langcover.txt.gz -> ../ttf-dejavu-core/langcover.txt.gz
 lrwxrwxrwx 1 root root 35  /usr/share/man/man1/pg_resetxlog.1.gz -> /etc/alternatives/pg_resetxlog.1.gz
 lrwxrwxrwx 1 root root 35  /usr/share/man/man3/SSL_CTX_sess_get_cache_size.3ssl.gz -> SSL_CTX_sess_set_cache_size.3ssl.gz
@@ -3894,6 +3903,9 @@ lrwxrwxrwx 1 root root 37  /usr/bin/psql -> ../share/postgresql-common/pg_wrappe
 lrwxrwxrwx 1 root root 37  /usr/bin/reindexdb -> ../share/postgresql-common/pg_wrapper
 lrwxrwxrwx 1 root root 37  /usr/bin/vacuumdb -> ../share/postgresql-common/pg_wrapper
 lrwxrwxrwx 1 root root 37  /usr/bin/vacuumlo -> ../share/postgresql-common/pg_wrapper
+lrwxrwxrwx 1 root root 37  /usr/bin/vmware-hgfsclient -> /usr/lib/vmware-tools/bin64/appLoader
+lrwxrwxrwx 1 root root 37  /usr/bin/vmware-toolbox -> /usr/lib/vmware-tools/bin64/appLoader
+lrwxrwxrwx 1 root root 37  /usr/bin/vmware-toolbox-cmd -> /usr/lib/vmware-tools/bin64/appLoader
 lrwxrwxrwx 1 root root 37  /usr/bin/x-terminal-emulator -> /etc/alternatives/x-terminal-emulator
 lrwxrwxrwx 1 root root 37  /usr/lib/libilu.so -> /usr/lib/vmware-tools/lib64/libilu.so
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/matplotlib/_cm.py -> /usr/share/pyshared/matplotlib/_cm.py
@@ -3905,6 +3917,7 @@ lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/numpy/lib/info.py ->
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/numpy/ma/bench.py -> /usr/share/pyshared/numpy/ma/bench.py
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/numpy/ma/setup.py -> /usr/share/pyshared/numpy/ma/setup.py
 lrwxrwxrwx 1 root root 37  /usr/lib/python2.6/dist-packages/pytz/reference.py -> /usr/share/pyshared/pytz/reference.py
+lrwxrwxrwx 1 root root 37  /usr/lib/vmware-tools/sbin64/vmware-modconfig-console -> /usr/lib/vmware-tools/bin64/appLoader
 lrwxrwxrwx 1 root root 37  /usr/local/bin/mgaps -> /usr/local/bioinf/mummer/mummer/mgaps
 lrwxrwxrwx 1 root root 37  /usr/sbin/vmtoolsd -> /usr/lib/vmware-tools/bin64/appLoader
 lrwxrwxrwx 1 root root 37  /usr/share/doc/postgresql-8.3/README.Debian.gz -> ../postgresql-common/README.Debian.gz
@@ -4174,6 +4187,7 @@ lrwxrwxrwx 1 root root 41  /usr/local/bin/tRNAscan-SE -> /usr/local/bioinf/tRNAs
 lrwxrwxrwx 1 root root 42  /etc/alternatives/javaws -> /usr/lib/jvm/java-6-openjdk/jre/bin/javaws
 lrwxrwxrwx 1 root root 42  /etc/fonts/conf.d/53-monospace-lcd-filter.conf -> ../conf.avail/53-monospace-lcd-filter.conf
 lrwxrwxrwx 1 root root 42  /etc/ssl/certs/bf87590f.0 -> beTRUSTed_Root_CA_-_RSA_Implementation.pem
+lrwxrwxrwx 1 root root 42  /lib/modules/2.6.28-11-generic/misc/vmci.ko -> /lib/modules/2.6.28-11-generic/misc/vmci.o
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_ftp_client_gcc64dbgpthr.so -> libglobus_ftp_client_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_ftp_client_gcc64dbgpthr.so.0 -> libglobus_ftp_client_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_gaa_plugin_gcc64dbgpthr.so -> libglobus_gaa_plugin_gcc64dbgpthr.so.0.0.0
@@ -4194,8 +4208,8 @@ lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_gssapi_gsi_gcc64dbgpt
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_gssapi_gsi_gcc64dbgpthr.so.0 -> libglobus_gssapi_gsi_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64dbg.so -> libglobus_xio_gsi_driver_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 42  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64dbg.so.0 -> libglobus_xio_gsi_driver_gcc64dbg.so.0.0.0
+lrwxrwxrwx 1 root root 42  /sbin/mount.vboxsf -> /usr/lib64/VBoxGuestAdditions/mount.vboxsf
 lrwxrwxrwx 1 root root 42  /usr/bin/gtk-query-immodules-2.0 -> ../lib/libgtk2.0-0/gtk-query-immodules-2.0
-lrwxrwxrwx 1 root root 42  /usr/bin/vmware-toolbox -> /usr/lib/vmware-tools/bin64/vmware-toolbox
 lrwxrwxrwx 1 root root 42  /usr/include/numpy -> ../share/pyshared/numpy/core/include/numpy
 lrwxrwxrwx 1 root root 42  /usr/lib/jvm/java-6-openjdk/jre/lib/security/java.security -> /etc/java-6-openjdk/security/java.security
 lrwxrwxrwx 1 root root 42  /usr/lib/libVICFbase.so -> /usr/lib/vmware-tools/lib64/libVICFbase.so
@@ -4244,6 +4258,7 @@ lrwxrwxrwx 1 root root 43  /etc/ssl/certs/128b9c8d.0 -> Digital_Signature_Trust_
 lrwxrwxrwx 1 root root 43  /etc/ssl/certs/4643210f.0 -> Digital_Signature_Trust_Co._Global_CA_4.pem
 lrwxrwxrwx 1 root root 43  /etc/ssl/certs/a15b3b6b.0 -> Digital_Signature_Trust_Co._Global_CA_3.pem
 lrwxrwxrwx 1 root root 43  /etc/ssl/certs/c215bc69.0 -> Digital_Signature_Trust_Co._Global_CA_1.pem
+lrwxrwxrwx 1 root root 43  /lib/modules/2.6.28-11-generic/misc/vsock.ko -> /lib/modules/2.6.28-11-generic/misc/vsock.o
 lrwxrwxrwx 1 root root 43  /opt/globus-5.0.0/lib/libglobus_ftp_control_gcc64dbgpthr.so -> libglobus_ftp_control_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 43  /opt/globus-5.0.0/lib/libglobus_ftp_control_gcc64dbgpthr.so.0 -> libglobus_ftp_control_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 43  /opt/globus-5.0.0/lib/libglobus_gaa_gss_generic_gcc64dbg.so -> libglobus_gaa_gss_generic_gcc64dbg.so.0.0.0
@@ -4302,6 +4317,7 @@ lrwxrwxrwx 1 root root 44  /etc/alternatives/move.7.gz -> /usr/share/postgresql/
 lrwxrwxrwx 1 root root 44  /etc/alternatives/psql.1.gz -> /usr/share/postgresql/8.3/man/man1/psql.1.gz
 lrwxrwxrwx 1 root root 44  /etc/alternatives/show.7.gz -> /usr/share/postgresql/8.3/man/man7/show.7.gz
 lrwxrwxrwx 1 root root 44  /etc/ssl/certs/9772ca32.0 -> GeoTrust_Primary_Certification_Authority.pem
+lrwxrwxrwx 1 root root 44  /lib/modules/2.6.28-11-generic/misc/pvscsi.ko -> /lib/modules/2.6.28-11-generic/misc/pvscsi.o
 lrwxrwxrwx 1 root root 44  /lib/modules/2.6.28-11-generic/misc/vmhgfs.ko -> /lib/modules/2.6.28-11-generic/misc/vmhgfs.o
 lrwxrwxrwx 1 root root 44  /lib/modules/2.6.28-11-generic/misc/vmxnet.ko -> /lib/modules/2.6.28-11-generic/misc/vmxnet.o
 lrwxrwxrwx 1 root root 44  /opt/globus-5.0.0/lib/libglobus_gsi_callback_gcc64dbgpthr.so -> libglobus_gsi_callback_gcc64dbgpthr.so.0.0.0
@@ -4310,6 +4326,8 @@ lrwxrwxrwx 1 root root 44  /opt/globus-5.0.0/lib/libglobus_gssapi_error_gcc64dbg
 lrwxrwxrwx 1 root root 44  /opt/globus-5.0.0/lib/libglobus_gssapi_error_gcc64dbgpthr.so.0 -> libglobus_gssapi_error_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 44  /opt/globus-5.0.0/lib/libglobus_xio_popen_driver_gcc64dbg.so -> libglobus_xio_popen_driver_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 44  /opt/globus-5.0.0/lib/libglobus_xio_popen_driver_gcc64dbg.so.0 -> libglobus_xio_popen_driver_gcc64dbg.so.0.0.0
+lrwxrwxrwx 1 root root 44  /usr/bin/VBoxClient -> /opt/VBoxGuestAdditions-3.2.6/bin/VBoxClient
+lrwxrwxrwx 1 root root 44  /usr/lib/VBoxOGL.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGL.so
 lrwxrwxrwx 1 root root 44  /usr/lib/jvm/java-6-openjdk/jre/lib/accessibility.properties -> /etc/java-6-openjdk/accessibility.properties
 lrwxrwxrwx 1 root root 44  /usr/lib/jvm/java-6-openjdk/jre/lib/content-types.properties -> /etc/java-6-openjdk/content-types.properties
 lrwxrwxrwx 1 root root 44  /usr/lib/python2.5/site-packages/cairo/__init__.py -> ../../../../share/pyshared/cairo/__init__.py
@@ -4351,6 +4369,7 @@ lrwxrwxrwx 1 root root 45  /etc/ssl/certs/3e7271e8.0 -> Entrust.net_Premium_2048
 lrwxrwxrwx 1 root root 45  /etc/ssl/certs/c9bc75ba.0 -> ABAecom_=sub.__Am._Bankers_Assn.=_Root_CA.pem
 lrwxrwxrwx 1 root root 45  /etc/ssl/certs/ca.pem -> /usr/share/ca-certificates/debconf.org/ca.crt
 lrwxrwxrwx 1 root root 45  /lib/modules/2.6.28-11-generic/misc/vmblock.ko -> /lib/modules/2.6.28-11-generic/misc/vmblock.o
+lrwxrwxrwx 1 root root 45  /lib/modules/2.6.28-11-generic/misc/vmxnet3.ko -> /lib/modules/2.6.28-11-generic/misc/vmxnet3.o
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_authz_gaa_callout_gcc64dbg.so -> libglobus_authz_gaa_callout_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_authz_gaa_callout_gcc64dbg.so.0 -> libglobus_authz_gaa_callout_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_gass_transfer_gcc64dbgpthr.so -> libglobus_gass_transfer_gcc64dbgpthr.so.0.0.0
@@ -4359,7 +4378,7 @@ lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_gsi_sysconfig_gcc64db
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_gsi_sysconfig_gcc64dbgpthr.so.0 -> libglobus_gsi_sysconfig_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_openssl_error_gcc64dbgpthr.so -> libglobus_openssl_error_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 45  /opt/globus-5.0.0/lib/libglobus_openssl_error_gcc64dbgpthr.so.0 -> libglobus_openssl_error_gcc64dbgpthr.so.0.0.0
-lrwxrwxrwx 1 root root 45  /usr/bin/vmware-hgfsclient -> /usr/lib/vmware-tools/bin64/vmware-hgfsclient
+lrwxrwxrwx 1 root root 45  /usr/bin/VBoxControl -> /opt/VBoxGuestAdditions-3.2.6/bin/VBoxControl
 lrwxrwxrwx 1 root root 45  /usr/include/python2.5/numpy -> ../../share/pyshared/numpy/core/include/numpy
 lrwxrwxrwx 1 root root 45  /usr/include/python2.5_d/numpy -> ../../share/pyshared/numpy/core/include/numpy
 lrwxrwxrwx 1 root root 45  /usr/include/python2.6/numpy -> ../../share/pyshared/numpy/core/include/numpy
@@ -4422,6 +4441,7 @@ lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64d
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_xio_gsi_driver_gcc64dbgpthr.so.0 -> libglobus_xio_gsi_driver_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_xio_udt_driver_gcc64dbgpthr.so -> libglobus_xio_udt_driver_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 46  /opt/globus-5.0.0/lib/libglobus_xio_udt_driver_gcc64dbgpthr.so.0 -> libglobus_xio_udt_driver_gcc64dbgpthr.so.0.0.0
+lrwxrwxrwx 1 root root 46  /usr/bin/vmware-user-wrapper -> /usr/lib/vmware-tools/bin64/vmware-user-loader
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/matplotlib/font_manager.py -> /usr/share/pyshared/matplotlib/font_manager.py
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/mpl_toolkits/exceltools.py -> /usr/share/pyshared/mpl_toolkits/exceltools.py
 lrwxrwxrwx 1 root root 46  /usr/lib/python2.6/dist-packages/numpy/core/defchararray.py -> /usr/share/pyshared/numpy/core/defchararray.py
@@ -4451,6 +4471,7 @@ lrwxrwxrwx 1 root root 46  /usr/local/bin/hmmemit -> /usr/local/bioinf/hmmer/hmm
 lrwxrwxrwx 1 root root 46  /usr/local/bin/hmmpfam -> /usr/local/bioinf/hmmer/hmmer/binaries/hmmpfam
 lrwxrwxrwx 1 root root 46  /usr/local/bin/prenuc -> /usr/local/bioinf/mummer/mummer/aux_bin/prenuc
 lrwxrwxrwx 1 root root 46  /usr/local/bin/prepro -> /usr/local/bioinf/mummer/mummer/aux_bin/prepro
+lrwxrwxrwx 1 root root 46  /usr/sbin/VBoxService -> /opt/VBoxGuestAdditions-3.2.6/sbin/VBoxService
 lrwxrwxrwx 1 root root 46  /usr/share/man/man7/drop_text_search_parser.7.gz -> /etc/alternatives/drop_text_search_parser.7.gz
 lrwxrwxrwx 1 root root 47  /etc/alternatives/analyze.7.gz -> /usr/share/postgresql/8.3/man/man7/analyze.7.gz
 lrwxrwxrwx 1 root root 47  /etc/alternatives/cluster.7.gz -> /usr/share/postgresql/8.3/man/man7/cluster.7.gz
@@ -4469,8 +4490,6 @@ lrwxrwxrwx 1 root root 47  /opt/globus-5.0.0/lib/libglobus_openssl_version_gcc64
 lrwxrwxrwx 1 root root 47  /opt/globus-5.0.0/lib/libglobus_openssl_version_gcc64dbgpthr.so.0 -> libglobus_openssl_version_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 47  /opt/globus-5.0.0/lib/libglobus_xio_pipe_driver_gcc64dbgpthr.so -> libglobus_xio_pipe_driver_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 47  /opt/globus-5.0.0/lib/libglobus_xio_pipe_driver_gcc64dbgpthr.so.0 -> libglobus_xio_pipe_driver_gcc64dbgpthr.so.0.0.0
-lrwxrwxrwx 1 root root 47  /sbin/mount.vmhgfs -> /usr/lib/vmware-tools/sbin64/vmware-hgfsmounter
-lrwxrwxrwx 1 root root 47  /usr/bin/vmware-user-wrapper -> /usr/lib/vmware-tools/bin64/vmware-user-wrapper
 lrwxrwxrwx 1 root root 47  /usr/lib/jvm/java-6-openjdk/jre/lib/management/jmxremote.access -> /etc/java-6-openjdk/management/jmxremote.access
 lrwxrwxrwx 1 root root 47  /usr/lib/python2.5/site-packages/aptsources/distro.py -> ../../../../share/pyshared/aptsources/distro.py
 lrwxrwxrwx 1 root root 47  /usr/lib/python2.6/dist-packages/aptsources/distro.py -> ../../../../share/pyshared/aptsources/distro.py
@@ -4509,6 +4528,7 @@ lrwxrwxrwx 1 root root 48  /etc/alternatives/vacuumdb.1.gz -> /usr/share/postgre
 lrwxrwxrwx 1 root root 48  /etc/ssl/certs/class3.pem -> /usr/share/ca-certificates/cacert.org/class3.crt
 lrwxrwxrwx 1 root root 48  /opt/globus-5.0.0/lib/libglobus_xio_popen_driver_gcc64dbgpthr.so -> libglobus_xio_popen_driver_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 48  /opt/globus-5.0.0/lib/libglobus_xio_popen_driver_gcc64dbgpthr.so.0 -> libglobus_xio_popen_driver_gcc64dbgpthr.so.0.0.0
+lrwxrwxrwx 1 root root 48  /usr/bin/VBoxClient-all -> /opt/VBoxGuestAdditions-3.2.6/bin/VBoxClient-all
 lrwxrwxrwx 1 root root 48  /usr/lib/python2.5/site-packages/apt/gtk/widgets.py -> ../../../../../share/pyshared/apt/gtk/widgets.py
 lrwxrwxrwx 1 root root 48  /usr/lib/python2.5/site-packages/setuptools/depends.py -> ../../../../share/pyshared/setuptools/depends.py
 lrwxrwxrwx 1 root root 48  /usr/lib/python2.5/site-packages/setuptools/sandbox.py -> ../../../../share/pyshared/setuptools/sandbox.py
@@ -4622,6 +4642,7 @@ lrwxrwxrwx 1 root root 50  /opt/globus-5.0.0/lib/libglobus_gridftp_server_contro
 lrwxrwxrwx 1 root root 50  /opt/globus-5.0.0/lib/libglobus_gridftp_server_control_gcc64dbg.so.0 -> libglobus_gridftp_server_control_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 50  /opt/globus-5.0.0/lib/libglobus_xio_gridftp_driver_gcc64dbgpthr.so -> libglobus_xio_gridftp_driver_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 50  /opt/globus-5.0.0/lib/libglobus_xio_gridftp_driver_gcc64dbgpthr.so.0 -> libglobus_xio_gridftp_driver_gcc64dbgpthr.so.0.0.0
+lrwxrwxrwx 1 root root 50  /usr/lib/VBoxOGLcrutil.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLcrutil.so
 lrwxrwxrwx 1 root root 50  /usr/lib/jvm/java-6-openjdk/jre/lib/ext/gnome-java-bridge.jar -> ../../../../../../share/java/gnome-java-bridge.jar
 lrwxrwxrwx 1 root root 50  /usr/lib/python2.5/site-packages/setuptools/extension.py -> ../../../../share/pyshared/setuptools/extension.py
 lrwxrwxrwx 1 root root 50  /usr/lib/python2.6/dist-packages/matplotlib/numerix/__init__.py -> /usr/share/pyshared/matplotlib/numerix/__init__.py
@@ -4663,6 +4684,7 @@ lrwxrwxrwx 1 root root 51  /etc/alternatives/drop_schema.7.gz -> /usr/share/post
 lrwxrwxrwx 1 root root 51  /etc/alternatives/select_into.7.gz -> /usr/share/postgresql/8.3/man/man7/select_into.7.gz
 lrwxrwxrwx 1 root root 51  /opt/globus-5.0.0/lib/libglobus_gsi_authz_callout_error_gcc64dbg.so -> libglobus_gsi_authz_callout_error_gcc64dbg.so.0.0.0
 lrwxrwxrwx 1 root root 51  /opt/globus-5.0.0/lib/libglobus_gsi_authz_callout_error_gcc64dbg.so.0 -> libglobus_gsi_authz_callout_error_gcc64dbg.so.0.0.0
+lrwxrwxrwx 1 root root 51  /usr/lib/VBoxOGLpackspu.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLpackspu.so
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/matplotlib/backends/__init__.py -> /usr/share/pyshared/matplotlib/backends/__init__.py
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/matplotlib/delaunay/__init__.py -> /usr/share/pyshared/matplotlib/delaunay/__init__.py
 lrwxrwxrwx 1 root root 51  /usr/lib/python2.6/dist-packages/matplotlib/projections/polar.py -> /usr/share/pyshared/matplotlib/projections/polar.py
@@ -4694,6 +4716,9 @@ lrwxrwxrwx 1 root root 52  /etc/ssl/certs/cert_igca_rsa.pem -> /usr/share/ca-cer
 lrwxrwxrwx 1 root root 52  /etc/update-motd.d/99-reboot-required -> /usr/lib/update-notifier/update-motd-reboot-required
 lrwxrwxrwx 1 root root 52  /opt/workflow-sforge/server-conf/htc.conf -> /opt/workflow-sforge/server-conf/sge_mockserver.conf
 lrwxrwxrwx 1 root root 52  /usr/bin/vmware-user -> /usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+lrwxrwxrwx 1 root root 52  /usr/lib/VBoxGuestAdditions -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxGuestAdditions
+lrwxrwxrwx 1 root root 52  /usr/lib/VBoxOGLarrayspu.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLarrayspu.so
+lrwxrwxrwx 1 root root 52  /usr/lib/VBoxOGLerrorspu.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLerrorspu.so
 lrwxrwxrwx 1 root root 52  /usr/lib/jvm/java-6-openjdk/jre/lib/management/management.properties -> /etc/java-6-openjdk/management/management.properties
 lrwxrwxrwx 1 root root 52  /usr/lib/python2.5/site-packages/aptsources/sourceslist.py -> ../../../../share/pyshared/aptsources/sourceslist.py
 lrwxrwxrwx 1 root root 52  /usr/lib/python2.6/dist-packages/aptsources/sourceslist.py -> ../../../../share/pyshared/aptsources/sourceslist.py
@@ -4810,6 +4835,7 @@ lrwxrwxrwx 1 root root 54  /usr/lib/python2.6/dist-packages/numpy/oldnumeric/lin
 lrwxrwxrwx 1 root root 54  /usr/lib/python2.6/dist-packages/pyExcelerator/ExcelFormulaLexer.py -> /usr/share/pyshared/pyExcelerator/ExcelFormulaLexer.py
 lrwxrwxrwx 1 root root 54  /usr/lib/python2.6/dist-packages/setuptools/package_index.py -> ../../../../share/pyshared/setuptools/package_index.py
 lrwxrwxrwx 1 root root 54  /usr/local/bin/coves-SE -> /usr/local/bioinf/tRNAscan-SE/tRNAscan-SE/bin/coves-SE
+lrwxrwxrwx 1 root root 54  /usr/share/VBoxGuestAdditions -> /opt/VBoxGuestAdditions-3.2.6/share/VBoxGuestAdditions
 lrwxrwxrwx 1 root root 54  /usr/share/man/man7/alter_text_search_configuration.7.gz -> /etc/alternatives/alter_text_search_configuration.7.gz
 lrwxrwxrwx 1 root root 55  /etc/alternatives/alter_aggregate.7.gz -> /usr/share/postgresql/8.3/man/man7/alter_aggregate.7.gz
 lrwxrwxrwx 1 root root 55  /etc/alternatives/commit_prepared.7.gz -> /usr/share/postgresql/8.3/man/man7/commit_prepared.7.gz
@@ -4836,6 +4862,7 @@ lrwxrwxrwx 1 root root 55  /etc/ssl/certs/signet_ca2_pem.pem -> /usr/share/ca-ce
 lrwxrwxrwx 1 root root 55  /etc/ssl/certs/signet_ca3_pem.pem -> /usr/share/ca-certificates/signet.pl/signet_ca3_pem.crt
 lrwxrwxrwx 1 root root 55  /opt/globus-5.0.0/lib/libglobus_gsi_authz_callout_error_gcc64dbgpthr.so -> libglobus_gsi_authz_callout_error_gcc64dbgpthr.so.0.0.0
 lrwxrwxrwx 1 root root 55  /opt/globus-5.0.0/lib/libglobus_gsi_authz_callout_error_gcc64dbgpthr.so.0 -> libglobus_gsi_authz_callout_error_gcc64dbgpthr.so.0.0.0
+lrwxrwxrwx 1 root root 55  /usr/lib/VBoxOGLfeedbackspu.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLfeedbackspu.so
 lrwxrwxrwx 1 root root 55  /usr/lib/python2.5/site-packages/setuptools.egg-info/PKG-INFO -> ../../../../share/pyshared/setuptools.egg-info/PKG-INFO
 lrwxrwxrwx 1 root root 55  /usr/lib/python2.5/site-packages/setuptools.egg-info/zip-safe -> ../../../../share/pyshared/setuptools.egg-info/zip-safe
 lrwxrwxrwx 1 root root 55  /usr/lib/python2.6/dist-packages/matplotlib/numerix/mlab/__init__.py -> /usr/share/pyshared/matplotlib/numerix/mlab/__init__.py
@@ -4932,6 +4959,7 @@ lrwxrwxrwx 1 root root 58  /etc/ssl/certs/Wells_Fargo_Root_CA.pem -> /usr/share/
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/brasil.gov.br.pem -> /usr/share/ca-certificates/brasil.gov.br/brasil.gov.br.crt
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/signet_rootca_pem.pem -> /usr/share/ca-certificates/signet.pl/signet_rootca_pem.crt
 lrwxrwxrwx 1 root root 58  /etc/ssl/certs/spi-cacert-2008.pem -> /usr/share/ca-certificates/spi-inc.org/spi-cacert-2008.crt
+lrwxrwxrwx 1 root root 58  /usr/lib/VBoxOGLpassthroughspu.so -> /opt/VBoxGuestAdditions-3.2.6/lib/VBoxOGLpassthroughspu.so
 lrwxrwxrwx 1 root root 58  /usr/lib/python2.5/site-packages/setuptools.egg-info/SOURCES.txt -> ../../../../share/pyshared/setuptools.egg-info/SOURCES.txt
 lrwxrwxrwx 1 root root 58  /usr/lib/python2.5/site-packages/setuptools/command/rotate.py -> ../../../../../share/pyshared/setuptools/command/rotate.py
 lrwxrwxrwx 1 root root 58  /usr/lib/python2.5/site-packages/setuptools/command/setopt.py -> ../../../../../share/pyshared/setuptools/command/setopt.py
@@ -5417,3 +5445,6 @@ lrwxrwxrwx 1 root root 99  /etc/ssl/certs/Verisign_Class_3_Public_Primary_Certif
 lrwxrwxrwx 1 root root 99  /etc/ssl/certs/Verisign_Class_3_Public_Primary_Certification_Authority_-_G3.pem -> /usr/share/ca-certificates/mozilla/Verisign_Class_3_Public_Primary_Certification_Authority_-_G3.crt
 lrwxrwxrwx 1 root root 99  /etc/ssl/certs/Verisign_Class_4_Public_Primary_Certification_Authority_-_G2.pem -> /usr/share/ca-certificates/mozilla/Verisign_Class_4_Public_Primary_Certification_Authority_-_G2.crt
 lrwxrwxrwx 1 root root 99  /etc/ssl/certs/Verisign_Class_4_Public_Primary_Certification_Authority_-_G3.pem -> /usr/share/ca-certificates/mozilla/Verisign_Class_4_Public_Primary_Certification_Authority_-_G3.crt
+lrwxrwxrwx 1 root src 46  /usr/src/vboxsf-3.2.6 -> /opt/VBoxGuestAdditions-3.2.6/src/vboxsf-3.2.6
+lrwxrwxrwx 1 root src 49  /usr/src/vboxguest-3.2.6 -> /opt/VBoxGuestAdditions-3.2.6/src/vboxguest-3.2.6
+lrwxrwxrwx 1 root src 49  /usr/src/vboxvideo-3.2.6 -> /opt/VBoxGuestAdditions-3.2.6/src/vboxvideo-3.2.6
