@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!/usr/bin/perl
 
 $temp;
 $expected=`cat /tmp/expected.txt`;

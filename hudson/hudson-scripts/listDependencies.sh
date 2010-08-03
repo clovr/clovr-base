@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 saved=`ls /opt/clovr_pipelines/workflow/project_saved_templates`
 for each in $saved
 do

@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
 /opt/vappio-scripts/syncdata.sh

@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 source /root/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T"`

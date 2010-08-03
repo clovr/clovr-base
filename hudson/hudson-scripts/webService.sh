@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 source /root/clovrEnv.sh
 
 makeWSUrl.py http://localhost/vappio/clusterInfo_ws.py -j '{"name": "local"}'  

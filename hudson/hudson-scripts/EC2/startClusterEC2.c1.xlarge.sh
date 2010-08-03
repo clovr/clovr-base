@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
 ec2-describe-instances

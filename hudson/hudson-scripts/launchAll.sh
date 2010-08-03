@@ -1,5 +1,5 @@
-#! /bin/bash
-
+#!/bin/bash
+set -e
 ls /var/lib/hudson/jobs > /tmp/jobs.txt
 
 ip=`hostname`

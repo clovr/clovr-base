@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 source /root/clovrEnv.sh
 
 tagData.py --tag-name=NC_000964_peps /opt/hudson/NC_000964/NC_000964.faa
