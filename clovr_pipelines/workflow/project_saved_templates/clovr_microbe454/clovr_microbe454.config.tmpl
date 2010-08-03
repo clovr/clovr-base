@@ -35,6 +35,8 @@ SKIP_BANK={"display": "Skip bank", "default": 0, "desc": "Skip making the bank f
 INPUT_TAG={"display": "Input tag", "default": "SOMETAG", "desc": "Input tag name.  Must be unique for each pipeline. If not specified a unique one will be created"}
 REFERENCE_DB_TAG={"display": "Reference DB", "default": "clovr-prok-db", "default_hidden": true, "desc": "Reference database for HMM and BLAST searches.  Default value should be sufficient"}
 
+GROUP_COUNT={"display": "Group Count", "default": 20, "default_hidden": true, "desc": "Number of groups, should not need to manually set"}
+
 ##########################################################
 ## Cluster info.
 ## If the cluster_tag is present, the script will first
@@ -64,7 +66,7 @@ debug_level={"default": 3, "default_hidden": true, "desc": "Debug level, I don't
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_microbe454", "default_hidden": true, "desc": "The type of the pipeline we are running"}
-PIPELINE_ARGS={"default": "--INPUT_FILE_LIST=${input.INPUT_TAG} --OUTPUT_PREFIX=${input.OUTPUT_PREFIX} --ORGANISM=\"${input.ORGANISM}\" --DATABASE_PATH=${input.REFERENCE_DB_TAG} --conf=${cluster.CLOVR_CONF} --GROUP_COUNT=${cluster.EXEC_NODES} --TRIM=${input.TRIM} --LINKER=${input.LINKER} --CLEAR=${input.CLEAR} --SPEC_FILE=${input.SPEC_FILE} --SKIP_BANK=${input.SKIP_BANK} --INSERT_SIZE=\"${input.INSERT_SIZE}\"", "desc": "Default way to compose variables"}
+PIPELINE_ARGS={"default": "--INPUT_FILE_LIST=${input.INPUT_TAG} --OUTPUT_PREFIX=${input.OUTPUT_PREFIX} --ORGANISM=\"${input.ORGANISM}\" --DATABASE_PATH=${input.REFERENCE_DB_TAG} --conf=${cluster.CLOVR_CONF} --GROUP_COUNT=${input.GROUP_COUNT} --TRIM=${input.TRIM} --LINKER=${input.LINKER} --CLEAR=${input.CLEAR} --SPEC_FILE=${input.SPEC_FILE} --SKIP_BANK=${input.SKIP_BANK} --INSERT_SIZE=\"${input.INSERT_SIZE}\"", "desc": "Default way to compose variables"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
