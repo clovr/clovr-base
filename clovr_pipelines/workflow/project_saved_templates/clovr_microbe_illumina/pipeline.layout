@@ -4,6 +4,10 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>prepare_paired_ends_for_velvet.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>velvet_optimiser.assembly</name>
         </commandSet>
         <commandSet type="serial">

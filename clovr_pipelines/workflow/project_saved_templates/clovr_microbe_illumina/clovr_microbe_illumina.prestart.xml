@@ -4,7 +4,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>illumina_prok_annot.prestart</name>
+    <name>clovr_microbe_illumina.prestart</name>
     <command>
       <name>Tag data</name>
       <type>RunUnixCommand</type>
