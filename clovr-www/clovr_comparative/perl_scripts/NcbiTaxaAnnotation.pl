@@ -29,6 +29,7 @@ my $NCBI_TAXA = 'NCBITaxon:';
 my $TRUE = 1;
 my $FALSE = 0;
 my $ANNOT = 'ANNOTATION_INFO';
+my $MAP = 'MAP_INFO';
 my $NAME = 'text';
 my $LEAF = 'leaf';
 my $CHILDREN = 'children';
@@ -43,13 +44,15 @@ sub filterOutUnAnnotatedOnes ();
 sub helperFilter ($);
 sub initializeLeafCountsToZero();
 sub makeLeafCountZero($);
+sub addMapInfo ($);
+sub helperAddMapInfo ($);
 
 ############################        MAIN PROGRAM             #########################
 
-my ($taxa) = retrieve('../binary_files/NcbiOboTaxaDataStructure')
+my ($taxa) = retrieve('NcbiOboTaxaDataStructure')
 							|| die "Error retrieving the NcbiOboTaxaDataStructure\n";
 							
-my ($annot_info) = retrieve('../binary_files/NcbiAnnotationDataStruc')
+my ($annot_info) = retrieve('NcbiAnnotationDataStructure')
 							|| die "Error retrieving the NcbiAnnotationDataStruc\n";
 						
 my ($root) = $$taxa[0];
@@ -57,7 +60,8 @@ generateFakeRootToSynchronizeTopNodes ();
 initializeLeafCountsToZero();						
 generateAnnotationInfo ();
 filterOutUnAnnotatedOnes ();
-store($root, 'FilteredNcbiTaxaAnnotationDataStructure') || 
+addMapInfo($root);
+store($root, 'NcbiTaxaAnnotationDataStructure') || 
 	die "Error in writing the data structure to the disk\n";
 print "Success:\n";
 exit(0);
@@ -106,6 +110,9 @@ sub helperFilter ($) {
 sub filterOutUnAnnotatedOnes () {
 	while(my ($key,$value) = each %{$$root{$ROOT}{$CHILDREN}}) {
 		$$root{$key}{$LEAF_COUNT} = helperFilter($key);
+		unless($$root{$key}{$LEAF_COUNT}) {
+			delete($$root{$ROOT}{$CHILDREN}{$key});
+		}
 	}	
 }
 
@@ -133,5 +140,38 @@ sub addAnnotationFields ($$) {
 	my ($ncbi_key, $annot_key) = @_;
 	$$root{$ncbi_key}{$ANNOT} = $$annot_info{$annot_key};
 	$$root{$ncbi_key}{$LEAF_COUNT} = scalar@{$$annot_info{$annot_key}};	
+}
+
+sub addMapInfo ($) {	
+	my ($root) = @_;
+	while(my ($key,$value) = each %{$$root{$ROOT}{$CHILDREN}}) {
+		helperAddMapInfo($key);
+	}	
+}
+
+sub helperAddMapInfo ($) {
+	my ($id) = @_;
+	$$root{$id}{$MAP} = [];
+	if($$root{$id}{$ANNOT} && scalar @{$$root{$id}{$ANNOT}} > 0) {
+		my $temp = {};
+		foreach my $refSeq(@{$$root{$id}{$ANNOT}}) {
+			open(FH,"<$$refSeq[0]") or die "Error in reading the file, $$refSeq[0], $!\n";
+			while(my $line = <FH>) {
+				$line =~ s/^\s+//;
+				$line =~ s/\s+$//;
+				if($line =~ /^ORGANISM\s+(.+)/) {
+					my @array = split(" ", $1);
+					my $string = join(" ", (@array,$array[scalar@array-1]));
+					$$temp{$string}++;
+					last;
+				}	
+			}
+			close FH;
+		}		
+		push @{$$root{$id}{$MAP}}, keys%$temp;
+	}
+	while(my ($key,$value) = each %{$$root{$id}{$CHILDREN}}) {
+		helperAddMapInfo($key);
+	}
 }
 
