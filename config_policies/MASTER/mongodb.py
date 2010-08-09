@@ -44,7 +44,7 @@ def startup():
                                                         open(cert).read(),
                                                         open(pkey).read(),
                                                         True,
-                                                        dict([v.split('=', 1) for v in metadata.split(',')])))
+                                                        metadata and dict([v.split('=', 1) for v in metadata.split(',')]) or {}))
     else:
         manager.saveCredential(manager.createCredential('local',
                                                         'Dummy local credential',
