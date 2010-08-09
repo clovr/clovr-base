@@ -84,9 +84,9 @@ def startup():
     ##
     # a hack right now but delete cert and key file if they exist since ROOT made them
     # nobody else will be able to write them later on
-    if hasatter(cluster.credInst, 'cert') and cluster.credInst.cert:
+    if hasattr(cluster.credInst, 'cert') and cluster.credInst.cert:
         os.remove(cluster.credInst.cert)
-    if hasatter(cluster.credInst, 'pkey') and cluster.credInst.pkey:
+    if hasattr(cluster.credInst, 'pkey') and cluster.credInst.pkey:
         os.remove(cluster.credInst.pkey)
 
     
