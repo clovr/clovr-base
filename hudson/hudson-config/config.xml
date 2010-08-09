@@ -82,7 +82,7 @@
       <includeRegex>^([0-9]).*</includeRegex>
     </listView>
   </views>
-  <primaryView>All</primaryView>
+  <primaryView>CloVR tests</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
   <nodeProperties/>

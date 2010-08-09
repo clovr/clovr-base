@@ -12,7 +12,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.img /root/grub-boot.tgz /mnt/image.vmdk</command>
+      <command>cd /mnt
+sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.img /root/grub-boot.tgz /mnt/image.vmdk</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
