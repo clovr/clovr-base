@@ -1,3 +1,4 @@
+import os
 import time
 
 from twisted.python import reflect
@@ -34,14 +35,24 @@ def startup():
     ##
     # let mongo come up
     time.sleep(3)
-    
-    manager.saveCredential(manager.createCredential('local',
-                                                    'Dummy local credential',
-                                                    reflect.namedAny('vappio.local.control'),
-                                                    None,
-                                                    None,
-                                                    True,
-                                                    None))
+
+    if os.path.exists('/tmp/cred-info'):
+        cert, pkey, ctype, metadata = open('/tmp/cred-info').read().split('\t')
+        manager.saveCredential(manager.createCredential('local',
+                                                        'Local credential',
+                                                        reflect.namedAny('vappio.' + ctype + '.control'),
+                                                        open(cert).read(),
+                                                        open(pkey).read(),
+                                                        True,
+                                                        dict([v.split('=', 1) for v in metadata.split(',')])))
+    else:
+        manager.saveCredential(manager.createCredential('local',
+                                                        'Dummy local credential',
+                                                        reflect.namedAny('vappio.local.control'),
+                                                        None,
+                                                        None,
+                                                        True,
+                                                        None))
     credential = manager.loadCredential('local')
     options = configFromStream(open('/tmp/machine.conf'), configFromEnv())
     options = configFromMap(
