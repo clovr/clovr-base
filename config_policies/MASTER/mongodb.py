@@ -81,6 +81,14 @@ def startup():
     # attempts
     tryUntil(5, lambda : time.sleep(2), tryDump(cluster))
 
+    ##
+    # a hack right now but delete cert and key file if they exist since ROOT made them
+    # nobody else will be able to write them later on
+    if hasatter(cluster.credInst, 'cert') and cluster.credInst.cert:
+        os.remove(cluster.credInst.cert)
+    if hasatter(cluster.credInst, 'pkey') and cluster.credInst.pkey:
+        os.remove(cluster.credInst.pkey)
+
     
 def shutdown():
     run('killall mongod')
