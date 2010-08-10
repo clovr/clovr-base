@@ -8,7 +8,7 @@
 			<name>Upload user data</name>
 			<type>RunUnixCommand</type>
 			<executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-			<arg>--tag-name $;BSML_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+			<arg>--tag-name $;BSML_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
 		</command>
 	</commandSet>
 </commandSetRoot>
