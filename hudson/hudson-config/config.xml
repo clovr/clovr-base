@@ -5,6 +5,9 @@
   <mode>NORMAL</mode>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <systemMessage>&lt;p&gt;&lt;img src=&apos;http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png&apos; align=right&gt; &#xd;
+Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;.  Additional documentation on image building is provided &lt;a href=&apos;http://clovr.sf.net&apos;&gt;here&lt;/a&gt;.&#xd;
+&lt;/p&gt;</systemMessage>
   <jdks/>
   <clouds/>
   <slaves/>

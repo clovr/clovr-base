@@ -13,7 +13,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/vp-bundle-vol -s 10000 -d /mnt</command>
+sudo /opt/vappio-util/vp-bundle-vol -s 10000 -d /mnt -e /mnt,/var/lib/hudson</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
