@@ -8,31 +8,31 @@
       <name>Upload fasta data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;FASTA_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;FASTA_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload oligos data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;OLIGOS_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;OLIGOS_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload quality data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;QUALITY_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;QUALITY_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload meta data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;META_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;META_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload 16S db data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;DB_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;DB_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
   </commandSet>
 </commandSetRoot>

@@ -9,13 +9,13 @@
       <name>Upload data</name>
       <type>RunUnixCommand</type>
       <executable>uploadTag.py</executable>
-      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload data</name>
       <type>RunUnixCommand</type>
       <executable>uploadTag.py</executable>
-      <arg>--tag-name $;REF_DB_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;REF_DB_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
   </commandSet>
 </commandSetRoot>
