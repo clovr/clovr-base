@@ -13,72 +13,139 @@ use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 use JSON::PP;
 use Storable;
+#use Data::Dumper;
 
 ###################             CONSTATNS               #################
 
-use constant node => 'node';
-use constant id	=> 'id';
-use constant children => 'children';
-use constant text => 'text';
-use constant leaf => 'leaf';
-use constant leaf_count => 'leaf_count';
-use constant true => 1;
-use constant false => 0;
+my $ROOT = '/';
+my $NODE = 'node';
+my $ID	= 'id';
+my $CHILDREN = 'children';
+my $TEXT = 'text';
+my $LEAF = 'leaf';
+my $LEAF_COUNT = 'leaf_count';
+my $TRUE = 1;
+my $FALSE = 0;
+my $CHECKED = 'checked';
+my $MSG = 'IDs';
+my $SEQ_FETCHED = 'seq_fetched';
+my $MAP_FETCHED = 'map_fetched';
+my $ANNOT = 'ANNOTATION_INFO';
+my $MAP = 'MAP_INFO';
+my $EXPANDED = 'expanded';
+my $SINGLE = 'singleClickExpand';
+my $REF_SEQ_FILE = "/mnt/scratch/clovr_comparative/RefSeqList2.txt";
+my $MAP_FILE = "/mnt/scratch/clovr_comparative/MapOrgList2.txt";
 
 ###################             GLOBAL VARIABLES        #################
 
 my $q = new CGI;
-my $binaryFile = 'NcbiOboTaxaDataStructure';
-my ($root,$topNodes) = @{retrieve($binaryFile)} or die "Error in retrieving $binaryFile\n";
+my $binaryFile = '../binary_files/NcbiTreeWidgetDataStructure';
+my ($root) = retrieve($binaryFile) or die "Error in retrieving $binaryFile\n";
 
 ###################            SUBS DECLARATION         #################
 
-sub getAllRootNodes ();
 sub getAllChildNodes ($);
+sub getRefSeqs ($);
+sub getMapNames ($);
+sub helperFetchMapNames ($);
+sub writeToFile ($$);
 
 ###################            MAIN PROGRAM             #################
 
 #sends jason
 my $params = $q->Vars;
 print "Content-type: text/html\n\n";
-my $json = ($$params{node} eq '/') ? encode_json(getAllRootNodes())
-								   : encode_json(getAllChildNodes($$params{node}));
-print $json;
+if($$params{$MSG}) {
+	my $refSeqs = [];
+	my $refMaps = getMapNames($$params{$MSG});
+	foreach(split(', ',$$params{$MSG})) {
+		push @$refSeqs, @{getRefSeqs($_)};
+	}
+	my $ref_seq_info = join(" ", @$refSeqs);
+	my $map_info = join("\n", @$refMaps);
+	writeToFile($REF_SEQ_FILE, $ref_seq_info);
+	writeToFile($MAP_FILE, $map_info);
+	my $run_pipeline = "perl InvokePipeline.cgi '$REF_SEQ_FILE' '$MAP_FILE' '$$params{'pipeline'}' '$$params{'genbank_file'}' '$$params{'map_file'}' '$$params{'pipeline_name'}'" ;
+	system($run_pipeline) == 0 or die "system $run_pipeline failed, $?, \n";
+} 
+else {
+	print encode_json(getAllChildNodes($$params{$NODE}));
+}
 exit(0);
 
 ##################             END OF MAIN               #################
 
-sub getAllRootNodes () {
+
+sub getAllChildNodes ($) {
+	my ($id) = @_;
 	my $refArray = [];
-	foreach(@{$topNodes}) {
+	while(my ($key,$value) = each %{$root->{$id}->{$CHILDREN}}) {
 		my $refHash = {};
-		$$refHash{id} = $_;
-		if($$root{$_}{leaf}) {
-			$$refHash{leaf} = JSON::PP::true;
-			$$refHash{text} = $$root{$_}{text};	
+		$$refHash{$ID} = $key;
+		$$refHash{$TEXT} = $$root{$key}{$TEXT}." (".$$root{$key}{$LEAF_COUNT}.")";
+		$$refHash{$CHECKED}  = $$params{$CHECKED} eq 'true' ? JSON::PP::true : JSON::PP::false;	
+		$$refHash{$SINGLE} = JSON::PP::true;	
+		if($$root{$key}{$LEAF}) {
+			$$refHash{$LEAF} = JSON::PP::true;
 		}
-		else {
-			$$refHash{text} = $$root{$_}{text}." (count:'".$$root{$_}{leaf_count}."')";			
+		elsif($$root{$id}{$LEAF_COUNT} && $$root{$id}{$LEAF_COUNT} == $$root{$key}{$LEAF_COUNT}) {
+			$$refHash{$EXPANDED} = JSON::PP::true;
+			push @{$$refHash{$CHILDREN}}, @{getAllChildNodes($key)};
 		}
 		push @$refArray, $refHash;
 	}
 	return $refArray;
 }
 
-sub getAllChildNodes ($) {
+sub getRefSeqs ($) {
 	my ($id) = @_;
-	my $refArray = [];
-	while(my ($key,$value) = each %{$root->{$id}->{children}}) {
-		my $refHash = {};
-		$$refHash{id} = $key;		
-		if($$root{$key}{leaf}) {
-			$$refHash{leaf} = JSON::PP::true;
-			$$refHash{text} = $$root{$key}{text};
+	my $refSeqs = [];
+	unless($$root{$id}{$SEQ_FETCHED}) {
+		if($$root{$id}{$LEAF}) {
+			$$root{$id}{$SEQ_FETCHED} = $TRUE;
+			foreach(@{$$root{$id}{$ANNOT}}) {
+				push @$refSeqs, $$_[0];
+			}
 		}
-		else {
-			$$refHash{text} = $$root{$key}{text}." (count:'".$$root{$key}{leaf_count}."')";
+		elsif(defined @{$$root{$id}{$ANNOT}}) {
+			$$root{$id}{$SEQ_FETCHED} = $TRUE;
+			foreach(@{$$root{$id}{$ANNOT}}) {
+				push @$refSeqs, $$_[0];
+			}
 		}
-		push @$refArray, $refHash;
 	}
-	return $refArray;
+	while(my ($key,$value) = each %{$$root{$id}{$CHILDREN}}) {
+		push @$refSeqs, @{getRefSeqs($key)};
+	}
+	return $refSeqs;
+}
+
+sub getMapNames ($) {
+	my ($info) = @_;
+	my $array = [];
+	foreach(split(', ', $info)) {
+		push @$array, @{helperFetchMapNames($_)};	
+	}
+	return $array;
+}
+
+sub helperFetchMapNames ($) {
+	my ($id) = @_;
+	my $info = [];
+	if($$root{$id}{$MAP} && !$$root{$id}{$MAP_FETCHED}) {
+		$$root{$id}{$MAP_FETCHED} = $TRUE;
+		push @$info, @{$$root{$id}{$MAP}};
+	}
+	foreach(keys %{$$root{$id}{$CHILDREN}}) {
+		push @$info, @{helperFetchMapNames($_)};
+	}
+	return $info;
+}
+
+sub writeToFile ($$) {
+	my ($file, $info) = @_;
+	open(OFH, ">$file") or die "Error in writing to the file, $file, $!\n";
+	print OFH $info;
+	close OFH;
 }

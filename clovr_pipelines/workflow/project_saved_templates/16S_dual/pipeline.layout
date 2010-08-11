@@ -1,0 +1,103 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>dual16S_pre.default</name>
+        </commandSet>
+        <commandSet type="parallel">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>pick_otus_through_otu_table.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>metastats.qiime</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>skiff.qiime</name>
+                </commandSet>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_trim_seqs.default</name>
+                </commandSet>
+                <commandSet type="parallel">
+                    <state>incomplete</state>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>mothur_unique_seqs.default</name>
+                        </commandSet>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>mothur_align_seqs.default</name>
+                        </commandSet>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>mothur_screen_seqs.default</name>
+                        </commandSet>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>mothur_filter_seqs.default</name>
+                        </commandSet>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>rdp_classifier.default</name>
+                        </commandSet>
+                        <commandSet type="parallel">
+                            <state>incomplete</state>
+                                <commandSet type="serial">
+                                <state>incomplete</state>
+                                <name>skiff.default</name>
+                            </commandSet>
+                            <commandSet type="serial">
+                                <state>incomplete</state>
+                                <name>metastats.default</name>
+                            </commandSet>
+                        </commandSet>
+                    </commandSet> 
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_unique_seqs.otu_assignment</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_dist_seqs.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_cluster.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_read_otu.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_collect_single.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_rarefaction_single.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_summary.single</name>
+                </commandSet>
+            </commandSet>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>
