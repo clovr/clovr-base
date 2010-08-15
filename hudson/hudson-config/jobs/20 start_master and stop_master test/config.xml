@@ -14,22 +14,21 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/vappio-scripts/stop_master.sh
+      <command>sudo /opt/vappio-scripts/vp-stop-node master
 
-node=`cat /mnt/clovr/runtime/node_type`
+node=`cat /var/vappio/runtime/node_type`
 if [  $node  != &quot;OFFLINE&quot; ]; then
 echo &quot;node is $node&quot;
 echo &quot;error, node should be offline&quot;
 exit 1
 fi
 
-sudo /opt/vappio-scripts/start_master.sh
+sudo /opt/vappio-scripts/vp-start-node master
 
-
-node2=`cat /mnt/clovr/runtime/node_type`
-if [ $node2 != &quot;MASTER_NODE&quot; ]; then 
+node2=`cat /var/vappio/runtime/node_type`
+if [ $node2 != &quot;master&quot; ]; then 
 echo &quot;node is $node2&quot;
-echo &quot;error, node should be MASTER_NODE&quot;
+echo &quot;error, node should be master&quot;
 exit 1
 fi
 

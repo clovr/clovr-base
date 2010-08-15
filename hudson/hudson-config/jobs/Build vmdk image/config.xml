@@ -13,7 +13,14 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.img /mnt/grub-boot.tgz /mnt/image.vmdk</command>
+cp /mnt/image.img /mnt/image.vmdk.img
+sudo /opt/vappio-util/img_clean.sh /mnt/image.vmdk.img /opt/vappio-util/cleanupimg
+wget -P /mnt http://cb2.igs.umaryland.edu/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz
+/opt/vappio-util/img_add_tgz.sh /mnt/image.vmware.img /mnt/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz 
+wget -P /mnt http://cb2.igs.umaryland.edu/vboxtools-3.2.6.tar.gz
+/opt/vappio-util/img_add_tgz.sh /mnt/image.vmware.img /mnt/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz 
+wget -P /mnt http://cb2.igs.umaryland.edu/grub-boot.tgz
+sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.vmdk.img /mnt/grub-boot.tgz /mnt/image.vmdk</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

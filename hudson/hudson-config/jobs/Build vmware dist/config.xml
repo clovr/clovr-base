@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Build vmware dist</description>
+  <description>Build vmx dist</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -13,6 +13,11 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
+	wget -P /mnt http://cb2.igs.umaryland.edu/vmx_bundle.tgz
+	tar xvzf vmx_bundle.tgz
+	/opt/vappio-util/bundle_vmx.sh /mnt/image.vmdk vmx_bundle/start_clovr.vmx.template vmx_bundle/start_clovr.vmx clovr_vmware_testing
+	mv vmx_bundle clovr_vmware_testing
+	tar cvzf clovr_vmware_testing.tgz clovr_vmware_testing 
 </command>
     </hudson.tasks.Shell>
   </builders>
