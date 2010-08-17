@@ -24,8 +24,3 @@ if ( $homepage =~ /error/ || $ganglia =~ /error/ || $ergatis =~ /error/)
     print "IT DONT WORK\n";
     exit 1;
 }
-
-
-#print "$homepage\n";
-#print "$ganglia\n";
-#print "$ergatis\n";
