@@ -1,4 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson4021660898918515149.sh
-+ sudo /var/lib/hudson/hostname.pl
-Finished: SUCCESS

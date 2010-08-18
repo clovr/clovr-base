@@ -1,0 +1,26 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson7649825659106019058.sh
++ sudo /opt/hudson/checkPermissions.sh /opt/hudson/permissions.txt
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+match
+Finished: SUCCESS

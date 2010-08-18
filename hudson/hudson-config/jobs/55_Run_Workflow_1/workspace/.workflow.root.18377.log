@@ -1,0 +1,9 @@
+/opt/workflow-sforge/CreateWorkflow (18377): Parent with pid 18377, starting.
+/opt/workflow-sforge/CreateWorkflow (18379): Child with pid 18379, starting .
+The base name is : CreateWorkflow
+/opt/workflow-sforge/CreateWorkflow (18379): Child command is 'createworkflow -c /opt/workflow-sforge/examples/local/ls-commands.ini -t /opt/workflow-sforge/examples/local/ls-commands-template.xml -i test.xml --pidfile .workflow.root.18377'
+/opt/workflow-sforge/CreateWorkflow (18379): Child invoking the command.
+/opt/workflow-sforge/CreateWorkflow (18377): Child created with pid 18379
+/opt/workflow-sforge/CreateWorkflow (18377): Waiting for the Child to complete. 
+/opt/workflow-sforge/CreateWorkflow (18377): Child returned with 0 
+/opt/workflow-sforge/CreateWorkflow (18377): Parent exiting.

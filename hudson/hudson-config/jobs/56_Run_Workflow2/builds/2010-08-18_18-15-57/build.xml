@@ -9,13 +9,13 @@
       </causes>
     </hudson.model.CauseAction>
   </actions>
-  <number>3</number>
-  <result>SUCCESS</result>
-  <duration>36430</duration>
+  <number>2</number>
+  <result>ABORTED</result>
+  <duration>198188</duration>
   <charset>US-ASCII</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
-  <workspace>/var/lib/hudson/jobs/Ganglia and Ergatis online check/workspace</workspace>
+  <workspace>/var/lib/hudson/jobs/56 Run Workflow2/workspace</workspace>
   <hudsonVersion>1.352</hudsonVersion>
   <scm class="hudson.scm.NullChangeLogParser"/>
   <culprits/>

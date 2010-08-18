@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Bundle image</description>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -12,8 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /mnt
-sudo /opt/vappio-util/vp-bundle-vol -s 10000 -d /mnt -e /mnt --fstab=/etc/fstab.orig</command>
+      <command>sudo /opt/hudson/checkPermissions.sh /opt/hudson/permissions.txt</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

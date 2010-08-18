@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commandSetRoot type="instance">
+    <commandSet type="serial" version="3.0">
+        <name>wait workflow</name>
+        <id>27800</id>
+        <maxParallelCmds>0</maxParallelCmds>
+        <lastMarshalTime>2010-08-18T18:38:20.124Z</lastMarshalTime>
+        <marshalInterval>0</marshalInterval>
+        <startTime>2010-08-18T18:38:09.401Z</startTime>
+        <endTime>2010-08-18T18:38:20.124Z</endTime>
+        <state>complete</state>
+        <status>
+            <total>1</total>
+            <complete>1</complete>
+            <incomplete>0</incomplete>
+            <failed>0</failed>
+            <pending>0</pending>
+            <errors>0</errors>
+            <running>0</running>
+            <waiting>0</waiting>
+            <interrupted>0</interrupted>
+            <message>Command set with name: &apos;wait workflow&apos; finished</message>
+        </status>
+        <command>
+            <name>sleep</name>
+            <id>27801</id>
+            <startTime>2010-08-18T18:38:09.618Z</startTime>
+            <endTime>2010-08-18T18:38:19.822Z</endTime>
+            <state>complete</state>
+            <type>RunUnixCommand</type>
+            <executable>sleep</executable>
+            <retryCount>0</retryCount>
+            <retryAttempts>0</retryAttempts>
+            <timeOut>0</timeOut>
+            <status>
+                <retValue>0</retValue>
+            </status>
+            <arg>10</arg>
+        </command>
+        <restarted>false</restarted>
+    </commandSet>
+    <host>clovr-10-90-137-153</host>
+    <port>1099</port>
+</commandSetRoot>

@@ -1,0 +1,119 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson2778547668853138593.sh
++ sudo /opt/hudson/workflow2.sh
+createworkflow
+java -Djava.security.policy=modified.policy -Djava.util.prefs.systemRoot=/tmp/root -Djava.util.prefs.userRoot=/tmp/root -classpath .:/opt/workflow-sforge:/opt/workflow-sforge/jars/wf.jar:/opt/workflow-sforge/jars/jdom.jar:/opt/workflow-sforge/jars/castor-1.0.4.jar:/opt/workflow-sforge/jars/commons-logging.jar:/opt/workflow-sforge/jars/xerces.jar:/opt/workflow-sforge/jars/jconn2.jar:/opt/workflow-sforge/jars/shared.jar:/opt/workflow-sforge/jars/htcrequest.jar:/opt/workflow-sforge/jars/icons.jar:/opt/workflow-sforge/jars/log4j-1.2.8.jar:/opt/workflow-sforge/jars/xercesImpl.jar:/opt/workflow-sforge/jars/xmlParserAPIs.jar:/opt/workflow-sforge/jars/xmlrpc-1.1.jar:/opt/workflow-sforge/jars/junit.jar:/opt/workflow-sforge/jars/junit-addons-1.4.jar:/opt/workflow-sforge/jars/panda.jar:/opt/sge/lib/drmaa.jar -Dwf.instance.file=test.xml -Dproject.config.file=/opt/workflow-sforge/workflow.config -Dorg.xml.sax.parser=org.apache.xerces.parsers.SAXParser org.tigr.workflow.common.WorkflowInstanceBuilder -c /opt/workflow-sforge/examples/distributed/ls-commands-distributed.ini -t /opt/workflow-sforge/examples/distributed/ls-commands-distributed-parallel-template.xml -i test.xml --pidfile .workflow.root.22475
+FATAL 18:17:59:569 [Thread: main] ExceptionHandler handleExceptionStandardMode:163 invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+FATAL 18:17:59:574 [Thread: main] ExceptionHandler handleExceptionStandardMode:163 invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+FATAL 18:17:59:582 [Thread: main] ExceptionHandler handleExceptionStandardMode:163 invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+
+java.net.MalformedURLException: invalid URL String: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.rmi.Naming.parseURL(Naming.java:243)
+	at java.rmi.Naming.lookup(Naming.java:96)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:345)
+	at org.tigr.workflow.rmi.WorkflowChecker.checkWorkflow(WorkflowChecker.java:313)
+	at org.tigr.workflow.common.WorkflowInstanceBuilder.main(WorkflowInstanceBuilder.java:1623)
+Caused by: java.net.URISyntaxException: Illegal character in path at index 50: //clovr-10-90-137-153:1100//var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml
+	at java.net.URI$Parser.fail(URI.java:2825)
+	at java.net.URI$Parser.checkChars(URI.java:2998)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3082)
+	at java.net.URI$Parser.parse(URI.java:3040)
+	at java.net.URI.<init>(URI.java:595)
+	at java.rmi.Naming.intParseURL(Naming.java:273)
+	at java.rmi.Naming.parseURL(Naming.java:237)
+	... 4 more
+Created workflow /var/lib/hudson/jobs/56 Run Workflow2/workspace/test.xml. Exiting.. 
+The Workflow is invoked. View Workflow Monitor to check the progress. 
+runworkflow
+java -Djava.security.policy=modified.policy -Djava.util.prefs.systemRoot=/tmp/root -Djava.util.prefs.userRoot=/tmp/root -classpath .:/opt/workflow-sforge:/opt/workflow-sforge/jars/wf.jar:/opt/workflow-sforge/jars/jdom.jar:/opt/workflow-sforge/jars/castor-1.0.4.jar:/opt/workflow-sforge/jars/commons-logging.jar:/opt/workflow-sforge/jars/xerces.jar:/opt/workflow-sforge/jars/jconn2.jar:/opt/workflow-sforge/jars/shared.jar:/opt/workflow-sforge/jars/htcrequest.jar:/opt/workflow-sforge/jars/icons.jar:/opt/workflow-sforge/jars/log4j-1.2.8.jar:/opt/workflow-sforge/jars/xercesImpl.jar:/opt/workflow-sforge/jars/xmlParserAPIs.jar:/opt/workflow-sforge/jars/xmlrpc-1.1.jar:/opt/workflow-sforge/jars/junit.jar:/opt/workflow-sforge/jars/junit-addons-1.4.jar:/opt/workflow-sforge/jars/panda.jar:/opt/sge/lib/drmaa.jar -Xms100m -Xmx256m -XX:+UseAltSigs -Dwf.instance.file=test.xml -Dproject.config.file=/opt/workflow-sforge/workflow.config -Dorg.xml.sax.parser=org.apache.xerces.parsers.SAXParser -Djava.library.path=/lib:/lib/ -Dorg.tigr.htc.config=/opt/workflow-sforge/server-conf/htc.conf org.tigr.workflow.common.WorkflowEngine -i test.xml --pidfile .workflow.root.22985
+Build was aborted
+Finished: ABORTED
