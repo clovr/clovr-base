@@ -12,7 +12,7 @@ $ping = `ping -c 1 $hostname`;
 $homepage=`lwp-request  $hostname`;
 if ( $? !=  0 )
 {
-    print "IT DONT WOOORK\n";
+    print "IT DONT WORK\n";
     exit 1;
 }
 $ganglia= `lwp-request  '$hostname/ganglia/'`;

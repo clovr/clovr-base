@@ -15,10 +15,12 @@ do
 	echo "match"
     else
 	echo "error"
+	exit 1
     fi
     if [ "$Permission" == "$3" ]; then
         echo "match"
     else
 	echo "error"
+	exit 1
     fi
 done

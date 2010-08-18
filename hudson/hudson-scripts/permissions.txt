@@ -3,7 +3,6 @@
 /mnt/db		www-data	drwxr-xr-x
 /mnt/harvesting www-data	drwxrwxrwx
 /mnt/keys	www-data	drwxrwxrwx
-/mnt/output	www-data	drwxr-xr-x
 /mnt/pg_data	postgres	drwx------
 /mnt/projects	www-data	drwxr-xr-x
 /mnt/scratch	www-data	drwxrwxrwx
