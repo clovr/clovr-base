@@ -63,23 +63,25 @@ while(<IN>){
 }
 close IN;
 
+my $numfeaturetypes = 0;
 open IN, "$opt_m" or die "Can't open Meta file for reading!!\n";
 while(<IN>){
   chomp($_);
+  next if ($_ eq "");
   my @A = split /\,/, $_;
   $A[2] =~s/^\s+|\s+$//g;
+  $numfeaturetypes = $#A-2;
   if (!defined($A[3])){ # then there are no classes for the samples
-    push @{$groups{"NoClassDef"}}, $A[2];    
+    push @{$groups{"NoClassDef"}}, $A[2];
   }else{
-    $A[3] =~s/^\s+|\s+$//g;
-    $samples{$A[2]} = $A[3];
-    push @{$groups{$A[3]}}, $A[2];  
-    $groupnames{$A[3]} = 1;
+    for my $i (3 .. $#A){
+      $A[$i] =~s/^\s+|\s+$//g;
+      push @{$groups{$i-2}{$A[$i]}}, $A[2];
+      $groupnames{$i-2}{$A[$i]} = 1;
+    }
   }
 }
 close IN;
-
-
 
 my $current_seq = "";
 open IN, "$opt_r" or die "Can't open RDP output file for reading!!\n";
@@ -147,30 +149,38 @@ while(<IN>){
 }
 close IN;
 
-foreach my $type (%groups){
-  foreach my $s (@{$groups{$type}}){
+
+if ($numfeaturetypes > 0){
+foreach my $type (keys %{$groups{1}}){
+  foreach my $s (@{$groups{1}{$type}}){
     if (defined($activesamples{$s})){
       push @orderedsamples, $s;
     }
   }
 }
+}
 
+if (!defined($orderedsamples[0])){
+  @orderedsamples = keys %activesamples;
+}
 
 foreach my $l (@levels){
   zeroOut($l);
   printCounts($l);
 }
 
-my @gs = sort keys %groupnames;
-foreach my $l (@levels){
-  for my $i (0 .. $#gs){
-  for my $j (0 .. $#gs){
-    next if ($j >= $i);
-    printPairedGroups($l, $gs[$i], $gs[$j]);
+
+for my $ftr (1 .. $numfeaturetypes){
+  my @gs = sort keys %{$groupnames{$ftr}};
+  foreach my $l (@levels){
+    for my $i (0 .. $#gs){
+    for my $j (0 .. $#gs){
+      next if ($j >= $i);
+      printPairedGroups($ftr, $l, $gs[$i], $gs[$j]);
+    }
+    }
   }
-  }
-}
-  
+}  
 
 #*********************************************************************
 # Subroutines
@@ -210,26 +220,26 @@ sub printCounts
 
 sub printPairedGroups
 {
-  my ($level, $g1, $g2) = @_;
+  my ($feature, $level, $g1, $g2) = @_;
 
   my @pairedorderedsamples = ();
   my $g1count = 0;
-  foreach my $s (@{$groups{$g1}}){
+  foreach my $s (@{$groups{$feature}{$g1}}){
      if (defined($activesamples{$s})){
        push @pairedorderedsamples, $s;
        $g1count++; 
      }
   }
   my $g2count = 0;
-  foreach my $s (@{$groups{$g2}}){
+  foreach my $s (@{$groups{$feature}{$g2}}){
      if (defined($activesamples{$s})){
      push @pairedorderedsamples, $s;
      $g2count++;
     }
   }
    
-  return if ($g1 <= 0 or $g2 <=0);
-  return if (($g1 == 1 and $g2 != 1) or ($g1 != 1 and $g2 == 1));  
+  return if ($g1count <= 0 or $g2count <=0);
+  return if (($g1count == 1 and $g2count != 1) or ($g1count != 1 and $g2count == 1));  
  
   open OUT, ">$prefix.$level.$g1\_vs_$g2.$g1count-$g2count.2tsv" or die "Can't open $prefix.$level.$g1\_vs_$g2.$g1count--$g2count.2tsv for writing!\n";
   for my $s (0 .. $#pairedorderedsamples){
