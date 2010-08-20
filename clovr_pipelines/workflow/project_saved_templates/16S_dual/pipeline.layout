@@ -4,7 +4,7 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>dual16S_pre.default</name>
+            <name>qiime_mothur_cnvr.default</name>
         </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
@@ -12,15 +12,18 @@
                 <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>pick_otus_through_otu_table.default</name>
+                    <name>core_qiime.default</name>
                 </commandSet>
-                <commandSet type="serial">
+                <commandSet type="parallel">
                     <state>incomplete</state>
-                    <name>metastats.qiime</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>skiff.qiime</name>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>metastats.qiime</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>skiff.qiime</name>
+                    </commandSet>
                 </commandSet>
             </commandSet>
             <commandSet type="serial">
@@ -72,6 +75,10 @@
                 <commandSet type="serial">
                     <state>incomplete</state>
                     <name>mothur_unique_seqs.otu_assignment</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>mothur_unique_seq_limit.default</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
