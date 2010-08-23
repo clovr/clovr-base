@@ -49,10 +49,10 @@ sub helperAddMapInfo ($);
 
 ############################        MAIN PROGRAM             #########################
 
-my ($taxa) = retrieve('NcbiOboTaxaDataStructure')
+my ($taxa) = retrieve('../binary_files/NcbiOboTaxaDataStructure')
 							|| die "Error retrieving the NcbiOboTaxaDataStructure\n";
 							
-my ($annot_info) = retrieve('NcbiAnnotationDataStructure')
+my ($annot_info) = retrieve('../binary_files/NcbiAnnotationDataStructure')
 							|| die "Error retrieving the NcbiAnnotationDataStruc\n";
 						
 my ($root) = $$taxa[0];
@@ -61,7 +61,7 @@ initializeLeafCountsToZero();
 generateAnnotationInfo ();
 filterOutUnAnnotatedOnes ();
 addMapInfo($root);
-store($root, 'NcbiTaxaAnnotationDataStructure') || 
+store($root, '../binary_files/NcbiTaxaAnnotationDataStructure') || 
 	die "Error in writing the data structure to the disk\n";
 print "Success:\n";
 exit(0);
@@ -97,6 +97,11 @@ sub helperFilter ($) {
 		if($$root{$cur_node}{$LEAF_COUNT} && $$root{$cur_node}{$ANNOT} &&
 				$$root{$cur_node}{$LEAF_COUNT} == scalar@{$$root{$cur_node}{$ANNOT}}) {
 			$$root{$cur_node}{$LEAF} = $TRUE;
+		}
+		
+		my @children = keys(%{$$root{$cur_node}{$CHILDREN}});
+		if($$root{$cur_node}{$LEAF_COUNT} && !(@children)) {
+		    $$root{$cur_node}{$LEAF} = $TRUE;
 		}
 	}
 		
