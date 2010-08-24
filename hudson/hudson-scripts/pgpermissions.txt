@@ -1,0 +1,2 @@
+/mnt/pg_data    postgres        drwx------
+
