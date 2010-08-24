@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>find /opt/clovr_pipelines/workflow/project_saved_templates/ -name &quot;*.config&quot; | grep -v pipeline_tmpl.config | /opt/hudson/ergatisparse.pl 
+      <command>find /opt/clovr_pipelines/workflow/project_saved_templates/ -name &quot;*.*.config&quot; | grep -v pipeline_tmpl.config | /opt/hudson/ergatisparse.pl 
 </command>
     </hudson.tasks.Shell>
   </builders>

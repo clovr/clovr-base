@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-ls /var/lib/hudson/jobs > /tmp/jobs.txt
+find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*"  | sort -n > /tmp/jobs.txt
 
 ip=`hostname`
 ip=${ip:6}

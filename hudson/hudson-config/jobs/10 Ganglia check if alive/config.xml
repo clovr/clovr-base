@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudp /opt/hudson/hostname1.pl</command>
+      <command>sudo /opt/hudson/hostname1.pl</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

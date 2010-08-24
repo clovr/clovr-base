@@ -14,13 +14,13 @@ do
     if [ "$User" == "$2" ]; then 
 	echo "match"
     else
-	echo "error"
+	echo "error $line $User"
 	exit 1
     fi
     if [ "$Permission" == "$3" ]; then
         echo "match"
     else
-	echo "error"
+	echo "error $line $Permission"
 	exit 1
     fi
 done

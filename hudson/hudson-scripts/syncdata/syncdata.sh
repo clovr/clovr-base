@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
 fi
 
 du /mnt/staging > stagingbefore.out
-sudo /opt/vappio-scripts/staging.sh $HOSTNAME exec.q
+sudo /opt/vappio-scripts/staging.sh $HOSTNAME 
 du /mnt/staging > stagingafter.out
 
 cmp stagingbefore.out stagingafter.out
