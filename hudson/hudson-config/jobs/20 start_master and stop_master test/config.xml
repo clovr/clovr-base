@@ -26,7 +26,7 @@ fi
 sudo /opt/vappio-scripts/vp-start-node master
 
 node2=`cat /var/vappio/runtime/node_type`
-if [ &quot;$node2&quot; != &quot;MASTER_NODE&quot; ]; then 
+if [ &quot;$node2&quot; != &quot;master&quot; ]; then 
 echo &quot;node is $node2&quot;
 echo &quot;error, node should be master&quot;
 exit 1
