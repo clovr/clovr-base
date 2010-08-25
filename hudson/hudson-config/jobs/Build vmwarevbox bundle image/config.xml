@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Build a vmware,vmx bundle from a raw disk image.
+Includes:
+-Adding vmware,vbox guest tools
+-Adding grub boot loader
+-Converting img to vmdk
+-Creating ovf file for import into virtualbox
+-Creating start_clovr.xmx for import into vmware
+-Tar of results
+Input is /mnt/image.img
+Output is /mnt/clovr_testing.tgz
+</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd /mnt
+	/opt/vappio-util/create_bundle.sh /mnt/image.img clovr_testing
+      </command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
