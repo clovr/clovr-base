@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>svn co https://clovr.svn.sourceforge.net/svnroot/clovr/trunk/packages /opt/packages
+dpkg --get-selections &gt; /opt/packages/packages.latest
+perl -e &apos;use ExtUtils::Installed;$inst = ExtUtils::Installed-&gt;new(); foreach my $mod ($inst-&gt;modules()){print &quot;$mod &quot;,$inst-&gt;version($mod),&quot;\n&quot;};&apos; &gt;  /opt/packages/cpan.packages
+svn co https://clovr.svn.sourceforge.net/svnroot/clovr/trunk/filesystem /opt/filesystem
+find / -type f -or -type l -exec ls -l --time-style=&quot;+&quot; {} \; | grep -v -E &apos;(\/dev\/|\/proc\/|\/sys\/)&apos; | sort &gt; /opt/filesystem/filesystem.list</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
