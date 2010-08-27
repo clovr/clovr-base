@@ -47,7 +47,7 @@ chomp ( my $uname = `uname`);
 my $HMMSEARCH_BINARY;
 my $PERL;
 if ( $uname eq "Linux" ) {
-        $HMMSEARCH_BINARY = "/usr/local/bin/hmmsearch";
+        $HMMSEARCH_BINARY = "/usr/bin/hmmsearch";
 	$PERL = "/usr/bin/perl";
 } elsif ( $uname eq "IRIX64" ) {
 	$HMMSEARCH_BINARY = "/usr/cbs/bio/bin/irix64/hmmsearch";
