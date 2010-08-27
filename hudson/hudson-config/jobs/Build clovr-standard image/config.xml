@@ -13,7 +13,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/build.sh clovr_skeleton.img clovr-standard</command>
+sudo /opt/vappio-util/build.sh /mnt/clovr_skeleton.img clovr-standard</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

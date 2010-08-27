@@ -8,18 +8,11 @@
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector">
-    <hudson.triggers.TimerTrigger>
-      <spec>0 0 * * *
-
-</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/build.sh /mnt/clovr_skeleton.img clovr-build</command>
+sudo /opt/vappio-util/buildall.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
