@@ -3,8 +3,8 @@ set -e
 find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*" -printf "%f\n" | sort -n > /tmp/jobs.txt
 
 ip=`hostname`
-ip=${ip:6}
-ip=`echo $ip | sed -e 's/-/./g'` 
+#ip=${ip:6}
+#ip=`echo $ip | sed -e 's/-/./g'` 
 
 while read line 
 do  
