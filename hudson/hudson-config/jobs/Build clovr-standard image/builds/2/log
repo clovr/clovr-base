@@ -1,0 +1,20 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson2374249938339506447.sh
++ cd /mnt
++ sudo /opt/vappio-util/build.sh clovr_skeleton.img clovr-standard
+/mnt is a mountpoint
+--2010-08-27 18:32:42--  http://cb2.igs.umaryland.edu/grub-boot.tgz
+Resolving cb2.igs.umaryland.edu... 134.192.156.44
+Connecting to cb2.igs.umaryland.edu|134.192.156.44|:80... connected.
+HTTP request sent, awaiting response... 206 Partial Content
+Length: 67811 (66K), 27 remaining [application/x-gzip]
+Saving to: `/mnt/grub-boot.tgz'
+
+        [ skipping 50K ]
+    50K ,,,,,,,,,, ,,,,,,                                     100% 4.21M=0s
+
+2010-08-27 18:32:42 (4.21 MB/s) - `/mnt/grub-boot.tgz' saved [67811/67811]
+
+Fatal: no entropy gathering module detected
+/opt/vappio-util/build.sh: line 48: 14724 Aborted                 svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/img-conf/boot /mnt/boot
+Finished: FAILURE

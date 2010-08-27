@@ -1,0 +1,14 @@
+Started by user anonymous
+[workspace] $ /bin/sh -xe /tmp/hudson4040508390669014180.sh
++ cd /mnt
++ /opt/vappio-util/build.sh clovr_skeleton.img clovr-standard
+/mnt is a mountpoint
+--2010-08-27 18:32:10--  http://cb2.igs.umaryland.edu/grub-boot.tgz
+Resolving cb2.igs.umaryland.edu... 134.192.156.44
+Connecting to cb2.igs.umaryland.edu|134.192.156.44|:80... connected.
+HTTP request sent, awaiting response... 206 Partial Content
+Length: 67811 (66K), 27 remaining [application/x-gzip]
+/mnt/grub-boot.tgz: Permission denied
+
+Cannot write to `/mnt/grub-boot.tgz' (Permission denied).
+Finished: FAILURE
