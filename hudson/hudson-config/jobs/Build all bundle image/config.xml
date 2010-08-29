@@ -12,7 +12,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/buildall.sh</command>
+export BUILD_ID=$BUILD_ID
+sudo -E /opt/vappio-util/buildall.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
