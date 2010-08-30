@@ -1,13 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
-  <version>1.370</version>
+  <version>1.374</version>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
-  <systemMessage>&lt;p&gt;&lt;img src=&apos;http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png&apos; align=right&gt; &#xd;
-Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;.  Additional documentation on image building is provided &lt;a href=&apos;http://clovr.sf.net&apos;&gt;here&lt;/a&gt;.&#xd;
-&lt;/p&gt;</systemMessage>
+  <systemMessage>&lt;p&gt;&lt;img src=&apos;http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png&apos;&gt; &#xd;
+Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;&lt;/p&gt;</systemMessage>
   <jdks/>
   <clouds/>
   <slaves/>
@@ -23,12 +22,18 @@ Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>Platform conversion</name>
-      <description>Jobs to convert between platforms such as Xen, EC2, UEC, VMware, Virtual Box </description>
+      <description>&lt;p&gt;Jobs for a clovr-build image&lt;/p&gt;&#xd;
+&lt;ul&gt;&#xd;
+&lt;li&gt;Creating releases using a base image and applying recipes&lt;/li&gt;&#xd;
+&lt;li&gt;Converting images between platforms (Xen, EC2, UEC, VMware, Virtual Box)&lt;/li&gt;&#xd;
+&lt;/ul&gt;</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Build clovr-build image</string>
         <string>Build vmdk image</string>
+        <string>Bundle ec2 image</string>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -45,12 +50,15 @@ Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>Appliance roles</name>
+      <description>&lt;p&gt;Apply set of recipes to the current running image&lt;/p&gt;&#xd;
+&lt;p&gt;Use with caution, this will update the live image providing this hudson instance&lt;/p&gt;</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
         <string>Install CloVR build</string>
         <string>Install CloVR skeleton</string>
+        <string>Install CloVR standard</string>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -67,6 +75,8 @@ Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>CloVR tests</name>
+      <description>&lt;p&gt;Regression tests for CloVR&lt;/p&gt;&#xd;
+&lt;p&gt;Many of these tests are only expected to pass on a fully loaded clovr-standard image&lt;/p&gt;</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
@@ -85,7 +95,7 @@ Automated testing and build page for &lt;a href=&apos;http://clovr.sf.net&apos;&
       <includeRegex>^([0-9]).*</includeRegex>
     </listView>
   </views>
-  <primaryView>CloVR tests</primaryView>
+  <primaryView>Platform conversion</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
   <nodeProperties/>
