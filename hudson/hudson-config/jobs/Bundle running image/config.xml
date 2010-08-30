@@ -3,7 +3,20 @@
   <actions/>
   <description>Bundle image</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>OUTPUT_DIR</name>
+          <description>Will create a file called image.img
+eg.
+/mnt/image.img
+Be careful overwriting this file since /mnt/image.img is the default input for other hudson jobs</description>
+          <defaultValue>/mnt</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -13,7 +26,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo /opt/vappio-util/vp-bundle-vol -s 10000 -d /mnt -e /mnt --fstab=/etc/fstab.orig</command>
+sudo /opt/vappio-util/vp-bundle-vol -s 10000 -d OUTPUT_DIR -e /mnt --fstab=/etc/fstab.orig</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

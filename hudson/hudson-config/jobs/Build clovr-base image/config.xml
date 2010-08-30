@@ -3,17 +3,29 @@
   <actions/>
   <description>Automated build of bundles</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>IMAGE_NAME</name>
+          <description></description>
+          <defaultValue>/mnt/image.img</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /mnt
+      <command>trap kill `jobs -p` SIGINT SIGTERM EXIT
+cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/build.sh /mnt/image.img clovr-base</command>
+sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-base</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
