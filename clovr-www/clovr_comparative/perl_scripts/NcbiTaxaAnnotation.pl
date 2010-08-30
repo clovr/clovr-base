@@ -61,7 +61,7 @@ initializeLeafCountsToZero();
 generateAnnotationInfo ();
 filterOutUnAnnotatedOnes ();
 addMapInfo($root);
-store($root, '../binary_files/NcbiTaxaAnnotationDataStructure') || 
+store($root, '../binary_files/NcbiTreeWidgetDataStructure') || 
 	die "Error in writing the data structure to the disk\n";
 print "Success:\n";
 exit(0);
