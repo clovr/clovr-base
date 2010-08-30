@@ -14,8 +14,8 @@
     <hudson.tasks.Shell>
       <command>sudo touch /mnt/testfile
 	sudo touch /mnt/user_data/testfile
-	sudo -u www-data touch /mnt/
-	sudo -u www-data touch /mnt/user_data
+	sudo -u www-data touch /mnt/testfile2
+	sudo -u www-data touch /mnt/user_data/testfile2
       </command>
     </hudson.tasks.Shell>
   </builders>
