@@ -1,0 +1,117 @@
+#!/usr/bin/perl
+#*********************************************************************
+#  cherrypie*
+#  author: james robert white, james.dna.white@gmail.com
+#  created: August 27th, 2010
+
+#  *CherryPie is a program designed to create pie chart
+#  figures by calling the pie function in R. 
+#  We'll assume for now that the matrix is consistent with
+#  dimensions 12x100 or less. 
+#*********************************************************************
+use POSIX qw(ceil floor);
+use Data::Dumper;
+use Getopt::Std;
+use warnings;
+#*********************************************************************
+
+use vars qw/$opt_F $opt_P/;
+getopts("F:P:");
+my $usage = 
+".USAGE.   
+./cherrypie -F <tab delimited matrix> -P <prefix>
+
+.DESCRIPTION.
+CherryPie is a program designed to create pie chart figures by calling the pie function in R. 
+We'll assume for now that the matrix is consistent with dimensions 100x12 or less. 
+
+.OPTIONS.
+  -F tab delimited matrix file\
+  -P output prefix\
+
+.KEYWORDS.
+R, visualization
+\n";
+
+die $usage unless defined $opt_F
+              and defined $opt_P;
+
+my $matrixfile = $opt_F;
+my $prefix    = $opt_P;
+
+
+# first sanity check the file, make sure 
+# 1. the names are good
+# 2. the tab delimited format works
+# 3. there aren't too many features for the visualization
+# 4. there aren't too many samples for the visualization
+# 5. the elements are integers and not something else
+
+my $numsamples    = 0;
+my $numfeatures   = 0;
+my $numheadtitles = 0;
+print "Performing sanity check of matrix file...\n";
+open IN, "$matrixfile" or die "Cannot open your matrix file: $matrixfile!!\nGoodbye.\n";
+my $ck = 0;
+my $row = 1;
+while(<IN>){
+  chomp($_);
+  my @A = split "\t", $_;
+  if ($ck == 0){
+    if ($A[0] ne ""){
+      die "In your matrix file, the first element of the header row must be blank.\nGoodbye.\n";
+    }
+    $numheadtitles = $#A;
+    for my $i (1 .. $#A){
+      if (length($A[$i]) > 20){
+        print "*Warning* Column $i has an oftly long header title...\n";
+      }
+    }
+    $ck++; # done with the header line
+    next;
+  }else{
+    if ($#A != $numheadtitles){
+      die "*Warning* Matrix is inconsistent @ row $row ...\nGoodbye.\n";
+    }
+    if (length($A[0]) > 30){
+      print "*Warning* Row $row has an oftly long feature name...\n";
+    }
+    for my $i (1 .. $#A){ # for each element in this row
+      if ($A[$i] !~ /^\s*[\+\-]?\d+\s*$/){
+        die "*Warning* Matrix is inconsistent @ row $row ...\nGoodbye.\n";
+      }
+      if ($A[$i] < 0){
+        die "*Warning* Row $row has a negative number in it...\nGoodbye.\n";
+      }
+      if ($A[$i] < 0){
+        die "*Warning* Row $row has a negative number in it...\nGoodbye.\n";
+      }
+    }
+    $row++;
+  }  
+}
+close IN;
+
+$numfeatures = $row-1;
+$numsamples  = $numheadtitles;
+print 
+"\n**Sanity check passed:
+Filename: $matrixfile
+Total number of features (rows): $numfeatures 
+Total number of samples (columns): $numsamples
+\n";
+
+print "\n**Calling R to create figure...\n";
+open OUT, ">$prefix\.in" or die "Can't open temp file $prefix.in!\n";
+my $infile = "$matrixfile"; 
+my $outfile = "$prefix";
+print OUT 
+"source(\"/opt/opt-packages/bioinf-v1r4b1/CherryPie/piechart.r\")
+piechart(\"$infile\", \"$outfile\")\n";
+close OUT;
+
+#  run R batch template
+#********************************************************************
+system("R CMD BATCH $prefix\.in $prefix\.out"); 
+system("rm $prefix\.in $prefix\.out");
+
