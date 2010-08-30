@@ -1,9 +1,0 @@
-/opt/workflow-sforge/CreateWorkflow (20852): Parent with pid 20852, starting.
-/opt/workflow-sforge/CreateWorkflow (20854): Child with pid 20854, starting .
-The base name is : CreateWorkflow
-/opt/workflow-sforge/CreateWorkflow (20854): Child command is 'createworkflow -c /opt/workflow-sforge/examples/distributed/ls-commands-distributed.ini -t /opt/workflow-sforge/examples/distributed/ls-commands-distributed-parallel-template.xml -i test.xml --pidfile .workflow.root.20852'
-/opt/workflow-sforge/CreateWorkflow (20854): Child invoking the command.
-/opt/workflow-sforge/CreateWorkflow (20852): Child created with pid 20854
-/opt/workflow-sforge/CreateWorkflow (20852): Waiting for the Child to complete. 
-/opt/workflow-sforge/CreateWorkflow (20852): Child returned with 0 
-/opt/workflow-sforge/CreateWorkflow (20852): Parent exiting.

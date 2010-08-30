@@ -1,5 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson8623046792102342652.sh
-+ sudo /opt/hudson/clovr_blastall.sh
-Task: runPipeline-1280428117.12 Type: runPipeline   State: completed     Num: 7/7 (100%) LastUpdated: 2010/07/29 18:37:08 UTC
-Finished: SUCCESS

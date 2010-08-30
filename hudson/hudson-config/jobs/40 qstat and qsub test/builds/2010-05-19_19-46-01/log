@@ -1,5 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson5239222226058328304.sh
-+ /opt/sge/bin/lx24-amd64/qstat
-error: unable to read qmaster name: qmaster hostname in "/opt/sge/default/common/act_qmaster" has zero length
-Finished: FAILURE

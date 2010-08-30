@@ -1,6 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson758629967754089262.sh
-++ cat /mnt/clovr/runtime/node_type
-+ node=OFFLINE
-+ '[' OFFLINE '!=' OFFLINE ']'
-Finished: SUCCESS
