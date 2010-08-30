@@ -199,7 +199,7 @@
 				handler : function() {
 					Ext.Msg.alert('Message','clovr comparative is under construction');
 				}
-			}, '->', clovrPan, '-', clovrJoc, '-', clovrMug, {
+			}, '->', clovrPan, '-', clovrJoc, '-', clovrMug, '-', {
 				xtype : 'button',
 				text : 'close window',
 				handler : function() {
@@ -213,10 +213,9 @@
 			store : myStore,
 			renderTo : Ext.get('mainPanel'),
 			height : 500,
-			//width : 800,
+			width : 800,
 			columns : [ new Ext.grid.RowNumberer(), {
 				header : 'ID',
-				width : 30,
 				dataIndex : 'id',
 				sortable : true,
 				hidden : true
@@ -330,6 +329,7 @@
 	 			region : 'center',
 	 			title : 'Clovr Comparative',
 	 			id : 'mainPanel',
+				autoScroll : true,
 	 			items : [myGrid]
 		}]);
 		
