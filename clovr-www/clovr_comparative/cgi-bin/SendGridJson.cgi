@@ -33,7 +33,7 @@ my $root;
 print "Content-type:text/html\n\n";
 
 if($$params{$CLIENT_ID} =~ /^$SENTINEL(.+)/g) {
-	$root = retrieve('../binary_files/NcbiUserDataStructure') or
+	$root = retrieve('/tmp/NcbiUserDataStructure') or
 		die "Error retreiving the NcbiUserDataStructure\n";
 	my $refInfo = getUserDataAnnotation($1);
 	print encode_json({info => $refInfo});

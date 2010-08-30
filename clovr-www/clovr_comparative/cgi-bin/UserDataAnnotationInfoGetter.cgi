@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Name: UserDataAnnotationInfoGetter.pl
+# Name: UserDataAnnotationInfoGetter.cgi
 # IMPORTANT: This program logic is similar to NcbiAnnotationInfoGetter.pl
 #		The only reason, why I created this script is, we have to read the
 #		user data, get the refseq info and map info all at once and write 
@@ -18,6 +18,9 @@
 use strict;
 use warnings;
 use Storable;
+use CGI;
+use CGI::Carp qw(fatalsToBrowser);
+use JSON::PP;
 
 ##################               CONSTANTS                 ##################
 
@@ -26,7 +29,7 @@ my $MAP = 'MAP_INFO';
 
 ##################            GLOBAL VARIABLES             ##################
 
-my $dir = shift @ARGV || die "Usage: program.pl 'path to top directory that contains ref seq info'\n";
+#my $dir = shift @ARGV || die "Usage: program.pl 'path to top directory that contains ref seq info'\n";
 my $root;
 
 ##################             SUBS DECLARATION            ##################
@@ -37,10 +40,18 @@ sub populate_info ($);
 
 ##################              MAIN PROGRAM                #################
 
-get_genbank_files($dir);
-store($root, "../binary_files/NcbiUserDataStructure") or die "Error in writing the data structure to disk:\n";
+my $q = new CGI;
+my $params = $q->Vars;
+print "Content-type: text/html\n\n";
+
+my $fileListRef = decode_json($$params{'fileList'});
+foreach(@$fileListRef) {
+	populate_info($_);
+}
+#get_genbank_files($dir);
+store($root, "/tmp/NcbiUserDataStructure") or die "Error in writing the data structure to disk:\n";
 #print_info();
-print "Success:\n";
+print encode_json([JSON::PP::true]);
 exit(0);
 
 ##################              END OF MAIN                 #################
@@ -58,6 +69,7 @@ sub get_genbank_files ($) {
 }
 
 sub populate_info ($) {
+	return unless(-e $_);
 	open(FH,"<$_") or die "Error in opening the file, $_, $!\n";
   	my ($seq_length, $seq_id, $mapOrgName);
     while(my $line = <FH>) {
@@ -70,7 +82,7 @@ sub populate_info ($) {
 	}
     	elsif($line =~ /^\s+\/db_xref="(.+)"/) {
     		push @{$$root{$1}{$ANNOT}}, [($_, $seq_length, $seq_id)];
-		push @{$$root{$1}{$MAP}}, $mapOrgName;
+			push @{$$root{$1}{$MAP}}, $mapOrgName;
     		close FH;
     		last;
     	}
