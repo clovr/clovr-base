@@ -201,6 +201,7 @@
 							maximized : true,
 							layout : 'border',
 							modal : true,
+							autoScroll : true
 						});
 						
 						buildTree(compWin.getId());
