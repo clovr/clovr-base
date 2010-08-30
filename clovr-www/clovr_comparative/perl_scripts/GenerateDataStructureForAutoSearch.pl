@@ -31,9 +31,13 @@ sub helperSub {
 	my ($info, @lineage) = @_;
 	while(my ($key,$value) = each %$info) {
 		unless($$root{$key}{$LEAF}) {
-			helperSub($$root{$key}{$CHILDREN}, (@lineage, $key)); 
+			helperSub($$root{$key}{$CHILDREN}, (@lineage,$key)); 
 		}
-		$$finalRef{$$root{$key}{$TEXT}} = [@lineage];		
+		##################     IMPORTANT        ###################
+		# Now we should append the current key as the last node id
+		# so that the node typed by the user will also expand
+		###########################################################
+		$$finalRef{$$root{$key}{$TEXT}} = [@lineage, $key];		
 	}
 }
 

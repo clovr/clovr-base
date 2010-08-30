@@ -11,9 +11,12 @@ function buildTree() {
 	});
 	
 	var myStore = new Ext.data.JsonStore({
-		url : '../cgi-bin/SendGridJson.pl',
+		url : '../cgi-bin/SendGridJson.cgi',
 		root : 'info',
-		fields : ['orgName', 'seqLen', 'refseqId']
+		fields : ['orgName', 'refseqId', {
+			name : 'seqLen',
+			type : 'int'
+		}]
 	});
 	
 	var clovrMug = new Ext.Button({
@@ -206,7 +209,7 @@ function buildTree() {
 		store : myStore,
 		renderTo : Ext.get('mainPanel'),
 		height : 500,
-		width : 800,
+		//width : 800,
 		columns : [ new Ext.grid.RowNumberer(), {
 			header : 'ID',
 			width : 30,
@@ -246,7 +249,7 @@ function buildTree() {
 	var combo = new Ext.form.ComboBox({
 		xtype : 'combobox',
 		store : comboStore,
-		width : 290,
+		width : 300,
 		emptyText : 'Type a node name to auto display',
 		displayField : 'nodeName',
 		valueField : 'nodeName',
@@ -271,10 +274,13 @@ function buildTree() {
 			success : function(response) {
 				var treeContainer = Ext.getCmp('tree-container');				
 				var array = Ext.util.JSON.decode(response.responseText);
+				var node;
 				Ext.each(array, function(item, index, allItems) {
-					var node = treeContainer.getNodeById(item);
+					node = treeContainer.getNodeById(item);
 					node.expand();
 				});
+				node.select();
+				//node.fireEvent('click');
 			}
 		});
 	});
@@ -307,7 +313,7 @@ function buildTree() {
 					});
 				},
 				'checkchange' : function(node, checked){
-		 			node.eachChild(function(n) {
+					node.eachChild(function(n) {
 		    			n.getUI().toggleCheck(checked);
 		    		});
 		    	}

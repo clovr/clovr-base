@@ -79,13 +79,40 @@
 			//params: {name: "local",tag_name: "mytag"}, // filter specific tags
 			params: {name: "local"},
 			success: function(response) {
-
+				
+				////////      push the list of files into this array     ////////////
+				
+				var fileList = [];
+				
+				for(var i = 0; i < response.length; i++) {
+					if(response[i].files) {
+						for(var j = 0; j < response[i].files.length; j++) {
+							fileList.push(response[i].files[j]);
+						}
+					}
+				}
+				
+				//////////	    Ajax request to UserDataAnnotationInfoGetter.cgi    //////////
+				/////////       sends the files list generated.                   //////////
+				
+				Ext.Ajax.request({
+					url : '/clovr/clovr_comparative/cgi-bin/UserDataAnnotationInfoGetter.cgi',
+					params : {
+						fileList : Ext.encode(fileList)
+					},
+					success : function(response) {
+						fileList = [];
+					}
+				});
+				
+				////////////////////////////////////////////////////////////////////////////
+				
+				
 				var v = response.map(function(val) {
 					var numFiles = 0;
 					if ("files" in val) {
 						numFiles = val.files.length;
 					}
-					
 					return [val.name, numFiles, "phantom_tag" in val];
 				});
 				
@@ -163,6 +190,25 @@
 						}
 					});
 				});
+				
+				/////////   Mahesh Vangala's code to push clovr_comp button and attaching handler     /////
+				
+				clovrButtons.push({
+					text : 'CloVR Comparative',
+					handler : function() {
+						var compWin = new Ext.Window({
+							id : 'comp-win',
+							maximized : true,
+							layout : 'border',
+							modal : true,
+						});
+						
+						buildTree(compWin.getId());
+						compWin.show();						
+					}
+				});
+								
+				////////////////////////////////////////////////////////////////////////////////////////////
 
 				
 
@@ -412,8 +458,7 @@
 	});
 	
 	// clearly, this is a work in progress...
-
-
-
-
-
+	
+	
+	
+	

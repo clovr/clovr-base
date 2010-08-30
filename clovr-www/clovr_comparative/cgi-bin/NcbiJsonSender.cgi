@@ -33,8 +33,8 @@ my $MAP_FETCHED = 'map_fetched';
 my $ANNOT = 'ANNOTATION_INFO';
 my $MAP = 'MAP_INFO';
 my $EXPANDED = 'expanded';
-my $REF_SEQ_FILE = "/mnt/scratch/clovr_comparative/RefSeqList.txt";
-my $MAP_FILE = "/mnt/scratch/clovr_comparative/MapOrgList.txt";
+my $REF_SEQ_FILE = "/tmp/RefSeqList.txt";
+my $MAP_FILE = "/tmp/MapOrgList.txt";
 
 ###################             GLOBAL VARIABLES        #################
 
@@ -92,8 +92,19 @@ sub getAllChildNodes ($) {
 		if($$root{$key}{$LEAF}) {
 			$$refHash{$LEAF} = JSON::PP::true;
 		}
+		####################               IMPORTANT               #####################
+		
 		elsif($$root{$id}{$LEAF_COUNT} && $$root{$id}{$LEAF_COUNT} == $$root{$key}{$LEAF_COUNT}) {
 			$$refHash{$EXPANDED} = JSON::PP::true;
+			push @{$$refHash{$CHILDREN}}, @{getAllChildNodes($key)};
+		}
+		
+		####################                                       #####################
+		#  If you don't want the whole tree to be loaded at once in the client browser, 
+		#  then take off this following else loop. That way, the program is modified
+		#  in a way that sends the immediate children of each node user clicks.
+		################################################################################
+		else {
 			push @{$$refHash{$CHILDREN}}, @{getAllChildNodes($key)};
 		}
 		push @$refArray, $refHash;
@@ -159,10 +170,11 @@ sub writeToFile ($$$) {
 	print OFH $info.$separator;
 	close OFH;
 }
+
 sub addUserDataNode {
 	my ($ref) = @_;
 	my $userSelInfo;
-	my $userData = retrieve('../binary_files/NcbiUserDataStructure') or die "Error retrieving the user data structure $!\n";
+	my $userData = retrieve('/tmp/NcbiUserDataStructure') or die "Error retrieving the user data structure $!\n";
 	my $refHash;
 	$$refHash{$ID} = 'userData_userData';
 	$$refHash{$EXPANDED} = JSON::PP::true;
