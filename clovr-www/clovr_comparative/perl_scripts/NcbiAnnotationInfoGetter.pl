@@ -27,8 +27,8 @@ sub populate_info ($);
 ##################              MAIN PROGRAM                #################
 
 get_genbank_files($dir);
-store($root, "NcbiUserDataStruc") or die "Error in writing the data structure to disk:\n";
-print_info();
+store($root, "../binary_files/NcbiAnnotationDataStructure") or die "Error in writing the data structure to disk:\n";
+#print_info();
 print "Success:\n";
 exit(0);
 
