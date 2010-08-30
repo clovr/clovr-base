@@ -1,0 +1,5 @@
+#File	Sample_Name	Treatment1_p	Treatment2_p	Description
+A.fasta	samplA	male	adult	Control
+B.fasta	samplB	female	adult	Control_treated
+C.fasta	samplC	female	child	Celiac
+D.fasta	samplD	male	child	Celiac_treated
