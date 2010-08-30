@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Build a vmdk image from a raw disk image.
-Includes:
--Adding vmware,vbox tools
--Adding grub boot loader
--Converting img to vmdk
-Input is /mnt/image.img
-Output is /mnt/image.vmdk
+  <description>Build a vmdk image from a raw disk image.&#xd;
+Includes:&#xd;
+-Adding vmware,vbox tools&#xd;
+-Adding grub boot loader&#xd;
+-Converting img to vmdk&#xd;
+Input is /mnt/image.img&#xd;
+Output is /mnt/image.vmdk&#xd;
 </description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -19,15 +19,16 @@ Output is /mnt/image.vmdk
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /mnt
-cp /mnt/image.img /mnt/image.vmdk.img
-sudo /opt/vappio-util/img_clean.sh /mnt/image.vmdk.img /opt/vappio-util/cleanupimg
-wget -P /mnt http://cb2.igs.umaryland.edu/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz
-/opt/vappio-util/img_add_tgz.sh /mnt/image.vmdk.img /mnt/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz 
-wget -P /mnt http://cb2.igs.umaryland.edu/vboxtools-3.2.6.tar.gz
-/opt/vappio-util/img_add_tgz.sh /mnt/image.vmdk.img /mnt/vmware-tools.8.4.2.kernel.2.6.32-21-server.tgz 
-wget -P /mnt http://cb2.igs.umaryland.edu/grub-boot.tgz
-sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.vmdk.img /mnt/grub-boot.tgz /mnt/image.vmdk
+      <command>svn export --force  https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/img-conf/boot /mnt/boot
+pushd /mnt
+tar cvzf grub-boot.tgz boot
+popd
+cd /mnt
+cp /mnt/image.img /mnt/image.img.vmbundle
+sudo /opt/vappio-util/img_run.sh /mnt/image.img.vmbundle /opt/vappio-util/cleanupimg
+sudo /opt/vappio-util/img_run.sh /mnt/image.img.vmbundle /opt/vappio-install/recipes/vmware.sh
+sudo /opt/vappio-util/img_run.sh /mnt/image.img.vmbundle /opt/vappio-install/recipes/vbox.sh
+sudo /opt/vappio-util/img_to_vmdk.sh /mnt/image.img.vmbundle /mnt/grub-boot.tgz /mnt/image.vmdk
       </command>
     </hudson.tasks.Shell>
   </builders>
