@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Build clovr-standard image and upload to Amazon EC2</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.model.ParametersDefinitionProperty>
@@ -25,7 +25,8 @@
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-standard
-echo “New build: $HUDSON_IP:/data/clovr-build/shared/clovr-standard-$BUILD_ID&quot; | nc -q0 clovrtest-lx.igs.umaryland.edu 2345 || true</command>
+curl --silent http://locahost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE=/mnt/clovr-standard-$BUILD_ID
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
