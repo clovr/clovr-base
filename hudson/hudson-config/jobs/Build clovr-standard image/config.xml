@@ -25,7 +25,10 @@
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-standard
-curl --silent http://locahost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$BUILD_ID
+if [ $? = 0 ]
+then
+  curl --silent http://locahost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$BUILD_ID
+fi
 </command>
     </hudson.tasks.Shell>
   </builders>
