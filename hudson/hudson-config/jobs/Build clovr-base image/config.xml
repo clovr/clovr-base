@@ -22,8 +22,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>trap kill `jobs -p` SIGINT SIGTERM EXIT
-cd /mnt
+      <command>cd /mnt
 export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-base</command>
     </hudson.tasks.Shell>
