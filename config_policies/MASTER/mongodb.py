@@ -30,8 +30,8 @@ def tryDump(cluster):
     return _
 
 def startup():
-    dirExists('/mnt/db/mongo')
-    run('mongod --dbpath=/mnt/db/mongo --logpath=/var/log/mongodb.log --fork > /dev/null 2>&1')
+    dirExists('/opt/db/mongo')
+    run('mongod --dbpath=/opt/db/mongo --logpath=/var/log/mongodb.log --fork > /dev/null 2>&1')
     ##
     # let mongo come up
     time.sleep(3)
