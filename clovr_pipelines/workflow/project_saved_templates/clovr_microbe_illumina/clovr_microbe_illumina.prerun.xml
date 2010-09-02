@@ -5,12 +5,18 @@
   <commandSet type="serial">
     <state>incomplete</state>
     <name>clovr_microbe_illumina.prerun</name>
-    <INCLUDE file="$;DOCS_DIR$;/file_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=UPLOAD_TAGS_XML">
+    <command>
+      <name>Create temp directory</name>
+      <type>RunUnixCommand</type>
+      <executable>mkdir</executable>
+      <arg>mkdir -p -m 777 $;TMP_DIR$;</arg>
+    </command>
+    <INCLUDE file="$;DOCS_DIR$;/clovrtag_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=PRERUN_ITERATOR_XML">
     <command>
       <name>Upload reference data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;REFERENCE_DB_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;REFERENCE_DB_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
   </commandSet>
 </commandSetRoot>
