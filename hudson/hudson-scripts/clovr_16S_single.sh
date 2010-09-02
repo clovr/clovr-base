@@ -4,12 +4,12 @@ source /root/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T"`
 
-cp /opt/hudson/16S_metagenomics.config /tmp/pipeline.conf
+cp /opt/hudson/clovr_16S_single.config /tmp/pipeline.conf
 
 sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
 
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name 16S-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
+TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_16S-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"
