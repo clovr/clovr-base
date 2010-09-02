@@ -3,17 +3,7 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>IMAGE_NAME</name>
-          <description></description>
-          <defaultValue>/mnt/image.img</defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -22,8 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /mnt
-sudo -E /opt/vappio-util/bundle_ec2.sh $IMAGE_NAME</command>
+      <command>sudo /opt/hudson/ulimit.pl 50000</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
