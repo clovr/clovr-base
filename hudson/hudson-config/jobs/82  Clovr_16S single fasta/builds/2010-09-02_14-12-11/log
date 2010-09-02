@@ -1,5 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson6746204109928579233.sh
-+ sudo /opt/hudson/clovr_16S_single.sh
-Build was aborted
-Finished: ABORTED

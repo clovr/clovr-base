@@ -1,5 +1,0 @@
-Started by user anonymous
-[workspace] $ /bin/sh -xe /tmp/hudson6605474118875237101.sh
-+ sudo /opt/hudson/clovr_16S_single.sh
-Task: runPipeline-1283437290.98 Type: runPipeline   State: completed     Num: 7/7 (100%) LastUpdated: 2010/09/02 14:33:19 UTC
-Finished: SUCCESS
