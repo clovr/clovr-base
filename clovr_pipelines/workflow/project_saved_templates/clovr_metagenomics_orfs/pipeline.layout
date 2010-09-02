@@ -1,0 +1,97 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>clovr_metagenomics_prep.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.uclust</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>uclust.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>concatenate_files.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.blast</name>
+        </commandSet>
+        <commandSet type="parallel">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>metagene.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>translate_sequence.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>uclust.polypeptide</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>split_multifasta.multi</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>ncbi-blastp.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                   <name>clovr_metagenomics_tables.functional</name>
+                </commandSet>
+                <commandSet type="parallel">
+                    <state>incomplete</state>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>metastats.functional</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>skiff.functional</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>piecharts.functional</name>
+                    </commandSet>
+                </commandSet>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                    <name>ncbi-blastn.default</name>
+                </commandSet>
+                <commandSet type="serial">
+                    <state>incomplete</state>
+                   <name>clovr_metagenomics_tables.taxonomy</name>
+                </commandSet>
+                <commandSet type="parallel">
+                    <state>incomplete</state>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>metastats.taxonomy</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>skiff.taxonomy</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>piecharts.taxonomy</name>
+                    </commandSet>
+                </commandSet>
+            </commandSet>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>
