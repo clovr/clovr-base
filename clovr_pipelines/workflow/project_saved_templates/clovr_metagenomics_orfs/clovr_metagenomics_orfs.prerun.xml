@@ -8,19 +8,25 @@
       <name>Upload fasta data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload mapping data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;MAPPING_TAG$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;MAPPING_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
-      <name>Upload metagenomics DB</name>
+      <name>Upload nucleotide metagenomics DB</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;DB_PATH$; --dst-cluster $;CLUSTER_TAG$; --block --expand</arg>
+      <arg>--tag-name $;NUCLEOTIDE_DB_PATH$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+    </command>
+    <command>
+      <name>Upload protein metagenomics DB</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
+      <arg>--tag-name $;PROTEIN_DB_PATH$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
   </commandSet>
 </commandSetRoot>
