@@ -1,0 +1,66 @@
+## Configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+
+INPUT_FSA_TAG={"display": "Input fasta tag", "default": "FASTA_DATA", "desc": "Input is a tag with one or more fasta files"}
+
+## pipeline name
+## if pipeline is already present, will simply monitor it
+## otherwise will create the pipeline with current settings
+PIPELINE_NAME={"display": "Pipeline Name", "default": "BD413_minitest", "desc": "Name of the pipeline, should be unique for all runs"}
+
+## organism info
+OUTPUT_PREFIX={"display": "Organism Output Prefix", "default": "BD413_mini", "desc": "The output prefix to use for the organism"}
+ORGANISM={"display": "Organism", "default": "Acinetobacter baylii", "desc": "Genus and species for the organism.  Must be two words"}
+
+## reference db
+REFERENCE_DB_TAG={"display": "Reference DB", "default": "clovr-prok-db", "default_hidden": true, "desc": "Reference database for HMM and BLAST searches.  Default value should be sufficient"}
+
+GROUP_COUNT={"display": "Group Count", "default": 20, "default_hidden": true, "desc": "Number of groups, should not need to manually set"}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "desc": "Name of cluster to create"}
+EXEC_NODES={"default": 10, "default_hidden": true, "desc": "Number of exec nodes, set this only if you want to override a metric"}
+CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
+CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Which credential to use to make this cluster"}
+
+#key=/mnt/devel1.pem
+#host=localhost
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+log_file={"default": "/mnt/clovr_microbe454.log", "default_hidden": true, "desc": "Log file, should only be needed if something goes wrong"}
+## the higher, the more output (3 = most verbose)
+debug_level={"default": 3, "default_hidden": true, "desc": "Debug level, I don't think this is needed anymore"}
+
+
+[pipeline]
+PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation", "default_hidden": true, "desc": "The type of the pipeline we are running"}
+PIPELINE_ARGS={"default": "--INPUT_FSA_LIST=${input.INPUT_FSA_TAG} --OUTPUT_PREFIX=${input.OUTPUT_PREFIX} --ORGANISM=\"${input.ORGANISM}\" --DATABASE_PATH=${input.REFERENCE_DB_TAG} --conf=${cluster.CLOVR_CONF} --GROUP_COUNT=${input.GROUP_COUNT}", "desc": "Default way to compose variables"}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.prerun.xml", "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "desc": null}
+
+
