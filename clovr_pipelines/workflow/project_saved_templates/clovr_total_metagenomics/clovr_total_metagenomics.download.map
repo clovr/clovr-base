@@ -1,3 +1,3 @@
 #TAG_NAME	FILES
-uclus_polypeptide_fasta	$;REPOSITORY_ROOT$;/output_repository/uclust/$;PIPELINE_ID$;_polypeptide/uclust.fsa.list
-blastp_btab	$;REPOSITORY_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.btab.list
+uclus_polypeptide_fasta	$;REPO_ROOT$;/output_repository/uclust/$;PIPELINE_ID$;_polypeptide/uclust.fsa.list
+blastp_btab	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.btab.list
