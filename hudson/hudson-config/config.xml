@@ -30,7 +30,7 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
-        <comparator class="hudson.util.CaseInsensitiveComparator"/  reference="../../../listView/jobNames/comparator"/>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>Build clovr-build image</string>
         <string>Build vmdk image</string>
         <string>Bundle ec2 image</string>
