@@ -24,7 +24,9 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-base</command>
+sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-base
+tar -cvzf $IMAGE_NAME.tgz $IMAGE_NAME || true
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

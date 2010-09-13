@@ -31,6 +31,7 @@ echo '#!/bin/bash' > $IMAGE_NAME/user-scripts/01-updaterecipts
 echo '/opt/vappio-install/vp-bootstrap-install' >> $IMAGE_NAME/shared/user-scripts/01-updaterecipts
 echo '#!/bin/bash' > $IMAGE_NAME/shared/user-scripts/02-starthudson
 echo '/etc/init.d/hudson start' >> $IMAGE_NAME/shared/user-scripts/02-starthudson
+tar -cvzf $IMAGE_NAME.tgz $IMAGE_NAME || true
 </command>
     </hudson.tasks.Shell>
   </builders>
