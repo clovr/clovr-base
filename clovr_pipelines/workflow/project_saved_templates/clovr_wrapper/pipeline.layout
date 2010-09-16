@@ -22,10 +22,6 @@
             <state>incomplete</state>
             <name>run_command.pipelinestatus</name>
         </commandSet>
-	<commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.downloadoutput</name>
-        </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>run_workflow.postrun</name>
