@@ -1,0 +1,4 @@
+polypeptide_fasta	$;REPOSITORY_ROOT$;/output_repository/translate_sequence/$;PIPELINE_ID$;_final_polypeptides/translate_sequence.fsa.list
+cds_fasta	$;REPOSITORY_ROOT$;/output_repository/bsml2fasta/$;PIPELINE_ID$;_final_cds/bsml2fasta.fsa.list
+annotation_genbank	$;REPOSITORY_ROOT$;/output_repository/tbl2asn/$;PIPELINE_ID$;_default/tbl2asn.gbf.list
+annotation_sqn	$;REPOSITORY_ROOT$;/output_repository/tbl2asn/$;PIPELINE_ID$;_default/tbl2asn.sqn.list

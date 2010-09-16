@@ -126,5 +126,9 @@
             <state>incomplete</state>
             <name>tbl2asn.default</name>
         </commandSet>
+	<commandSet type="serial">
+	    <state>incomplete</state>
+	    <name>tag_data.clovr_microbe_annotation</name>
+	</commandSet>
     </commandSet>
 </commandSetRoot>
