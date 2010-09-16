@@ -10,5 +10,9 @@
             <state>incomplete</state>
             <name>velvet_optimiser.assembly</name>
         </commandSet>
+	<commandSet>
+	    <state>incomplete</state>
+	    <name>tag_data.clovr_assembly_velvet</name>
+	</commandSet>
     </commandSet>
 </commandSetRoot>
