@@ -3,6 +3,8 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>noop</name>
+    <name>clovr_total_metagenomics.postrun</name>
+    <!-- Pull in download_tag XML to try to yank it into the postrun pipeline -->
+    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
   </commandSet>
 </commandSetRoot>
