@@ -8,6 +8,7 @@ cp /opt/hudson/clovr_microbe454.config /tmp/pipeline.conf
 
 sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
+tagData.py --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o
 
 TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name microbe-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
 
