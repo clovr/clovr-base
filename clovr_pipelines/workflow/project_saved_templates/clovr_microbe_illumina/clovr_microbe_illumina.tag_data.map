@@ -1,5 +1,0 @@
-assembly_contigs	$;REPOSITORY_ROOT$;/output_repository/velvet_optimiser/$;PIPELINE_ID$;_assembly/velvet_optimiser.fa.list
-polypeptide_fasta	/mnt/staging/ergatis/translate_sequence/$;PIPELINE_ID$;_final_polypeptides/translate_sequence.fsa.list
-cds_fasta	/mnt/staging/ergatis/bsml2fasta/$;PIPELINE_ID$;_final_cds/bsml2fasta.fsa.list
-annotation_genbank	$;REPOSITORY_ROOT$;/output_repository/tbl2asn/$;PIPELINE_ID$;_default/tbl2asn.gbf.list
-annotation_sqn	$;REPOSITORY_ROOT$;/output_repository/tbl2asn/$;PIPELINE_ID$;_default/tbl2asn.sqn.list

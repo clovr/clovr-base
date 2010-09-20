@@ -1,1 +1,1 @@
-assembly_contigs	$;REPOSITORY_ROOT$;/output_repository/velvet_optimiser/$;PIPELINE_ID$;_assembly/velvet_optimiser.fa.list
+assembly_contigs	$;REPO_ROOT$;/output_repository/velvet_optimiser/$;PIPELINE_ID$;_assembly/velvet_optimiser.fa.list
