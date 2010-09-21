@@ -1,5 +1,4 @@
 /mnt	www-data	drwxrwxrwx
-/mnt/db		www-data	drwxr-xr-x
 /mnt/harvesting www-data	drwxrwxrwx
 /mnt/keys	www-data	drwxrwxrwx
 /mnt/projects	www-data	drwxr-xr-x
