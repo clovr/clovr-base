@@ -19,7 +19,7 @@ while ( my $line = <> ) {
 	my $second_file = `grep '\$;' $ergatisdocs/$component | cut -f 1 -d '='  | grep -v -P '^\;' | grep -v SKIP_WF_COMMAND | perl -ne 's/\\\$\;//g;print' | perl -ne 's/\s+//g;print' | sort -u > /tmp/file2`;
 	my $diff = `diff --ignore-all-space --side-by-side /tmp/file2 /tmp/file1`;
 	if( $? eq 0) { 
-		print "Component $ergatisdocs/$component MATCHES pipeline $filename\n";
+		print "Component $ergatisdocs/$component MATCHES pipeline $line\n";
 	}
 	else  
 	{
