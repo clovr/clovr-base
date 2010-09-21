@@ -12,7 +12,7 @@ while ( my $line = <> ) {
 	if (! -e "/opt/ergatis/docs/$component")
 	{
 	    print "$line cannot be found in /opt/ergatis/docs/ \n";
-	    exit 1;
+	    $error=1;
 	}
 	my $first_file = `grep '\$;' $line | cut -f 1 -d '=' | grep -v SKIP_WF_COMMAND | perl -ne 's/\\\$\;//g;print' | sort -u | perl -ne 's/\s+//g;print' > /tmp/file1`;
 	my $second_file = `grep '\$;' /opt/ergatis/docs/$component | cut -f 1 -d '='  | grep -v SKIP_WF_COMMAND | perl -ne 's/\\\$\;//g;print' | perl -ne 's/\s+//g;print' | sort -u > /tmp/file2`;
