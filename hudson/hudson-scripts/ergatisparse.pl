@@ -14,8 +14,8 @@ while ( my $line = <> ) {
 	    print "$line cannot be found in /opt/ergatis/docs/ \n";
 	    exit 1;
 	}
-	my $first_file = `grep '\$;' $line | cut -f 1 -d '=' | perl -ne 's/\\\$\;//g;print' | sort -u | perl -ne 's/\s+//g;print' > /tmp/file1`;
-	my $second_file = `grep '\$;' /opt/ergatis/docs/$component | cut -f 1 -d '=' | perl -ne 's/\\\$\;//g;print' | perl -ne 's/\s+//g;print' | sort -u > /tmp/file2`;
+	my $first_file = `grep '\$;' $line | cut -f 1 -d '=' | grep -v SKIP_WF_COMMAND | perl -ne 's/\\\$\;//g;print' | sort -u | perl -ne 's/\s+//g;print' > /tmp/file1`;
+	my $second_file = `grep '\$;' /opt/ergatis/docs/$component | cut -f 1 -d '='  | grep -v SKIP_WF_COMMAND | perl -ne 's/\\\$\;//g;print' | perl -ne 's/\s+//g;print' | sort -u > /tmp/file2`;
 	my $diff = `diff --ignore-all-space --side-by-side /tmp/file1 /tmp/file2`;
 	if( $? eq 0) { 
 		print "$component OK in $filename\n";
