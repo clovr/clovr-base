@@ -1,0 +1,12 @@
+#TAG_NAME	FILES
+uclust_clusters	$;REPO_ROOT$;/output_repository/uclust/$;PIPELINE_ID$;_default/uclust.clstr.list
+blast_functional	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.raw.list
+tables_functional	$;REPO_ROOT$;/output_repository/clovr_metagenomics_tables/$;PIPELINE_ID$;_functional/tables.list
+piecharts_functional	$;REPO_ROOT$;/output_repository/piecharts/$;PIPELINE_ID$;_functional/piecharts.results.list
+skiff_functional	$;REPO_ROOT$;/output_repository/skiff/$;PIPELINE_ID$;_functional/skiff.results.list
+metastats_functional	$;REPO_ROOT$;/output_repository/metastats/$;PIPELINE_ID$;_functional/metastats.results.list
+blast_taxonomy	$;REPO_ROOT$;/output_repository/ncbi-blastn/$;PIPELINE_ID$;_default/ncbi-blastn.raw.list
+tables_taxonomy	$;REPO_ROOT$;/output_repository/clovr_metagenomics_tables/$;PIPELINE_ID$;_taxonomy/tables.list
+piecharts_taxonomy	$;REPO_ROOT$;/output_repository/piecharts/$;PIPELINE_ID$;_taxonomy/piecharts.results.list
+skiff_taxonomy	$;REPO_ROOT$;/output_repository/skiff/$;PIPELINE_ID$;_taxonomy/skiff.results.list
+metastats_taxonomy	$;REPO_ROOT$;/output_repository/metastats/$;PIPELINE_ID$;_taxonomy/metastats.results.list
