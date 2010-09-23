@@ -8,7 +8,7 @@
       <name>Upload fasta data</name>
       <type>RunUnixCommand</type>
       <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+      <arg>--tag-name $;FASTA_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
     </command>
     <command>
       <name>Upload mapping data</name>

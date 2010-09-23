@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>noop</name>
+    <name>clovr.postrun</name>
+    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
   </commandSet>
 </commandSetRoot>

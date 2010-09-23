@@ -7,8 +7,8 @@
      <command>
       <name>Fasta-file Check</name>
       <type>RunUnixCommand</type>
-      <executable>vp-describe-task</executable>
-      <arg>--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_TAG$; "tag-is-fasta"`</arg>
+      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
+      <arg>--name local --tag-name $;FASTA_TAG$; --overwrite --recursive $;FASTA_FILES$;</arg>
     </command>
     <command>
       <name>Map-file Check</name>
