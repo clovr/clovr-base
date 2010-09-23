@@ -160,7 +160,7 @@ print OUT
   rownames(Cnormed) <- rownames(C);
   reds = rev(rainbow(200))[1:10];
   COLORS = c(rainbow(200)[32:200],reds);
-  pdf(outfile, paper = \"letter\");
+  pdf(outfile);
   CR = NULL;
   CC = NULL;
   if (nrows > 50){
@@ -169,14 +169,19 @@ print OUT
   if (ncols > 50){
     CC = 0.4;
   }
-
+  if (nrows > 120){
+    CR = 0.2;
+  }
+  if (ncols > 120){
+    CC = 0.2;
+  }
   sw1 = 0.01/nrows;
   sw2 = 0.01/ncols;
   par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5));
-  if(nrows > 100 || ncols > 100){
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC);
+  if(nrows > 80 || ncols > 80){
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.2), lhei=c(1,4));
   }else{
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2));
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.2), lhei=c(1,4));
   }
   dev.off()
 }
