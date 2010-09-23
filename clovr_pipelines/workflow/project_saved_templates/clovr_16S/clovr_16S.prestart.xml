@@ -4,17 +4,17 @@
   <commandSet type="serial">
     <state>incomplete</state>
     <name>16S_qiime.prestart</name>
-    <command>
-      <name>Tag fasta data</name>
+     <command>
+      <name>Fasta-file Check</name>
       <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-      <arg>--name local --tag-name $;FASTA_TAG$; --overwrite --recursive $;FASTA_FILES$;</arg>
+      <executable>vp-describe-task</executable>
+      <arg>--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;FASTA_TAG$; "tag-is-fasta"`</arg>
     </command>
     <command>
-      <name>Tag meta data</name>
+      <name>Map-file Check</name>
       <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-      <arg>--name local --tag-name $;MAPPING_TAG$; --overwrite --recursive $;MAPPING_FILE$;</arg>
+      <executable>vp-describe-task</executable>
+      <arg>--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;MAPPING_TAG$; "tag-is-meta"`</arg>
     </command>
   </commandSet>
 </commandSetRoot>

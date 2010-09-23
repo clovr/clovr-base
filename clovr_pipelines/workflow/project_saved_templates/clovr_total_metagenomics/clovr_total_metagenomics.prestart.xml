@@ -5,10 +5,10 @@
     <state>incomplete</state>
     <name>total_metagenomics_stub.prestart</name>
     <command>
-      <name>Tag data</name>
+      <name>Fasta-file Check</name>
       <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-      <arg>--name local --tag-name $;INPUT_TAG$; --overwrite --recursive $;INPUT_FILES$;</arg>
+      <executable>vp-describe-task</executable>
+      <arg>--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_TAG$; "tag-is-fasta"`</arg>
     </command>
   </commandSet>
 </commandSetRoot>
