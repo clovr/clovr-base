@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/total_metagenomics_stub.sh</command>
+      <command>sudo /opt/hudson/clovr_total_metagenomics.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
