@@ -12,7 +12,7 @@ cp /opt/hudson/clovr_blastall.config /tmp/pipeline.conf
 
 sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
-TASK_NAME=`runPipeline.py --print-task-name --pipeline clovr_wrapper --name local -n blastall -- --CONFIG_FILE=/tmp/pipeline.conf`
+TASK_NAME=`runPipeline.py --print-task-name --pipeline clovr_wrapper --name local -n blastall$$ -- --CONFIG_FILE=/tmp/pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"
