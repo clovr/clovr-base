@@ -19,24 +19,28 @@
             <name>metagene.default</name>
         </commandSet>
         <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>translate_sequence.default</name>
+            <state>incomplete</state>
+            <name>translate_sequence.default</name>
         </commandSet>
         <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>uclust.polypeptide</name>
+            <state>incomplete</state>
+            <name>uclust.polypeptide</name>
         </commandSet>
         <commandSet type="serial">
-            		<state>incomplete</state>
-            		<name>split_multifasta.multi</name>
+            <state>incomplete</state>
+            <name>split_multifasta.multi</name>
         </commandSet>
         <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>ncbi-blastp.default</name>
+            <state>incomplete</state>
+            <name>ncbi-blastp.default</name>
          </commandSet>
         <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>tag_data.default</name>
+            <state>incomplete</state>
+            <name>tag_data.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.add_config_to_tag</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
