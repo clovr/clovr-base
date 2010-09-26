@@ -92,7 +92,30 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
-      <includeRegex>^([0-9]).*</includeRegex>
+      <includeRegex>^[0-9](?!.*pipeline).*</includeRegex>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Pipeline tests</name>
+      <description>&lt;p&gt;CloVR pipelines&lt;/p&gt;&#xd;
+</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set"
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>^[0-9].*.pipeline</includeRegex>
     </listView>
   </views>
   <primaryView>Platform conversion</primaryView>
