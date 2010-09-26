@@ -101,9 +101,8 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
 </description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
-      <jobNames class="tree-set"
+      <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-      </jobNames>
       </jobNames>
       <jobFilters/>
       <columns>
