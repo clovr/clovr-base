@@ -22,5 +22,9 @@
             <state>incomplete</state>
             <name>ncbi-blastall.default</name>
         </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.default</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>

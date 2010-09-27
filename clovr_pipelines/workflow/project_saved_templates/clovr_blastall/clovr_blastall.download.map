@@ -1,0 +1,2 @@
+#TAG_NAME	FILES
+blastall_raw	$;REPO_ROOT$;/output_repository/ncbi-blastall/$;PIPELINE_ID$;_default/ncbi-blastall.raw.list
