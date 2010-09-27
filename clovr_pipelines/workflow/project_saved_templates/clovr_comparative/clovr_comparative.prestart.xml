@@ -6,10 +6,10 @@
 	<state>incomplete</state>
 	<name>clovr_comparative.prestart</name>
 	<command>
-		<name>Tag data</name>
+		<name>Genbank file check</name>
 		<type>RunUnixCommand</type>
-		<executable>/opt/vappio-py/vappio/cli/tagData.py</executable>
-		<arg>--name local --tag-name $;INPUT_TAG$; --overwrite --recursive $;INPUT_DIR$;</arg>
+		<executable>vp-describe-task</executable>
+		<arg>--block --exit-code `vp-run-metrics -t -c input.GENBANK_TAG=$;GENBANK_TAG$; "tag-is-genbank"`</arg>
 	</command>
 </commandSet>
 </commandSetRoot>
