@@ -31,8 +31,6 @@ EXEC_NODES={"default": 1, "default_hidden": true, "desc": "Number of exec nodes,
 CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
 CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
 
-#key=/mnt/devel1.pem
-#host=localhost
 
 #########################################################
 ## Output info.
@@ -43,7 +41,7 @@ CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Creden
 OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_search", "default_hidden": true, "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_search", "always_hidden": true, "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
