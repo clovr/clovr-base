@@ -4,9 +4,13 @@ source /root/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T"`
 
-cp /opt/hudson/clovr_microbe454.config /tmp/pipeline.conf
-
-sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
+vp-describe-protocols --config-from-protocol=clovr_microbe454 \
+    -c input.INPUT_TAG=hudson_sff_test \
+    -c input.OUTPUT_PREFIX=BD413_mini \
+    -c input.ORGANISM="Acinetobacter baylii" \
+    -c input.SKIP_BANK=1 \
+    -c input.PIPELINE_NAME=illumina_${DATE} \
+    > /tmp/pipeline.conf
 
 tagData.py --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o
 
