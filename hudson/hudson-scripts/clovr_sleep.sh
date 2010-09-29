@@ -22,6 +22,4 @@ fi
 
 taskStatus.py --name local --exit-code --block $TASK_NAME
 
-rm /tmp/clovr_sleep_*
-
 exit $?
