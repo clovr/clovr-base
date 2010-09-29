@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/clovr_blastall.sh </command>
+      <command>sudo /opt/hudson/clovr_search.sh </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
