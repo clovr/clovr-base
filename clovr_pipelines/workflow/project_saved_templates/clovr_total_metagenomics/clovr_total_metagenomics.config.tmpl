@@ -1,0 +1,57 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Input files and databases to be used.
+#########################################################
+[input]
+INPUT_TAG={"display": "Input Tag", "default": "clovr_total_metagenomics_input", "desc": "Tag to use for input into the pipeline", "source": "tags"}
+DB_TAG={"display": "Reference database tag", "default": "ncbi-nr", "desc": "The reference database to use for the tag", "source": "tags"}
+
+PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_total_metagenomics_run", "desc": "The name of the pipeline"}
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+SEQS_PER_FILE={"display": "Sequences per file", "default": 5, "desc": "The number of sequences per file, you shouldn't need to modify this"}
+## Should be set to the number of nodes available in cluster
+TOTAL_FILES={"display": "Total files", "default": 1, "desc": "Total files to make, set to the number of exec nodes in the cluster"}
+NUM_SEQS={"default": 100, "desc": "The number of sequences to write to each BSML file, you shouldn't need to modify this"}
+GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shouldn't need to modify this"}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+CLUSTER_NAME={"display": "Cluster name", "default": "local", "desc": "The name of the cluster to use"}
+EXEC_NODES={"default": 1, "desc": "The number of exec nodes to bring up"}
+CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Configuration file to use, you shouldn't need to modify this"}
+CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc": "The credential to use for the cluster", "source": "credentials"}
+
+#########################################################
+## Output info.
+## Specifies what data to download and where locally 
+## the data will end up and also logging information
+#########################################################
+[output]
+OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files to"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+
+[pipeline]
+PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "always_hidden": true, "desc": null}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prestart.xml", "always_hidden": true, "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prerun.xml", "always_hidden": true, "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.postrun.xml", "always_hidden": true, "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
