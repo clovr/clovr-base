@@ -5,37 +5,47 @@
 #########################################################
 [input]
 
-INPUT_SFF_FILE={"display": "Input SFF File", "default": "/mnt/user_data/BD413_wt_contig170.sff", "desc": "Input is a single SFF file"}
+## The input tag name for sff input data
+## Should already be tagged data
+## See tagData.py --help for more info
+INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "source": "tags"}
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
 ## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipeline Name", "default": "BD413_minitest", "desc": "Name of the pipeline, should be unique for all runs"}
+PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline"}
 
 ## organism info
-OUTPUT_PREFIX={"display": "Organism Output Prefix", "default": "BD413_mini", "desc": "The output prefix to use for the organism"}
-ORGANISM={"display": "Organism", "default": "Acinetobacter baylii", "desc": "Genus and species for the organism.  Must be two words"}
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them"}
+ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species"}
 
 ## sff_to_CA options
 ##
 ## trim can be one of the following values:
 ## none, soft, hard, chop
-TRIM={"display": "Trim", "default": "chop", "desc": "Can be one of following: none, soft, hard, chop"}
+TRIM={"display": "Trim", "default": "chop", "desc": "Can be one of the following [none soft hard chop]"}
 ##
 ## clear can be one of the following values:
 ## all, 454, none, n, pair-of-n, discard-n
-CLEAR={"display": "Clear", "default": "454", "desc": "Can be one of the following: all, 454, none, n, pair-of-n, discard-n"}
-LINKER={"display": "Linker", "default": "titanium", "desc": "Type of linker"}
-INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Input size"}
+CLEAR={"display": "Clear", "default": "454", "desc": "Can be one of the following [all 454 none n pair-of-n discard-n]"}
+LINKER={"display": "Linker", "default": "titanium", "desc": "What linker to use"}
+INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert size, must be two numbers separated by a space"}
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "desc": null}
-SKIP_BANK={"display": "Skip bank", "default": 0, "desc": "Skip making the bank file or not, 0 for no, 1 for yes (this should be removed in future"}
+SKIP_BANK={"display": "Skip bank", "default": 0, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to 1"}
 
-INPUT_TAG={"display": "Input tag", "default": "SOMETAG", "desc": "Input tag name.  Must be unique for each pipeline. If not specified a unique one will be created"}
-REFERENCE_DB_TAG={"display": "Reference DB", "default": "clovr-prok-db", "default_hidden": true, "desc": "Reference database for HMM and BLAST searches.  Default value should be sufficient"}
+## For the annotation portion of the pipeline.
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
 
-GROUP_COUNT={"display": "Group Count", "default": 20, "default_hidden": true, "desc": "Number of groups, should not need to manually set"}
+## How many groups for ergatis
+GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to modify"}
+
 
 ##########################################################
 ## Cluster info.
@@ -44,10 +54,10 @@ GROUP_COUNT={"display": "Group Count", "default": 20, "default_hidden": true, "d
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-CLUSTER_NAME={"display": "Cluster Name", "default": "local", "desc": "Name of cluster to create"}
-EXEC_NODES={"default": 10, "default_hidden": true, "desc": "Number of exec nodes, set this only if you want to override a metric"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
-CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Which credential to use to make this cluster"}
+CLUSTER_NAME={"display": "Cluster name", "default": "local", "desc": "The name of the cluster to use"}
+EXEC_NODES={"default": 1, "desc": "The number of exec nodes to bring up"}
+CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Configuration file to use, you shouldn't need to modify this"}
+CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc": "The credential to use for the cluster", "source": "credentials"}
 
 #key=/mnt/devel1.pem
 #host=localhost
@@ -58,25 +68,19 @@ CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Which 
 ## logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
-log_file={"default": "/mnt/clovr_microbe454.log", "default_hidden": true, "desc": "Log file, should only be needed if something goes wrong"}
-## the higher, the more output (3 = most verbose)
-debug_level={"default": 3, "default_hidden": true, "desc": "Debug level, I don't think this is needed anymore"}
-
+OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_microbe454", "default_hidden": true, "desc": "The type of the pipeline we are running"}
-PIPELINE_ARGS={"default": "--INPUT_FILE_LIST=${input.INPUT_TAG} --OUTPUT_PREFIX=${input.OUTPUT_PREFIX} --ORGANISM=\"${input.ORGANISM}\" --DATABASE_PATH=${input.REFERENCE_DB_TAG} --conf=${cluster.CLOVR_CONF} --GROUP_COUNT=${input.GROUP_COUNT} --TRIM=${input.TRIM} --LINKER=${input.LINKER} --CLEAR=${input.CLEAR} --SPEC_FILE=${input.SPEC_FILE} --SKIP_BANK=${input.SKIP_BANK} --INSERT_SIZE=\"${input.INSERT_SIZE}\"", "desc": "Default way to compose variables"}
+PIPELINE_TEMPLATE={"default": "clovr_microbe454", "always_hidden": true, "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prestart.xml", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prestart.xml", "always_hidden": true, "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prerun.xml", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prerun.xml", "always_hidden": true, "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "desc": null}
-
-
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.postrun.xml", "always_hidden": true, "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
