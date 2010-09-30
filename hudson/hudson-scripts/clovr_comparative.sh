@@ -2,7 +2,7 @@
 set -e
 source /root/clovrEnv.sh
 
-DATE=`date + "%m-%d-%y-%T"`
+DATE=`date +"%m-%d-%y-%T"`
 
 cp /opt/hudson/clovr_comparative.config /tmp/pipeline.conf
 
