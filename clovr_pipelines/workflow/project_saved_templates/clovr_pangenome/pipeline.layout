@@ -51,8 +51,12 @@
 	  <name>pangenome_make_graphs.core</name>
 	</commandSet>
 	<commandSet type="serial">
-	  <state>incomplete</state>
-	  <name>pangenome_make_graphs.pan</name>
-	</commandSet>
+          <state>incomplete</state>
+          <name>pangenome_make_graphs.pan</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>tag_data.default</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
