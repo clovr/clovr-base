@@ -4,19 +4,27 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "source": "tags"}
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipleline", "source": "tags"}
+FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metatranscriptomics_fasta", "desc": "Input fasta tag", "source": "tags"}
 
-REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-aligned-imputed-fasta", "desc": "Reference database", "source": "tags"}
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metatranscriptomics_map", "desc": "Mapping tag for pipleline", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "desc": "Name of pipeline"}
+PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Reference database", "source": "tags"}
+
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Reference database", "source": "tags"}
+
+RRNA_DB_TAG={"display": "rRNA database tag", "default": "clovr-rrnadb", "desc": "Reference database", "source": "tags"}
+
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metatranscriptomics_pipeline", "desc": "Name of pipeline"}
+
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
+TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this"}
 GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
+
 
 ##########################################################
 ## Cluster info.
@@ -30,6 +38,7 @@ EXEC_NODES={"default": 1, "default_hidden": true, "desc": "Number of exec nodes,
 CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
 CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
 
+
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
@@ -38,10 +47,11 @@ CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Creden
 [output]
 OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
 
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "qiime_otu_table,qiime_fasttree,qiime_heatmap,qiime_summary_tables,qiime_skiff,qiime_metastats,qiime_beta,rdp_res,rdp_tables,rdp_skiff,rdp_metastats,mothur_otu_list,mothur_shannon,mothur_chao,mothur_ace,mothur_rare,mothur_summary", "desc": "Comma separated list of tags that should be downloaded"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "uclust_clusters,blast_rrna,tables_rrna,piecharts_rrna,skiff_rrna,metastats_rrna,blast_functional,tables_functional,piecharts_functional,skiff_functional,metastats_functional,blast_taxonomy,tables_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy", "desc": "Comma separated list of tags that should be downloaded"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_16S", "always_hidden": true, "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_metatranscriptomics", "always_hidden": true, "desc": "The type of the pipeline we are running"}
+
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
@@ -49,9 +59,10 @@ PIPELINE_TEMPLATE={"default": "clovr_16S", "always_hidden": true, "desc": "The t
 PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "always_hidden": true, "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S/clovr_16S.prerun.xml", "always_hidden": true, "desc": null}
-#Postrun is run after pipeline completion and after download data
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metatranscriptomics/clovr_metatranscriptomics.prerun.xml", "always_hidden": true, "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S/clovr_16S.postrun.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metatranscriptomics/clovr_metatranscriptomics.postrun.xml", "always_hidden": true, "desc": null}
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
+
 
