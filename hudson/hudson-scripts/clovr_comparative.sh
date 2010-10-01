@@ -8,7 +8,7 @@ cp /opt/hudson/clovr_comparative.config /tmp/pipeline.conf
 
 sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
-tagData.py --tag-name=hudson_genbank_tag -o /opt/hudson/comparative_data/Chlamydophila_pneumoniae_AR39/NC_002179.gbk /opt/hudson/comparative_data/Chlamydophila_pneumoniae_AR39/NC_002180.gbk
+tagData.py --tag-name=hudson_genbank_tag -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
 
 TASK_NAME=`runPipeline.py --name local --print-task-name --pipeline-name clovr_comparative-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
 if [ "$?" == "1" ]; then
