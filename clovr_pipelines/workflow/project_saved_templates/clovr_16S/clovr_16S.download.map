@@ -3,6 +3,7 @@ qiime_otu_table	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_defau
 qiime_fasttree	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/Fasttree.list
 qiime_heatmap	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/otu_heatmap
 qiime_summary_tables	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/Taxa.tables.list
+qiime_summary_histograms	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/histogram_stacked_qiime/histogram_stacked.results.list
 qiime_skiff	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/skiff_qiime/skiff.results.list
 qiime_metastats	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/metastats_qiime/metastats.results.list
 qiime_beta	$;REPO_ROOT$;/output_repository/core_qiime/$;PIPELINE_ID$;_default/results/beta_diversity
@@ -10,6 +11,7 @@ rdp_res	$;REPO_ROOT$;/output_repository/rdp_classifier/$;PIPELINE_ID$;_default/r
 rdp_tables	$;REPO_ROOT$;/output_repository/rdp_classifier/$;PIPELINE_ID$;_default/rdp_classifier.tables.list
 rdp_skiff	$;REPO_ROOT$;/output_repository/skiff/$;PIPELINE_ID$;_default/skiff.results.list
 rdp_metastats	$;REPO_ROOT$;/output_repository/metastats/$;PIPELINE_ID$;_default/metastats.results.list
+rdp_histograms	$;REPO_ROOT$;/output_repository/histogram_stacked/$;PIPELINE_ID$;_default/histogram_stacked.results.list
 mothur_otu_list	$;REPO_ROOT$;/output_repository/mothur_cluster/$;PIPELINE_ID$;_default/mothur_cluster.list.list
 mothur_shannon	$;REPO_ROOT$;/output_repository/mothur_collect_single/$;PIPELINE_ID$;_default/mothur_collect_single.shannon.list
 mothur_chao	$;REPO_ROOT$;/output_repository/mothur_collect_single/$;PIPELINE_ID$;_default/mothur_collect_single.chao.list

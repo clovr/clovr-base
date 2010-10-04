@@ -49,6 +49,10 @@
                         <state>incomplete</state>
                         <name>piecharts.functional</name>
                     </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>histogram_stacked.functional</name>
+                    </commandSet>
                 </commandSet>
             </commandSet>
             <commandSet type="serial">
@@ -74,6 +78,10 @@
                     <commandSet type="serial">
                         <state>incomplete</state>
                         <name>piecharts.taxonomy</name>
+                    </commandSet>
+                    <commandSet type="serial">
+                        <state>incomplete</state>
+                        <name>histogram_stacked.taxonomy</name>
                     </commandSet>
                 </commandSet>
             </commandSet>
