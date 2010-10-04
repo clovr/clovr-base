@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>clovr_blastall.py --cluster=local -p blastp -i /opt/hudson/NC_000964/NC_000964.faa -d /opt/hudson/NC_000964/NC_000964.faa -e 1e-5 -o /mnt/ --debug</command>
+      <command>clovr_blastall --cluster=local -p blastp -i /opt/hudson/NC_000964/NC_000964.faa -d /opt/hudson/NC_000964/NC_000964.faa -e 1e-5 -o /mnt/ --debug</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
