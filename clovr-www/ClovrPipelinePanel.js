@@ -8,7 +8,8 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
     constructor: function(config) {
         var pipelines;
         if(config.host) {
-            console.log(config.host);
+            // Need to fill this in with code that will do a ScriptTagProxy to a host other than the
+            // localhost.
         }
         else { 
             config.host = 'localhost';
@@ -26,29 +27,23 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
                     // Not sure if there is a better solution to this.
                     for(var prop in pipelines) {
                         if(pipelines.hasOwnProperty(prop)) {
-                            var itemsArray = [];
-                            Ext.each(pipelines[prop].fields, function(field, i, props) {
-                                itemsArray.push(
-                                    {
-                                        hidden: field.default_hidden,
-                                        fieldLabel: field.display,
-                                        name: field.field,
-                                        value: field['default']
-                                    });
-                                });
-                            clovrpanel.add(new Ext.form.FormPanel({
-                                defaultType: 'textfield',
-                                autoScroll: true,
-//                                layout: 'anchor',
-                                title: prop,
-                                items: itemsArray,
-                                frame: true,
-                                buttons: [{text: 'Submit'}]}));
+                            clovrpanel.add(new clovr.ClovrFormPanel({
+                                fields: pipelines[prop].fields,
+                                title: prop
+                            }));
                         }
+                        clovrpanel.setActiveTab(0);
                     }
-                    clovrpanel.setActiveTab(0);
                 }
-            })}
+            });
+        }
+    },
+    /*
+    * Use this function to set the input field of a selected pipeline with the currently 
+    * selected data sets.
+    */
+    setInput: function(input_tag) {
+        this.getActiveTab().setInput(input_tag);
     }
 });
 
@@ -60,7 +55,6 @@ function clovrParsePipelines( r ) {
     Ext.each(r, function( pipe ) {
         
         var n = pipe.name;
-        console.log(n);
         var c = new Array();
         if ( pipe.config != null ) {
             for ( i=0; i<pipe.config.length; i++ ) {

@@ -36,68 +36,81 @@ Ext.onReady(function(){
     var pipelines = new Ext.data.Store({
 //        proxy: proxy,
     });
+
+    // Panel to house the pipeline configurations.
+    var pipepanel = new clovr.ClovrPipelinePanel({
+        host: hostname_field.getValue(),
+        collapseMode: 'mini',
+        header: true,
+        enableTabScroll: true,
+        width: 400,
+        split: true,
+        margins: '0 5 0 0',
+        region: 'east',
+        title: 'Configure Analysis'
+    });
+
+    // Grid to store tagged data sets.
+    var taggrid = new clovr.TagGrid({
+        region: 'center',
+        pipelinePanel: pipepanel,
+        title: 'Data Sets',
+        margins: '0 0 0 5',
+        url: "/vappio/queryTag_ws.py",
+        host: hostname_field.getValue()
+    });
+
+
+    
     var viewport = new Ext.Viewport({
         layout:'border',
-        items:[{
-            region: 'north',
-            baseCls: 'dashboard_header',
-            height: 100,
-            html: "<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>",
-            bbar: [{layout: 'form',
-                    xtype: 'container',
-                    labelWidth: 30,
-                    style: 'padding-top: 5px',
-                    items:[hostname_field]
-                   }]
-        },
-        {
-                region: 'south',
-                height: 150,
-                xtype: 'portal',
-            collapsible: true,
-                items: [{
-                    columnWidth: 0.33,
-                    style:'padding:10px 0 10px 10px',
-                    items:[{
-                        title: 'Large element',
-                        layout: 'fit',
-                        colspan:"2",
-                        tools: tools,
-                        html: 'bogus markup'
-                    }]},
-                    {
-                    columnWidth: 0.33,
-                    style:'padding:10px 0 10px 10px',
-                    items:[{
-                        title: 'Smaller element1',
-                        layout: 'fit',
-                        tools: tools,
-                        html: 'bogus markup'
-                    }]},
-                    {
-                    columnWidth: 0.33,
-                    style:'padding:10px 0 10px 10px',
-                    items:[{ 
-                        title: 'Smaller element2',
-                        layout: 'fit',
-                        tools: tools,
-                        html: 'bogus markup'
-                    }
-                          ]}
-                ]
-        },
-               new clovr.TagGrid({
-                   region: 'west',
-                   title: 'Data Sets',
-                   collapsible: true,
-                   width: 200,
-                   split: true,
-//                   url: hostname + "/vappio/queryTag_ws.py"
-               }),
-               new clovr.ClovrPipelinePanel({
-                   host: hostname_field.getValue(),
-                   region: 'center',
-               })
-          ]
+        items:[
+            {region: 'north',
+             baseCls: 'dashboard_header',
+             height: 100,
+             html: "<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>",
+             bbar: [{layout: 'form',
+                     xtype: 'container',
+                     labelWidth: 30,
+                     style: 'padding-top: 5px;padding-left: 5px;',
+                     items:[hostname_field]
+                    }]
+            },
+            {title: 'CloVR Widgets',
+             region: 'south',
+             height: 150,
+             xtype: 'portal',
+             collapseMode: 'mini',
+             split: true,
+             items: [{
+                 columnWidth: 0.33,
+                 style:'padding:10px 0 10px 10px',
+                 items:[{
+                     title: 'Large element',
+                     layout: 'fit',
+                     colspan:"2",
+                     tools: tools,
+                     html: 'bogus markup'
+                 }]},
+                     {columnWidth: 0.33,
+                      style:'padding:10px 0 10px 10px',
+                      items:[{
+                          title: 'Smaller element1',
+                          layout: 'fit',
+                          tools: tools,
+                          html: 'bogus markup'
+                      }]},
+                     {columnWidth: 0.33,
+                      style:'padding:10px 0 10px 10px',
+                      items:[{ 
+                          title: 'Smaller element2',
+                          layout: 'fit',
+                          tools: tools,
+                          html: 'bogus markup'
+                      }]}
+                    ]},
+            taggrid,
+            pipepanel
+        ]
     });
 });
