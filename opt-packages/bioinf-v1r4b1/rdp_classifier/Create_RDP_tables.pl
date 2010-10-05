@@ -38,6 +38,7 @@ my $prefix = $opt_p;
 #*********************************************************************
 # GLOBALS
 #*********************************************************************
+my $THRESHOLD = 0.80;
 my %samples        = ();
 my %activesamples  = ();
 my @orderedsamples = ();
@@ -97,38 +98,75 @@ while(<IN>){
       $A[$i] =~ s/^\s+|\s+$//g;
       $A[$i]  =~ s/^\"+|\"+$//g;
     }
+
     # phylum assignment
-    if (!defined($data{$seqmap{$current_seq}}{"phylum"}{$A[4]})){
-      $data{$seqmap{$current_seq}}{"phylum"}{$A[4]} = 1;
-      $activefeatures{"phylum"}{$A[4]} = 1; 
+    if ($A[5] < $THRESHOLD){
+      if (!defined($data{$seqmap{$current_seq}}{"phylum"}{"unknown"})){
+        $data{$seqmap{$current_seq}}{"phylum"}{"unknown"} = 1;
+        $activefeatures{"phylum"}{"unknown"} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"phylum"}{"unknown"}++;
+      } 
     }else{
-      $data{$seqmap{$current_seq}}{"phylum"}{$A[4]}++;
+      if (!defined($data{$seqmap{$current_seq}}{"phylum"}{$A[4]})){
+        $data{$seqmap{$current_seq}}{"phylum"}{$A[4]} = 1;
+        $activefeatures{"phylum"}{$A[4]} = 1; 
+      }else{
+        $data{$seqmap{$current_seq}}{"phylum"}{$A[4]}++;
+      }
     } 
     
     # class assignment
-    if (!defined($data{$seqmap{$current_seq}}{"class"}{$A[6]})){
-      $data{$seqmap{$current_seq}}{"class"}{$A[6]} = 1;
-      $activefeatures{"class"}{$A[6]} = 1;
+    if ($A[7] < $THRESHOLD){
+      if (!defined($data{$seqmap{$current_seq}}{"class"}{"unknown"})){
+        $data{$seqmap{$current_seq}}{"class"}{"unknown"} = 1;
+        $activefeatures{"class"}{"unknown"} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"class"}{"unknown"}++;
+      } 
     }else{
-      $data{$seqmap{$current_seq}}{"class"}{$A[6]}++;
+      if (!defined($data{$seqmap{$current_seq}}{"class"}{$A[6]})){
+        $data{$seqmap{$current_seq}}{"class"}{$A[6]} = 1;
+        $activefeatures{"class"}{$A[6]} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"class"}{$A[6]}++;
+      }
     }
-    
-    #genus assignment
-    if (!defined($data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]})){
-      $data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]} = 1;
-      $activefeatures{"genus"}{$A[$#A-1]} = 1;
+
+    # genus assignment
+    if ($A[$#A] < $THRESHOLD){
+      if (!defined($data{$seqmap{$current_seq}}{"genus"}{"unknown"})){
+        $data{$seqmap{$current_seq}}{"genus"}{"unknown"} = 1;
+        $activefeatures{"genus"}{"unknown"} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"genus"}{"unknown"}++;
+      }
     }else{
-      $data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]}++;
-    }
- 
-    #family assignment
-    if (!defined($data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]})){
-      $data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]} = 1;
-      $activefeatures{"family"}{$A[$#A-3]} = 1;
+      if (!defined($data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]})){
+        $data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]} = 1;
+        $activefeatures{"genus"}{$A[$#A-1]} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"genus"}{$A[$#A-1]}++;
+      }
+    } 
+
+    # family assignment
+    if ($A[$#A-2] < $THRESHOLD){
+      if (!defined($data{$seqmap{$current_seq}}{"family"}{"unknown"})){
+        $data{$seqmap{$current_seq}}{"family"}{"unknown"} = 1;
+        $activefeatures{"family"}{"unknown"} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"family"}{"unknown"}++;
+      }
     }else{
-      $data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]}++;
+      if (!defined($data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]})){
+        $data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]} = 1;
+        $activefeatures{"family"}{$A[$#A-3]} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"family"}{$A[$#A-3]}++;
+      }
     }
-  
+
     # order assignment
     my $odex = 8;
     if (!defined($A[$odex])){
@@ -139,11 +177,20 @@ while(<IN>){
       $odex+=2;
     }    
 
-    if (!defined($data{$seqmap{$current_seq}}{"order"}{$A[$odex]})){
-      $data{$seqmap{$current_seq}}{"order"}{$A[$odex]} = 1;
-      $activefeatures{"order"}{$A[$odex]} = 1;
+    if ($A[$odex+1] < $THRESHOLD){
+      if (!defined($data{$seqmap{$current_seq}}{"order"}{"unknown"})){
+        $data{$seqmap{$current_seq}}{"order"}{"unknown"} = 1;
+        $activefeatures{"order"}{"unknown"} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"order"}{"unknown"}++;
+      }
     }else{
-      $data{$seqmap{$current_seq}}{"order"}{$A[$odex]}++;
+      if (!defined($data{$seqmap{$current_seq}}{"order"}{$A[$odex]})){
+        $data{$seqmap{$current_seq}}{"order"}{$A[$odex]} = 1;
+        $activefeatures{"order"}{$A[$odex]} = 1;
+      }else{
+        $data{$seqmap{$current_seq}}{"order"}{$A[$odex]}++;
+      }
     }
   }
 }
