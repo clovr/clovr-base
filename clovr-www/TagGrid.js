@@ -18,12 +18,20 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
         var taggrid = this;
         clovr.TagGrid.superclass.constructor.call(this, Ext.apply(config, {
             store: jstore,
+            ddGroup: 'tagDDGroup',
+            enableDragDrop: true,
             autoExpandColumn: 'name',
-            columns: [
-                {id: 'name', header: "Name", width: 300, dataIndex: 'name'},
-                {id: 'fileCount', header: "File Count", dataIndex: 'fileCount'},
-                {id: 'phantom', header: "Is Phantom", dataIndex: 'phantom_tag'}
-            ],
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true
+                },
+                columns: [
+                    {id: 'name', header: "Name", width: 300, dataIndex: 'name'},
+                    {id: 'fileCount', header: "File Count", dataIndex: 'fileCount'},
+                    {id: 'phantom', header: "Is Phantom", dataIndex: 'phantom_tag'}
+                
+                ]
+            }),
             defaults: {
                 locked: false,
                 sortable: true,
@@ -47,7 +55,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 url: config.url,
                 params: {request: Ext.util.JSON.encode({name: 'local'})},
                 success: function(response) {
-                    var tags = Ext.util.JSON.decode(response.responseText)[1];
+                    var tags = Ext.util.JSON.decode(response.responseText).data;
                     var fields = [];
                     var cols = [];
                     var keys = [];
@@ -71,8 +79,12 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
 
                 },
                 failure: function(response) {
-                    console.log(response);
+                    Ext.Msg.show({
+                        title: 'Server Error',
+                        msg: response.responseText,
+                        icon: Ext.MessageBox.ERROR});
                 }
+                        
             });
         }
 

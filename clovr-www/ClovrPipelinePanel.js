@@ -19,9 +19,9 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
 
         if(config.host == 'localhost') {
             Ext.Ajax.request({
-                url: '/vappio/listPipelines_ws.py',
+                url: '/vappio/listProtocols_ws.py',
                 success: function(response) {
-                    var pipelines = clovrParsePipelines(Ext.util.JSON.decode(response.responseText)[1]);
+                    var pipelines = clovrParsePipelines(Ext.util.JSON.decode(response.responseText).data);
 
                     // HACK here. Couldn't get Ext.iterate to go over an associative array.
                     // Not sure if there is a better solution to this.
@@ -34,7 +34,15 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
                         }
                         clovrpanel.setActiveTab(0);
                     }
+                },
+                failure: function(response) {
+                    console.log(response);
+                    Ext.Msg.show({
+                        title: 'Server Error',
+                        msg: response.responseText,
+                        icon: Ext.MessageBox.ERROR});
                 }
+                        
             });
         }
     },
