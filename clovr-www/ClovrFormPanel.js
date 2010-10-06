@@ -31,9 +31,6 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                     ddGroup: 'tagDDGroup',
                     html: fieldValue,
                     name: field.field,
-//                    height: 20,
-                    width: 50%,
-//                    html: 'Drag something here',
                     listeners: {
                         render: function(container) {
                             var dropZone = new Ext.dd.DropTarget(container.el,{
@@ -103,9 +100,6 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                        }}],
             defaultType: 'textfield'
         }));
-    });
-               
-        
     },
     setInput: function(input_tag) {
 //        console.log(this.tag_field);
