@@ -1,5 +1,4 @@
 #TAG_NAME	FILES
-ncbi_blastp_btab	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.btab.list
 ncbi_blastp_raw	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.raw.list
 jaccard_fasta	$;REPO_ROOT$;/output_repository/jaccard/$;PIPELINE_ID$;_default/jaccard.fsa.list
 muscle_jaccard_raw	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_jaccard/muscle.raw.list
