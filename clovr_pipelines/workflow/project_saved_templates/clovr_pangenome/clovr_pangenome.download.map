@@ -1,7 +1,5 @@
 #TAG_NAME	FILES
-pangenome_ncbi_blastp_btab	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.btab.list
 pangenome_ncbi_blastp_raw	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.raw.list
-pangenome_ncbi_tblastn_btab	$;REPO_ROOT$;/output_repository/ncbi-tblastn/$;PIPELINE_ID$;_default/ncbi-tblastn.btab.list
 pangenome_ncbi_tblastn_raw	$;REPO_ROOT$;/output_repository/ncbi-tblastn/$;PIPELINE_ID$;_default/ncbi-tblastn.raw.list
 pangenome_blast_parse_stored	$;REPO_ROOT$;/output_repository/pangenome_blast_parse/$;PIPELINE_ID$;_default/pangenome.blast.stored
 pangenome_new_core_genes	$;REPO_ROOT$;/output_repository/pangenome_do_analysis/$;PIPELINE_ID$;_default/pangenome.table.txt
