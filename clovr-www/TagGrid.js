@@ -61,6 +61,9 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                     var keys = [];
                     Ext.each(tags, function(elm) {
                         for(key in elm) {
+                            if(key == 'files') {
+                                elm.fileCount = elm[key].length;
+                            }
                             if(!keys[key]) {
                                 cols.push({'header': key, 'dataIndex': key});
                                 fields.push({'name': key});

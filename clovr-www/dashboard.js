@@ -55,19 +55,27 @@ Ext.onReady(function(){
         region: 'center',
         pipelinePanel: pipepanel,
         title: 'Data Sets',
-        margins: '0 0 0 5',
+
         url: "/vappio/queryTag_ws.py",
         host: hostname_field.getValue()
     });
 
+    // Grid with running/complete pipelines in it
+    var pipegrid = new clovr.ClovrPipelinesGrid({
+        region: 'west',
+        width: 150,
+        header: true,
+        split: true,
+        collapseMode: 'mini',
+        margins: '0 0 0 5',
+    });
 
-    
     var viewport = new Ext.Viewport({
         layout:'border',
         items:[
             {region: 'north',
              baseCls: 'dashboard_header',
-             height: 100,
+             height: 116,
              html: "<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>",
              bbar: [{layout: 'form',
                      xtype: 'container',
@@ -110,7 +118,8 @@ Ext.onReady(function(){
                       }]}
                     ]},
             taggrid,
-            pipepanel
+            pipepanel,
+            pipegrid
         ]
     });
 });

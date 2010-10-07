@@ -1,6 +1,6 @@
 .dashboard_header {
     background: url("/clovr/images/header-bg-short.jpg") repeat-x scroll 0 0 #FFFFFF;
-    padding-top: 9px;
+/*    padding-top: 9px;*/
 }
 .header_adapter {
     margin: 0 auto;
@@ -12,4 +12,5 @@
     height: 75px;
     width: 229px;
     display: block;
+    margin-top: 9px;
 }

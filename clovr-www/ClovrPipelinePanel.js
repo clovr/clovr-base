@@ -15,6 +15,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
             config.host = 'localhost';
         }
         var clovrpanel = this;
+
         clovr.ClovrPipelinePanel.superclass.constructor.call(clovrpanel,config);
 
         if(config.host == 'localhost') {
