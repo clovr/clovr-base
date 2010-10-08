@@ -10,11 +10,5 @@
 			<executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
 			<arg>--tag-name $;GENBANK_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
 		</command>
-		<command>
-			<name>Upload user data</name>
-			<type>RunUnixCommand</type>
-			<executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-			<arg>--tag-name $;MAP_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
-		</command>
 	</commandSet>
 </commandSetRoot>
