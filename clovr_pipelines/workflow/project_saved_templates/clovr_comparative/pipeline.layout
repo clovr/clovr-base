@@ -4,7 +4,7 @@
         <name>start</name>
         <commandSet type="serial">
           <state>incomplete</state>
-          <name>createpangenomemapfile.default</name>
+          <name>create_map_file.default</name>
         </commandSet>
         <commandSet type="serial">
           <state>incomplete</state>
