@@ -27,7 +27,7 @@ export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-standard
 if [ $? = 0 ]
 then
-  bldimgname=`echo "$BUILD_ID" | sed 's/_/-/'`
+  bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
   curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
 fi
 </command>

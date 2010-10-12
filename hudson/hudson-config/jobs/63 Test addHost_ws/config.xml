@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>curl --show-error --fail "http://localhost/vappio/addHost_ws.py"</command>
+      <command>curl --show-error --fail &quot;http://localhost/vappio/addHost_ws.py&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
