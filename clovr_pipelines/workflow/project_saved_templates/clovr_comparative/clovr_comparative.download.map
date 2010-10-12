@@ -4,4 +4,3 @@ jaccard_fasta	$;REPO_ROOT$;/output_repository/jaccard/$;PIPELINE_ID$;_default/ja
 muscle_jaccard_raw	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_jaccard/muscle.raw.list
 joc_fasta	$;REPO_ROOT$;/output_repository/j_ortholog_clusters/$;PIPELINE_ID$;_default/j_ortholog_clusters.fsa.list
 muscle_joc_raw	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_JOCs/muscle.raw.list
-

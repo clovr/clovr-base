@@ -7,9 +7,7 @@ pangenome_profile	$;REPO_ROOT$;/output_repository/pangenome_do_analysis/$;PIPELI
 pangenome_output	$;REPO_ROOT$;/output_repository/pangenome_do_analysis/$;PIPELINE_ID$;_default/pangenome.output
 pangenome_new_ps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_new/ps.output.list
 pangenome_new_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_new/eps.output.list
-pangenome_core_ps_output $;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_core/ps.output.list
-pangenome_core_eps_output        $;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_core/eps.output.list
-pangenome_pan_ps_output $;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/ps.output.list
-pangenome_pan_eps_output        $;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/eps.output.list
-
-
+pangenome_core_ps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_core/ps.output.list
+pangenome_core_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_core/eps.output.list
+pangenome_pan_ps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/ps.output.list
+pangenome_pan_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/eps.output.list
