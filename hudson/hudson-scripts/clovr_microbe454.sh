@@ -5,7 +5,7 @@ source /root/clovrEnv.sh
 DATE=`date +"%m-%d-%Y-%T"`
 
 vp-describe-protocols --config-from-protocol=clovr_microbe454 \
-    -c input.INPUT_TAG=hudson_sff_test \
+    -c input.INPUT_SFF_TAG=hudson_sff_test \
     -c input.OUTPUT_PREFIX=BD413_mini \
     -c input.ORGANISM="Acinetobacter baylii" \
     -c input.SKIP_BANK=1 \
