@@ -1,0 +1,81 @@
+## Configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+## The input sff file tag name. Should already be tagged
+## This can be multiple sff files that will be assembled
+## together.
+## tagData.py --help for more details
+INPUT_SFF_TAG={"display": "Input Tag", "default": "", "desc": "Input tag, should be an sff file", "source": "tags"}
+
+## pipeline name
+## if pipeline is already present, will simply monitor it
+## otherwise will create the pipeline with current settings
+PIPELINE_NAME={"display": "Pipeline name", "default": "", "desc": "Name of the pipeline"}
+
+## organism info
+OUTPUT_PREFIX={"display": "Output prefix", "default": "asmbl", "desc": "Organism output prefix"}
+
+## sff_to_CA options
+##
+## trim can be one of the following values:
+## none, soft, hard, chop
+TRIM={"display": "Trim", "default": "chop", "desc": null, "choices": ["none", "soft", "hard", "chop"]}
+##
+## clear can be one of the following values:
+## all, 454, none, n, pair-of-n, discard-n
+CLEAR={"display": "Clear", "default": "454", "desc": null, "choices": ["all", "454", "none", "pair-of-n", "discard-n"]}
+LINKER={"display": "Linker", "default": "titanium", "desc": null}
+INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Must be two numbers separated by a space"}
+
+## celera assembler options
+SPEC_FILE={"display": "Spec file", "default": "/dev/null", "desc": null}
+SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "choices": [0, 1]}
+
+## The number of groups to use
+GROUP_COUNT={"display": "Group count", "default": 10, "desc": "Group count, you should never need to change this", "visibility": "default_hidden"}
+
+## Output: tags to download after run finishes
+## Comma separated list of tags
+## Possible options: assembly_scf, assembly_qc
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "choices": ["assembly_scf", "assembly_qc"]}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "default_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually"}
+EXEC_NODES={"default": 0, "visibility": "default_hidden", "desc": "Number of exec nodes, should not need to specify manually"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Config file, should not need to specify manually"}
+CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
+
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+
+[pipeline]
+PIPELINE_TEMPLATE={"default": "clovr_assembly_celera", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "desc": null}
+
+
+

@@ -35,7 +35,7 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,c
 [cluster]
 CLUSTER_NAME={"display": "Cluster name", "default": "local", "desc": "The name of the cluster to use"}
 EXEC_NODES={"default": 0, "desc": "The number of exec nodes to bring up"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Configuration file to use, you shouldn't need to modify this"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Configuration file to use, you shouldn't need to modify this"}
 CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc": "The credential to use for the cluster", "source": "credentials"}
 
 
@@ -48,16 +48,16 @@ CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc":
 OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation", "always_hidden": true, "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.prestart.xml", "always_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.prestart.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.prerun.xml", "always_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.postrun.xml", "always_hidden": true, "desc": null}
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

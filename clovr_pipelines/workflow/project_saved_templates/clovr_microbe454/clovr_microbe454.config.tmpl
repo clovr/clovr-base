@@ -28,17 +28,17 @@ ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Mu
 ##
 ## trim can be one of the following values:
 ## none, soft, hard, chop
-TRIM={"display": "Trim", "default": "chop", "desc": "Can be one of the following [none soft hard chop]"}
+TRIM={"display": "Trim", "default": "chop", "desc": null, "choices": ["none", "soft", "hard", "chop"]}
 ##
 ## clear can be one of the following values:
 ## all, 454, none, n, pair-of-n, discard-n
-CLEAR={"display": "Clear", "default": "454", "desc": "Can be one of the following [all 454 none n pair-of-n discard-n]"}
+CLEAR={"display": "Clear", "default": "454", "desc": null, "choices": ["all", "454", "none", "n", "pair-of-n", "discard-n"]}
 LINKER={"display": "Linker", "default": "titanium", "desc": "What linker to use"}
 INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert size, must be two numbers separated by a space"}
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "desc": null}
-SKIP_BANK={"display": "Skip bank", "default": 0, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to 1"}
+SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to 1", "choices": [0, 1]}
 
 ## For the annotation portion of the pipeline.
 REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
@@ -56,7 +56,7 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 [cluster]
 CLUSTER_NAME={"display": "Cluster name", "default": "local", "desc": "The name of the cluster to use"}
 EXEC_NODES={"default": 0, "desc": "The number of exec nodes to bring up"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Configuration file to use, you shouldn't need to modify this"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Configuration file to use, you shouldn't need to modify this"}
 CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc": "The credential to use for the cluster", "source": "credentials"}
 
 #key=/mnt/devel1.pem
@@ -71,16 +71,16 @@ CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc":
 OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_microbe454", "always_hidden": true, "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prestart.xml", "always_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prestart.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prerun.xml", "always_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.postrun.xml", "always_hidden": true, "desc": null}
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

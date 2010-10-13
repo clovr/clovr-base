@@ -20,7 +20,7 @@ PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metagenomics_orfs_p
 #########################################################
 [params]
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this"}
-NUM_SEQS={"display": "MetaGene group size", "default": 400, "default_hidden": true, "desc": "Number of groups to create for MetaGene, you don't need to modify this"}
+NUM_SEQS={"display": "MetaGene group size", "default": 400, "visibility": "default_hidden", "desc": "Number of groups to create for MetaGene, you don't need to modify this"}
 GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
 
 
@@ -31,9 +31,9 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-CLUSTER_NAME={"display": "Cluster Name", "default": "local", "default_hidden": true, "desc": "Cluster name to run this on, shouldn't need to specify manually"}
-EXEC_NODES={"default": 0, "default_hidden": true, "desc": "Number of exec nodes, should not need to specify manually"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "default_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually"}
+EXEC_NODES={"default": 0, "visibility": "default_hidden", "desc": "Number of exec nodes, should not need to specify manually"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Config file, should not need to specify manually"}
 CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
 
 
@@ -48,16 +48,16 @@ OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "uclust_clusters,blast_functional,tables_functional,piecharts_functional,skiff_functional,metastats_functional,histograms_functional,blast_taxonomy,tables_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy,histograms_taxonomy", "desc": "Comma separated list of tags that should be downloaded"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_metagenomics_orfs", "always_hidden": true, "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_metagenomics_orfs", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "always_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.prerun.xml", "always_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.postrun.xml", "always_hidden": true, "desc": null}
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

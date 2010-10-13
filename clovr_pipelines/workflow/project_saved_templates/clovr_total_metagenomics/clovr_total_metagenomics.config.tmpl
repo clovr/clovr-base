@@ -29,7 +29,7 @@ GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shou
 [cluster]
 CLUSTER_NAME={"display": "Cluster name", "default": "local", "desc": "The name of the cluster to use"}
 EXEC_NODES={"default": 0, "desc": "The number of exec nodes to bring up"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Configuration file to use, you shouldn't need to modify this"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Configuration file to use, you shouldn't need to modify this"}
 CLUSTER_CREDENTIAL={"display": "Cluster credential", "default": "local", "desc": "The credential to use for the cluster", "source": "credentials"}
 
 #########################################################
@@ -42,16 +42,16 @@ OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "always_hidden": true, "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prestart.xml", "always_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prestart.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prerun.xml", "always_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.postrun.xml", "always_hidden": true, "desc": null}
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

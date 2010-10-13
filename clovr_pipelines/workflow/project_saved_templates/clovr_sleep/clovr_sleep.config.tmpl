@@ -17,9 +17,9 @@ INPUT_TAG={"display": "Input tag", "default": "clovrsleepfiles", "desc": "Name o
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-CLUSTER_NAME={"display": "Cluster Name", "default": "local", "default_hidden": true, "desc": "Cluster name to run this on, shouldn't need to specify manually"}
-EXEC_NODES={"default": 0, "default_hidden": true, "desc": "Number of exec nodes, should not need to specify manually"}
-CLOVR_CONF={"default": "clovr.conf", "default_hidden": true, "desc": "Config file, should not need to specify manually"}
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "default_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually"}
+EXEC_NODES={"default": 0, "visibility": "default_hidden", "desc": "Number of exec nodes, should not need to specify manually"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Config file, should not need to specify manually"}
 CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
 
 
@@ -32,18 +32,18 @@ CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Creden
 OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_sleep", "always_hidden": true, "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_sleep", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "always_hidden": true, "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.prerun.xml", "always_hidden": true, "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.postrun.xml", "always_hidden": true, "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sleep/clovr_sleep.postrun.xml", "visibility": "always_hidden", "desc": null}
 
 
 
