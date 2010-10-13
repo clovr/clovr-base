@@ -3,24 +3,28 @@
         <state>incomplete</state>
         <name>start</name>
 	<commandSet type="serial">
-	  <state>incomplete</state>
-	  <name>bsml2fasta.genomic</name>
-	</commandSet>
+          <state>incomplete</state>
+          <name>create_map_file.default</name>
+        </commandSet>
 	<commandSet type="serial">
 	  <state>incomplete</state>
-	  <name>concatenate_files.default</name>
+	  <name>genbank2bsml.default</name>
 	</commandSet>
 	<commandSet type="serial">
-	  <state>incomplete</state>
-	  <name>mugsyprep.default</name>
-	</commandSet>
+          <state>incomplete</state>
+          <name>bsml2fasta.genomic</name>
+        </commandSet>
 	<commandSet type="serial">
-	  <state>incomplete</state>
-	  <name>mugsycog.default</name>
-	</commandSet>
+          <state>incomplete</state>
+          <name>concatenate_files.default</name>
+        </commandSet>
 	<commandSet type="serial">
-	  <state>incomplete</state>
-	  <name>muscle.default</name>
-	</commandSet>
+          <state>incomplete</state>
+          <name>mugsyprep.default</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>tag_data.default</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
