@@ -1,0 +1,2 @@
+#TAG_NAME	FILES
+genbank2bsml_tag	$;REPO_ROOT$;/output_repository/genbank2bsml/$;PIPELINE_ID$;_default/genbank2bsml.bsml.list
