@@ -189,12 +189,26 @@ my $results = GetOptions (\%options,
     'translated|s',
     'debug=s',
     'log=s',
-    'help|h'
+    'help|h',
+    'fasta_file_list=s'     # so that we can pass the tag - Mahesh Vangala
     ) || pod2usage(-verbose => 3);
 
 pod2usage(-verbose=>3) if($options{'help'});
 
-my @inputseqfiles = @ARGV;
+#####################################################
+## We need to append the filenames present in the tag
+## so modifying the code so that it would take input
+## fasta files either from the command line or from 
+## the tagged dataset.
+## Modified by: Mahesh Vangala
+#####################################################
+my @inputseqfiles = ();
+unless($options{'fasta_file_list'}) {
+	@inputseqfiles = @ARGV;
+} else {
+	getFastaFilesPath($options{'fasta_file_list'}, \@inputseqfiles);
+}
+######################################################
 
 $options{'debug'} = 0 if(!defined $options{'debug'});
 print LOG "Processing FASTA files ",join(',',@inputseqfiles),"\n" if($options{'debug'});
@@ -956,6 +970,26 @@ sub printFASTA{
 	print FFILE $s,"\n";
     }
     close FFILE;
+}
+
+##################################
+# takes the tag and a reference to a list
+# go through the tag and tests whether the 
+# file listed exists and is readable.
+# If so, then appends the file into the reference
+# @author - Mahesh Vangala
+#################################
+sub getFastaFilesPath {
+	my ($tag,$refArray) = @_;
+	open(FH, "<$tag") or die "Error in opening the file, $tag, $!\n";
+	while(my $file = <FH>) {
+		$file =~ s/^\s+//;
+		$file =~ s/\s+$//;
+		if(-e $file && -r $file) {
+			push @$refArray, $file;
+		}
+	}
+	close FH; 
 }
 
 __END__
