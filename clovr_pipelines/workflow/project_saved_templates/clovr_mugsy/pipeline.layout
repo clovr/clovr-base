@@ -24,6 +24,18 @@
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
+          <name>mugsyalign.default</name>
+        </commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>mugsycog.default</name>
+	</commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>muscle.mugsy</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
           <name>tag_data.default</name>
         </commandSet>
     </commandSet>
