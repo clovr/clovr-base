@@ -80,7 +80,7 @@ more than one start or end in a single display line
 
 
 use strict;
-use lib '/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/mapping';
+use lib '/opt/opt-packages/mugsy_x86-64-v1r1/';
 
 use Pod::Usage;
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);
@@ -97,6 +97,7 @@ use AlignmentTree;
 
 my %options;
 my $results = GetOptions (\%options, 
+			  'map_file=s',
 			  'coverage|c=s',
 			  'query_coverage|q=s',
 			  'identity|i=s',
@@ -172,7 +173,15 @@ $atree->{_debug}=$debug;
 
 my %featlookup;
 my $filetype;
-while(my $line=<STDIN>){
+my $fh;
+
+if($options{'map_file'}) {
+	open($fh, "<$options{'map_file'}") or die "Error in opening the file, $options{'map_file'}, $!\n";
+} else {
+	$fh = \*STDIN;
+}
+
+while(my $line=<$fh>){
     my($name,$seq,$fmin,$fmax,$orient,$polyid,$geneid,$annotations);
     chomp $line;
     if($line =~ /\#gff-version 3/){
@@ -244,6 +253,7 @@ while(my $line=<STDIN>){
 	}
     }
 }
+close $fh;
 
 #Save a list of clusters
 my $clusters = {};
