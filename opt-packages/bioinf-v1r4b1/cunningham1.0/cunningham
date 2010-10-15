@@ -1,0 +1,461 @@
+#!/usr/bin/perl
+#*********************************************************************
+#  cunningham.pl*
+#  author: james robert white, james.dna.white@gmail.com
+#          UMB-School of Medicine, Institute for Genome Sciences
+#  created: October 12, 2010
+#  last modified: October 15, 2010
+
+#  *Cunningham is a program designed to provide an estimate of the total
+#  cpu hours a BLAST run will require for an input dataset and one 
+#  of several standard databases provided in CloVR (http://clovr.org)
+#  Cunningham uses linear models of runtime incorporating the number of shared
+#  seeds between database and query set, and query size.
+
+#  Uses a hacked version of meryl (go Brian Walenz!) from the Celera Assembler.
+#  If the query dataset is too large, cunningham randomly subsamples the sequences
+#  and scales up the estimate based on the runtimes computed for those samplings.
+
+#  Output is to STDOUT.
+
+#  BIG Disclaimer: The runtime estimates produced by this program are designed
+#  for runs on c1.xlarge Amazon EC2 instances and may not be accurate
+#  to any degree at all whatsoever.
+#  You can't sue me for a bad estimate. --jrw
+#*********************************************************************
+ use POSIX qw(ceil floor);
+ use Data::Dumper;
+ use Getopt::Std;
+ use List::Util qw(shuffle sum);
+ use warnings;
+ use strict;
+#*********************************************************************
+
+use vars qw/$opt_Q $opt_P $opt_D $opt_T/;
+getopts("Q:P:D:T:");
+my $usage = 
+".USAGE.   
+./cunningham -Q <query fasta file> -P <blast program> -D <database> -Q <tmp working dir>
+
+e.g.
+./cunningham -Q input.fasta -P blastx -D ncbi-nr -T /tmp
+
+.DESCRIPTION.
+*Cunningham is a program designed to provide an estimate of the total
+cpu hours a BLAST run will require for an input dataset and one 
+of several standard databases provided in CloVR (http://clovr.org).
+
+.OPTIONS.
+  -Q input fasta file\
+  -P blast program (blastn, blastx, or blastp)\
+  -D database e.g.
+     refseq  - blastn only
+     cog     - blastp/blastx
+     eggnog  - blastp/blastx
+     kegg    - kegg genes protein db - blastp/blastx
+     ncbi-nr - the full non-redundant ncbi db - blastp/blastx
+     silva   - the full SILVA rRNA db - blastn only
+  -T temporary working directory (temp outputs are created and destroyed here, defaults to /tmp).
+
+.KEYWORDS.
+BLAST, meryl, kmers, kmer counting, runtime, database, Amazon, cpu
+\n";
+
+die $usage unless defined $opt_Q
+              and defined $opt_P
+              and defined $opt_D;
+
+
+# globals
+my $merylPath        = "/opt/opt-packages/bioinf-v1r4b1/cunningham1.0/hacked_meryl/meryl";
+my $dbFreqPath       = "/opt/opt-packages/bioinf-v1r4b1/cunningham1.0/db_profiles";
+my $seedMatchPairSum = 0;  # This is the sum of the 
+	                   # number of pairwise seed matches 
+                           # between qry and db.
+
+my $querySize        = 0;  # Total residues in the query dataset
+my $totalQuerySeqs   = 0;  # Total number of sequences in query
+my $runTimeEst       = 0;  # Final run time estimate in cpu hours
+my %dataBases        = ('refseq'=> 1, 'cog'=>1,     'eggnog'=>1, 
+                        'kegg'=>1,    'ncbi-nr'=>1, 'silva'=>1);
+my %blastPrograms    = ('blastn'=>1,  'blastp'=>1,  'blastx'=>1);
+
+my $numSeqstoSample  = 50000;  
+my $numSamplings     = 5;
+my $numSeqLimit      = 600000;
+my $residueLimit     = $numSeqLimit*500;
+
+my %RevCompHash = ();
+$RevCompHash{"A"} = "T"; $RevCompHash{"T"} = "A";
+$RevCompHash{"G"} = "C"; $RevCompHash{"C"} = "G";
+$RevCompHash{"N"} = "N";
+
+my %translate =
+(
+  "TTT" => "F", "TTC" => "F", "TTA" => "L", "TTG" => "L",
+  "TCT" => "S", "TCC" => "S", "TCA" => "S", "TCG" => "S",
+  "TAT" => "Y", "TAC" => "Y", "TAA" => "*", "TAG" => "*",
+  "TGT" => "C", "TGC" => "C", "TGA" => "*", "TGG" => "W",
+  "CTT" => "L", "CTC" => "L", "CTA" => "L", "CTG" => "L",
+  "CCT" => "P", "CCC" => "P", "CCA" => "P", "CCG" => "P",
+  "CAT" => "H", "CAC" => "H", "CAA" => "Q", "CAG" => "Q",
+  "CGT" => "R", "CGC" => "R", "CGA" => "R", "CGG" => "R",
+  "ATT" => "I", "ATC" => "I", "ATA" => "I", "ATG" => "M",
+  "ACT" => "T", "ACC" => "T", "ACA" => "T", "ACG" => "T",
+  "AAT" => "N", "AAC" => "N", "AAA" => "K", "AAG" => "K",
+  "AGT" => "S", "AGC" => "S", "AGA" => "R", "AGG" => "R",
+  "GTT" => "V", "GTC" => "V", "GTA" => "V", "GTG" => "V",
+  "GCT" => "A", "GCC" => "A", "GCA" => "A", "GCG" => "A",
+  "GAT" => "D", "GAC" => "D", "GAA" => "E", "GAG" => "E",
+  "GGT" => "G", "GGC" => "G", "GGA" => "G", "GGG" => "G",
+);
+
+
+# inputs
+my $blastProgram     = $opt_P;
+my $queryFile        = $opt_Q;
+my $database         = $opt_D;
+
+my $tmpdir           = "/tmp";
+if (defined($opt_T)){
+  $tmpdir = $opt_T;  
+}
+
+my %mertable = ();   # we may not need this, but we could
+
+
+# input check
+die "Blast program option not recognized!\n" if (!defined($blastPrograms{$opt_P}));
+die "Database option not recognized\n" if (!defined($dataBases{$opt_D})); 
+die "Input fasta file not found!\n" if (!-e $queryFile);
+
+# begin sanity check
+my $type = checkConsistency();
+willItWork();
+
+# odds are it'll work if we get here:
+computeQuerySize();
+
+computeAllSharedMers();
+
+computeRunTimeEstimate();
+
+
+#***********************************************************************************
+#***********************************************************************************
+sub computeRunTimeEstimate
+{
+
+  if ($blastProgram eq "blastn"){
+    # R results:      M              Q   CPU seconds estimate, must correct scaling
+    # *********   5.901604e-07   1.464347e-03 
+    $runTimeEst = (5.901604e-07*$seedMatchPairSum + 1.464347e-03*$querySize)/3600;        
+
+  }elsif($blastProgram eq "blastp"){
+    # R results:        M         Q 
+    #             2.988132e-07    0.000
+    $runTimeEst = (2.988132e-07*$seedMatchPairSum + 0.000*$querySize)/3600;
+
+  }else{ # blastx
+    # R results:   M              Q
+    # *********  1.175414e-07     0.000
+    $runTimeEst = (1.175414e-07*$seedMatchPairSum + 0.000*$querySize)/3600;
+  }
+
+  my $runTimeDays = $runTimeEst/24; # cpu days
+  my $RTLives     = $runTimeDays/28616; # cpu human lifetimes
+
+  printf "Runtime estimate: %.2f cpu hours (%.2f cpu days, %.2f cpu lifetimes)\n", $runTimeEst, $runTimeDays, $RTLives; 
+}
+
+
+
+sub computeQuerySize
+{
+  my $c = 0;
+  my $tot = 0;
+  open IN, "$queryFile" or die;
+  while(<IN>){
+    chomp($_);
+    if ($_ =~ />/){
+      $tot++;
+      next;
+    }
+    $c += length($_);
+  }
+  close IN;
+
+  $querySize = $c;
+  $totalQuerySeqs = $tot;
+  print "Total query size (residues): $querySize\nTotal number of sequences: $totalQuerySeqs\n";
+}
+
+
+
+sub sample
+{
+  my ($numSeqstoSample, $tmpname) = @_;
+  my @A = shuffle 1..$totalQuerySeqs;
+  my @B = sort { $a <=> $b } @A[0 .. ($numSeqstoSample-1)];
+  
+  open OUT, ">$tmpname" or die "Cannot open $tmpname!\n";     
+  open IN, "$queryFile" or die;
+  my $c = 0;
+  my $ck = 0;
+  my $bdex = 0;
+  while(<IN>){
+    if ($_ =~ /^>/){
+      $c++;
+      last if !defined($B[$bdex]);
+      if ($B[$bdex] == $c){
+        $ck = 1;
+        $bdex++;
+      }else{
+        $ck = 0;
+      }
+    }
+
+    if ($ck == 1){
+      print OUT "$_";
+    }
+  }
+  close IN;
+  close OUT;
+
+}
+
+
+
+sub translate
+{
+  my ($str) = @_;
+  my $tstr = "";
+  for (my $i = 0; $i < length($str); $i += 3){
+    my $codon = substr($str,$i,3);
+    $tstr .= $translate{$codon};
+  }
+  return($tstr); 
+}
+
+
+
+sub computeAllSharedMers
+{
+  print "Computing input query kmer frequency profile...\n";
+
+  if ($totalQuerySeqs <=  $numSeqLimit or $querySize < $residueLimit){ #then we can run the whole thing
+    $seedMatchPairSum = computeSharedMers($queryFile); 
+  }else{
+    print "Subsampling data for estimates...\n";
+    my @qsplit = split /\//, $queryFile;
+    my $qsuff  = $qsplit[$#qsplit];
+    my @samples = ();
+    for my $i (1 .. $numSamplings){
+      print "Sample $i of $numSamplings...\r";   
+      sample($numSeqstoSample, "$tmpdir/$qsuff.tmp");
+      my $m = computeSharedMers("$tmpdir/$qsuff.tmp");
+      push @samples, $m;
+      system("rm $tmpdir/$qsuff.tmp");
+    }
+    my $avgM = (sum @samples)/$numSamplings;
+    my $scalingfactor = $totalQuerySeqs/$numSeqstoSample;
+    
+    $seedMatchPairSum = $avgM*$scalingfactor;
+    
+  }  
+  print "\n";
+  print "Number of seed match pairs: $seedMatchPairSum\n";
+
+}
+
+
+
+sub computeSharedMers
+{
+  
+  my ($inputFile) = @_;
+
+  my @qsplit = split /\//, $inputFile;
+  my $qsuff  = $qsplit[$#qsplit];
+
+ 
+  if ($type eq "nucleotide"){
+    if ($blastProgram eq "blastn"){
+      system("$merylPath -B -C -m 11 -s $inputFile -o $inputFile >/dev/null 2>&1"); 
+    }else{ # blastx
+      system("$merylPath -B -C -m 9 -s $inputFile -o $inputFile >/dev/null 2>&1");  
+      my $NucMers = `$merylPath -Dt -s $inputFile`;
+ 
+      my @counts = split "\n", $NucMers;
+      my $count = 0; 
+      %mertable = ();
+      for my $j (0 .. $#counts){
+        chomp($counts[$j]);
+        if ($counts[$j] =~ />/){
+          $count = substr($counts[$j],1);
+        }else{
+          my $trseq = translate($counts[$j]);
+          next if ($trseq =~ /\*/);
+          if (!defined($mertable{$trseq})){
+            $mertable{$trseq} = $count;
+          }else{
+            $mertable{$trseq} += $count;
+          }  
+          
+          # rev comp it
+          $trseq = translate(RevComp($counts[$j]));
+          next if ($trseq =~ /\*/);
+          if (!defined($mertable{$trseq})){
+            $mertable{$trseq} = $count;
+          }else{
+            $mertable{$trseq} += $count;
+          }
+
+        }
+      } 
+ 
+    }
+  
+    if ($blastProgram eq "blastn"){
+      system("$merylPath -M mul -s $dbFreqPath/$database -s $inputFile -o $tmpdir/$database\_mul_$qsuff >/dev/null 2>&1");
+      my $line = `$merylPath -Dc -s $tmpdir/$database\_mul_$qsuff`;
+      my @line = split "\n", $line;
+      my @A = split " ", $line[0];
+    
+      system("rm $inputFile*dat $inputFile*idx $tmpdir/$database\_mul_$qsuff*"); 
+      return($A[1]);
+
+    }else{ # blastx
+      my %sharedmers = ();
+      open IN, "$dbFreqPath/$database.3mers" or die;
+      my %table2 = ();
+      my $table2mers = 0;
+      while(<IN>){
+        chomp($_);
+        my @A = split " ", $_;
+        $table2{$A[0]} = $A[1];
+        if (defined($mertable{$A[0]})){
+          $sharedmers{$A[0]} = 1;    
+        }
+        $table2mers++;
+      }
+      close IN;
+
+      my $total = 0;
+      foreach my $m (keys %sharedmers){
+        $total += $mertable{$m}*$table2{$m};
+      }
+    
+      system("rm $inputFile*dat $inputFile*idx");
+      return($total);
+    }
+ 
+  }else{ # it has to be blastp
+    my $seq = "";
+    %mertable = ();
+    open IN, "$inputFile" or die;
+    while(<IN>){
+      chomp($_);
+      if ($_ =~ />/){
+        if ($seq ne ""){
+          my @A = split "", $seq;
+          for my $i (0 .. ($#A-2)){
+            my $mer = join("", @A[$i..($i+2)]);
+            if (!defined($mertable{$mer})){
+              $mertable{$mer} = 1;
+            }else{
+              $mertable{$mer}++;
+            }
+          }
+        }
+        $seq = "";
+      }else{
+        $seq .= "$_";
+      }
+    }
+    close IN;
+
+    my %sharedmers = ();
+    open IN, "$dbFreqPath/$database.3mers" or die;
+    my %table2 = ();
+    my $table2mers = 0;
+    while(<IN>){
+      chomp($_);
+      my @A = split " ", $_;
+      $table2{$A[0]} = $A[1];
+      if (defined($mertable{$A[0]})){
+        $sharedmers{$A[0]} = 1;
+      }
+      $table2mers++;
+    }
+    close IN;
+
+    my $total = 0;
+    foreach my $m (keys %sharedmers){
+      $total += $mertable{$m}*$table2{$m};
+    }
+    return($total);
+  }    
+}
+
+
+sub willItWork
+{
+  if ($type eq "nucleotide"){
+    die "Error: Can't run blastp on nucleotide data. Try blastn or blastx.\n" if ($blastProgram eq "blastp");
+  }else{
+    die "Error: Can't run blastn or blastx on protein query data. Try blastp.\n" if ($blastProgram eq "blastx" or $blastProgram eq "blastn"); 
+  }  
+  
+  # now check consistency of databases
+  if ($blastProgram eq "blastx" or $blastProgram eq "blastp"){
+    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(refseq|silva)/);
+  }else{
+    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(cog|eggnog|kegg|ncbi-nr)/);
+  }
+}
+
+
+
+sub checkConsistency
+{
+  print "Checking file for residues...";
+  open IN, "$queryFile" or die "Cannot open query input fasta file!!\n";
+  my $numLinesToCk = 20;
+  my $entrycount = 0;
+  while(<IN>){
+    chomp($_);
+    if ($_ =~ /^>/){
+      last if ($entrycount > $numLinesToCk);
+      $entrycount++;
+      next;  
+    } 
+    if ($_ =~ /(R|D|E|Q|H|I|L|K|M|F|P|S|W|Y|V|U|O)/){
+      print "proteins found...\n";
+      return("protein");
+    }
+  }
+  close IN;
+  print "nucleotides found...\n";
+  return("nucleotide");   
+}
+
+
+
+sub RevComp # returns the reverse complement
+            # of an input string.
+{
+  my ($str) = @_;
+  my @str = split "", $str;
+  my $revcompstr = "";
+  for my $i (0 .. $#str){
+     $revcompstr .= $RevCompHash{$str[$i]};
+  }
+  $revcompstr = reverse($revcompstr);
+
+  return ($revcompstr);
+}
+
+
+
+
