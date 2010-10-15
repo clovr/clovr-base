@@ -1,2 +1,6 @@
 #TAG_NAME	FILES
-genbank2bsml_tag	$;REPO_ROOT$;/output_repository/genbank2bsml/$;PIPELINE_ID$;_default/genbank2bsml.bsml.list
+mugsyalign_maf_tag	$;REPO_ROOT$;/output_repository/mugsyalign/$;PIPELINE_ID$;_default/mugsyalignment.maf
+mugsyprep_map_tag	$;REPO_ROOT$;/output_repository/mugsyprep/$;PIPELINE_ID$;_default/mugsymap_complete.txt
+muscle_bsml_tag	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_mugsy/muscle.bsml.list
+muscle_raw_tag	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_mugsy/muscle.raw.list
+
