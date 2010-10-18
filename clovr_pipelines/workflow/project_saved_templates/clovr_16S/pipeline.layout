@@ -63,6 +63,10 @@
                             <state>incomplete</state>
                             <name>rdp_classifier.default</name>
                         </commandSet>
+                        <commandSet type="serial">
+                            <state>incomplete</state>
+                            <name>clovr_16S_rdptables.default</name>
+                        </commandSet>
                         <commandSet type="parallel">
                             <state>incomplete</state>
                                 <commandSet type="serial">
