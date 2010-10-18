@@ -4,7 +4,7 @@
 #  author: james robert white, james.dna.white@gmail.com
 #          UMB-School of Medicine, Institute for Genome Sciences
 #  created: October 12, 2010
-#  last modified: October 15, 2010
+#  last modified: October 18, 2010
 
 #  *Cunningham is a program designed to provide an estimate of the total
 #  cpu hours a BLAST run will require for an input dataset and one 
@@ -49,12 +49,12 @@ of several standard databases provided in CloVR (http://clovr.org).
   -Q input fasta file\
   -P blast program (blastn, blastx, or blastp)\
   -D database e.g.
-     refseq  - blastn only
-     cog     - blastp/blastx
-     eggnog  - blastp/blastx
-     kegg    - kegg genes protein db - blastp/blastx
-     ncbi-nr - the full non-redundant ncbi db - blastp/blastx
-     silva   - the full SILVA rRNA db - blastn only
+       clovr-refseqdb  - blastn only
+       clovr-cogdb     - blastp/blastx
+       clovr-eggnogdb  - blastp/blastx
+       clovr-keggdb    - kegg genes protein db - blastp/blastx
+       ncbi-nr         - the full non-redundant ncbi db - blastp/blastx
+       clovr-rrnadb    - the full SILVA rRNA db - blastn only
   -T temporary working directory (temp outputs are created and destroyed here, defaults to /tmp).
 
 .KEYWORDS.
@@ -76,8 +76,8 @@ my $seedMatchPairSum = 0;  # This is the sum of the
 my $querySize        = 0;  # Total residues in the query dataset
 my $totalQuerySeqs   = 0;  # Total number of sequences in query
 my $runTimeEst       = 0;  # Final run time estimate in cpu hours
-my %dataBases        = ('refseq'=> 1, 'cog'=>1,     'eggnog'=>1, 
-                        'kegg'=>1,    'ncbi-nr'=>1, 'silva'=>1);
+my %dataBases        = ('clovr-refseqdb'=> 1, 'clovr-cogdb'=>1,  'clovr-eggnogdb'=>1, 
+                        'clovr-keggdb'=>1,    'ncbi-nr'=>1,      'clovr-rrnadb'=>1);
 my %blastPrograms    = ('blastn'=>1,  'blastp'=>1,  'blastx'=>1);
 
 my $numSeqstoSample  = 50000;  
@@ -409,9 +409,9 @@ sub willItWork
   
   # now check consistency of databases
   if ($blastProgram eq "blastx" or $blastProgram eq "blastp"){
-    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(refseq|silva)/);
+    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(clovr-refseqdb|clovr-rrnadb)/);
   }else{
-    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(cog|eggnog|kegg|ncbi-nr)/);
+    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(clovr-cogdb|clovr-eggnogdb|clovr-keggdb|ncbi-nr)/);
   }
 }
 
