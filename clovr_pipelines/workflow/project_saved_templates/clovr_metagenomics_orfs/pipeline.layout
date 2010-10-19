@@ -16,9 +16,12 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>uclust_remove_replicates.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>concatenate_files.default</name>
         </commandSet>
-
         <commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.calculate_cpu_hours</name>
