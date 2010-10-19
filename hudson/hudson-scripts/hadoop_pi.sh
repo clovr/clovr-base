@@ -1,6 +1,6 @@
 #!/bin/bash
 
-hadoop jar /usr/lib/hadoop/hadoop-0.20.2+320-examples.jar pi 10 10000000
+hadoop jar /usr/lib/hadoop/hadoop-examples.jar pi 10 10000000
 
 if [ "$?" -eq 0 ]; then
     echo "Hadoop pi test completed succcessfully"
