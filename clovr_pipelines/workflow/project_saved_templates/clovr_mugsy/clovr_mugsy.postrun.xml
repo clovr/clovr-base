@@ -6,5 +6,11 @@
     <state>incomplete</state>
     <name>clovr_mugsy.postrun</name>
     <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
+	<command>
+		<name>post-qc-metric</name>
+		<type>RunUnixCommand</type>
+		<executable>vp-describe-task</executable>
+		<arg>--block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_NAME$; "empty-file-check.pl"`</arg>
+	</command>
   </commandSet>
 </commandSetRoot>

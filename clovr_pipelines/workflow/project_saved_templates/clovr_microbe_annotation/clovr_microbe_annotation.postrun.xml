@@ -3,4 +3,10 @@
 <commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:schemaLocation='commandSet.xsd'>
     <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
+	<command>
+                <name>post-qc-metric</name>
+                <type>RunUnixCommand</type>
+                <executable>vp-describe-task</executable>
+                <arg>--block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_NAME$; "empty-file-check.pl"`</arg>
+        </command>
 </commandSetRoot>
