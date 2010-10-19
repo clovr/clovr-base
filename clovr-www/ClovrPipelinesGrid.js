@@ -16,7 +16,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
         });
 
         clovr.ClovrPipelinesGrid.superclass.constructor.call(this, Ext.apply(config, {
-            title: 'Pipelines',
+//            title: 'Pipelines',
             store: jstore,
             autoExpandColumn: 'name',
             colModel: new Ext.grid.ColumnModel({

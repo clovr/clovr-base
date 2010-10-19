@@ -1,0 +1,27 @@
+.dashboard_header {
+/*    background: url("/clovr/images/header-bg-short.jpg") repeat-x scroll 0 0 #FFFFFF;*/
+    background: white;
+/*    padding-top: 9px;*/
+}
+.header_adapter {
+    margin: 0 auto;
+    width: 960px;
+
+}
+.clovr_logo {
+    background: url("/clovr/images/CloVR_logo.jpg") no-repeat scroll 0 0 transparent;
+    height: 50px;
+    width: 229px;
+    display: block;
+/*    margin-top: 9px;*/
+}
+
+.clovr_search_button {
+    background-image: transparent url("/clovr/images/clovr_search_icon.png");
+/*    height: 96px;
+    width: 72px;*/
+}
+.x-btn-clovr .x-btn-text {{
+    height: 96px;
+    width: 72px;
+}

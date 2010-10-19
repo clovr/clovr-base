@@ -59,6 +59,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 },
                 'panel_xtype': 'blastclovrformpanel',
                 'panel': new Ext.Panel({
+                    autoScroll: true,
 //                    title: 'CloVR Search',
 //                    activeTab: 0,
                     tbar: [
@@ -190,7 +191,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 clovrpanel.getLayout().setActiveItem(0);
             },
             failure: function(response) {
-                console.log(response);
                 Ext.Msg.show({
                     title: 'Server Error',
                     msg: response.responseText,
@@ -224,7 +224,7 @@ function clovrParsePipelines( r ) {
                     'display': pipe.config[i][1].display,
                     'desc': pipe.config[i][1].desc,
                     'default': pipe.config[i][1]['default'],
-                    'default_hidden': pipe.config[i][1].default_hidden
+                    'visibility': pipe.config[i][1].visibility
                 });
             }
             

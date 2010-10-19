@@ -37,7 +37,6 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
                     }
                 },
                 failure: function(response) {
-                    console.log(response);
                     Ext.Msg.show({
                         title: 'Server Error',
                         msg: response.responseText,
