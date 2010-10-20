@@ -97,6 +97,6 @@ function renderName(value, p, record) {
         fileWord = 'file';
     }
     return String.format(
-        '<b>{0}: {1} '+fileWord+'</b><br/>{2}',
+        '<div class=taggrid-title><b>{0}: {1} '+fileWord+'</b><br/>{2}</div>',
         value,record.data.fileCount,desc);
 }

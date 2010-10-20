@@ -7,6 +7,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
     constructor: function(config) {
         config.labelWidth = 120;
         config.bodyStyle= 'padding: 5px';
+        config.autoScroll=true;
         
         var customParams = {
             'misc.PROGRAM': 1,

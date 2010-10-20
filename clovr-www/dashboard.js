@@ -38,7 +38,7 @@ Ext.onReady(function(){
     });
 
     // Panel to house the pipeline configurations.
-    var pipepanel = new clovr.ClovrPipelinePanel({
+    var pipepanel = new clovr.ClovrPipelinesWizard({
         host: hostname_field.getValue(),
         collapseMode: 'mini',
         header: true,

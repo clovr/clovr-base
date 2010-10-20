@@ -59,7 +59,8 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 },
                 'panel_xtype': 'blastclovrformpanel',
                 'panel': new Ext.Panel({
-                    autoScroll: true,
+                    layout: 'fit',
+                    //autoScroll: true,
 //                    title: 'CloVR Search',
 //                    activeTab: 0,
                     tbar: [
