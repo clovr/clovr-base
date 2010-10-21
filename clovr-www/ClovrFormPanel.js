@@ -12,15 +12,20 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
         // We'll use this field to store a reference to the field that is used for tag input.
         this.tag_field = null;
 
-        var itemsArray = [];
+        var input_fieldset = {xtype: 'fieldset',
+             title: 'Input Data Sets'
+            };
+        var itemsArray = [input_fieldset];
+
         var input_regexp = /^input.INPUT_/;
         var tag_regex = /.*TAG$/;
-        Ext.each(config.fields, function(field, i, props) {
-            if(!field.display) {
-                field.default_hidden=true;
-            }
-            
-            if(tag_regex.exec(field.field) && !field.default_hidden) {
+
+        var advanced_params = [];
+        var hidden_params = [];
+        var input_params = [];
+        
+        Ext.each(config.fields, function(field, i, fields) {
+            if(tag_regex.exec(field.field) && field.visibilty != 'default_hidden') {
 
                 var fieldValue = field['default'];
                 if(!fieldValue) {
@@ -29,6 +34,8 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                 var dragCont = new Ext.Container({
                     fieldLabel: field.display,
                     ddGroup: 'tagDDGroup',
+                    cls: 'input_drag_area',
+                    width: 200,
                     html: fieldValue,
                     name: field.field,
                     listeners: {
@@ -38,7 +45,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                                 notifyEnter: function(s, e, d) {
                                     
                                     container.el.dom.style.backgroundColor = 'red';
-//                                    container.el.highlight();;
+                                    //                                    container.el.highlight();;
                                 },
                                 notifyOut: function(s, e, d) {
                                     container.el.dom.style.backgroundColor = '';
@@ -54,18 +61,60 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                             });
                         }}
                 });
-                itemsArray.push(dragCont);
+                input_params.push(dragCont);
                 field.default_hidden=true;
             }
+            if(field.visibility == 'default_hidden' && field.display) {
+                advanced_params.push({xtype: 'textfield',
+                                      fieldLabel: field.display,
+                                      name: field.field,
+                                      value: field['default'],
+                                      disabled: false,
+                                      toolTip: field.desc});
+            }
+            else if(field.visibility == 'always_hidden' || !field.visibility || !field.display) {
+                hidden_params.push({xtype: 'textfield',
+                                    fieldLabel: field.display,
+                                    name: field.field,
+                                    value: field['default'],
+                                    hidden: true,
+                                    hideLabel: true
+                                   });
+            }
+            else {
                 itemsArray.push(
-                {
-                    hidden: field.default_hidden,
-                    hideLabel: field.default_hidden,
-                    fieldLabel: field.display,
-                    name: field.field,
-                    value: field['default']
-                });
+                    {
+                        hidden: field.default_hidden,
+                        hideLabel: field.default_hidden,
+                        fieldLabel: field.display,
+                        name: field.field,
+                        value: field['default']
+                    });
+
+            }
         });
+        
+        // add the input tag parameters to the input_fieldset
+        input_fieldset.items = input_params;
+        
+        // add the advanced parameters to the items array
+        itemsArray.push(
+            {xtype: 'fieldset',
+             title: 'Advanced',
+             collapsible: true,
+             listeners: {
+                 afterlayout: {
+                    fn: function(set) {
+                        set.collapse();
+                    },
+                    single: true
+                 }
+             },
+             items: advanced_params
+            });
+
+        // add the hidden params to the items array
+        itemsArray.push(hidden_params);
         config.items = itemsArray;
         clovr.ClovrFormPanel.superclass.constructor.call(this, Ext.apply(config, {
             items: itemsArray,

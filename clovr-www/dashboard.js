@@ -2,7 +2,7 @@
  * A portal for the CLoVR dashboard
  */
 Ext.onReady(function(){
-    
+    Ext.QuickTips.init();    
     
     // Stuff that will go in the header of each portal.
     var tools = [{
@@ -27,7 +27,6 @@ Ext.onReady(function(){
 //            url: hostname+'/vappio/listPipelines_ws.py',
             listeners: {
                 load: {scope:this, fn:function(s, o, opts) {
-                    console.log(o);
                 }}
             },
     });
@@ -39,35 +38,39 @@ Ext.onReady(function(){
 
     // Panel to house the pipeline configurations.
     var pipepanel = new clovr.ClovrPipelinesWizard({
-        host: hostname_field.getValue(),
+//        host: hostname_field.getValue(),
         collapseMode: 'mini',
         header: true,
         enableTabScroll: true,
-        width: 400,
-        split: true,
-        margins: '0 5 0 0',
-        region: 'east',
+//        width: 400,
+//        split: true,
+//        margins: '0 5 0 0',
+        region: 'center',
         title: 'Configure Analysis'
     });
 
     // Grid to store tagged data sets.
     var taggrid = new clovr.TagGrid({
-        region: 'center',
+        region: 'west',
         pipelinePanel: pipepanel,
         title: 'Data Sets',
-
-        url: "/vappio/queryTag_ws.py",
-        host: hostname_field.getValue()
+        width: 400,
+        split: true,
+//        margins: '0 5 0 0',
+        margins: '0 0 0 5',
+        url: "/vappio/queryTag_ws.py"
+//        host: hostname_field.getValue()
     });
 
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
-        region: 'west',
-        width: 150,
+        region: 'east',
+        width: 200,
         header: true,
         split: true,
         collapseMode: 'mini',
-        margins: '0 0 0 5',
+        margins: '0 5 0 0',
+        title: 'Pipelines'
     });
 
     var viewport = new Ext.Viewport({
@@ -75,31 +78,31 @@ Ext.onReady(function(){
         items:[
             {region: 'north',
              baseCls: 'dashboard_header',
-             height: 116,
-             html: "<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>",
-             bbar: [{layout: 'form',
+             height: 75,
+             html: '<div id="clovr-vm-header"><div id="clovr-vm-masthead"><h1><a href="http://clovr.org/" title="CloVR"><span>CloVR</span></a></h1></div></div>'
+
+
+//<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>"
+/*             bbar: [{layout: 'form',
                      xtype: 'container',
                      labelWidth: 30,
                      style: 'padding-top: 5px;padding-left: 5px;',
                      items:[hostname_field]
-                    }]
+                    }]*/
             },
             {title: 'CloVR Widgets',
              region: 'south',
-             height: 150,
+             height: 300,
              xtype: 'portal',
              collapseMode: 'mini',
              split: true,
              items: [{
                  columnWidth: 0.33,
                  style:'padding:10px 0 10px 10px',
-                 items:[{
-                     title: 'Large element',
-                     layout: 'fit',
-                     colspan:"2",
-                     tools: tools,
-                     html: 'bogus markup'
-                 }]},
+                 items:[{title: 'Ganglia',
+                         tools: tools,
+                         items: [new clovr.ClovrGangliaPanel({})]},
+                 ]},
                      {columnWidth: 0.33,
                       style:'padding:10px 0 10px 10px',
                       items:[{

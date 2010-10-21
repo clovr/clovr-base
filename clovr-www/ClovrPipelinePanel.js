@@ -33,7 +33,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
                                 title: prop
                             }));
                         }
-                        clovrpanel.setActiveTab(0);
+//                        clovrpanel.setActiveTab(0);
                     }
                 },
                 failure: function(response) {

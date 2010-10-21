@@ -12,7 +12,6 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 {name: "phantom_tag",type: "boolean"},
             ],
             root : function(data) {
-                console.log(data);
                 Ext.each(data.data, function(elm) {
                     for(key in elm) {
                         if(key == 'files') {
@@ -26,14 +25,12 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
             listeners: {
                 load: function(store,records,o) {
-                    console.log('fooo');
                     store.filter([{
                         property: 'phantom_tag',
                         value: false
                     }])
                 },
                 loadexception: function() {
-                    console.log('failed to load');
                 }
             }
         });
@@ -44,6 +41,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             ddGroup: 'tagDDGroup',
             enableDragDrop: true,
             autoExpandColumn: 'name',
+            
             colModel: new Ext.grid.ColumnModel({
                 defaults: {
                     sortable: true

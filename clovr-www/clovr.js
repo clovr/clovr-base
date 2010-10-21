@@ -74,12 +74,10 @@ clovr.uploadFileWindow = function(config) {
                                  uploadWindow.close();
                              },
                              failure: function(r,o) {
-                                 console.log(r.responseText);
                              }
                          });
                      },
                      failure: function(r,o) {
-                         console.log(r.responseText);
                      }
                  })
              }

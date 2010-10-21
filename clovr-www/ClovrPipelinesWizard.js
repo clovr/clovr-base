@@ -9,7 +9,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
     constructor: function(config) {
         var pipelines;
 
-        
         var clovrpanel = this;
 
         /* This lookup is a HACK and should be replaced with the information in the meta-data 
@@ -105,62 +104,79 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         };
         
         config.layout = 'card';
+        config.layoutConfig = {
+            layoutOnCardChange: true
+        };
+        
         config.items = [
             {id: 'home',
-             layout: 'table',
+             frame: true,
+             layout: 'vbox',
              layoutConfig: {
-                 columns: 3
+                 align : 'center',
+                 pack: 'start'
              },
-             defaults: {
-                 bodyStyle:'padding:15px 20px',
-             },
-             items: [
-                 {items: 
-                  {xtype: 'button',
-                   text: 'CloVR Metagenomics',
-
-                  handler: function() {
-                      clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
-                  }}
+             width: '50%',
+             items: [{
+                 layout: 'table',
+                 flex: 1,
+                 defaults: {
+                     style:'padding:15px 20px'
                  },
-                 {items: 
-                  {xtype: 'button',
-                   height: '72px',
-                   width: '96px',
-                   scale: 'clovr',
-                   tooltip: {text: 'Click here to run 16s sequence data through the CloVR 16s pipeline'},
-                   tooltipType: 'title',
-                   text: "<img src='/clovr/images/clovr_16s_icon.png'>",
-                  handler: function() {
-                      clovrpanel.getLayout().setActiveItem('clovr_16s');
-                  }}
+                 layoutConfig: {
+                     columns: 2
                  },
-                 {items: 
-                  {xtype: 'button',
-                   height: '72px',
-                   width: '96px',
-                   scale: 'clovr',
-                   tooltipType: 'title',
-                   tooltip: {text: 'Click here to do a blast search using CloVR'},
-                   text: "<img src='/clovr/images/clovr_search_icon.png'>",
-                   handler: function() {
-                      clovrpanel.getLayout().setActiveItem('clovr_search');
-                  }}
-                 },
-                 {items: 
-                  {xtype: 'button',
-                   height: '72px',
-                   width: '96px',
-                   scale: 'clovr',
-                   tooltipType: 'title',
-                   tooltip: {text: 'Click here to run microbial genome sequence through the CloVR microbial annotation'},
-                   text: "<img src='/clovr/images/clovr_microbe_icon.png'>",
-                  handler: function() {
-                      clovrpanel.getLayout().setActiveItem('clovr_microbe');
-                  }}
-                 }
-             ]}];
-        clovr.ClovrPipelinePanel.superclass.constructor.call(clovrpanel,config);
+                 items: [
+                     {xtype: 'container',
+                      items: [
+                          {xtype: 'button',
+                           height: '72px',
+                           width: '96px',
+                           scale: 'clovr',
+                           tooltip: {text: 'Click here to run CloVR Metagenomics'},
+                           tooltipType: 'title',
+                           text: "<img src='/clovr/images/clovr_metagenomics_icon.png'>",
+                           handler: function() {
+                               clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
+                           }}]},
+                     {xtype: 'container',
+                      items: [
+                          {xtype: 'button',
+                           height: '72px',
+                           width: '96px',
+                           scale: 'clovr',
+                           tooltip: {text: 'Click here to run 16s sequence data through the CloVR 16s pipeline'},
+                           tooltipType: 'title',
+                           text: "<img src='/clovr/images/clovr_16s_icon.png'>",
+                           handler: function() {
+                               clovrpanel.getLayout().setActiveItem('clovr_16s');
+                           }}]},
+                     {xtype: 'container',
+                      items: [
+                          {xtype: 'button',
+                           height: '72px',
+                           width: '96px',
+                           scale: 'clovr',
+                           tooltipType: 'title',
+                           tooltip: {text: 'Click here to do a blast search using CloVR'},
+                           text: "<img src='/clovr/images/clovr_search_icon.png'>",
+                           handler: function() {
+                               clovrpanel.getLayout().setActiveItem('clovr_search');
+                           }}]},
+                     {xtype: 'container',
+                      items: [
+                          {xtype: 'button',
+                           height: '72px',
+                           width: '96px',
+                           scale: 'clovr',
+                           tooltipType: 'title',
+                           tooltip: {text: 'Click here to run microbial genome sequence through the CloVR microbial annotation'},
+                           text: "<img src='/clovr/images/clovr_microbe_icon.png'>",
+                           handler: function() {
+                               clovrpanel.getLayout().setActiveItem('clovr_microbe');
+                           }}
+                      ]}]}]}];
+        clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
         Ext.Ajax.request({
             url: '/vappio/listProtocols_ws.py',
@@ -205,11 +221,13 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
     * selected data sets.
     */
     setInput: function(input_tag) {
-        this.getActiveTab().setInput(input_tag);
+        if(this.getLayout().activeItem.setInput) {
+            this.getLayout().activeItem.setInput(input_tag);
+        }
     }
     });
 
-Ext.reg('clovrpipelinepanel', clovr.ClovrPipelinePanel);
+Ext.reg('clovrpipelineswizard', clovr.ClovrPipelinesWizard);
         
 function clovrParsePipelines( r ) {
     var pipelineConfigs = new Array();

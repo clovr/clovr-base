@@ -8,7 +8,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         config.labelWidth = 120;
         config.bodyStyle= 'padding: 5px';
         config.autoScroll=true;
-        
+        config.frame=true;
         var customParams = {
             'misc.PROGRAM': 1,
             'input.REF_DB_TAG': 1,
@@ -88,9 +88,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                          waitMsg: 'Uploading File',
                          success: function(r,o) {
                              var path = '/mnt/user_data/';
-                             console.log(r.responseText);
                              var values = uploadForm.getForm().getFieldValues();
-                             console.log(values);
                              Ext.Ajax.request({
                                  url: '/vappio/tagData_ws.py',
                                  params: {
@@ -109,10 +107,8 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                                      })
                                  },
                                  success: function(r,o) {
-                                     console.log(r.responseText);
                                  },
                                  failure: function(r,o) {
-                                     console.log('failed to tag file');
                                  }
                                  });
                          },
@@ -144,7 +140,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                  new Ext.Container({
                      fieldLabel: 'Select Data Set',
                      ddGroup: 'tagDDGroup',
-                     html: "Drag File Here",
+                     html: "Drag Data Set Here",
+                     cls: 'input_drag_area',
+                     width: 200,
 //                     id: 'datasettag',
                     listeners: {
                         render: function(container) {
@@ -188,7 +186,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                       uploadWindow.show();
                   }
                  },
-                 {xtype: 'textarea',
+/*                 {xtype: 'textarea',
                   fieldLabel: 'Or, Paste Fasta Sequence',
                   id: 'pastedseq',
                   width: 200,
@@ -199,12 +197,12 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                           }
                       }
                   }
-                 },
+             },
 
                  {xtype: 'textfield',
                   fieldLabel: 'Name',
                   id: 'sequencename'
-                 }
+                }*/
              ]},
             {xtype: 'combo',
              fieldLabel: 'BLAST Program',
@@ -237,8 +235,11 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
 //             collapsed: true,
              collapsible: true,
              listeners: {
-                 afterlayout: function(set) {
-                   set.collapse();
+                 afterlayout: {
+                    fn: function(set) {
+                        set.collapse();
+                    },
+                    single: true
                  }
              },
              items: advanced_params
@@ -296,7 +297,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
     changeInputDataSet: function(field) {
         var datasetfields = [
             'datasettag',
-            'pastedseq',
+//            'pastedseq',
             'uploadfilepath'];
 
         var form = this.getForm();
