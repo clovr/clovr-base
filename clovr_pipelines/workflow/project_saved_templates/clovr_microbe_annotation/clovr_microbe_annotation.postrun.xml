@@ -7,6 +7,6 @@
                 <name>post-qc-metric</name>
                 <type>RunUnixCommand</type>
                 <executable>vp-describe-task</executable>
-                <arg>--block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_NAME$; "empty-file-check.pl --error_log=$;POST_QC_METRIC_ERROR_LOG$;"`</arg>
+                <arg>--block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_NAME$; "empty-file-check.pl"`</arg>
         </command>
 </commandSetRoot>
