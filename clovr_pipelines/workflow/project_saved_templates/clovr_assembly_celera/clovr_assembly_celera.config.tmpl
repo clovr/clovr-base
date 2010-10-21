@@ -49,10 +49,7 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assemb
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "default_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually"}
-EXEC_NODES={"default": 0, "visibility": "default_hidden", "desc": "Number of exec nodes, should not need to specify manually"}
-CLOVR_CONF={"default": "clovr.conf", "visibility": "default_hidden", "desc": "Config file, should not need to specify manually"}
-CLUSTER_CREDENTIAL={"display": "Credential", "default": "local", "desc": "Credential to use to make the cluster"}
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 
 #########################################################
