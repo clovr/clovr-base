@@ -9,7 +9,7 @@ cp /opt/hudson/clovr_pangenome.config /tmp/pipeline.conf
 sed -i -e "s/\${DATE}/$DATE/" /tmp/pipeline.conf
 
 tagData.py --tag-name=bifidobacter_genbank_tag -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
-tagData.py --tag-name=bifidobacter_map_tag -o /opt/hudson/pangenome_data/bifidobacter_map_files/organism_to_prefix.txt
+
 
 TASK_NAME=`runPipeline.py --name local --print-task-name --pipeline-name clovr_pangenome-$DATE --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/pipeline.conf`
 if [ "$?" == "1" ]; then
