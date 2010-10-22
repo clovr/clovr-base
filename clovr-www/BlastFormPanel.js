@@ -182,6 +182,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 forceSelection: true,
                 value: config.sampleData[0][0],
                 id: 'datasettag',
+                submitValue: false,
                 triggerAction: 'all',
                 fieldLabel: 'Select a pre-made dataset',
                 store: new Ext.data.ArrayStore({
@@ -198,7 +199,14 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 handler: function() {
                     uploadWindow.show();
                 }};
-            seq_fieldset.items = [datasetSelect,upload_button];
+            var input_field = {
+                xtype: 'textfield',
+                hidden: true,
+                name: 'input.INPUT_TAG',
+                id: 'input.INPUT_TAG',
+                hideLabel: true
+            };
+            seq_fieldset.items = [datasetSelect,upload_button,input_field];
         }
         else {
             seq_fieldset.items =[
@@ -307,7 +315,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                     
 //                 }
                  if(Ext.getCmp('datasettag').getValue()) {
-                     form.setValues({id: 'input.INPUT_TAG', value: Ext.getCmp('datasettag').getValue()});
+                     form.setValues([{id: 'input.INPUT_TAG', value: Ext.getCmp('datasettag').getValue()}]);
                  }
 //                 if(Ext.getCmp('uploadfilepath').getValue()) {
 //                     console.log('uploadedfile');
