@@ -373,7 +373,6 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         var seqcombo = this.seqCombo;
         var uploadWindow = this.uploadWindow;
         if(this.seqCombo) {
-            console.log(this.seqCombo);
             Ext.Msg.show({
                 title: 'Tagging Data...',
                 width: 200,
@@ -400,11 +399,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                                     uploadWindow.hide();
                                 }
                                 else if(rdata.state =="failed") {
-                                    console.log('Failed!');
                                 }
                             }
                             else {
-                                console.log('Success was false');
                             }
                         }
                     });

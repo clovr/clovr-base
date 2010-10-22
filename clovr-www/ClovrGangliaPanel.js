@@ -15,7 +15,7 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Container, {
         config.listeners= {
                 'render': {
                     fn: function(panel) {
-//                        dh.append('gangliapanel', {tag: 'img', id:'card1img', src: "/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime()});
+                        dh.append('gangliapanel', {tag: 'img', id:'card1img', src: "/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime()});
                         
                     },
                     options: {once: true}
