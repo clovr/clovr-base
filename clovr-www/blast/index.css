@@ -1,0 +1,121 @@
+.dashboard_header {
+/*    background: url("/clovr/images/header-bg-short.jpg") repeat-x scroll 0 0 #FFFFFF;*/
+    background: white;
+/*    padding-top: 9px;*/
+}
+.header_adapter {
+    margin: 0 auto;
+    width: 960px;
+
+}
+.clovr_logo {
+    background: url("/clovr/images/CloVR_logo.jpg") no-repeat scroll 0 0 transparent;
+    height: 50px;
+    width: 229px;
+    display: block;
+/*    margin-top: 9px;*/
+}
+
+.clovr_search_button {
+    background-image: transparent url("/clovr/images/clovr_search_icon.png");
+/*    height: 96px;
+    width: 72px;*/
+}
+
+.taggrid-title {
+    white-space: normal;
+}
+.input_drag_area {
+    padding: 10px 0 10px 5px;
+    border: dashed 1px;
+    width: 200px;
+    text-align: center;
+}
+
+#clovr-vm-header, #clovr-vm-footer {
+    font-family: "Lucida Grande","Lucida Sans Unicode",verdana,lucida,sans-serif;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+}
+
+#clovr-vm-footer a {
+    color: #006699;
+}
+
+#clovr-vm-footer a:hover {
+    color: #123e6b;
+}
+
+#clovr-vm-header {
+    background: #fff url(/clovr/images/clovr-vm-header-bg-short.png) top repeat-x;
+    height: 75px;
+}
+
+#clovr-vm-masthead, #clovr-vm-footer p {
+    color: #666;
+    margin: 0 auto;
+    text-align: left;
+    width: 960px;
+}
+
+#clovr-vm-masthead {
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+#clovr-vm-masthead h1 {
+    height: 60px;
+}
+
+#clovr-vm-masthead h1 a {
+    background: url(/clovr/images/clovr-vm-logo-sm.png) no-repeat;
+    display: block;
+    position: relative;
+    height: 35px;
+    top: 14px;
+    width: 300px;
+}
+
+#clovr-vm-masthead ul{
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+
+#clovr-vm-masthead ul li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#clovr-vm-masthead ul li a {
+    color: #ddd;
+    display: block;
+    height: 26px;
+    padding-top: 14px;
+    text-align: center;
+    text-decoration: none;
+    width: 135px;
+}
+
+#clovr-vm-masthead ul li a:hover {
+    color: #fff;
+}
+
+#clovr-vm-masthead ul li a.active {
+    background: url(nav-active.jpg) no-repeat;
+}
+
+#clovr-vm-masthead h1 a span {
+    display: none;
+    visibility: hidden;
+}
+
+#clovr-vm-footer {
+    border-top: 4px #123e6b solid;
+    margin-top: 30px;
+    padding-top: 10px;
+}
+

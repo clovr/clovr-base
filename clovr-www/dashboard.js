@@ -68,6 +68,7 @@ Ext.onReady(function(){
         width: 200,
         header: true,
         split: true,
+        collapsed: true,
         collapseMode: 'mini',
         margins: '0 5 0 0',
         title: 'Pipelines'
@@ -95,6 +96,7 @@ Ext.onReady(function(){
              height: 300,
              xtype: 'portal',
              collapseMode: 'mini',
+             collapsed: true,
              split: true,
              items: [{
                  columnWidth: 0.33,

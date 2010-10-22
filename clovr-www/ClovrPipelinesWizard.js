@@ -91,7 +91,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 })
             }
         };
-        
+
         var pipeline_to_protocol = {
             'clovr_metagenomics_noorf': 'clovr_metagenomics',
             'clovr_metagenomics_orf': 'clovr_metagenomics',
@@ -138,7 +138,9 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                            text: "<img src='/clovr/images/clovr_metagenomics_icon.png'>",
                            handler: function() {
                                clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
-                           }}]},
+                           }}
+//                           {html: "Some shit form your shit"}
+                     ]},
                      {xtype: 'container',
                       items: [
                           {xtype: 'button',
@@ -150,7 +152,9 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                            text: "<img src='/clovr/images/clovr_16s_icon.png'>",
                            handler: function() {
                                clovrpanel.getLayout().setActiveItem('clovr_16s');
-                           }}]},
+                           }}
+//                           {html: "Some shit form your shit"}
+                     ]},
                      {xtype: 'container',
                       items: [
                           {xtype: 'button',
@@ -162,7 +166,9 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                            text: "<img src='/clovr/images/clovr_search_icon.png'>",
                            handler: function() {
                                clovrpanel.getLayout().setActiveItem('clovr_search');
-                           }}]},
+                           }}
+//                           {html: "BLAST"}
+                     ]},
                      {xtype: 'container',
                       items: [
                           {xtype: 'button',
@@ -175,7 +181,10 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                            handler: function() {
                                clovrpanel.getLayout().setActiveItem('clovr_microbe');
                            }}
-                      ]}]}]}];
+//                          {style: 'text-align: center',
+//                           html: "<p>Bacterial assembly and annotation <a href='http://clovr.org/methods/clovr-microbe/'>Documentation</a></p>"}
+                      ]}
+                      ]}]}];
         clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
         Ext.Ajax.request({

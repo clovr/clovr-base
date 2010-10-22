@@ -5,6 +5,9 @@
 clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
 
     constructor: function(config) {
+
+        var clovrform = this;
+
         config.labelWidth = 120;
         config.bodyStyle= 'padding: 5px';
         config.autoScroll=true;
@@ -30,27 +33,37 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         });
         var advanced_params =[];
         var hidden_params = [];
-
+        var normal_params = [];
         Ext.each(config.fields, function(field, i, fields) {
-            if(field.visibility == 'default_hidden' && field.display) {
+            var dname = field.display ? field.display : field.field;
+
+            if(field.visibility == 'default_hidden') {
                 advanced_params.push({xtype: 'textfield',
-                                      fieldLabel: field.display,
+                                      fieldLabel: dname,
                                       name: field.field,
                                       value: field['default'],
                                       disabled: false,
                                       toolTip: field.desc});
             }
             else if(!customParams[field.field]) {
-                hidden_params.push({xtype: 'textfield',
-                                    fieldLabel: field.display,
-                                    name: field.field,
-                                    value: field['default'],
-                                    hidden: true,
-                                    hideLabel: true
-                                   });
+                if(field.visibility == 'always_hidden') {
+                    hidden_params.push({xtype: 'textfield',
+                                        fieldLabel: dname,
+                                        name: field.field,
+                                        value: field['default'],
+                                        hidden: true,
+                                        hideLabel: true
+                                       });
+                }
+                else {
+                    normal_params.push({xtype: 'textfield',
+                                        fieldLabel: dname,
+                                        name: field.field,
+                                        value: field['default']
+                                       });
+                }
             }
         });
-
         var uploadForm = new Ext.form.FormPanel({
             fileUpload: true,
             url: '/vappio/uploadFile_ws.py',
@@ -69,16 +82,34 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                      }
                  }
                 },
-                {xtype: 'textfield',
-                 id: 'uploadfilename',
-                 fieldLabel: 'Name your dataset',
-                 submitValue: false
+                {xtype: 'combo',
+                 id: 'inputfiletype',
+                 fieldLabel: 'Sequence Type',
+                 submitValue: false,
+                 mode: 'local',
+                 autoSelect: true,
+                 editable: false,
+                 forceSelection: true,
+                 value: 'aa_FASTA',
+                 triggerAction: 'all',
+                 fieldLabel: 'Select a pre-made dataset',
+                     store: new Ext.data.ArrayStore({
+                         fields:['id','name'],
+                         data: [['aa_FASTA','Protein'],['nuc_FASTA', 'Nucleotide']]
+                     }),
+                     valueField: 'id',
+                     displayField: 'name'
                 },
-                {xtype: 'textarea',
-                 width: 200,
-                 id: 'uploadfiledesc',
-                 fieldLabel: 'Describe your dataset',
-                 submitValue: false
+                 {xtype: 'textfield',
+                  id: 'uploadfilename',
+                  fieldLabel: 'Name your dataset',
+                  submitValue: false
+                 },
+                 {xtype: 'textarea',
+                  width: 200,
+                  id: 'uploadfiledesc',
+                  fieldLabel: 'Describe your dataset',
+                  submitValue: false
                 }
             ],
             buttons: [
@@ -107,6 +138,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                                      })
                                  },
                                  success: function(r,o) {
+                                     if(config.sampleData) {
+                                         clovrform.checkTagTaskStatusToSetValue(Ext.util.JSON.decode(r.responseText),values.uploadfilename);
+                                     }
                                  },
                                  failure: function(r,o) {
                                  }
@@ -128,15 +162,46 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             width: 400,
             height: 300,
             title: 'upload file',
+            closeAction: 'hide',
             items: [uploadForm]
         });
+        clovrform.uploadWindow = uploadWindow;
+        
+        
+        var seq_inputs = [];
 
-        var clovrform = this;
-        var seq_inputs = [
-            {xtype: 'fieldset',
-             hideMode: 'visibility',
-             title: 'Query Sequence',
-             items: [
+        var seq_fieldset = {xtype: 'fieldset',
+            hideMode: 'visibility',
+            title: 'Select Query Sequence',
+            items: []};
+        if(config.sampleData) {
+            var datasetSelect = new Ext.form.ComboBox({
+                mode: 'local',
+                autoSelect: true,
+                editable: false,
+                forceSelection: true,
+                value: config.sampleData[0][0],
+                id: 'datasettag',
+                triggerAction: 'all',
+                fieldLabel: 'Select a pre-made dataset',
+                store: new Ext.data.ArrayStore({
+                    fields:['name'],
+                    data: config.sampleData
+                }),
+                valueField: 'name',
+                displayField: 'name'
+            });
+            clovrform.seqCombo = datasetSelect;
+            var upload_button = {xtype: 'button',
+                text: 'Upload File',
+                fieldLabel: 'Or, Upload File',
+                handler: function() {
+                    uploadWindow.show();
+                }};
+            seq_fieldset.items = [datasetSelect,upload_button];
+        }
+        else {
+            seq_fieldset.items =[
                  new Ext.Container({
                      fieldLabel: 'Select Data Set',
                      ddGroup: 'tagDDGroup',
@@ -172,7 +237,6 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                   hidden: true,
                   listeners: {
                       change: function(field, newval, oldval) {
-//                          console.log('changed');
                           if(newval) {
                               clovrform.changeInputDataSet(field);
                           }
@@ -185,25 +249,10 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                   handler: function() {
                       uploadWindow.show();
                   }
-                 },
-/*                 {xtype: 'textarea',
-                  fieldLabel: 'Or, Paste Fasta Sequence',
-                  id: 'pastedseq',
-                  width: 200,
-                  listeners: {
-                      change: function(field, newval, oldval) {
-                          if(newval) {
-                              clovrform.changeInputDataSet(field);
-                          }
-                      }
-                  }
-             },
-
-                 {xtype: 'textfield',
-                  fieldLabel: 'Name',
-                  id: 'sequencename'
-                }*/
-             ]},
+                 }];
+        }
+        seq_inputs.push([
+                seq_fieldset,
             {xtype: 'combo',
              fieldLabel: 'BLAST Program',
              width: 70,
@@ -229,7 +278,10 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              forceSelection: true,
              editable: false,
              value: 'ncbi-nt'
-            },
+            }]);
+        seq_inputs.push(normal_params);
+        
+        seq_inputs.push(
             {xtype: 'fieldset',
              title: 'Advanced',
 //             collapsed: true,
@@ -244,7 +296,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              },
              items: advanced_params
             }
-        ];
+        );
         seq_inputs.push(hidden_params);
         config.buttons = [
             {text: 'Submit',
@@ -293,7 +345,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         config.items = seq_inputs;
         clovr.BlastClovrFormPanel.superclass.constructor.call(this,config);
         this.doLayout();
-    },
+        },
     changeInputDataSet: function(field) {
         var datasetfields = [
             'datasettag',
@@ -308,6 +360,51 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
 //                form.setValues({id: f,value: null});
             }
         });
+    },
+    checkTagTaskStatusToSetValue: function(data,tagName) {
+        var seqcombo = this.seqCombo;
+        var uploadWindow = this.uploadWindow;
+        if(this.seqCombo) {
+            console.log(this.seqCombo);
+            Ext.Msg.show({
+                title: 'Tagging Data...',
+                width: 200,
+                mask: true,
+                closable: false,
+                wait: true,
+                progressText : 'Tagging Data'
+            });
+            
+            var task = {                
+                run: function() {
+                    Ext.Ajax.request({
+                        url: '/vappio/task_ws.py',
+                        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': data.data})},
+                        success: function(r,o) {
+                            var rjson = Ext.util.JSON.decode(r.responseText);
+                            var rdata = rjson.data[0];
+                            if(rjson.success) {
+                                if(rdata.state =="completed") {
+                                    Ext.Msg.hide();
+                                    seqcombo.getStore().loadData([[tagName]],true);
+                                    seqcombo.setValue(tagName);
+                                    Ext.TaskMgr.stop(task);
+                                    uploadWindow.hide();
+                                }
+                                else if(rdata.state =="failed") {
+                                    console.log('Failed!');
+                                }
+                            }
+                            else {
+                                console.log('Success was false');
+                            }
+                        }
+                    });
+                },
+                interval: 10000
+            };
+            Ext.TaskMgr.start(task);
+        }
     }
 });
 
