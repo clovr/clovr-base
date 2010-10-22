@@ -281,6 +281,11 @@ function buildTree() {
 				});
 				node.select();
 				//node.fireEvent('click');
+				myStore.load({
+					params : {
+						id : node.attributes.id
+					}
+				});
 			}
 		});
 	});
@@ -321,6 +326,7 @@ function buildTree() {
 	 	}, {
 	 			region : 'center',
 	 			title : 'Clovr Comparative',
+				layout : 'fit',
 	 			id : 'mainPanel',
 	 			items : [myGrid]
 		}]

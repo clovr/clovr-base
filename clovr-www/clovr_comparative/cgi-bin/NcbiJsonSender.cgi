@@ -71,9 +71,9 @@ if($$params{$MSG}) {
 } 
 else {
 	my $arrayRef = getAllChildNodes($$params{$NODE});
-	if($$params{$NODE} eq $ROOT) {
-		$arrayRef = addUserDataNode($arrayRef);
-	}
+	#if($$params{$NODE} eq $ROOT) {
+	#	$arrayRef = addUserDataNode($arrayRef);
+	#}
 	print encode_json($arrayRef);
 }
 exit(0);
