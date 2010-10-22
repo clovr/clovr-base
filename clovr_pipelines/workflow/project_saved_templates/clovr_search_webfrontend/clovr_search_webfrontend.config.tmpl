@@ -13,10 +13,18 @@ TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of ta
 
 
 [misc]
-SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
-EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
-OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
 PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}
+OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
+
+[general]
+EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
+MAX_TARGET_SEQ={"display": "Max Target Sequences", "default": 250, "visibility": "default_hidden", "desc": "Number of database sequence to show alignments for"}
+WORD_SIZE={"display": "Word size", "default": 11, "visibility": "default_hidden", "desc": "The length of the seed that initiates an alignment"}
+
+[filter]
+LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "choices" ["Yes", "No"]}
+
+
 
 
 
