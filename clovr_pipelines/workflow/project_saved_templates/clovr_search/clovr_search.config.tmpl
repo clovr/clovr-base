@@ -4,19 +4,19 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-INPUT_TAG={"display": "Input Tag", "default": null, "desc": "Input tag of sequences to BLAST against"}
-REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Reference database tag to BLAST against"}
+INPUT_TAG={"display": "Input Tag", "default": null, "desc": "Input tag of sequences to BLAST against", "source": "tags"}
+REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Reference database tag to BLAST against", "source": "tags"}
 
 PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
-TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default"}
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
 
 [misc]
 SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
 EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
-PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run"}
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}
 
 
 
