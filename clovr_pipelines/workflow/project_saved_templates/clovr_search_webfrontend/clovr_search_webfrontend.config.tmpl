@@ -7,9 +7,9 @@
 INPUT_TAG={"display": "Input Tag", "default": null, "desc": "Input tag of sequences to BLAST against", "source": "tags"}
 REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Reference database tag to BLAST against", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
+PIPELINE_NAME={"display": "Pipeline Name", "visibility": "always_hidden", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
-TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "visibility": "always_hidden", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
 
 [misc]
@@ -17,7 +17,7 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
 
 [general]
-EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
+EXPECT={"display": "Expect value", "default": "1e-5", "desc": "Expect cutoff value for BLAST"}
 MAX_TARGET_SEQ={"display": "Max Target Sequences", "default": 250, "visibility": "default_hidden", "desc": "Number of database sequence to show alignments for"}
 WORD_SIZE={"display": "Word size", "default": 11, "visibility": "default_hidden", "desc": "The length of the seed that initiates an alignment"}
 
@@ -43,7 +43,12 @@ LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Ma
 ## logging information
 #########################################################
 [output]
--include_in_section /opt/clovr_pipelines/common_config/output.config
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "always_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually"}
+EXEC_NODES={"default": 0, "visibility": "always_hidden", "desc": "Number of exec nodes, should not need to specify manually"}
+CLOVR_CONF={"default": "clovr.conf", "visibility": "always_hidden", "desc": "Config file, should not need to specify manually"}
+CLUSTER_CREDENTIAL={"display": "Credential", "visibilty": "always_hidden", "default": "local", "desc": "Credential to use to make the cluster"}
+
+
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_search_webfrontend", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
