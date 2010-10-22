@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation='commandSet.xsd'>
+  <commandSet type="serial">
+    <state>incomplete</state>
+    <name>clovr_blastall.prerun</name>
+    <command>
+      <name>Upload data</name>
+      <type>RunUnixCommand</type>
+      <executable>uploadTag.py</executable>
+      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+    </command>
+    <command>
+      <name>Upload data</name>
+      <type>RunUnixCommand</type>
+      <executable>uploadTag.py</executable>
+      <arg>--tag-name $;REF_DB_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+    </command>
+  </commandSet>
+</commandSetRoot>

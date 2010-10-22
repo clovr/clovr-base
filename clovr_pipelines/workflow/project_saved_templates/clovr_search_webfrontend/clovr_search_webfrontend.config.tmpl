@@ -1,0 +1,54 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_TAG={"display": "Input Tag", "default": null, "desc": "Input tag of sequences to BLAST against", "source": "tags"}
+REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Reference database tag to BLAST against", "source": "tags"}
+
+PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
+
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
+
+
+[misc]
+SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
+EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
+OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}
+
+
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+[pipeline]
+PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search_webfrontend/clovr_search_webfrontend.prerun.xml", "visibility": "always_hidden", "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search_webfrontend/clovr_search_webfrontend.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+
