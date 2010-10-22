@@ -22,7 +22,7 @@ MAX_TARGET_SEQ={"display": "Max Target Sequences", "default": 250, "visibility":
 WORD_SIZE={"display": "Word size", "default": 11, "visibility": "default_hidden", "desc": "The length of the seed that initiates an alignment"}
 
 [filter]
-LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "choices" ["Yes", "No"]}
+LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "choices": ["Yes", "No"]}
 
 
 
@@ -46,7 +46,7 @@ LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Ma
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 [pipeline]
-PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_search_webfrontend", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
