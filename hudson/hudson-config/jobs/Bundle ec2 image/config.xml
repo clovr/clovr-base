@@ -23,7 +23,10 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -E /opt/vappio-util/bundle_ec2.sh $IMAGE_NAME</command>
+sudo -E /opt/vappio-util/bundle_ec2.sh $IMAGE_NAME force
+n=`basename $IMAGE_NAME`
+echo &quot;New build at clovrtest-lx:/data/clovr-build/shared/$n.tgz&quot; | nc clovrtest-lx.igs.umaryland.edu 5678 || true
+echo &quot;00%20Launch%20all%20jobs&quot; &gt; $IMAGE_NAME.runtests</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
