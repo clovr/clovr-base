@@ -23,7 +23,7 @@ Output is /mnt/clovr_testing.tgz
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-	/opt/vappio-util/create_bundle.sh /mnt/image.img clovr_testing
+	/opt/vappio-util/vp-bundle-release /mnt/image.img clovr_testing
       </command>
     </hudson.tasks.Shell>
   </builders>

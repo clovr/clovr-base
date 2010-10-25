@@ -16,7 +16,7 @@
 	wget -P /mnt http://cb2.igs.umaryland.edu/vmware_bundle.tgz
 	tar xvzf vmware_bundle.tgz
 	cp /mnt/image.vmdk vmware_bundle/image.vmdk
-	/opt/vappio-util/bundle_vmx.sh ./image.vmdk vmware_bundle/start_clovr.vmx.template vmware_bundle/start_clovr.vmx clovr_vmware_testing
+	/opt/vappio-util/vp-bundle-vmx ./image.vmdk vmware_bundle/start_clovr.vmx.template vmware_bundle/start_clovr.vmx clovr_vmware_testing
 	mv vmware_bundle clovr_vmware_testing
 	tar cvzf clovr_vmware_testing.tgz clovr_vmware_testing 
 </command>

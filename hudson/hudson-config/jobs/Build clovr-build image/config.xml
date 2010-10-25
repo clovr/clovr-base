@@ -24,7 +24,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/build.sh $IMAGE_NAME clovr-build
+sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
 mkdir -p $IMAGE_NAME/shared/user-scripts
 echo &apos;#!/bin/bash&apos; &gt; $IMAGE_NAME/user-scripts/01-updaterecipts

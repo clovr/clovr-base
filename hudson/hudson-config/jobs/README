@@ -1,0 +1,7 @@
+Views in Hudson are dynamically generated with regex
+
+image*    - Platform conversion
+install*  - Appliance roles
+##        - CloVR tests
+
+
