@@ -37,7 +37,8 @@ GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shou
 ## the data will end up and also logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files"}
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 [pipeline]

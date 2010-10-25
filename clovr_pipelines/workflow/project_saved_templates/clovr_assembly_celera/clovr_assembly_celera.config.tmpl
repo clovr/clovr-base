@@ -62,7 +62,7 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assemb
 ## logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+-include_in_section /opt/clovr_pipelines/common_config/output.config
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_assembly_celera", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}

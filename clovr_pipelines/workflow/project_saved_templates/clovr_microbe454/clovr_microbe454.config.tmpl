@@ -58,16 +58,13 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 [cluster]
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
-#key=/mnt/devel1.pem
-#host=localhost
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
 ## logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output directory", "default": "/mnt/output", "desc": "Directory to put output files"}
+-include_in_section /opt/clovr_pipelines/common_config/output.config
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "desc": null}
