@@ -2,7 +2,6 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-/opt/vappio-scripts/syncdata.sh
 /opt/vappio-scripts/syncdata.sh --synchronous
 
 HOSTNAME=`hostname -f`
@@ -24,6 +23,7 @@ cmp stagingbefore.out stagingafter.out
 
 if [ $? -ne 0 ]; then
     echo "error, change in disk usage"
+    exit 1
 fi
 
 
