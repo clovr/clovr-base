@@ -26,12 +26,14 @@
 export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
-mkdir -p $IMAGE_NAME/shared/user-scripts
-echo &apos;#!/bin/bash&apos; &gt; $IMAGE_NAME/user-scripts/01-updaterecipts
-echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $IMAGE_NAME/shared/user-scripts/01-updaterecipts
-echo &apos;#!/bin/bash&apos; &gt; $IMAGE_NAME/shared/user-scripts/02-starthudson
-echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $IMAGE_NAME/shared/user-scripts/02-starthudson
-tar -cvzf $IMAGE_NAME.tgz $IMAGE_NAME || true
+buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
+namepfx="$b-$buildname"
+mkdir -p $namepfx/shared/user-scripts
+echo &apos;#!/bin/bash&apos; &gt; $namepfx/user-scripts/01-updaterecipts
+echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipts
+echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/02-starthudson
+echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
+tar -cvzf $namepfx.tgz $namepfx || true
 </command>
     </hudson.tasks.Shell>
   </builders>
