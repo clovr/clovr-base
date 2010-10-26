@@ -60,6 +60,7 @@ clovr.uploadFileWindow = function(config) {
                                      'recursive': false,
                                      'append': false,
                                      'overwrite': true,
+                                     'compress': false,
                                      'tag_name': values.uploadfilename,
                                      'tag_metadata': {
                                          'description': values.uploadfiledesc

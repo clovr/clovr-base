@@ -28,7 +28,7 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
         Ext.TaskMgr.start(task);
     },
 
-    makePanel: function(pipeInfo) {
+    makePanel: function(pipeInfo,pipeNames) {
 //        var markup = 'The output to your pipeline is available here: '+
 //            '<a href="'pipeInfo.config['input.TAGS_TO_DOWNLOAD']+
 //            '">Your output File</a>';
@@ -41,12 +41,38 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
                       items: [
                           {xtype: 'button',
                            handler: function() {
-                               document.location= ('/clovr/output/'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']);
+                               console.log(pipeNames);
+                               Ext.Ajax.request({
+                                   url: '/vappio/downloadPipelineOutput_ws.py',
+                                   params: {request: Ext.util.JSON.encode(
+                                       {'name':'local',
+                                        pipeline_name: pipeNames.pipename,
+                                        output_dir: '/var/www/output',
+                                        overwrite: false
+                                       })},
+                                   success: function(r,o) {
+                                       var rdata = Ext.util.JSON.decode(r.responseText);
+                                       Ext.Msg.show({
+                                           title: 'Preparing Download',
+                                           progress: true,
+                                           text: 'Preparing the download file'
+                                       });
+                                       var task = {
+                                           run: function() {
+                                              getDlTaskInfo(rdata.data,'/output/'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']);
+                                           },
+                                           interval: 10000
+                                       }
+                                       Ext.TaskMgr.start(task);
+                                   }
+                               });
+//                               document.location= ('/clovr/output/'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']);
                            },
                            text: 'Download Output File'
                           },
                           {xtype: 'button',
                            handler: function() {
+
                                document.location=('/clovr/blast/');
                            },
                            text: 'Run Another Search'
@@ -79,28 +105,29 @@ function getWrapperInfo(task, panel, pipeData) {
                     if(rdata.state =="complete") {
                         Ext.TaskMgr.stop(task);
                         Ext.Msg.hide();
-                        panel.makePanel(rdata);
+                        panel.makePanel(rdata,pipeData);
                     }
                     else if(rdata.state =="error") {
                         Ext.TaskMgr.stop(task);
                         Ext.Msg.show({
                             title: 'Pipeline Failed!',
-                            width: 200,
+                            width: 300,
                             mask:true,
                             msg: 'This Pipeline Failed'
-                                +'<br/>Go to <a href=/clovr/blast/>Blast Form</a> to Retry.',
+                                +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to Retry.',
                             icon: Ext.Msg.ERROR,
                             closable: false
                         });
                     }
                     else {
+                        var conf = rdata.config;
                         Ext.Msg.show({
                             title: 'Pipeline is Running',
                             progress: true,
-                            width: 200,
+                            width: 300,
                             mask: true,
-                            msg: 'This Pipeline is running'
-                                +'<br/>Go to <a href=/clovr/blast/>Blast Form</a> to Retry.',
+                            msg: 'The Search with query '+conf['input.INPUT_TAG']+' is running'
+                                +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to submit a new search.',
                         });
                         Ext.Msg.updateProgress(rdata.complete/rdata.total);
                     }
@@ -113,7 +140,30 @@ function getWrapperInfo(task, panel, pipeData) {
     });
 }
 
+function getDlTaskInfo(task_name,file) {
+    console.log('getting task info');
+    Ext.Ajax.request({
+        url: '/vappio/task_ws.py',
+        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': task_name})},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            var rdata = rjson.data[0];
+            if(rjson.success) {
+                if(rdata.state =="completed") {
+                    Ext.Msg.hide();
+                    Ext.TaskMgr.stop(task);
+                    document.location = file;
+                }
+                else if(rdata.state =="failed") {
+                    console.log(rdata);
+                }
+            }
+            else {
+            }
 
+        }
+    });
+}
 function getTaskInfo(task_name) {
     Ext.Ajax.request({
         url: '/vappio/task_ws.py',

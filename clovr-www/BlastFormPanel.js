@@ -17,7 +17,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             'input.REF_DB_TAG': 1,
             'input.INPUT_TAG': 1
         };
-        
+
         var programStore = new Ext.data.ArrayStore({
             fields: ["program"],
             data: [["blastn"],
@@ -28,7 +28,8 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         var dbStore = new Ext.data.ArrayStore({
             fields: ['db_name'],
             data: [['ncbi-nr'],
-                   ['ncbi-nt']
+                   ['ncbi-nt'],
+                   ['Test_Protein_Database']
                   ]
         });
         var advanced_params =[];
@@ -130,6 +131,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                                          'recursive': false,
                                          'append': false,
                                          'overwrite': true,
+                                         'compress': false,
                                          'tag_name': values.uploadfilename,
                                          'tag_metadata': {
                                              'description': values.uploadfiledesc
@@ -321,7 +323,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
 //                     console.log('uploadedfile');
 //                 }
                  
-                 clovrform.getForm().setValues({"input.PIPELINE_NAME": 'clovr_search'+new Date().getTime()});
+                 var pipename = 'clovr_search'+new Date().getTime();
+                 var wrappername = 'clovr_wrapper'+new Date().getTime();
+                 clovrform.getForm().setValues({"input.PIPELINE_NAME": pipename});
                  Ext.Ajax.request({
                      url: '/vappio/runPipeline_ws.py',
                      params: {
@@ -329,10 +333,16 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                              {'pipeline_config':clovrform.getForm().getValues(),
                               'pipeline': 'clovr_wrapper',
                               'name': 'local',
-                              'pipeline_name': 'clovr_wrapper'+new Date().getTime()
+                              'pipeline_name': wrappername
                              })
                      },
                      success: function(response) {
+                         var r = Ext.util.JSON.decode(response.responseText);
+                         document.location.hash=Ext.urlEncode({
+                             'taskname': r.data,
+                             'pipename': pipename,
+                             'wrappername': wrappername
+                         });
                          Ext.Msg.show({
                              title: 'Pipeline Submitted',
                              msg: response.responseText
