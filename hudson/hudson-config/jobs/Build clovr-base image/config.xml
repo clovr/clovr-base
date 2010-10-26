@@ -25,7 +25,9 @@
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
 sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-base
-tar -cvzf $IMAGE_NAME.tgz $IMAGE_NAME || true
+buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
+namepfx="clovr-base-$buildname"
+tar -cvzf $namepfx.tgz $namepfx || true
 </command>
     </hudson.tasks.Shell>
   </builders>
