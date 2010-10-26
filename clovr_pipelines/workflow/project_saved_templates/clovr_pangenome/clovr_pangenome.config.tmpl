@@ -35,7 +35,7 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+-include_in_section /opt/clovr_pipelines/common_config/output.config
 
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "pangenome_ncbi_blastp_raw,pangenome_ncbi_tblastn_raw,pangenome_blast_parse_stored,pangenome_new_core_genes,pangenome_profile,pangenome_output,pangenome_new_ps_output,pangenome_new_eps_output,pangenome_core_ps_output,pangenome_core_eps_output,pangenome_pan_ps_output,pangenome_pan_eps_output", "desc": "Comma separated list of tags that should be downloaded"}
 

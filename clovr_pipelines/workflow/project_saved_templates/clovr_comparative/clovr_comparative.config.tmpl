@@ -35,7 +35,7 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## logging information
 #########################################################
 [output]
-OUTPUT_DIRECTORY={"display": "Output Directory", "default": "/mnt/output", "desc": "Directory to download output to, this should be located in /mnt somewhere"}
+-include_in_section /opt/clovr_pipelines/common_config/output.config
 
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccard_fasta,muscle_jaccard_raw,joc_fasta,muscle_joc_raw", "desc": "Comma separated list of tags that should be downloaded"}
 
