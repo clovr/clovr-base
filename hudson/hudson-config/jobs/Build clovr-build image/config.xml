@@ -8,7 +8,7 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
-          <description></description>
+          <description>Builds a "buildbox" image using the clovr-build recipe. This image requires 2 vCPUs and 8GB of RAM and automatically starts hudson</description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -27,10 +27,10 @@ export BUILD_ID=$BUILD_ID
 sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
-namepfx="$b-$buildname"
+namepfx="clovr-build-$buildname"
 mkdir -p $namepfx/shared/user-scripts
-echo &apos;#!/bin/bash&apos; &gt; $namepfx/user-scripts/01-updaterecipts
-echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipts
+echo &apos;#!/bin/bash&apos; &gt; $namepfx/user-scripts/01-updaterecipes
+echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
 echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/02-starthudson
 echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 perl -pi -e 's/numvcpus = \S+/numvcpus = "2"/' $namepfx/start_clovr.vmx

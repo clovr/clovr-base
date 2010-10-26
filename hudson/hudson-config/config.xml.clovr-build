@@ -21,7 +21,7 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
     </hudson.model.AllView>
     <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>Platform conversion</name>
+      <name>Buildbox</name>
       <description>&lt;p&gt;Jobs for a clovr-build image&lt;/p&gt;&#xd;
 &lt;ul&gt;&#xd;
 &lt;li&gt;Creating releases using a base image and applying recipes&lt;/li&gt;&#xd;
@@ -89,7 +89,7 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       <includeRegex>^([0-9]).*</includeRegex>
     </listView>
   </views>
-  <primaryView>Platform conversion</primaryView>
+  <primaryView>CloVR tests</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
   <nodeProperties/>
