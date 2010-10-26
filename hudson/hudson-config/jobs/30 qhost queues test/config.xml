@@ -19,8 +19,8 @@ qhost -q -xml | xpath -e &apos;//queue/@name&apos; &gt; /tmp/queues.txt
 hostname -f &gt; /tmp/expectedhosts.txt
 qhost -q -xml | xpath -e &apos;//host/@name&apos; &gt; /tmp/hosts.txt
 
-sudo /opt/hudson/qhosttest/qhost.pl
-sudo /opt/hudson/qhosttest/qhost2.pl</command>
+sudo -u www-data /opt/hudson/qhosttest/qhost.pl
+sudo -u www-data /opt/hudson/qhosttest/qhost2.pl</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

@@ -24,7 +24,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-skeleton
+sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-skeleton
 tar -cvzf $IMAGE_NAME.tgz $IMAGE_NAME || true
 </command>
     </hudson.tasks.Shell>

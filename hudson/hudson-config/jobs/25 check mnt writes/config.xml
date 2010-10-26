@@ -12,8 +12,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo touch /mnt/testfile
-	sudo touch /mnt/user_data/testfile
+      <command>sudo -u www-data touch /mnt/testfile
+	sudo -u www-data touch /mnt/user_data/testfile
 	sudo -u www-data touch /mnt/testfile2
 	sudo -u www-data touch /mnt/user_data/testfile2
       </command>

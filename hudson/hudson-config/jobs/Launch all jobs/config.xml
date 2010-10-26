@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/launchAll.sh</command>
+      <command>sudo -u www-data /opt/hudson/launchAll.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

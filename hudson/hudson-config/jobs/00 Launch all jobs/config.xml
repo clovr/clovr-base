@@ -15,8 +15,8 @@ DO NOT CHANGE THE NAME OF THIS JOB. DOING SO WILL CAUSE IT TO RUN RECURSIVELY. <
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/launchAll.sh
-sudo /opt/hudson/launchAllPipelines.sh
+      <command>sudo -u www-data /opt/hudson/launchAll.sh
+sudo -u www-data /opt/hudson/launchAllPipelines.sh
  </command>
     </hudson.tasks.Shell>
   </builders>

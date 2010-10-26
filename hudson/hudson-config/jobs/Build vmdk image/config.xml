@@ -25,10 +25,10 @@ tar cvzf grub-boot.tgz boot
 popd
 cd /mnt
 cp /mnt/image.img /mnt/image.img.vmbundle
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-util/cleanupimg
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vmware.sh
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vbox.sh
-sudo /opt/vappio-util/vp-create-vmdk /mnt/image.img.vmbundle /mnt/grub-boot.tgz /mnt/image.vmdk
+sudo -u www-data /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-util/cleanupimg
+sudo -u www-data /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vmware.sh
+sudo -u www-data /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vbox.sh
+sudo -u www-data /opt/vappio-util/vp-create-vmdk /mnt/image.img.vmbundle /mnt/grub-boot.tgz /mnt/image.vmdk
       </command>
     </hudson.tasks.Shell>
   </builders>

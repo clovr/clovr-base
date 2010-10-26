@@ -24,7 +24,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
+sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
 namepfx="$b-$buildname"
