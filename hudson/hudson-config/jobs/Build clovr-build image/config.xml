@@ -33,6 +33,8 @@ echo &apos;#!/bin/bash&apos; &gt; $namepfx/user-scripts/01-updaterecipts
 echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipts
 echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/02-starthudson
 echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
+perl -pi -e 's/numvcpus = \S+/numvcpus = "2"/' $namepfx/start_clovr.vmx
+perl -pi -e 's/memsize = \S+/memsize = "8192"/' $namepfx/start_clovr.vmx
 tar -cvzf $namepfx.tgz $namepfx || true
 </command>
     </hudson.tasks.Shell>
