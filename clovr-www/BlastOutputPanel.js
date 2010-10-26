@@ -126,7 +126,7 @@ function getWrapperInfo(task, panel, pipeData) {
                             width: 300,
                             mask: true,
                             msg: 'The Search with query '+conf['input.INPUT_TAG']+' is running'
-                                +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to submit a new search.',
+                                +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to submit a new search.'
                         });
                         Ext.Msg.updateProgress(rdata.complete/rdata.total);
                     }

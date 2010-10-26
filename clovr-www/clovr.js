@@ -9,7 +9,7 @@ clovr.uploadFileWindow = function(config) {
         layout: 'fit',
         width: 400,
         height: 300,
-        title: 'Upload File',
+        title: 'Upload File'
     });
     
     var uploadForm = new Ext.form.FormPanel({
