@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*" -printf "%f\n" | sort -n | grep -i -P 'pipeline$' > /tmp/pipelinejobs.txt
+find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*" -printf "%f\n" | sort -n | grep -i -P 'pipeline$' > /tmp/pipelinejobs.$$.txt
 
 ip=`hostname`
 #ip=${ip:6}
@@ -10,5 +10,5 @@ ip=`hostname`
 while read line 
 do  
     curl `echo "http://$ip:8888/job/$line/build" | sed -e 's/ /\%20/g'`
-done < /tmp/pipelinejobs.txt
+done < /tmp/pipelinejobs.$$.txt
 
