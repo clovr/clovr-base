@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+source /root/clovrEnv.sh
 
 hadoop jar /opt/hadoop/hadoop-*-examples.jar pi 10 10000000
 
