@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo /opt/hudson/hadoop_ec2_pi.sh</command>
+      <command>/opt/hudson/hadoop_ec2_pi.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
