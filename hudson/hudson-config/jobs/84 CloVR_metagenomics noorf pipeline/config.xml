@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo -u www-user /opt/hudson/clovr_metagenomics_noorf.sh</command>
+      <command>sudo -u www-data /opt/hudson/clovr_metagenomics_noorf.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
