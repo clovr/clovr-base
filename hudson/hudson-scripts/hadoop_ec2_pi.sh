@@ -1,6 +1,6 @@
 #!/bin/bash
 set +e
-source /root/clovrEnv.sh
+source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T"`
 
