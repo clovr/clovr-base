@@ -41,8 +41,7 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
                       items: [
                           {xtype: 'button',
                            handler: function() {
-                               console.log(pipeNames);
-                               Ext.Ajax.request({
+/*                               Ext.Ajax.request({
                                    url: '/vappio/downloadPipelineOutput_ws.py',
                                    params: {request: Ext.util.JSON.encode(
                                        {'name':'local',
@@ -65,8 +64,8 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
                                        }
                                        Ext.TaskMgr.start(task);
                                    }
-                               });
-//                               document.location= ('/clovr/output/'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']);
+                               });*/
+                               document.location= ('/output/'+pipeNames.pipename+'_'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']+'.tar.gz');
                            },
                            text: 'Download Output File'
                           },
@@ -134,14 +133,12 @@ function getWrapperInfo(task, panel, pipeData) {
                 }
             }
             else {
-                console.log('Failure for some reason');
             }
         }
     });
 }
 
 function getDlTaskInfo(task_name,file) {
-    console.log('getting task info');
     Ext.Ajax.request({
         url: '/vappio/task_ws.py',
         params: {request: Ext.util.JSON.encode({'name': 'local','task_name': task_name})},
@@ -155,7 +152,6 @@ function getDlTaskInfo(task_name,file) {
                     document.location = file;
                 }
                 else if(rdata.state =="failed") {
-                    console.log(rdata);
                 }
             }
             else {

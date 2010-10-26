@@ -326,6 +326,11 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                  var pipename = 'clovr_search'+new Date().getTime();
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
                  clovrform.getForm().setValues({"input.PIPELINE_NAME": pipename});
+                 Ext.Msg.show({
+                     title: 'Submitting Pipeline',
+                     msg: 'The search is being submitted.',
+                     wait: true
+                 });
                  Ext.Ajax.request({
                      url: '/vappio/runPipeline_ws.py',
                      params: {
@@ -338,15 +343,21 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                      },
                      success: function(response) {
                          var r = Ext.util.JSON.decode(response.responseText);
-                         document.location.hash=Ext.urlEncode({
+//                         document.location.hash=Ext.urlEncode({
+//                             'taskname': r.data,
+//                             'pipename': pipename,
+//                             'wrappername': wrappername
+//                         });
+                         window.location.assign(document.location+'#'+Ext.urlEncode({
                              'taskname': r.data,
                              'pipename': pipename,
                              'wrappername': wrappername
-                         });
-                         Ext.Msg.show({
-                             title: 'Pipeline Submitted',
-                             msg: response.responseText
-                         })
+                         }));
+                         window.location.reload(true);
+//                         Ext.Msg.show({
+//                             title: 'Pipeline Submitted',
+//                             msg: response.responseText
+//                         })
                      },
                      failure: function(response) {
                          Ext.Msg.show({
@@ -416,7 +427,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                         }
                     });
                 },
-                interval: 10000
+                interval: 5000
             };
             Ext.TaskMgr.start(task);
         }
