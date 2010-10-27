@@ -26,7 +26,7 @@ Be careful overwriting this file since /mnt/image.img is the default input for o
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -u www-data /opt/vappio-util/vp-bundle-vol -s 10000 -d OUTPUT_DIR -e /mnt --fstab=/etc/fstab.orig</command>
+sudo -E /opt/vappio-util/vp-bundle-vol -s 10000 -d OUTPUT_DIR -e /mnt --fstab=/etc/fstab.orig</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

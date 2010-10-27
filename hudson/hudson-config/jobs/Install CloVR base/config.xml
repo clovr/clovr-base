@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo -u www-data /opt/vappio-install/bundles/clovr-base</command>
+      <command>sudo -E /opt/vappio-install/bundles/clovr-base</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
