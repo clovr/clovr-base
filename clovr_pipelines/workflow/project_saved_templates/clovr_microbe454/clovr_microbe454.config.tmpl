@@ -10,10 +10,6 @@
 ## See tagData.py --help for more info
 INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "source": "tags"}
 
-## These are the output tags which will be downloaded
-## at the end of the pipeline to the local VM.
-## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
@@ -65,6 +61,11 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 #########################################################
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "desc": null}

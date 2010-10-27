@@ -9,9 +9,6 @@ REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Refer
 
 PIPELINE_NAME={"display": "Pipeline Name", "visibility": "always_hidden", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
-TAGS_TO_DOWNLOAD={"default": "blastall_raw", "visibility": "always_hidden", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
-
-
 [misc]
 PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
@@ -49,6 +46,7 @@ CLUSTER_CREDENTIAL={"display": "Credential", "visibility": "always_hidden", "def
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "visibility": "always_hidden", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
 
 [pipeline]

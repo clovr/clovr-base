@@ -37,10 +37,6 @@ SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file crea
 ## The number of groups to use
 GROUP_COUNT={"display": "Group count", "default": 10, "desc": "Group count, you should never need to change this", "visibility": "default_hidden"}
 
-## Output: tags to download after run finishes
-## Comma separated list of tags
-## Possible options: assembly_scf, assembly_qc
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "choices": ["assembly_scf", "assembly_qc"]}
 
 
 
@@ -63,6 +59,10 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assemb
 #########################################################
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
+## Output: tags to download after run finishes
+## Comma separated list of tags
+## Possible options: assembly_scf, assembly_qc
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "choices": ["assembly_scf", "assembly_qc"]}
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_assembly_celera", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}

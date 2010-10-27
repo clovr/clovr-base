@@ -9,9 +9,6 @@ REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Refer
 
 PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
-TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
-
-
 
 [misc]
 SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
@@ -37,6 +34,8 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 #########################################################
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
+
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}

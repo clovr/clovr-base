@@ -21,10 +21,6 @@ REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "
 
 GROUP_COUNT={"display": "Group count", "default": 5000, "desc": "Shouldn't need to modify"}
 
-## Output tags to download
-## Comma separated list (e.g. polypeptide_fasta,annotation_genbank)
-## Possible tags: polypeptide_fasta, cds_fasta, annotation_sqn, annotation_genbank
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,cds_fasta,annotation_sqn,annotation_genbank", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 
 
@@ -46,6 +42,12 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,c
 #########################################################
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Output tags to download
+## Comma separated list (e.g. polypeptide_fasta,annotation_genbank)
+## Possible tags: polypeptide_fasta, cds_fasta, annotation_sqn, annotation_genbank
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,cds_fasta,annotation_sqn,annotation_genbank", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+
 
 [pipeline]
 PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation", "visibility": "always_hidden", "desc": null}
