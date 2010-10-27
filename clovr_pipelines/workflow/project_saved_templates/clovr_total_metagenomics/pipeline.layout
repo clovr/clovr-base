@@ -38,9 +38,5 @@
             <state>incomplete</state>
             <name>tag_data.default</name>
         </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.add_config_to_tag</name>
-        </commandSet>
     </commandSet>
 </commandSetRoot>
