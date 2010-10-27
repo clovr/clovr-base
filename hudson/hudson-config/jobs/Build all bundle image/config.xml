@@ -15,7 +15,7 @@
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
 export HUDSON_URL=$HUDSON_URL
-sudo -u www-data -E /opt/vappio-util/buildall.sh</command>
+sudo -E /opt/vappio-util/buildall.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

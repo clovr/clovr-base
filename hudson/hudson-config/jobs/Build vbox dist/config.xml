@@ -14,7 +14,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 	mkdir clovr_vbox_testing
-	/opt/vappio-util/vp-bundle-ovf /mnt/image.vmdk clovr_vbox_testing clovr_vbox_testing/clovr_vbox_testing.ovf
+	sudo -E /opt/vappio-util/vp-bundle-ovf /mnt/image.vmdk clovr_vbox_testing clovr_vbox_testing/clovr_vbox_testing.ovf
 	tar cvzf clovr_vbox_testing.tgz clovr_vbox_testing 
 </command>
     </hudson.tasks.Shell>

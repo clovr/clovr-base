@@ -24,12 +24,12 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
+sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
 namepfx="clovr-build-$buildname"
 mkdir -p $namepfx/shared/user-scripts
-echo &apos;#!/bin/bash&apos; &gt; $namepfx/user-scripts/01-updaterecipes
+echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/01-updaterecipes
 echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
 echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/02-starthudson
 echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson

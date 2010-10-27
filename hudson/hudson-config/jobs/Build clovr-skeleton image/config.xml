@@ -24,7 +24,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-skeleton
+sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-skeleton
 buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
 namepfx="clovr-skeleton-$buildname"
 tar -cvzf $namepfx.tgz $namepfx || true

@@ -24,7 +24,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -u www-data -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-standard
+sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-standard
 if [ $? = 0 ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
