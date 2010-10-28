@@ -29,7 +29,8 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             fields: ['db_name'],
             data: [['ncbi-nr'],
                    ['ncbi-nt'],
-                   ['Test_Protein_Database']
+                   ['Test_Protein_Database'],
+                   ['Example: B. subtilis 168 Protein DB']
                   ]
         });
         var advanced_params =[];
@@ -184,6 +185,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 forceSelection: true,
                 value: config.sampleData[0][0],
                 id: 'datasettag',
+                width: 250,
                 submitValue: false,
                 triggerAction: 'all',
                 fieldLabel: 'Select a pre-made dataset',
@@ -274,11 +276,11 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              displayField: 'program',
              forceSelection: true,
              editable: false,
-             value: 'blastn'
+             value: 'blastp'
             },
             {xtype: 'combo',
              fieldLabel: 'Database',
-             width: 70,
+             width: 225,
              name: 'input.REF_DB_TAG',
              store: dbStore,
              triggerAction: 'all',
@@ -287,7 +289,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              displayField: 'db_name',
              forceSelection: true,
              editable: false,
-             value: 'ncbi-nt'
+             value: 'ncbi-nr'
             }]);
         seq_inputs.push(normal_params);
         
