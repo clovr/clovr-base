@@ -41,6 +41,9 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "qiime_otu_table,qiime_fasttree,qiime_heatmap,qiime_summary_tables,qiime_summary_histograms,qiime_skiff,qiime_metastats,qiime_beta,rdp_res,rdp_tables,rdp_skiff,rdp_metastats,rdp_histograms,mothur_otu_list,mothur_shannon,mothur_chao,mothur_ace,mothur_rare,mothur_summary", "desc": "Comma separated list of tags that should be downloaded"}
 
 [pipeline]
+
+PIPELINE_WRAPPER_NAME={"default": "clovr_wrapper", "visibility": "always_hidden", "desc": "The name given to wrapper pipeline"}
+
 PIPELINE_TEMPLATE={"default": "clovr_16S", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation

@@ -68,6 +68,9 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 [pipeline]
+
+PIPELINE_WRAPPER_NAME={"default": "clovr_wrapper", "visibility": "always_hidden", "desc": "The name given to wrapper pipeline"}
+
 PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation

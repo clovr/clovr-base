@@ -42,6 +42,9 @@ GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shou
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 [pipeline]
+
+PIPELINE_WRAPPER_NAME={"default": "clovr_wrapper", "visibility": "always_hidden", "desc": "The name given to wrapper pipeline"}
+
 PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation

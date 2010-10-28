@@ -28,6 +28,9 @@ INPUT_TAG={"display": "Input tag", "default": "clovrsleepfiles", "desc": "Name o
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 [pipeline]
+
+PIPELINE_WRAPPER_NAME={"default": "clovr_wrapper", "visibility": "always_hidden", "desc": "The name given to wrapper pipeline"}
+
 PIPELINE_TEMPLATE={"default": "clovr_sleep", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
