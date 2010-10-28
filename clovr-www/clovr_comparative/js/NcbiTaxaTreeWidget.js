@@ -302,6 +302,7 @@ function buildTree() {
 		   	autoScroll : true,
 		   	collapsible : true,
 		   	split : true,
+			useArrows : true,
 		   	loader : treeLoader,
 		   	root : new Ext.tree.AsyncTreeNode({
 				text : 'Root Node',
