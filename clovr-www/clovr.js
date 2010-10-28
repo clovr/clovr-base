@@ -20,6 +20,7 @@ clovr.uploadFileWindow = function(config) {
             {xtype: 'fileuploadfield',
              width: 200,
              fieldLabel: 'Or, Upload Fasta File',
+             vtype: 'alphanum',
              id: 'uploadfilepath',
              name: 'file',
              listeners: {

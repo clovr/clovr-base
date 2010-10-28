@@ -104,6 +104,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 },
                  {xtype: 'textfield',
                   id: 'uploadfilename',
+                  vtype: 'alphanum',
                   fieldLabel: 'Name your dataset',
                   submitValue: false
                  },
