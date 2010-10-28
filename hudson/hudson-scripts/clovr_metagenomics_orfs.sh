@@ -14,7 +14,7 @@ vp-describe-protocols --config-from-protocol=clovr_metagenomics_orfs \
     -c input.PIPELINE_NAME=clovr_metagenomics_orfs_${DATE} \
     > /tmp/$$.pipeline.conf
 
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_metagenomics_orfs_$$ --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/$$.pipeline.conf`
+TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_metagenomics_orfs_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"

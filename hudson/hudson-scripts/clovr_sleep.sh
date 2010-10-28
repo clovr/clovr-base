@@ -13,7 +13,7 @@ vp-describe-protocols --config-from-protocol=clovr_sleep \
     -c input.PIPELINE_NAME=clovr_sleep_${DATE} \
     > /tmp/pipeline.conf
 
-TASK_NAME=`runPipeline.py --print-task-name --pipeline clovr_wrapper --name local -n clovr_sleep_$$ -- --CONFIG_FILE=/tmp/pipeline.conf`
+TASK_NAME=`runPipeline.py --print-task-name --pipeline clovr_wrapper --name local -n clovr_sleep_$$ --pipeline-config=/tmp/pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"

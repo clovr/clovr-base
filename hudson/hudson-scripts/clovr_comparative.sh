@@ -13,7 +13,7 @@ vp-describe-protocols --config-from-protocol=clovr_comparative \
 
 vp-add-dataset --tag-name=bifidobacter_genbank_tag -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
 
-TASK_NAME=`runPipeline.py --name local --print-task-name --pipeline-name clovr_comparative_$$ --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/$$.pipeline.conf`
+TASK_NAME=`runPipeline.py --name local --print-task-name --pipeline-name clovr_comparative_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
 	echo "runPipeline.py failed to run"

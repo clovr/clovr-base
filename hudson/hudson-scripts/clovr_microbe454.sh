@@ -14,7 +14,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe454 \
 
 vp-add-dataset --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o
 
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_microbe454_$$ --pipeline=clovr_wrapper -- --CONFIG_FILE=/tmp/$$.pipeline.conf`
+TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_microbe454_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"

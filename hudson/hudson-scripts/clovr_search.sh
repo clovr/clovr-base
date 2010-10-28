@@ -15,7 +15,7 @@ vp-describe-protocols --config-from-protocol=clovr_search \
     -c misc.PROGRAM=blastp \
     > /tmp/$$.pipeline.conf
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline clovr_wrapper --name local -n clovr_search_$$ -- --CONFIG_FILE=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline clovr_wrapper --name local -n clovr_search_$$ --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"
