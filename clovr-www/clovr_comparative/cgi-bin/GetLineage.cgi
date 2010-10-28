@@ -10,7 +10,7 @@ use Data::Dumper;
 my $QUERY = 'query';
 my $NODE = 'selectedNode';
 
-my $root = retrieve('../binary_files/AutoSearchDataStructure')
+my $root = retrieve('/opt/opt-packages/comparative-data-1.0/binary_files/AutoSearchDataStructure')
 	|| die "Error in retrieving the data structure, $!\n";
 	
 my $q = new CGI;

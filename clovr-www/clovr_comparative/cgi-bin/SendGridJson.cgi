@@ -39,7 +39,7 @@ if($$params{$CLIENT_ID} =~ /^$SENTINEL(.+)/g) {
 	print encode_json({info => $refInfo});
 }
 else {
-	$root = retrieve('../binary_files/NcbiTreeWidgetDataStructure') or 
+	$root = retrieve('/opt/opt-packages/comparative-data-1.0/binary_files/NcbiTreeWidgetDataStructure') or 
 		die "Error retrieving the data structure $!\n";
 	my $refInfo = getAnnotationInfo($$params{$CLIENT_ID});
 	print encode_json({info => $refInfo});
