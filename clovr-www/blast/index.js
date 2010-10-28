@@ -50,7 +50,7 @@ function makeBlastForm(cont) {
             var pipelines = clovrParsePipelines(Ext.util.JSON.decode(response.responseText).data);
             var blast_form = new clovr.BlastClovrFormPanel({
                 fields: pipelines['clovr_search_webfrontend'].fields,
-                sampleData: [['Example: B. subtilis 168 Proteins']],
+                sampleData: [['example_B_subtilis_168_Proteins']],
                 region: 'center'
             });
             cont.add(blast_form);

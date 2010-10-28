@@ -29,8 +29,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             fields: ['db_name'],
             data: [['ncbi-nr'],
                    ['ncbi-nt'],
-                   ['Test_Protein_Database'],
-                   ['Example: B. subtilis 168 Protein DB']
+                   ['example_B_subtilis_168_Protein_DB']
                   ]
         });
         var advanced_params =[];
