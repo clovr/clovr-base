@@ -1,0 +1,88 @@
+## Configuration file for Illumina Microbe
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+
+## The following are for the various input types that velvet can take
+## 
+## Should a comma separated list of TAGS (you will have to tag them before running
+## the wrapper). For paired end input, pipeline expects multiple files, both tagged
+## together. For example: 
+## tagData.py --name local --tag-name paired_end_illumina s_2_1_sequences.fastq s_2_2.sequences.fastq
+[input]
+SHORT_PAIRED_FILES={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "source": "tags"}
+LONG_PAIRED_FILES={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "source": "tags"}
+
+SHORT_FILES={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "source": "tags"}
+LONG_FILES={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "source": "tags"}
+
+## pipeline name
+## if pipeline is already present, will simply monitor it
+## otherwise will create the pipeline with current settings
+PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline"}
+
+## organism info
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them"}
+ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species"}
+
+## The hash length to start velvet optimiser with
+## Must be an odd number, less than end hash length and
+## 19 < x < 31
+START_HASH_LENGTH={"display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and 19 < x < 31"}
+
+## The hash length of the last iteration of optimiser
+## Must be odd, greater than start hash length and 
+## 19 < x < 31
+END_HASH_LENGTH={"display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and 19 < x < 31"}
+
+## Other options sent to velvetg
+## If using paired end reads, use AT LEAST -ins_length and -ins_length_sd.
+## -min_contig_lgth is already set.
+VELVETG_OPTS={"display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set."}
+GROUP_COUNT={"display": "Group count", "default": 20, "visibility": "always_hidden", "desc": null}
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_FILES$;,$;LONG_PAIRED_FILES$;,$;SHORT_FILES$;,$;LONG_FILES$;", "visibility": "always_hidden", "desc": null}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Output tags to download
+## Comma separated list (e.g. assembly_contigs,annotation_genbank )
+## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+
+[pipeline]
+PIPELINE_WRAPPER_NAME={"default": "clovr_wrapper", "visibility": "always_hidden", "desc": "The name given to wrapper pipeline"}
+
+PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "desc": null}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prestart.xml", "visibility": "always_hidden", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
