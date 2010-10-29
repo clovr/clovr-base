@@ -69,6 +69,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             fileUpload: true,
             url: '/vappio/uploadFile_ws.py',
             frame: true,
+            labelWidth: 120,
             items: [
                 {xtype: 'fileuploadfield',
                  width: 200,
@@ -104,7 +105,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                  {xtype: 'textfield',
                   id: 'uploadfilename',
                   vtype: 'alphanum',
-                  fieldLabel: 'Name your dataset',
+                  fieldLabel: "Name your dataset<br/>(No spaces or '-')",
                   submitValue: false
                  },
                  {xtype: 'textarea',
@@ -289,7 +290,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              displayField: 'db_name',
              forceSelection: true,
              editable: false,
-             value: 'ncbi-nr'
+             value: 'example_B_subtilis_168_Protein_DB'
             }]);
         seq_inputs.push(normal_params);
         
