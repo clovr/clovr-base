@@ -4,11 +4,13 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T"`
 
-cp /opt/hudson/clovr_microbe_illumina.config /tmp/$$.pipeline.conf
+vp-add-dataset --tag-name=clovr_microbe_illumina_tag /opt/hudson/illumina_data/partial_reads_1.fastq /opt/hudson/illumina_data/partial_reads_2.fastq -o
 
-sed -i -e "s/\${DATE}/$DATE/" /tmp/$$.pipeline.conf
+vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
+    -c input.SHORT_PAIRED_TAGS=clovr_microbe_illumina_tag \
+    -c input.PIPELINE_NAME=clovr_microbe_illumina_${DATE} \
+    > /tmp/$$.pipeline.conf
 
-vp-add-dataset --tag-name=hudson_test_tag /opt/hudson/illumina_data/partial_reads_1.fastq /opt/hudson/illumina_data/partial_reads_2.fastq -o
 
 TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name microbe_illumina-$DATE --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
 
