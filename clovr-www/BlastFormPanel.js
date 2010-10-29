@@ -29,7 +29,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             fields: ['db_name'],
             data: [['ncbi-nr'],
                    ['ncbi-nt'],
-                   ['example_B_subtilis_168_Protein_DB']
+                   ['Example_B_subtilis_168_Protein_DB']
                   ]
         });
         var advanced_params =[];
@@ -290,7 +290,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              displayField: 'db_name',
              forceSelection: true,
              editable: false,
-             value: 'example_B_subtilis_168_Protein_DB'
+             value: 'Example_B_subtilis_168_Protein_DB'
             }]);
         seq_inputs.push(normal_params);
         
