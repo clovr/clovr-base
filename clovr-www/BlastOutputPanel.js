@@ -65,7 +65,7 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
                                        Ext.TaskMgr.start(task);
                                    }
                                });*/
-                               document.location= ('/output/'+pipeNames.pipename+'_'+pipeInfo.config['input.TAGS_TO_DOWNLOAD']+'.tar.gz');
+                               document.location = ('/output/' + pipeNames.pipename + '_' + pipeInfo.config['output.TAGS_TO_DOWNLOAD'] + '.tar.gz');
                            },
                            text: 'Download Output File'
                           },
