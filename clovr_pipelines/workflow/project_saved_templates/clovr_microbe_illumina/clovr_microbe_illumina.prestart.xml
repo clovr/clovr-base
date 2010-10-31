@@ -9,7 +9,7 @@
       <name>Fasta-or-fastq-file Check</name>
       <type>RunUnixCommand</type>
       <executable>vp-describe-task</executable>
-      <arg>--block --exit-code `vp-run-metrics -t --pipeline-name $;PIPELINE_WRAPPER_NAME$; "filter-keys input.SHORT_PAIRED_FILES input.LONG_PAIRED_FILES input.LONG_FILES input.SHORT_FILES | tag-is-fasta-or-fastq"`</arg>
+      <arg>--block --exit-code `vp-run-metrics -t --pipeline-name $;PIPELINE_WRAPPER_NAME$; "filter-keys input.SHORT_PAIRED_TAG input.LONG_PAIRED_TAG input.LONG_TAG input.SHORT_TAG | tag-is-fasta-or-fastq"`</arg>
     </command>
   </commandSet>
 </commandSetRoot>

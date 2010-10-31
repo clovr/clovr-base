@@ -11,11 +11,11 @@
 ## together. For example: 
 ## tagData.py --name local --tag-name paired_end_illumina s_2_1_sequences.fastq s_2_2.sequences.fastq
 [input]
-SHORT_PAIRED_FILES={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "source": "tags"}
-LONG_PAIRED_FILES={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "source": "tags"}
+SHORT_PAIRED_TAG={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "source": "tags"}
+LONG_PAIRED_TAG={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "source": "tags"}
 
-SHORT_FILES={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "source": "tags"}
-LONG_FILES={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "source": "tags"}
+SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "source": "tags"}
+LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "source": "tags"}
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
@@ -29,23 +29,23 @@ ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Mu
 ## The hash length to start velvet optimiser with
 ## Must be an odd number, less than end hash length and
 ## 19 < x < 31
-START_HASH_LENGTH={"default":23, "display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and 19 < x < 31"}
+START_HASH_LENGTH={"default":19, "display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and 19 < x < 31"}
 
 ## The hash length of the last iteration of optimiser
 ## Must be odd, greater than start hash length and 
 ## 19 < x < 31
-END_HASH_LENGTH={"default":29, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and 19 < x < 31"}
+END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and 19 < x < 31"}
 
 ## Other options sent to velvetg
 ## If using paired end reads, use AT LEAST -ins_length and -ins_length_sd.
 ## -min_contig_lgth is already set.
-VELVETG_OPTS={"display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set."}
-GROUP_COUNT={"display": "Group count", "default": 20, "visibility": "always_hidden", "desc": null}
+VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set."}
+GROUP_COUNT={"display": "Group count", "default": 10, "visibility": "always_hidden", "desc": null}
 REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
-INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_FILES$;,$;LONG_PAIRED_FILES$;,$;SHORT_FILES$;,$;LONG_FILES$;", "visibility": "always_hidden", "desc": null}
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG_PAIRED_TAG$;,$;SHORT_TAG$;,$;LONG_TAG$;", "visibility": "always_hidden", "desc": null}
 
 ##########################################################
 ## Cluster info.
