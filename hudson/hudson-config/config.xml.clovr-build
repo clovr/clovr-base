@@ -5,8 +5,15 @@
   <mode>NORMAL</mode>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
-  <systemMessage>&lt;p&gt;&lt;img src=&apos;http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png&apos;&gt; &#xd;
-Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;&lt;/p&gt;</systemMessage>
+  <systemMessage><div>
+<p><img src='http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png'> 
+Automated testing and image builds for <a href='http://clovr.sf.net'>CloVR</a></p>
+<iframe id=mytests src="" width=100% height=200></iframe>
+</div>
+<script>
+document.getElementById('mytests').src='http://'+window.location.hostname+'/'
+</script>
+</systemMessage>
   <jdks/>
   <clouds/>
   <slaves/>

@@ -9,6 +9,8 @@ vp-add-dataset --tag-name=clovr_microbe_illumina_tag /opt/hudson/illumina_data/p
 vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     -c input.SHORT_PAIRED_FILES=clovr_microbe_illumina_tag \
     -c input.PIPELINE_NAME=clovr_microbe_illumina_${DATE} \
+    -c input.OUTPUT_PREFIX=test \
+    -c input.ORGANSISM="Genus species" \
     > /tmp/$$.pipeline.conf
 
 
