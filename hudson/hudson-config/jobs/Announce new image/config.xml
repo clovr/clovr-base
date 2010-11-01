@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Announce a new build in IRC and write a .runtest file that can be used to launch a new VM for automated testing.&#xd;
+Trigger this job in another Hudson job to announce new builds. Disable this job to stops announcements and launching automated test VMs.&#xd;
+</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.model.ParametersDefinitionProperty>
@@ -9,12 +11,7 @@
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
           <description></description>
-          <defaultValue>/mnt/image.img</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>TAR</name>
-          <description>Generate tar of image directory on success</description>
-          <defaultValue>yes</defaultValue>
+          <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -28,11 +25,9 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -E /opt/vappio-util/vp-bundle-ec2 -p -f $IMAGE_NAME
-if [ &quot;$TAR&quot; = &quot;yes&quot; ]
-then
-curl http://localhost:8888/job/Tar%20image/buildWithParameters?IMAGE_DIR=$IMAGE_NAME
-fi</command>
+echo &quot;00%20Launch%20all%20jobs&quot; &gt; $IMAGE_NAME.runtests
+n=`basename $IMAGE_NAME`
+echo &quot;New build at clovrtest-lx:/data/clovr-build/shared/$n.tgz&quot; | nc clovrtest-lx.igs.umaryland.edu 5678 || true</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

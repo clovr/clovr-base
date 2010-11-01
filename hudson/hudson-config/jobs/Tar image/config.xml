@@ -7,13 +7,13 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>IMAGE_NAME</name>
+          <name>IMAGE_DIR</name>
           <description></description>
-          <defaultValue>/mnt/image.img</defaultValue>
+          <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>TAR</name>
-          <description>Generate tar of image directory on success</description>
+          <name>ANNOUNCE</name>
+          <description>Announce new image on success using Hudson job &quot;Announce new image&quot;</description>
           <defaultValue>yes</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -27,11 +27,20 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /mnt
-sudo -E /opt/vappio-util/vp-bundle-ec2 -p -f $IMAGE_NAME
-if [ &quot;$TAR&quot; = &quot;yes&quot; ]
+      <command>#Create a tar
+echo &quot;Creating the tar&quot;
+dname=`dirname $IMAGE_DIR`
+if [ &quot;$dname&quot; = &quot;/mnt&quot; ]
 then
-curl http://localhost:8888/job/Tar%20image/buildWithParameters?IMAGE_DIR=$IMAGE_NAME
+  dname=`dirname $IMAGE_DIR`
+  bname=`basename $IMAGE_DIR`
+  tar -C $dname -cvzf $IMAGE_DIR.tgz $bname
+else
+  tar -cvzf $IMAGE_DIR.tgz $IMAGE_DIR
+fi
+if [ &quot;$ANNOUNCE&quot; = &quot;yes&quot; ]
+then
+ curl http://localhost:8888/job/Announce%20new%20image/buildWithParameters?IMAGE_NAME=$IMAGE_DIR
 fi</command>
     </hudson.tasks.Shell>
   </builders>

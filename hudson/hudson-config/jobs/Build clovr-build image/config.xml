@@ -8,7 +8,7 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
-          <description>Builds a "buildbox" image using the clovr-build recipe. This image requires 2 vCPUs and 8GB of RAM and automatically starts hudson</description>
+          <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -16,7 +16,7 @@
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
@@ -26,18 +26,17 @@
 export BUILD_ID=$BUILD_ID
 sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
-buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
-namepfx="clovr-build-$buildname"
+buildname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
+namepfx=&quot;clovr-build-$buildname&quot;
 mkdir -p $namepfx/shared/user-scripts
-echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/01-updaterecipes
-echo &apos;/opt/vappio-install/vp-bootstrap-install&apos; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
-chmod a+x $namepfx/shared/user-scripts/01-starthudson
-echo &apos;#!/bin/bash&apos; &gt; $namepfx/shared/user-scripts/02-starthudson
-echo &apos;/etc/init.d/hudson start&apos; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
-chmod a+x $namepfx/shared/user-scripts/02-starthudson
-perl -pi -e 's/numvcpus = \S+/numvcpus = "2"/' $namepfx/start_clovr.vmx
-perl -pi -e 's/memsize = \S+/memsize = "8192"/' $namepfx/start_clovr.vmx
+echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/01-updaterecipes
+echo &quot;/opt/vappio-install/vp-bootstrap-install&quot; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
+echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/02-starthudson
+echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
+perl -pi -e &apos;s/numvcpus = \S+/numvcpus = &quot;2&quot;/&apos; $namepfx/start_clovr.vmx
+perl -pi -e &apos;s/memsize = \S+/memsize = &quot;8192&quot;/&apos; $namepfx/start_clovr.vmx
 tar -cvzf $namepfx.tgz $namepfx || true
+
 </command>
     </hudson.tasks.Shell>
   </builders>

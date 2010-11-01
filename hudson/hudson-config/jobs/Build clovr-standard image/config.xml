@@ -11,6 +11,16 @@
           <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_DIR</name>
+          <description>For recovering a failed build, leave blank by default for new builds</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_NAME</name>
+          <description>For recovering a failed build, leave blank by default for new builds</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -24,6 +34,8 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
+export BUILD_DIR=$BUILD_DIR
+export BUILD_NAME=$BUILD_NAME
 sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-standard
 if [ $? = 0 ]
 then
