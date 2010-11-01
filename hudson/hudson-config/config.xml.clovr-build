@@ -6,9 +6,9 @@
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
   <systemMessage><div>
-<p><img src='http://sourceforge.net/apps/mediawiki/clovr/nfs/project/c/cl/clovr/7/70/MediaWikiSidebarLogo.png'> 
+<p><img src='/clovr-logo-small.png'> 
 Automated testing and image builds for <a href='http://clovr.sf.net'>CloVR</a></p>
-<iframe id=mytests src="" width=100% height=200></iframe>
+<iframe id=mytests src="" width=100% height=250></iframe>
 </div>
 <script>
 document.getElementById('mytests').src='http://'+window.location.hostname+'/'
