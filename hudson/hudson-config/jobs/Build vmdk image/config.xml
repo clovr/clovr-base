@@ -1,16 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Build a vmdk image from a raw disk image.&#xd;
-Includes:&#xd;
--Adding vmware,vbox tools&#xd;
--Adding grub boot loader&#xd;
--Converting img to vmdk&#xd;
-Input is /mnt/image.img&#xd;
-Output is /mnt/image.vmdk&#xd;
+  <description>Build a vmdk image from a raw disk image&lt;br&gt;&#xd;
+Includes:&lt;br&gt;&#xd;
+-Adding vmware,vbox tools&lt;br&gt;&#xd;
+-Adding grub boot loader&lt;br&gt;&#xd;
+-Converting img to vmdk&lt;br&gt;&#xd;
 </description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>IMAGE_NAME</name>
+          <description></description>
+          <defaultValue>/mnt/image.img</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -24,11 +32,11 @@ pushd /mnt
 tar cvzf grub-boot.tgz boot
 popd
 cd /mnt
-cp /mnt/image.img /mnt/image.img.vmbundle
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-util/cleanupimg
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vmware.sh
-sudo /opt/vappio-util/vp-runonimg /mnt/image.img.vmbundle /opt/vappio-install/recipes/vbox.sh
-sudo /opt/vappio-util/vp-create-vmdk /mnt/image.img.vmbundle /mnt/grub-boot.tgz /mnt/image.vmdk
+cp $IMAGE_NAME $IMAGE_NAME.vmbundle
+sudo /opt/vappio-util/vp-runonimg $IMAGE_NAME.vmbundle /opt/vappio-util/cleanupimg
+sudo /opt/vappio-util/vp-runonimg $IMAGE_NAME.vmbundle /opt/vappio-install/recipes/vmware.sh
+sudo /opt/vappio-util/vp-runonimg $IMAGE_NAME.vmbundle /opt/vappio-install/recipes/vbox.sh
+sudo /opt/vappio-util/vp-create-vmdk $IMAGE_NAME.vmbundle /mnt/grub-boot.tgz /mnt/image.vmdk
       </command>
     </hudson.tasks.Shell>
   </builders>

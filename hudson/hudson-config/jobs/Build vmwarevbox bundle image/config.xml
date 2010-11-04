@@ -1,19 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Build a vmware,vmx bundle from a raw disk image.
-Includes:
--Adding vmware,vbox guest tools
--Adding grub boot loader
--Converting img to vmdk
--Creating ovf file for import into virtualbox
--Creating start_clovr.xmx for import into vmware
--Tar of results
-Input is /mnt/image.img
-Output is /mnt/clovr_testing.tgz
+  <description>Build a vmware,vmx bundle from a raw disk image.&#xd;
+Includes:&#xd;
+-Adding vmware,vbox guest tools&#xd;
+-Adding grub boot loader&#xd;
+-Converting img to vmdk&#xd;
+-Creating ovf file for import into virtualbox&#xd;
+-Creating start_clovr.xmx for import into vmware&#xd;
+-Tar of results&#xd;
+Input is /mnt/image.img&#xd;
+Output is /mnt/clovr_testing.tgz&#xd;
 </description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>IMAGE_NAME</name>
+          <description></description>
+          <defaultValue>/mnt/image.img</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUNDLE_NAME</name>
+          <description></description>
+          <defaultValue>clovr_test</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -23,7 +38,7 @@ Output is /mnt/clovr_testing.tgz
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-	/opt/vappio-util/vp-bundle-release /mnt/image.img clovr_testing
+sudo -E /opt/vappio-util/vp-bundle-release $IMAGE_NAME $BUNDLE_NAME
       </command>
     </hudson.tasks.Shell>
   </builders>
