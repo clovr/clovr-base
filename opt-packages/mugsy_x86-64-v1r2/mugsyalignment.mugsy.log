@@ -1,0 +1,19 @@
+Fri Nov  5 16:45:12 UTC 2010
+1: PREPARING DATA
+2,3: RUNNING mummer AND CREATING CLUSTERS
+# reading input file "/mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.ntref" of length 2832749
+# construct suffix tree for sequence of length 2832749
+# (maximum input length is 536870908)
+# process 28327 characters per dot
+#....................................................................................................
+# CONSTRUCTIONTIME /opt/mugsy_x86-64/MUMmer3.20/mummer /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.ntref 1.11
+# reading input file "/mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.queries.fsa" of length 2089645
+# matching query-file "/mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.queries.fsa"
+# against subject-file "/mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.ntref"
+# COMPLETETIME /opt/mugsy_x86-64/MUMmer3.20/mummer /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.ntref 3.19
+# SPACE /opt/mugsy_x86-64/MUMmer3.20/mummer /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.CP001095.ntref 4.77
+4: FINISHING DATA
+Fri Nov  5 16:45:26 UTC 2010
+CMD:cat /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic//CP001095 | perl -ne 'if(/^\>([^\s\:]+)\:([^\s\:]+)/){if($1 ne $2){ print ">$1.$2 $1\n";} elsif(defined $1 && defined $2){print ">$1.$2\n";}else {print ">$1\n";}}else{die if(/\>/);print $_}' >> /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.all.fsa
+CMD:cat /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic//AP009256 | perl -ne 'if(/^\>([^\s\:]+)\:([^\s\:]+)/){if($1 ne $2){ print ">$1.$2 $1\n";} elsif(defined $1 && defined $2){print ">$1.$2\n";}else {print ">$1\n";}}else{die if(/\>/);print $_}' >> /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.all.fsa
+CMD:/opt/mugsy_x86-64/mugsyWGA --outfile /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment --seq /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.all.fsa --aln /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.xmfa --distance 1000 --minlength 30  --unique true > /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.mugsywga.out 2> /mnt/projects/clovr/output_repository/bsml2fasta/6_genomic/mugsyalignment.mugsywga.stderr

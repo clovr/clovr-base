@@ -1,40 +1,42 @@
 #!/usr/bin/perl
 if(! -d $ENV{'MUGSY_INSTALL'}){
     my $default_install = "/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/";
-    $ENV{'MUGSY_INSTALL'} = $default_install;
-    print "MUGSY_INSTALL not set. Using $default_install\n";
+    if( -d $default_install){
+	$ENV{'MUGSY_INSTALL'} = $default_install;
+	print STDERR "MUGSY_INSTALL environment variable not set. Using $default_install\n";
+    }
+    else{
+	print STDERR "ERROR: MUGSY_INSTALL environment variable not set. Set using export MUGSY_INSTALL=/somepath/to/mugsy\n";
+    }    
 }
 
 =head1 NAME
 
 mugsy - a multiple whole genome aligner
 
-Name originally based on acroynum (MU)ltiple (G)enome alignment and (SY)nteny mapping tool
-
 =head1 USAGE
 
-mugsy [-p output prefix] multifasta1.fsa multifasta2.fsa ... multifastaN.fsa
+mugsy [-p output prefix] multifasta_genome1.fsa multifasta_genome2.fsa ... multifasta_genomeN.fsa
 
 =head1 SYNOPSIS
 
-Mugsy is multiple whole genome aligner. Mugsy uses NUCmer for pairwise
-alignment, a graph based segmentation procedure (synchain-mugsy), and
-a segment-based progressive multiple alignment strategy as implemented
-in the Seqan package. Mugsy does not require a reference genome and is
-robust in the presence of gene flux, genome rearrangments and draft
-genome sequences.
+Mugsy is multiple whole genome aligner. Mugsy uses Nucmer for pairwise
+alignment, a custom graph based segmentation procedure for identifying
+LCBs (synchain-mugsy), and a segment-based progressive multiple
+alignment strategy from Seqan::TCoffee. Mugsy accepts draft genomes in
+the form of multi-FASTA files. Mugsy does not require a reference
+genome and is robust in the presence of large scale genome flux and
+genome rearrangments. Mugsy performs best on closely related genomes
+and has been used to align several dozens bacterial genomes.
 
-Mugsy performs best on closely related genomes and is intended to
-align dozens or hundreds of completed or draft bacterial genomes.
+Mugsy outputs a series of alignments in MAF format. 
 
-Mugsy produces MAF formatted output that can be used with bundled
-utilities for finding orthologs and annotation inconsistencies. See
-mugsymapper utility.
+See http://mugsy.sf.net for more information
 
 =head1 INPUT
 
-Input is one or more (multi)FASTA files. Each file should contain all
-the sequences for a single organism/species. 
+Input is one or more (multi)FASTA files, one per genome. Each file
+should contain all the sequences for a single organism/species.
 
 Limitations on FASTA input:
  input FASTA headers must not contain ':' or '-'
@@ -42,38 +44,41 @@ Limitations on FASTA input:
 
 Common options:
 
-    -p|prefix        prefix for output files
+    -p|prefix       prefix for output files
 
-    --directory      directory used to store output and temporary files
+    --directory     directory used to store output and temporary files
 
-    -d|distance maximum "gap" along a single sequence for building
-     locally colinear blocks (bp).  This is used by the segmentation
-     step synchain-mugsy. Default is 1000bp.
+    -d|--distance   maximum distance along a single sequence (bp) for
+     chaining anchors into locally colinear blocks (LCBs).  This is
+     used by the segmentation step synchain-mugsy. Default is 1000bp.
 
-    -c|minlength minimum span of an aligned region in a colinear
+    -c|--minlength minimum span of an aligned region in a colinear
      block (bp). This is used by the segmentation step
      synchain-mugsy. Default is 30bp.
 
-    -duplications 1 - Detect and report duplications. 0 -
-     Skip. Default is 0.
+    -duplications 1 - Detect and report duplications. 0 - Skip. Default is 0.
 
 Other options:
 
-    -nucmeropts options passed through to the NUCmer
+    -nucmeropts options passed through to the Nucmer
      package. Eg. -nucmeropts "-l 15" sets the minimum MUM length in
-     NUCmer to 15. See the NUCmer documentation at
+     NUCmer to 15. See the Nucmer documentation at
      http://mummer.sf.net for more information.  Default is -l 15.
 
-    -plot output genome dot plots in GNUplot format. Overlays
-     segmentation results onto pairwise plots from mummerplot. Display
-     of draft genomes is not supported.
+    -allownestedlcbs. Default=false. Places each multi-genome anchor
+     in exactly one LCB; the longest spanning LCB
 
-    -fullsearch Run a complete all pairs NUCmer search with each
+    -plot output genome dot plots in GNUplot format. Overlays LCBS
+     onto pairwise plots from mummerplot. Display of draft genomes in
+     these plots is not supported.
+
+    -fullsearch Run a complete all pairs Nucmer search with each
      sequence as a reference and query (n^2-1 total searches). Default
      is one direction only (n^2-1/2 searches).
 
     -refine run an second iteration of Mugsy on each LCB to refine the
-     alignment
+     alignment using either Mugsy (--refine mugsy), FSA (--refine
+     fsa), Pecan (--refine pecan), MLAGAN (--refine mlagan)
 
     -debug           debug level. > 2 verbose
 
@@ -87,7 +92,7 @@ in the multiz,TBA toolkit. GMAJ is a popular visualization tool for MAF.
 
 =head1 MORE INFO
 
-This script is a wrapper that invokes an all-against-all NUCmer search
+This script is a wrapper that invokes an all-against-all Nucmer search
 and the mugsy aligner.  The two primary components of the aligner
 can also be run independently
 
@@ -101,37 +106,14 @@ the input genomes into alignable regions.
 
 2) synchain-mugsy
 
-Derives a segmentation of genome anchors that fulfill --maxgap and
+Derives a segmentation of genome anchors that fulfill --distance and
 --minlength criteria.  Anchors can be any oriented features that span
 two or more of the input genomes.  The output is a set of locally
 colinear blocks (LCBs)
 
-=head1 Using NUCmer with TBA
+=head1 Using Mugsy with other aligners 
 
-This wrapper script also supports feeding pairwise NUCmer results into
-TBA (REF).  This has been used to evaluate and test NUCmer with the
-TBA aligner. When using -tba, only NUCmer and TBA are run. The graph
-based segmentation and progressive alignment from Seqan are skipped.
-
-Options provided for TBA are
-
-    -tba use TBA for multiple alignments from NUCmer pairwise
-     alignments. Requires install of multiz/tba and modification of
-     installation location in this script
-
-When using TBA, a phylogenetic tree can be input via options (-tree or
--treefile).  Otherwise, an approximate tree will be estimated using a
-shared k-mer count distance meaure and UPGMA as implemented in MUSCLE.
-
-    -nofilter        skip delta-filter processing from the NUCmer package.
-    
-    -t|tree          phylogenetic tree in Newick format eg. "((AE005174:1.0,U00096:1.0):1.0)"
-
-    -f|treefile      path to file containing phylogenetic tree in Newick format
-
-=head1 Using NUCmer with FSA
-
-Mugsy supports realignment of LCBs using FSA.  Make sure FSA is in your PATH and run with --refine fsa
+Mugsy supports realignment of LCBs using FSA,Pecan, MLAGAN. For FSA, make sure FSA is in your PATH and run with --refine fsa
     
 =head1 For more information
 
@@ -143,8 +125,6 @@ angiuoli@cs.umd.edu
 2009
 
 =cut
-
-
 
 use strict;
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);
@@ -175,6 +155,7 @@ my $results = GetOptions (\%options,
     'treefile|f=s',
     'skipsearch',
     'skiprefine',
+    'allownestedlcbs',
     'refine',
     'colinear',
     'skipunique',
@@ -189,26 +170,25 @@ my $results = GetOptions (\%options,
     'translated|s',
     'debug=s',
     'log=s',
-    'help|h',
-    'fasta_file_list=s'     # so that we can pass the tag - Mahesh Vangala
+    'help|h',	
+    'fasta_file_list=s'	
     ) || pod2usage(-verbose => 3);
 
 pod2usage(-verbose=>3) if($options{'help'});
 
-#####################################################
+####################################################
 ## We need to append the filenames present in the tag
 ## so modifying the code so that it would take input
-## fasta files either from the command line or from 
+## fasta files either from the command line or from
 ## the tagged dataset.
 ## Modified by: Mahesh Vangala
 #####################################################
 my @inputseqfiles = ();
 unless($options{'fasta_file_list'}) {
-	@inputseqfiles = @ARGV;
+        @inputseqfiles = @ARGV;
 } else {
-	getFastaFilesPath($options{'fasta_file_list'}, \@inputseqfiles);
+        getFastaFilesPath($options{'fasta_file_list'}, \@inputseqfiles);
 }
-######################################################
 
 $options{'debug'} = 0 if(!defined $options{'debug'});
 print LOG "Processing FASTA files ",join(',',@inputseqfiles),"\n" if($options{'debug'});
@@ -218,24 +198,25 @@ pod2usage(-verbose=>3, -message => "Need to specify valid input fasta file") if(
 
 ###EXTERNAL PROGS####
 my $mugsyinstall = $ENV{'MUGSY_INSTALL'};
-my $nucmerinstall = "$ENV{'MUGSY_INSTALL'}/MUMmer3.20";
-#/usr/local/projects/angiuoli/developer/sangiuoli/mummer/trunk/MUMmer3.20";
 
+##Customized version of Nucmer with maf conversion utilities and
+#delta-filter -b for reporting duplications
+my $nucmerinstall = "$ENV{'MUGSY_INSTALL'}/MUMmer3.20";
 
 ##
 #Mugsy aligner
 my $mugsywgacmd = "$mugsyinstall/mugsyWGA";
 
 ##
-#NUCmer package
+#Nucmer package
 my $nucmercmd = "$nucmerinstall/nucmer";
 my $promercmd = "$nucmerinstall/promer";
 my $searchcmd = $options{'translated'} ? $promercmd : $nucmercmd;
-my $deltafiltcmd = "$nucmerinstall/src/tigr/delta-filter";
+my $deltafiltcmd = "$nucmerinstall/delta-filter";
 my $deltadupscmd = "$mugsyinstall/delta-dups.sh";
 #/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/delta-dups.sh";
 my $mummerplotcmd = "$nucmerinstall/mummerplot";
-my $delta2mafcmd = "$nucmerinstall/src/tigr/delta2maf";
+my $delta2mafcmd = "$nucmerinstall/delta2maf";
 
 ##
 #Mugsy utils
@@ -245,14 +226,12 @@ my $fixnamescmd = "$mugsyinstall/fixMAFnames.pl";
 
 ##
 #MAF utils and TBA 
-#This wrapper includes support to use TBA with NUCmer for comparison purposes
-#Optional for testing
+#This wrapper includes support to use TBA with Nucmer for evaluation purposes
 my $muscleinstall = "/usr/local/projects/angiuoli/developer/sangiuoli/muscle/trunk";
 my $multizinstall = "/usr/local/projects/angiuoli/developer/sangiuoli/multiz-tba/trunk";
 if(-d $multizinstall){
     $ENV{'PATH'} = "$ENV{'PATH'}:$multizinstall/";
 }
-#$ENV{'GPRPATH'} = "/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk";
 my $tbacmd = "$multizinstall/tba";
 my $singlecovcmd = "$multizinstall/single_cov2";
 my $mafsortcmd = "$multizinstall/maf_sort";
@@ -295,7 +274,6 @@ elsif($options{'log'}){
     open $logfh,"+>$options{'log'}";
 }else{
     open $logfh,"+>$options{'prefix'}.mugsy.log";
-#    $logfh=*STDERR;
 }
 #Skipsearch automatically sets keepsearchfiles so
 #that search output is preserved
@@ -303,12 +281,13 @@ if($options{'skipsearch'}){
     $options{'keepsearchfiles'}=1;
 }
 
+#Set defaults for --distance and --minlength
 $options{'distance'} = (defined $options{'distance'}) ? $options{'distance'} : 1000;
 die "--distance must be an integer. Passed $options{'distance'}" if($options{'distance'} =~ /\D/);
 $options{'minlength'} = (defined $options{'minlength'}) ? $options{'minlength'} : 30;
 
 if(!defined $options{'nucmeropts'}){
-#Added -l 15 to make defaults comparable with Mauve defaults
+    #Added -l 15 to make defaults comparable with Mauve defaults
     $options{'nucmeropts'} = $options{'nucmeropts'}." -l 15";
 }
 if(defined $options{'collinear'}){
@@ -338,6 +317,7 @@ if(defined $options{'plot'}){
     $options{'keeptmpfiles'}=1;
 }
 
+#Set default options for reporting duplications
 #if(! exists $options{'duplications'}){
 #    $options{'duplications'}=1;
 #}
@@ -441,10 +421,10 @@ foreach my $seqfile (@inputseqfiles){
 my @genomenodes;
 my $treestring;
 
+#This wrapper supports running TBA for evaluation purposes using the same
+#Nucmer input as is passed to Mugsy
 if(exists $options{'tba'}){
-
-#TODO
-#Muscle is used to build a guide tree from kmer counts.
+#TODO Muscle is used to build a guide tree from kmer counts.
 #The tree was used to test Nucmer+TBA but is not needed by Mugsy.
 #Removing this tree code will also remove need for muscle
     if(defined $options{'tree'} || defined $options{'treefile'}){
@@ -485,7 +465,7 @@ if(exists $options{'tba'}){
     }
     my $tree = $treeio->getTree();
     my @genomenodest= $tree->leaves_under($tree);
-#Returns leaves of tree left->right. 
+    #Returns leaves of tree left->right. 
     foreach my $i (@genomenodest){
 	push @genomenodes,$i->attributes->{'nh_label'};
     }
@@ -505,7 +485,7 @@ print $logfh "Processing ",scalar(@genomenodes)," genomes\n" if($options{'debug'
 # Pairwise alignment steps
 #
 # Generate pairwise alignments 
-# using the NUCmer packages
+# using the Nucmer packages
 # Input:  FASTA files of input sequences and guide tree
 # Output: Pairwise alignments in MAF format
 my $currdir = `pwd`;
@@ -513,7 +493,7 @@ chomp $currdir;
 print $logfh "Current dir:'$currdir'\n" if($options{'debug'});
 
 print STDERR scalar(@genomenodes), " genomes\n";
-print STDERR "Starting NUCmer: ",`date`;
+print STDERR "Starting Nucmer: ",`date`;
 
 my @maffiles; 
 my @dupmaffiles; #maf files of duplicated regions
@@ -555,10 +535,9 @@ for(my $i=0;$i<@genomenodes;$i++){
 	}
 	else{ 
 	    print STDERR ".";
-	    #&runsearch($genome2seqslookup->{$genomename1}->[0]->[3],"$absprefix.$genomename1.queries.fsa",$genomename1);
 	    &runsearch("$options{'directory'}/$genomename1","$absprefix.$genomename1.queries.fsa",$genomename1);
 	}
-	push @maffiles,&generateMAF($deltafile,$genomename1);#$genome2seqslookup->{$genomename1}->[0]->[3]);
+	push @maffiles,&generateMAF($deltafile,$genomename1);
 	if($options{'duplications'}){
 	    my $dupscmd = "$deltadupscmd $origdeltafile > $absprefix.$genomename1.dups.maf";
 	    print $logfh "CMD:$dupscmd\n" if($options{'debug'});
@@ -575,7 +554,7 @@ for(my $i=0;$i<@genomenodes;$i++){
     }
 }
 
-print STDERR "\nFinished NUCmer ",`date`;
+print STDERR "\nFinished Nucmer ",`date`;
 
 
 ########################################
@@ -662,7 +641,10 @@ if(defined $options{'refine'}){
 	print `mv $absprefix.maf $absprefix.maf.orig`;
 	print STDERR "Alignment completed. MAF output $absprefix.maf.orig\n";
 	print STDERR "Starting iterative refinement: ",`date`;
-	my $refinecmd = "$mugsywgacmd --outfile $absprefix --seq $absprefix.all.fsa --aln $absprefix.xmfa --distance $options{'distance'} --minlength $options{'minlength'} --refine true --infile $absprefix.maf.orig\n";
+	if($options{'refine'} eq ''){
+	    $options{'refine'} = 'true';
+	}
+	my $refinecmd = "$mugsywgacmd --outfile $absprefix --seq $absprefix.all.fsa --aln $absprefix.xmfa --distance $options{'distance'} --minlength $options{'minlength'} --refine $options{'refine'} --infile $absprefix.maf.orig\n";
 	print $logfh "CMD:$refinecmd\n" if($options{'debug'});
 	my $ret = system($refinecmd);
 	print STDERR "\nFinished refinement: ",`date`;
@@ -730,16 +712,15 @@ else{
 #}
 #close MAFFILE;
 
-#Shared data structure for ouputfiles
-my $mugsyresultsfile;
-#trim bounds based on percent coverage
 
+#Print plot
 if($options{'plot'}){
     for(my $i=0;$i<@genomenodes-1;$i++){
 	my $genomename = $genomenodes[$i];#->attributes->{'nh_label'};
 	my $mugsyoutput = "$absprefix.mugsy.out";
 	my $mugsyoutputtrimmed = "$absprefix.mugsy.out.brkpts";
 	my $varoutput;# = $detectvariants ? "$mugsyoutput.var.list" : "";
+	my $mugsyresultsfile;
 	my $plotcmd = "cat $mafoutput | $mugsyinstall/plot.pl $absprefix $genomename $mugsyresultsfile $varoutput > $absprefix.$genomename.plot.gp";
 	print $logfh "CMD:$plotcmd\n" if($options{'debug'});
 	print `$plotcmd`;
@@ -747,7 +728,7 @@ if($options{'plot'}){
     }
 }
 if(!exists $options{'refine'}){
-    print "Iterative refinement realigns each region by running a second iteration of Mugsy and can sometimes improve the alignment. To run a second iteration and produce an output file $absprefix.refined.maf:\n $mugsywgacmd --outfile $absprefix --seq $allfsafile --aln $pwfasta --distance $options{'distance'} --minlength $options{'minlength'} --refine true --infile $absprefix.maf\n";
+    print $logfh "Iterative refinement realigns each region by running a second iteration of Mugsy and can sometimes improve the alignment. To run a second iteration and produce an output file $absprefix.refined.maf:\n $mugsywgacmd --outfile $absprefix --seq $allfsafile --aln $pwfasta --distance $options{'distance'} --minlength $options{'minlength'} --refine true --infile $absprefix.maf\n";
 }
 
 print STDERR "Finished ",`date`;
@@ -755,7 +736,6 @@ print STDERR "Finished ",`date`;
 
 #####################
 #Utility functions
-#
 #
 #Produce guide tree based on kmer distance between sequences
 #in $seqfile.
@@ -795,7 +775,7 @@ sub getkmerdisttree{
 }
 
 #
-#Run pairwise NUCmer on sequences in $reffile vs. $queryfile
+#Run pairwise Nucmer on sequences in $reffile vs. $queryfile
 #Write output to $prefix
 sub runsearch{
     my($reffile,$queryfile,$prefix) = @_;
@@ -831,7 +811,7 @@ sub runsearch{
 #Convert delta to MAF
 sub generateMAF{
     my($deltafile,$prefix) = @_;
-    die "NUCmer search failed. Can't find delta file $deltafile" if(! -e $deltafile);
+    die "Nucmer search failed. Can't find delta file $deltafile" if(! -e $deltafile);
     #Convert delta to MAF using $delta2mafcmd
     #TODO: Reduce IO bottlenecks in this step. A lot of wasted time here.
     #1)Write MAF files directly as part of nucmer to limit IO bottlenecks reading and writing files
@@ -857,7 +837,8 @@ sub generateMAF{
     }
     
     my @mafprocessed;
-    
+
+    #This wrapper supports TBA for evaluation purposes
     #TBA requires splitting the MAF
     if($method eq "tba"){
 	#Create species specific MAF files for TBA
@@ -908,7 +889,8 @@ sub generateMAF{
     return @mafprocessed;
 }
 
-
+#
+# Run Mugsy whole genome aligner on a set of MAF files
 sub runMugsywga{
     my($fsafile,$pwfasta,$pwdupsfasta,$distance,$minlength) = @_;
     my $outputfile = "$absprefix.maf";
@@ -917,9 +899,11 @@ sub runMugsywga{
     my $colinearopt = (exists $options{'colinear'}) ? "--refine colinear" : "";
     my $uniqueopt = (defined $options{'skipunique'}) ? "" : "--unique true";
     my $dupsopt = ($options{'duplications'}) ? ",$pwdupsfasta --duplications true " : "";
-    my $runmugsywgacmd = "$mugsywgacmd --outfile $absprefix --seq $fsafile --aln $pwfasta$dupsopt --distance $distance --minlength $minlength $colinearopt $uniqueopt > $absprefix.mugsywga.out 2> $absprefix.mugsywga.stderr";
+    my $nestedlcbs = (exists $options{'allownestedlcbs'}) ?"--allownestedlcbs true" : "";
+    my $runmugsywgacmd = "$mugsywgacmd --outfile $absprefix --seq $fsafile --aln $pwfasta$dupsopt --distance $distance --minlength $minlength $colinearopt $uniqueopt $nestedlcbs > $absprefix.mugsywga.out 2> $absprefix.mugsywga.stderr";
     print $logfh "CMD:$runmugsywgacmd\n";# if($options{'debug'});
     my $ret = system($runmugsywgacmd);
+    #Cleanup and return
     if($ret !=0){
 	die "system $runmugsywgacmd failed: $?:$!";
     }
@@ -974,22 +958,22 @@ sub printFASTA{
 
 ##################################
 # takes the tag and a reference to a list
-# go through the tag and tests whether the 
+# go through the tag and tests whether the
 # file listed exists and is readable.
 # If so, then appends the file into the reference
 # @author - Mahesh Vangala
 #################################
 sub getFastaFilesPath {
-	my ($tag,$refArray) = @_;
-	open(FH, "<$tag") or die "Error in opening the file, $tag, $!\n";
-	while(my $file = <FH>) {
-		$file =~ s/^\s+//;
-		$file =~ s/\s+$//;
-		if(-e $file && -r $file) {
-			push @$refArray, $file;
-		}
-	}
-	close FH; 
+        my ($tag,$refArray) = @_;
+        open(FH, "<$tag") or die "Error in opening the file, $tag, $!\n";
+        while(my $file = <FH>) {
+                $file =~ s/^\s+//;
+                $file =~ s/\s+$//;
+                if(-e $file && -r $file) {
+                        push @$refArray, $file;
+                }
+        }
+        close FH;
 }
 
 __END__

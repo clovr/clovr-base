@@ -1,0 +1,6 @@
+Untar the release in the installation area (mugsy-x86-64-vXrX.tgz)
+Edit MUGSY_INSTALL in mugsyenv.sh
+Under bash, run
+source mugsyenv.sh
+
+
