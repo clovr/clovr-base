@@ -211,3 +211,8 @@ $ref ne "" || $test || die "Must specify --reference\n";
 push @args, @ARGV;
 
 CrossbowIface::crossbow(\@args, $SCRIPT, $usage, undef, undef, undef, undef);
+
+## Adding a check to make sure we did not exit with a non-zero value from the hadoop call
+if ($? ne "0") {
+    die "Error running crossbow";
+}
