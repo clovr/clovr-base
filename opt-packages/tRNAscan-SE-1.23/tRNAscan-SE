@@ -645,9 +645,9 @@ sub Set_file_paths {
     $Pselc_cm_file = "PSELC.cm";
     $Eselc_cm_file = "ESELC.cm";
 
-    $lib_dir = "/usr/local/bioinf/tRNAscan-SE/lib/tRNAscan-SE/";
+    $lib_dir = "/opt/tRNAscan-SE/lib/tRNAscan-SE/";
 
-    $bindir ="/usr/local/bioinf/tRNAscan-SE/bin/";            # modified by 'make'
+    $bindir ="/opt/tRNAscan-SE/bin/";            # modified by 'make'
     $covels_bin = "covels-SE";
 
     $coves_bin = "coves-SE";
