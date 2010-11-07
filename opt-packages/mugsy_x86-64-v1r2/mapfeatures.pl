@@ -80,7 +80,7 @@ more than one start or end in a single display line
 
 
 use strict;
-use lib '/opt/opt-packages/mugsy_x86-64-v1r1/';
+use lib '/opt/mugsy_x86-64';
 
 use Pod::Usage;
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);

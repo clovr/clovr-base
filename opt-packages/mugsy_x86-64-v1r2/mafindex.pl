@@ -7,7 +7,7 @@
 
 
 use strict;
-use lib '/opt/opt-packages/mugsy_x86-64-v1r1';
+use lib '/opt/mugsy_x86-64';
 use AlignmentTree;
 use Storable qw(store retrieve);
 use Data::Dumper;
