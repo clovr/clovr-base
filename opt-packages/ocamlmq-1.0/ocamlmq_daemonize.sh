@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/opt/ocamlmq/ocamlmq > /dev/null 2>&1 &
+nohup /opt/ocamlmq/ocamlmq > /dev/null 2>&1 &
