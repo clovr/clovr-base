@@ -55,11 +55,11 @@ def startup():
                                                         None))
     credential = manager.loadCredential('local')
     options = configFromStream(open('/tmp/machine.conf'), configFromEnv())
-    options = configFromMap(
-            {'cluster': {'master_groups': [f.strip() for f in options('cluster.master_groups').split(',')],
-                         'exec_groups': [f.strip() for f in options('cluster.exec_groups').split(',')],
-                         }
-             }, options)
+    #options = configFromMap(
+    #        {'cluster': {'master_groups': [f.strip() for f in options('cluster.master_groups').split(',')],
+    #                     'exec_groups': [f.strip() for f in options('cluster.exec_groups').split(',')],
+    #                     }
+    #         }, options)
     cluster = cluster_ctl.Cluster('local', credential, options)
     cluster = cluster.setMaster(credential.ctype.Instance(instanceId='local',
                                                           amiId=None,
