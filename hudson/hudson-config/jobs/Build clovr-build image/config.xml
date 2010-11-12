@@ -8,7 +8,7 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
-          <description></description>
+          <description>Path to a raw disk image or a directory prefix. If a directory is specified, looks for dirname.img and attempts to inject AMI name in clovr.conf upon successful build</description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -35,7 +35,8 @@ echo &quot;/opt/vappio-install/vp-bootstrap-install&quot; &gt;&gt; $namepfx/shar
 echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/02-starthudson
 #echo &quot;export HUDSON_ARGS=\"--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\"&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
-echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &&quot; &gt; $namepfx/shared/user-scripts/03-irccat 
+echo &quot;/etc/init.d/apt-cacher restart&quot; &gt; $namepfx/shared/user-scripts/04-aptcacher
+echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &&quot; &gt; $namepfx/shared/user-scripts/05-irccat 
 
 perl -pi -e &apos;s/numvcpus = \S+/numvcpus = &quot;2&quot;/&apos; $namepfx/start_clovr.vmx
 perl -pi -e &apos;s/memsize = \S+/memsize = &quot;8192&quot;/&apos; $namepfx/start_clovr.vmx

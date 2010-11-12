@@ -8,12 +8,17 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
-          <description></description>
+          <description>Path to a raw disk image or a directory prefix. If a directory is specified, looks for dirname.img and attempts to inject AMI name in clovr.conf upon successful build</description>
           <defaultValue>/mnt/image.img</defaultValue>
+        </hudson.model.StringParameterDefinition>
+	<hudson.model.StringParameterDefinition>
+          <name>INIT_SCRIPT</name>
+          <description>Script to run before bundling the EC2 image</description>
+          <defaultValue>/opt/vappio-install/recipes/enablecloudssh.sh</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>TAR</name>
-          <description>Generate tar of image directory on success</description>
+          <description>Generate tar of image directory on success. Only valid if IMAGE_NAME is a directory</description>
           <defaultValue>yes</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -28,7 +33,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -E /opt/vappio-util/vp-bundle-ec2 -p -f $IMAGE_NAME
+sudo -E /opt/vappio-util/vp-bundle-ec2 -p -f $IMAGE_NAME $INIT_SCRIPT
 if [ &quot;$TAR&quot; = &quot;yes&quot; ]
 then
 curl http://localhost:8888/job/Tar%20image/buildWithParameters?IMAGE_DIR=$IMAGE_NAME

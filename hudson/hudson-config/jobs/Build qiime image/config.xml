@@ -11,6 +11,11 @@
           <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>UPLOAD_EC2</name>
+          <description>Upload image to EC2 on a successful build</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUILD_DIR</name>
           <description>For recovering a failed build, leave blank by default for new builds</description>
@@ -36,12 +41,13 @@
 export BUILD_ID=$BUILD_ID
 export BUILD_DIR=$BUILD_DIR
 export BUILD_NAME=$BUILD_NAME
+export UPLOAD_EC2=$UPLOAD_EC2
 sudo -E /opt/vappio-util/vp-build $IMAGE_NAME qiime
-#if [ $? = 0 ]
-#then
-#  bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
-#  curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/qiime-$bldimgname
-#fi
+if [ $? = 0 ] && [ "$UPLOAD_EC2" = "true" ]
+then
+  bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
+  curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/qiime-$bldimgname
+fi
 </command>
     </hudson.tasks.Shell>
   </builders>

@@ -18,12 +18,12 @@ Output is /mnt/clovr_testing.tgz&#xd;
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
-          <description></description>
+          <description>Virtual machine image to convert into VMDK and VDI formats</description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUNDLE_NAME</name>
-          <description></description>
+          <description>Output prefix for bundle</description>
           <defaultValue>clovr_test</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
