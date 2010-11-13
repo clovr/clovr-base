@@ -46,7 +46,7 @@
             <state>incomplete</state>
             <name>translate_sequence.translate</name>
         </commandSet>
-	<commandSet type="serial">
+       	<commandSet type="serial">
 	    <state>incomplete</state>
 	    <name>run_command.tag_polypeptides</name>
 	</commandSet>
@@ -58,6 +58,14 @@
 	    <state>incomplete</state>
 	    <name>run_command.resize_cluster</name>
 	</commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>concatenate_files.translate</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.translate</name>
+        </commandSet>
 	<commandSet type="parallel">
 	    <state>incomplete</state>
             <commandSet type="serial">
@@ -104,6 +112,14 @@
         <commandSet type="serial">
             <state>incomplete</state>
             <name>bsml2fasta.final_cds</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>concatenate_files.final_cds</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.final_cds</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
