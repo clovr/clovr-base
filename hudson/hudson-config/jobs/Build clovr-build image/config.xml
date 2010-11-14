@@ -11,6 +11,11 @@
           <description>Path to a raw disk image or a directory prefix. If a directory is specified, looks for dirname.img and attempts to inject AMI name in clovr.conf upon successful build</description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUNDLE_TOOLS</name>
+          <description>Bundle guest tools for VMware and Virtualbox</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -24,7 +29,12 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-build
+if [ "$BUNDLE_TOOLS" = "true" ]
+then
+	bundletools="-t"
+fi
+sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-build
+#Runtime user-scripts
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
 namepfx=&quot;clovr-build-$buildname&quot;

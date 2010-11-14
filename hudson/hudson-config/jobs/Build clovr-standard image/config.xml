@@ -16,14 +16,19 @@
           <description>Upload image to EC2 on a successful build</description>
           <defaultValue>false</defaultValue>
         </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUNDLE_TOOLS</name>
+          <description>Bundle guest tools for VMware and Virtualbox</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUILD_DIR</name>
-          <description>For recovering a failed build, leave blank by default for new builds. For failed builds, this is the loopback mounted directory tthat ends in .live</description>
+          <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the prefix for the loopback directory that is mounted as BUILD_DIR.live</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUILD_NAME</name>
-          <description>For recovering a failed build, leave blank by default for new builds. For failed builds, this is the target image name, usually clovr-standard-datestring</description>
+          <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the target image name, usually clovr-standard-datestring</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -42,7 +47,11 @@ export BUILD_ID=$BUILD_ID
 export BUILD_DIR=$BUILD_DIR
 export BUILD_NAME=$BUILD_NAME
 export UPLOAD_EC2=$UPLOAD_EC2
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-standard
+if [ "$BUNDLE_TOOLS" = "true" ]
+then
+	bundletools="-t"
+fi
+sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-standard
 if [ $? = 0 ] %26%26 [ "$UPLOAD_EC2" = "true" ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`

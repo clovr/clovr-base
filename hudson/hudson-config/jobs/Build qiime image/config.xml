@@ -16,6 +16,11 @@
           <description>Upload image to EC2 on a successful build</description>
           <defaultValue>false</defaultValue>
         </hudson.model.BooleanParameterDefinition>
+	<hudson.model.BooleanParameterDefinition>
+          <name>BUNDLE_TOOLS</name>
+          <description>Bundle guest tools for VMware and Virtualbox</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUILD_DIR</name>
           <description>For recovering a failed build, leave blank by default for new builds</description>
@@ -42,7 +47,11 @@ export BUILD_ID=$BUILD_ID
 export BUILD_DIR=$BUILD_DIR
 export BUILD_NAME=$BUILD_NAME
 export UPLOAD_EC2=$UPLOAD_EC2
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME qiime
+if [ "$BUNDLE_TOOLS" = "true" ]
+then
+	bundletools="-t"
+fi
+sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME qiime
 if [ $? = 0 ] %26%26 [ "$UPLOAD_EC2" = "true" ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`

@@ -11,6 +11,11 @@
           <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>BUNDLE_TOOLS</name>
+          <description>Bundle guest tools for VMware and Virtualbox</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -24,10 +29,11 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-sudo -E /opt/vappio-util/vp-build $IMAGE_NAME clovr-base
-buildname=`echo "$BUILD_ID" | sed 's/_/-/'`
-namepfx="clovr-base-$buildname"
-tar -cvzf $namepfx.tgz $namepfx || true
+if [ "$BUNDLE_TOOLS" = "true" ]
+then
+	bundletools="-t"
+fi
+sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-base
 </command>
     </hudson.tasks.Shell>
   </builders>
