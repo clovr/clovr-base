@@ -14,7 +14,7 @@
 	<hudson.model.BooleanParameterDefinition>
           <name>UPLOAD_EC2</name>
           <description>Upload image to EC2 on a successful build</description>
-          <defaultValue>false</defaultValue>
+          <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
         <hudson.model.BooleanParameterDefinition>
           <name>BUNDLE_TOOLS</name>

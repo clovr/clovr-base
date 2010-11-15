@@ -74,30 +74,8 @@ document.getElementById('mytests').src='http://'+window.location.hostname+'/'
       </columns>
       <includeRegex>^(Install).*</includeRegex>
     </listView>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>CloVR tests</name>
-      <description>&lt;p&gt;Regression tests for CloVR&lt;/p&gt;&#xd;
-&lt;p&gt;Many of these tests are only expected to pass on a fully loaded clovr-standard image&lt;/p&gt;</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <jobNames class="tree-set">
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>^([0-9]).*</includeRegex>
-    </listView>
   </views>
-  <primaryView>CloVR tests</primaryView>
+  <primaryView>Buildbox</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
   <nodeProperties/>
