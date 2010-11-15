@@ -52,7 +52,7 @@ then
 	bundletools="-t"
 fi
 sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME qiime
-if [ $? = 0 ] &amp&amp [ "$UPLOAD_EC2" = "true" ]
+if [ $? = 0 ] &amp;&amp; [ "$UPLOAD_EC2" = "true" ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
   curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/qiime-$bldimgname

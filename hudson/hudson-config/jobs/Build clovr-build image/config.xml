@@ -47,7 +47,7 @@ echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/02-starthudson
 #echo &quot;export HUDSON_ARGS=\"--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\"&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 echo &quot;/etc/init.d/apt-cacher restart&quot; &gt; $namepfx/shared/user-scripts/04-aptcacher
-echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &amp&quot; &gt; $namepfx/shared/user-scripts/05-irccat 
+echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &amp;&quot; &gt; $namepfx/shared/user-scripts/05-irccat 
 chmod a+x $namepfx/shared/user-scripts/*
 perl -pi -e &apos;s/numvcpus = \S+/numvcpus = &quot;2&quot;/&apos; $namepfx/start_clovr.vmx
 perl -pi -e &apos;s/memsize = \S+/memsize = &quot;8192&quot;/&apos; $namepfx/start_clovr.vmx
