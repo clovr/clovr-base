@@ -46,18 +46,22 @@
             <state>incomplete</state>
             <name>translate_sequence.translate</name>
         </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2fasta.create_blastx_pre_input</name>
+        </commandSet>
        	<commandSet type="serial">
-	    <state>incomplete</state>
-	    <name>run_command.tag_polypeptides</name>
-	</commandSet>
-	<commandSet type="serial">
-	    <state>incomplete</state>
-	    <name>run_command.calculate_cpu_hours</name>
-	</commandSet>
-	<commandSet type="serial">
-	    <state>incomplete</state>
-	    <name>run_command.resize_cluster</name>
-	</commandSet>
+            <state>incomplete</state>
+            <name>run_command.tag_polypeptides</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.resize_cluster</name>
+        </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>concatenate_files.translate</name>
@@ -66,17 +70,17 @@
             <state>incomplete</state>
             <name>split_multifasta.translate</name>
         </commandSet>
-	<commandSet type="parallel">
-	    <state>incomplete</state>
+        <commandSet type="parallel">
+            <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
                 <name>hmmpfam.pre_overlap_analysis</name>
             </commandSet>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>ncbi-blastp.pre_overlap_analysis</name>
+                <name>ncbi-blastx.pre_overlap_analysis</name>
             </commandSet>
-	</commandSet>
+        </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>bsml2fasta.pre_overlap_analysis</name>
@@ -117,7 +121,7 @@
             <state>incomplete</state>
             <name>concatenate_files.final_cds</name>
         </commandSet>
-	<commandSet type="serial">
+        <commandSet type="serial">
             <state>incomplete</state>
             <name>split_multifasta.final_cds</name>
         </commandSet>
@@ -157,9 +161,9 @@
             <state>incomplete</state>
             <name>tbl2asn.default</name>
         </commandSet>
-	<commandSet type="serial">
-	    <state>incomplete</state>
-	    <name>tag_data.clovr_microbe_annotation</name>
-	</commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.clovr_microbe_annotation</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
