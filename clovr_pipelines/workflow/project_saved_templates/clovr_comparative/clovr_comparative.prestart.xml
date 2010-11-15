@@ -9,7 +9,7 @@
 		<name>Genbank file check</name>
 		<type>RunUnixCommand</type>
 		<executable>vp-describe-task</executable>
-		<arg>--block --exit-code `vp-run-metrics -t -c input.GENBANK_TAG=$;GENBANK_TAG$; "tag-is-genbank"`</arg>
+		<arg>--show-all --block --exit-code `vp-run-metrics -t -c input.GENBANK_TAG=$;GENBANK_TAG$; "tag-is-genbank"`</arg>
 	</command>
 </commandSet>
 </commandSetRoot>

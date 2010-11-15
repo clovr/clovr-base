@@ -9,7 +9,7 @@
       <name>sff-file Check</name>
       <type>RunUnixCommand</type>
       <executable>vp-describe-task</executable>
-      <arg>--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_SFF_TAG$; "tag-is-sff"`</arg>
+      <arg>--show-all x--block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_SFF_TAG$; "tag-is-sff"`</arg>
     </command>
   </commandSet>
 </commandSetRoot>
