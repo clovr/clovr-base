@@ -16,11 +16,11 @@
           <description>Script to run before bundling the EC2 image</description>
           <defaultValue>/opt/vappio-install/recipes/enablecloudssh.sh</defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
           <name>TAR</name>
           <description>Generate tar of image directory on success. Only valid if IMAGE_NAME is a directory</description>
-          <defaultValue>yes</defaultValue>
-        </hudson.model.StringParameterDefinition>
+          <defaultValue>true</defaultValue>
+         </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -34,7 +34,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 sudo -E /opt/vappio-util/vp-bundle-ec2 -p -f $IMAGE_NAME $INIT_SCRIPT
-if [ &quot;$TAR&quot; = &quot;yes&quot; ]
+if [ &quot;$TAR&quot; = &quot;true&quot; ]
 then
 curl http://localhost:8888/job/Tar%20image/buildWithParameters?IMAGE_DIR=$IMAGE_NAME
 fi</command>
