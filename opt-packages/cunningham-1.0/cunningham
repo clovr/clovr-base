@@ -4,7 +4,7 @@
 #  author: james robert white, james.dna.white@gmail.com
 #          UMB-School of Medicine, Institute for Genome Sciences
 #  created: October 12, 2010
-#  last modified: October 18, 2010
+#  last modified: November 17, 2010
 
 #  *Cunningham is a program designed to provide an estimate of the total
 #  cpu hours a BLAST run will require for an input dataset and one 
@@ -31,8 +31,8 @@
  use strict;
 #*********************************************************************
 
-use vars qw/$opt_Q $opt_P $opt_D $opt_T/;
-getopts("Q:P:D:T:");
+use vars qw/$opt_Q $opt_P $opt_D $opt_T $opt_S/;
+getopts("Q:P:D:T:S");
 my $usage = 
 ".USAGE.   
 ./cunningham -Q <query fasta file> -P <blast program> -D <database> -Q <tmp working dir>
@@ -56,6 +56,7 @@ of several standard databases provided in CloVR (http://clovr.org).
        ncbi-nr         - the full non-redundant ncbi db - blastp/blastx
        clovr-rrnadb    - the full SILVA rRNA db - blastn only
   -T temporary working directory (temp outputs are created and destroyed here, defaults to /tmp).
+  -S use if you want simple outputs results, no verbose working
 
 .KEYWORDS.
 BLAST, meryl, kmers, kmer counting, runtime, database, Amazon, cpu
@@ -84,6 +85,12 @@ my $numSeqstoSample  = 50000;
 my $numSamplings     = 5;
 my $numSeqLimit      = 600000;
 my $residueLimit     = $numSeqLimit*500;
+
+
+my $quiet = 0;
+if (defined($opt_S)){
+  $quiet = 1;  
+}
 
 my %RevCompHash = ();
 $RevCompHash{"A"} = "T"; $RevCompHash{"T"} = "A";
@@ -162,10 +169,18 @@ sub computeRunTimeEstimate
     $runTimeEst = (1.175414e-07*$seedMatchPairSum + 0.000*$querySize)/3600;
   }
 
+  my $throughput_per_hour = $querySize/$runTimeEst;
+  printf "Throughput (residues per hour): %.0f\n", $throughput_per_hour;
+
   my $runTimeDays = $runTimeEst/24; # cpu days
   my $RTLives     = $runTimeDays/28616; # cpu human lifetimes
 
-  printf "Runtime estimate: %.2f cpu hours (%.2f cpu days, %.2f cpu lifetimes)\n", $runTimeEst, $runTimeDays, $RTLives; 
+  if ($quiet == 0){
+    printf "Runtime estimate: %.2f cpu hours (%.2f cpu days, %.2f cpu lifetimes)\n", $runTimeEst, $runTimeDays, $RTLives; 
+  }else{
+    printf "Runtime estimate (cpu hours): %.2f\n", $runTimeEst;
+  }
+
 }
 
 
@@ -187,7 +202,9 @@ sub computeQuerySize
 
   $querySize = $c;
   $totalQuerySeqs = $tot;
-  print "Total query size (residues): $querySize\nTotal number of sequences: $totalQuerySeqs\n";
+  if ($quiet == 0){
+    print "Total query size (residues): $querySize\nTotal number of sequences: $totalQuerySeqs\n";
+  }
 }
 
 
@@ -241,17 +258,17 @@ sub translate
 
 sub computeAllSharedMers
 {
-  print "Computing input query kmer frequency profile...\n";
+  print "Computing input query kmer frequency profile...\n" if $quiet == 0;
 
   if ($totalQuerySeqs <=  $numSeqLimit or $querySize < $residueLimit){ #then we can run the whole thing
     $seedMatchPairSum = computeSharedMers($queryFile); 
   }else{
-    print "Subsampling data for estimates...\n";
+    print "Subsampling data for estimates...\n" if $quiet == 0;
     my @qsplit = split /\//, $queryFile;
     my $qsuff  = $qsplit[$#qsplit];
     my @samples = ();
     for my $i (1 .. $numSamplings){
-      print "Sample $i of $numSamplings...\r";   
+      print "Sample $i of $numSamplings...\r" if $quiet == 0;   
       sample($numSeqstoSample, "$tmpdir/$qsuff.tmp");
       my $m = computeSharedMers("$tmpdir/$qsuff.tmp");
       push @samples, $m;
@@ -263,8 +280,8 @@ sub computeAllSharedMers
     $seedMatchPairSum = $avgM*$scalingfactor;
     
   }  
-  print "\n";
-  print "Number of seed match pairs: $seedMatchPairSum\n";
+  print "\n" if $quiet == 0;
+  print "Number of seed match pairs: $seedMatchPairSum\n" if $quiet == 0;
 
 }
 
@@ -419,7 +436,7 @@ sub willItWork
 
 sub checkConsistency
 {
-  print "Checking file for residues...";
+  print "Checking file for residues..." if $quiet == 0;
   open IN, "$queryFile" or die "Cannot open query input fasta file!!\n";
   my $numLinesToCk = 20;
   my $entrycount = 0;
@@ -431,12 +448,12 @@ sub checkConsistency
       next;  
     } 
     if ($_ =~ /(R|D|E|Q|H|I|L|K|M|F|P|S|W|Y|V|U|O)/){
-      print "proteins found...\n";
+      print "proteins found...\n" if $quiet == 0;
       return("protein");
     }
   }
   close IN;
-  print "nucleotides found...\n";
+  print "nucleotides found...\n" if $quiet == 0;
   return("nucleotide");   
 }
 
