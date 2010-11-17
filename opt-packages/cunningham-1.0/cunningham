@@ -67,8 +67,8 @@ die $usage unless defined $opt_Q
 
 
 # globals
-my $merylPath        = "/opt/opt-packages/bioinf-v1r4b1/cunningham1.0/hacked_meryl/meryl";
-my $dbFreqPath       = "/opt/opt-packages/bioinf-v1r4b1/cunningham1.0/db_profiles";
+my $merylPath        = "/opt/cunningham/hacked_meryl/meryl";
+my $dbFreqPath       = "/opt/cunningham/db_profiles";
 my $seedMatchPairSum = 0;  # This is the sum of the 
 	                   # number of pairwise seed matches 
                            # between qry and db.
