@@ -127,7 +127,7 @@
 		</commandSet>
 		<commandSet type="serial">
 			<state>incomplete</state>
-			<name>split_mutlifasta.post_overlap_analysis</name>
+			<name>split_multifasta.post_overlap_analysis</name>
 		</commandSet>
 		<commandSet type="parallel">
             <state>incomplete</state>
