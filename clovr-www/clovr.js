@@ -91,4 +91,83 @@ clovr.uploadFileWindow = function(config) {
     uploadWindow.show();
 }
 
+// A combobox to select an available credential
+clovr.credentialCombo = function(config) {
+    var combo;
+    var store = new Ext.data.JsonStore({
+        fields: [
+            {name: "name"},
+            {name: "desc"},
+            {name: "ctype"},
+            {name: "active"}
+            ],
+        root: function(data) {
+            return data.data;
+        },
+        url: "/vappio/credential_ws.py",
+        baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
+        autoLoad: true,
+        listeners: {
+            load: function(store,records,o) {
+                if(!config.default_value) {
+                    combo.setValue(records[0].data.name);
+                }
+                else {
+                    combo.setValue(config.default_value);
+                }
+            },
+            loadexceptions: function() {
+            }
+        }
+    });    
+    combo = new Ext.form.ComboBox(Ext.apply(config, {
+        valueField: 'name',
+        fieldName: 'cluster.CREDENTIAL_NAME',
+        store: store,
+        triggerAction: 'all',
+        displayField: 'name',
+        fieldLabel: 'Account'
+    }));
+    return combo;
+}
+
+// A combobox to select an available cluster
+clovr.clusterCombo = function(config) {
+    var combo;
+    var store = new Ext.data.JsonStore({
+        fields: [
+            {name: "name"},
+        ],
+        root: function(data) {
+            var jsonData = [];
+            Ext.each(data.data, function(elm) {
+                jsonData.push({"name": elm});
+            });
+            return jsonData;
+        },
+        url: "/vappio/listClusters_ws.py",
+        autoLoad: true,
+        listeners: {
+            load: function(store,records,o) {
+                if(!config.default_value) {
+                    combo.setValue(records[0].data.name);
+                }
+                else {
+                    combo.setValue(config.default_value);
+                }
+            },
+            loadexceptions: function() {
+            }
+        }
+    });
+    
+    combo = new Ext.form.ComboBox(Ext.apply(config,{
+        valueField: 'name',
+        store: store,
+        triggerAction: 'all',
+        displayField: 'name',
+        fieldLabel: 'Cluster'
+    }));
+    return combo;
+}
 // clearly, this is a work in progress...

@@ -15,7 +15,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         var customParams = {
             'misc.PROGRAM': 1,
             'input.REF_DB_TAG': 1,
-            'input.INPUT_TAG': 1
+            'input.INPUT_TAG': 1,
+            'cluster.CLUSTER_NAME':1,
+            'cluster.CLUSTER_CREDENTIAL':1
         };
 
         var programStore = new Ext.data.ArrayStore({
@@ -37,7 +39,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         var normal_params = [];
         Ext.each(config.fields, function(field, i, fields) {
             var dname = field.display ? field.display : field.field;
-
+            
             if(field.visibility == 'default_hidden') {
                 advanced_params.push({xtype: 'textfield',
                                       fieldLabel: dname,
@@ -292,6 +294,12 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              editable: false,
              value: 'Example_B_subtilis_168_Protein_DB'
             }]);
+        normal_params.push(clovr.credentialCombo({
+            name: 'cluster.CLUSTER_CREDENTIAL'
+        }));
+        normal_params.push(clovr.clusterCombo({
+            name: 'cluster.CLUSTER_NAME'
+        }));
         seq_inputs.push(normal_params);
         
         seq_inputs.push(
