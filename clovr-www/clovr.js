@@ -3,7 +3,6 @@ Ext.namespace('clovr');
 
 clovr.uploadFileWindow = function(config) {
     
-
     // A window to house the upload form
     var uploadWindow = new Ext.Window({
         layout: 'fit',
@@ -12,6 +11,7 @@ clovr.uploadFileWindow = function(config) {
         title: 'Upload File'
     });
     
+    // A form to for the upload
     var uploadForm = new Ext.form.FormPanel({
         fileUpload: true,
         url: '/vappio/uploadFile_ws.py',
@@ -20,7 +20,7 @@ clovr.uploadFileWindow = function(config) {
             {xtype: 'fileuploadfield',
              width: 200,
              fieldLabel: 'Or, Upload Fasta File',
-             vtype: 'alphanum',
+//             vtype: 'alphanum',
              id: 'uploadfilepath',
              name: 'file',
              listeners: {
@@ -31,9 +31,30 @@ clovr.uploadFileWindow = function(config) {
                  }
              }
             },
+            
+            // Combobox for type.
+            {xtype: 'combo',
+             id: 'inputfiletype',
+             fieldLabel: 'Sequence Type',
+             submitValue: false,
+             mode: 'local',
+             autoSelect: true,
+             editable: false,
+             forceSelection: true,
+             value: 'aa_FASTA',
+             triggerAction: 'all',
+             fieldLabel: 'Select a pre-made dataset',
+             store: new Ext.data.ArrayStore({
+                 fields:['id','name'],
+                 data: [['aa_FASTA','Protein'],['nuc_FASTA', 'Nucleotide']]
+             }),
+             valueField: 'id',
+             displayField: 'name'
+            },
             {xtype: 'textfield',
              id: 'uploadfilename',
-             fieldLabel: 'Name your dataset',
+             vtype: 'alphanum',
+             fieldLabel: "Name your dataset<br/>(No spaces or '-')",
              submitValue: false
             },
             {xtype: 'textarea',
@@ -70,10 +91,23 @@ clovr.uploadFileWindow = function(config) {
                                  })
                              },
                              success: function(r,o) {
-                                 if(config.store) {
-                                     config.store.reload();
-                                 }
-                                 uploadWindow.close();
+//                                 if(config.sampleData) {
+                                     Ext.Msg.show({
+                                         title: 'Tagging Data...',
+                                         width: 200,
+                                         mask: true,
+                                         closable: false,
+                                         wait: true,
+                                         progressText : 'Tagging Data'
+                                     });
+                                     clovr.checkTagTaskStatusToSetValue({
+                                         uploadwindow: uploadWindow,
+                                         seqcombo: config.seqcombo,
+                                         tagname: values.uploadfilename,
+//                                         callback: config.callback,
+                                         data: Ext.util.JSON.decode(r.responseText)
+                                     });
+//                                 }
                              },
                              failure: function(r,o) {
                              }
@@ -88,7 +122,69 @@ clovr.uploadFileWindow = function(config) {
         
     });
     uploadWindow.add(uploadForm);
-    uploadWindow.show();
+    return uploadWindow;
+}
+
+// Function to Monitor the status of a tag and set a 
+// particular field value. 
+clovr.checkTagTaskStatusToSetValue = function(config) {
+    var uploadWindow = config.uploadwindow;
+    var seqcombo = config.seqcombo;
+
+    var task = {                
+        run: function() {
+            var callback = function(r) {
+                var rjson = Ext.util.JSON.decode(r.responseText);
+                var rdata = rjson.data[0];
+                if(rdata.state =="completed") {
+                    Ext.Msg.hide();
+                    seqcombo.getStore().loadData([[config.tagname]],true);
+                    seqcombo.setValue(config.tagname);
+                    Ext.TaskMgr.stop(task);
+                    uploadWindow.hide();
+                }
+                else if(rdata.state =="failed") {
+                }
+            };
+            clovr.getTaskInfo(config.data.data,callback);
+        },
+        interval: 5000
+    };
+    Ext.TaskMgr.start(task);
+}
+
+// getTaskInfo:
+// Get's information from task_ws.py
+clovr.getTaskInfo = function(task_name,callback) {
+    Ext.Ajax.request({
+        url: '/vappio/task_ws.py',
+        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': task_name})},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            var rdata = rjson.data[0];
+            callback(r);
+        }
+    });
+}
+
+// getPipelineStatus: 
+// Takes the name of the pipeline and calls a callback function
+// with the results.
+clovr.getPipelineStatus = function(config) {
+
+    Ext.Ajax.request({
+        url: '/vappio/pipelineStatus_ws.py',
+        params: {request: 
+                 Ext.util.JSON.encode(
+                     {'name': config.cluster_name,
+                      'pipelines': [config.pipe_name]
+                     })},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            var rdata = rjson.data[0][1];
+            config.callback(rdata);
+        }
+    });
 }
 
 // A combobox to select an available credential
@@ -122,8 +218,8 @@ clovr.credentialCombo = function(config) {
     });    
     combo = new Ext.form.ComboBox(Ext.apply(config, {
         valueField: 'name',
-        fieldName: 'cluster.CREDENTIAL_NAME',
         store: store,
+        mode: 'local',
         triggerAction: 'all',
         displayField: 'name',
         fieldLabel: 'Account'
@@ -164,10 +260,12 @@ clovr.clusterCombo = function(config) {
     combo = new Ext.form.ComboBox(Ext.apply(config,{
         valueField: 'name',
         store: store,
+        mode: 'local',
         triggerAction: 'all',
         displayField: 'name',
         fieldLabel: 'Cluster'
     }));
     return combo;
 }
+
 // clearly, this is a work in progress...

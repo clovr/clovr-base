@@ -67,113 +67,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 }
             }
         });
-        var uploadForm = new Ext.form.FormPanel({
-            fileUpload: true,
-            url: '/vappio/uploadFile_ws.py',
-            frame: true,
-            labelWidth: 120,
-            items: [
-                {xtype: 'fileuploadfield',
-                 width: 200,
-                 fieldLabel: 'Or, Upload Fasta File',
-                 id: 'uploadfilepath',
-                 name: 'file',
-                 listeners: {
-                     change: function(field, newval, oldval) {
-                         if(newval) {
-                             clovrform.changeInputDataSet(field);
-                         }
-                     }
-                 }
-                },
-                {xtype: 'combo',
-                 id: 'inputfiletype',
-                 fieldLabel: 'Sequence Type',
-                 submitValue: false,
-                 mode: 'local',
-                 autoSelect: true,
-                 editable: false,
-                 forceSelection: true,
-                 value: 'aa_FASTA',
-                 triggerAction: 'all',
-                 fieldLabel: 'Select a pre-made dataset',
-                     store: new Ext.data.ArrayStore({
-                         fields:['id','name'],
-                         data: [['aa_FASTA','Protein'],['nuc_FASTA', 'Nucleotide']]
-                     }),
-                     valueField: 'id',
-                     displayField: 'name'
-                },
-                 {xtype: 'textfield',
-                  id: 'uploadfilename',
-                  vtype: 'alphanum',
-                  fieldLabel: "Name your dataset<br/>(No spaces or '-')",
-                  submitValue: false
-                 },
-                 {xtype: 'textarea',
-                  width: 200,
-                  id: 'uploadfiledesc',
-                  fieldLabel: 'Describe your dataset',
-                  submitValue: false
-                }
-            ],
-            buttons: [
-                {text: 'Upload',
-                 handler: function() {
-                     uploadForm.getForm().submit({
-                         waitMsg: 'Uploading File',
-                         success: function(r,o) {
-                             var path = '/mnt/user_data/';
-                             var values = uploadForm.getForm().getFieldValues();
-                             Ext.Ajax.request({
-                                 url: '/vappio/tagData_ws.py',
-                                 params: {
-                                     'request':Ext.util.JSON.encode({
-                                         'files': [path + values.file],
-                                         'name': 'local',
-                                         'expand': true,
-                                         'recursive': false,
-                                         'append': false,
-                                         'overwrite': true,
-                                         'compress': false,
-                                         'tag_name': values.uploadfilename,
-                                         'tag_metadata': {
-                                             'description': values.uploadfiledesc
-                                         },
-                                         'tag_base_dir': path
-                                     })
-                                 },
-                                 success: function(r,o) {
-                                     if(config.sampleData) {
-                                         clovrform.checkTagTaskStatusToSetValue(Ext.util.JSON.decode(r.responseText),values.uploadfilename);
-                                     }
-                                 },
-                                 failure: function(r,o) {
-                                 }
-                                 });
-                         },
-                         failure: function(r,o) {
-//                             console.log('crapppers');
-//                             console.log(r.responseText);
-                         }
-                     })
-                 }
-                }
-            ]
 
-        });
-        
-        var uploadWindow = new Ext.Window({
-            layout: 'fit',
-            width: 400,
-            height: 300,
-            title: 'upload file',
-            closeAction: 'hide',
-            items: [uploadForm]
-        });
-        clovrform.uploadWindow = uploadWindow;
-        
-        
         var seq_inputs = [];
 
         var seq_fieldset = {xtype: 'fieldset',
@@ -266,6 +160,10 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                   }
                  }];
         }
+        var uploadWindow = clovr.uploadFileWindow({
+            seqcombo: clovrform.seqCombo
+        });
+        clovrform.uploadWindow = uploadWindow;
         seq_inputs.push([
                 seq_fieldset,
             {xtype: 'combo',
@@ -401,48 +299,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             }
         });
     },
-    checkTagTaskStatusToSetValue: function(data,tagName) {
-        var seqcombo = this.seqCombo;
-        var uploadWindow = this.uploadWindow;
-        if(this.seqCombo) {
-            Ext.Msg.show({
-                title: 'Tagging Data...',
-                width: 200,
-                mask: true,
-                closable: false,
-                wait: true,
-                progressText : 'Tagging Data'
-            });
-            
-            var task = {                
-                run: function() {
-                    Ext.Ajax.request({
-                        url: '/vappio/task_ws.py',
-                        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': data.data})},
-                        success: function(r,o) {
-                            var rjson = Ext.util.JSON.decode(r.responseText);
-                            var rdata = rjson.data[0];
-                            if(rjson.success) {
-                                if(rdata.state =="completed") {
-                                    Ext.Msg.hide();
-                                    seqcombo.getStore().loadData([[tagName]],true);
-                                    seqcombo.setValue(tagName);
-                                    Ext.TaskMgr.stop(task);
-                                    uploadWindow.hide();
-                                }
-                                else if(rdata.state =="failed") {
-                                }
-                            }
-                            else {
-                            }
-                        }
-                    });
-                },
-                interval: 5000
-            };
-            Ext.TaskMgr.start(task);
-        }
-    }
+
 });
 
 Ext.reg('blastclovrformpanel', clovr.BlastClovrFormPanel);

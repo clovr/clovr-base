@@ -21,7 +21,7 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
         this.doLayout();
         var task = {
             run: function() {
-                getWrapperInfo(task, thisPanel, config.pipeData)
+                getWrapperTaskInfo(task, thisPanel, config.pipeData)
             },
             interval: 10000
         };
@@ -32,7 +32,7 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
 //        var markup = 'The output to your pipeline is available here: '+
 //            '<a href="'pipeInfo.config['input.TAGS_TO_DOWNLOAD']+
 //            '">Your output File</a>';
-        if(pipeInfo.status = 'complete') {
+        if(pipeInfo.state == 'complete') {
 //            this.update(markup);
             this.add({xtype: 'container',
                       layout: 'vbox',
@@ -85,8 +85,63 @@ clovr.BlastOutputPanel = Ext.extend(Ext.Panel, {
 
 Ext.reg('blastoutputpanel', clovr.BlastOutputPanel);
 
+function getWrapperTaskInfo(task, panel, pipeData) {
+    clovr.getTaskInfo(
+        pipeData.taskname,
+        function(r) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            if(rjson.success) {
+                var rdata = rjson.data[0];
+                if(rjson.success) {
+                    if(rdata.state =="completed") {
+                        Ext.TaskMgr.stop(task);
+                        Ext.Msg.hide();
+                        clovr.getPipelineStatus({
+                            cluster_name: 'local',
+                            pipe_name: pipeData.wrappername,
+                            callback: function(r) {
+                                panel.makePanel(r,pipeData);
+                            }});
+                    }
+                    else if(rdata.state =="error" || rdata.state == "failed") {
+                        Ext.TaskMgr.stop(task);
+                        Ext.Msg.show({
+                            title: 'Pipeline Failed!',
+                            width: 400,
+                            mask:true,
+                            msg: 'This Pipeline Failed with error:'
+                                +'<br/>'+rdata.messages[rdata.messages.length - 1].text
+                                +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to Retry.',
+                            icon: Ext.Msg.ERROR,
+                            closable: false
+                        });
+                    }
+                    else {
+                        clovr.getPipelineStatus({
+                            cluster_name: 'local',
+                            pipe_name: pipeData.wrappername,
+                            callback: function(r) {
+                                var conf = r.config;
+                                Ext.Msg.show({
+                                    title: 'Pipeline is Running',
+                                    progress: true,
+                                    width: 300,
+                                    mask: true,
+                                    msg: 'The Search with query '+conf['input.INPUT_TAG']+' is running'
+                                        +'<br/>Go to the <a href=/clovr/blast/>Blast Form</a> to submit a new search.'
+                                });
+                                Ext.Msg.updateProgress(rdata.completedTasks/rdata.numTasks);
+                            }});
+                    }
+                }
+            }
+            else {
+            }
+        });
+}
 
 function getWrapperInfo(task, panel, pipeData) {
+
 
     // First let's pull back the info for the pipeline
     Ext.Ajax.request({
@@ -139,47 +194,22 @@ function getWrapperInfo(task, panel, pipeData) {
 }
 
 function getDlTaskInfo(task_name,file) {
-    Ext.Ajax.request({
-        url: '/vappio/task_ws.py',
-        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': task_name})},
-        success: function(r,o) {
-            var rjson = Ext.util.JSON.decode(r.responseText);
-            var rdata = rjson.data[0];
-            if(rjson.success) {
-                if(rdata.state =="completed") {
-                    Ext.Msg.hide();
-                    Ext.TaskMgr.stop(task);
-                    document.location = file;
-                }
-                else if(rdata.state =="failed") {
-                }
-            }
-            else {
-            }
 
-        }
-    });
-}
-function getTaskInfo(task_name) {
-    Ext.Ajax.request({
-        url: '/vappio/task_ws.py',
-        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': data.data})},
-        success: function(r,o) {
-            var rjson = Ext.util.JSON.decode(r.responseText);
-            var rdata = rjson.data[0];
-            if(rjson.success) {
-                if(rdata.state =="completed") {
-                    Ext.Msg.hide();
-                    seqcombo.getStore().loadData([[tagName]],true);
-                    seqcombo.setValue(tagName);
-                    Ext.TaskMgr.stop(task);
-                    uploadWindow.hide();
-                }
-                else if(rdata.state =="failed") {
-                }
+    var callback = function(r) {
+        var rjson = Ext.util.JSON.decode(r.responseText);
+        var rdata = rjson.data[0];
+        if(rjson.success) {
+            if(rdata.state =="completed") {
+                Ext.Msg.hide();
+                Ext.TaskMgr.stop(task);
+                document.location = file;
             }
-            else {
+            else if(rdata.state =="failed") {
             }
         }
-    });
+        else {
+        }
+    };
+
+    clovr.getTaskInfo(task_name,callback);
 }
