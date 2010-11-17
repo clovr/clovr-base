@@ -48,10 +48,15 @@ function makeBlastForm(cont) {
         url: '/vappio/listProtocols_ws.py',
         success: function(response) {
             var pipelines = clovrParsePipelines(Ext.util.JSON.decode(response.responseText).data);
+            var fields = pipelines['clovr_search_webfrontend'].fields;
             var blast_form = new clovr.BlastClovrFormPanel({
-                fields: pipelines['clovr_search_webfrontend'].fields,
+                fields: fields,
                 sampleData: [['Example_B_subtilis_168_Proteins']],
-                region: 'center'
+                region: 'center',
+                default_credential: 'diag',
+                hide_credential: true,
+                default_cluster: 'DIAG',
+                hide_cluster: true
             });
             cont.add(blast_form);
             cont.getLayout().setActiveItem(blast_form);

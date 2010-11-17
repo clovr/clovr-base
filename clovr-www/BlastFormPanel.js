@@ -192,12 +192,21 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
              editable: false,
              value: 'Example_B_subtilis_168_Protein_DB'
             }]);
+        var cred_conf = {
+            
+        };
         normal_params.push(clovr.credentialCombo({
-            name: 'cluster.CLUSTER_CREDENTIAL'
+            name: 'cluster.CLUSTER_CREDENTIAL',
+            default_value: config.default_credential,
+            hidden: config.hide_credential
+
         }));
         normal_params.push(clovr.clusterCombo({
-            name: 'cluster.CLUSTER_NAME'
+            name: 'cluster.CLUSTER_NAME',
+            default_value: config.default_cluster,
+            hidden: config.hide_cluster
         }));
+
         seq_inputs.push(normal_params);
         
         seq_inputs.push(
