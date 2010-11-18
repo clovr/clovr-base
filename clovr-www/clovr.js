@@ -1,6 +1,23 @@
+/*!
+ * clovr.js
+ * 
+ * A collection of functions primarily used to interact with the
+ * Vappio Webservices.
+ * 
+ * Author: David Riley
+ * Institute for Genome Sciences
+ */
+
+
 // clovr namespace
 Ext.namespace('clovr');
 
+/**
+ * Creates a window that can be used to upload a dataset.
+ * @param {object} config A config object that supports the following params:
+ *      seqcombo - a combobox whose value will be set with the uploaded dataset
+ * 
+ */
 clovr.uploadFileWindow = function(config) {
     
     // A window to house the upload form
@@ -20,7 +37,6 @@ clovr.uploadFileWindow = function(config) {
             {xtype: 'fileuploadfield',
              width: 200,
              fieldLabel: 'Or, Upload Fasta File',
-//             vtype: 'alphanum',
              id: 'uploadfilepath',
              name: 'file',
              listeners: {
@@ -91,7 +107,6 @@ clovr.uploadFileWindow = function(config) {
                                  })
                              },
                              success: function(r,o) {
-//                                 if(config.sampleData) {
                                      Ext.Msg.show({
                                          title: 'Tagging Data...',
                                          width: 200,
@@ -104,10 +119,8 @@ clovr.uploadFileWindow = function(config) {
                                          uploadwindow: uploadWindow,
                                          seqcombo: config.seqcombo,
                                          tagname: values.uploadfilename,
-//                                         callback: config.callback,
                                          data: Ext.util.JSON.decode(r.responseText)
                                      });
-//                                 }
                              },
                              failure: function(r,o) {
                              }
@@ -153,8 +166,11 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
     Ext.TaskMgr.start(task);
 }
 
-// getTaskInfo:
-// Get's information from task_ws.py
+/**
+ * Retrieves information from task_ws.py
+ * @param {String}   task_name    The name of the task 
+ * @param {Function} callback     A function to call with the response data.
+ */
 clovr.getTaskInfo = function(task_name,callback) {
     Ext.Ajax.request({
         url: '/vappio/task_ws.py',
@@ -201,7 +217,7 @@ clovr.credentialCombo = function(config) {
             return data.data;
         },
         url: "/vappio/credential_ws.py",
-        baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
+        params: {request: Ext.util.JSON.encode({name: 'local'})},
         autoLoad: true,
         listeners: {
             load: function(store,records,o) {
@@ -268,4 +284,15 @@ clovr.clusterCombo = function(config) {
     return combo;
 }
 
+// Pulls data from clusterInfo_ws.py
+clovr.getClusterInfo = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/clusterInfo_ws.py',
+        params: {request: Ext.util.JSON.encode({name: config.cluster_name})},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            config.callback(rjson);
+        }
+    });
+}
 // clearly, this is a work in progress...
