@@ -7,12 +7,12 @@
     <name>clovr_blastall.postrun</name>
      <!-- Pull in download_tag XML to try to yank it into the postrun pipeline -->
      <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
-	<command>
-                <name>post-qc-metric</name>
-                <type>RunUnixCommand</type>
-                <executable>vp-describe-task</executable>
-                <arg>--show-all --block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_WRAPPER_NAME$; "empty-file-check --error_log=/mnt/post-qc-log.txt"`</arg>
-        </command>
+     <command>
+             <name>post-qc-metric</name>
+             <type>RunUnixCommand</type>
+             <executable>vp-describe-task</executable>
+             <arg>--show-all --block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_WRAPPER_NAME$; "empty-file-check --error_log=/mnt/post-qc-log.txt"`</arg>
+     </command>
 	<command>
                 <type>RunUnixCommand</type>
                 <name>add pipeline metadata to tag</name>
