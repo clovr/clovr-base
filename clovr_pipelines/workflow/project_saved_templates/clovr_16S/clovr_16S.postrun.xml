@@ -5,12 +5,27 @@
     <state>incomplete</state>
     <name>clovr_16S.postrun</name>
     <!-- Pull in download_tag XML to try to yank it into the postrun pipeline -->
-    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml">
+    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" />
 	<command>
                 <name>post-qc-metric</name>
                 <type>RunUnixCommand</type>
                 <executable>vp-describe-task</executable>
                 <arg>--show-all --block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_WRAPPER_NAME$; "empty-file-check --error_log=/mnt/post-qc-log.txt"`</arg>
+        </command>
+	 <command>
+                <type>RunUnixCommand</type>
+                <name>add pipeline metadata to tag</name>
+                <state>incomplete</state>
+                <executable>/opt/vappio-py/vappio/cli/vp-describe-task</executable>
+                <arg>--block --exit-code `vp-run-metrics -t --pipeline-name=$;PIPELINE_NAME$; "add-config-to-tag-metadata"`</arg>
+                <param>
+                <key>stdout</key>
+                <value>$;OUTPUT_DIRECTORY$;/add_config_to_tag.stdout</value>
+                </param>
+                <param>
+                <key>stderr</key>
+                <value>$;OUTPUT_DIRECTORY$;/add_config_to_tag.stderr</value>
+                </param>
         </command>
   </commandSet>
 </commandSetRoot>
