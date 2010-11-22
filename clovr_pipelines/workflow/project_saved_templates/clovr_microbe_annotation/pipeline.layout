@@ -64,6 +64,10 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>run_command.set_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>concatenate_files.translate</name>
         </commandSet>
         <commandSet type="serial">
