@@ -113,9 +113,11 @@ Total number of samples (columns): $numsamples
 print "\n**Calling R to create figure...\n";
 open OUT, ">$prefix\.in" or die "Can't open temp file $prefix.in!\n";
 my $infile = $matrixfile; 
-my $outfile = "$prefix.pdf";
+my $outfile1 = "$prefix.lognormalized.pdf";
+my $outfile2 = "$prefix.proportions.pdf";
+
 print OUT 
-"jrwHClust <- function(infile, outfile){
+"jrwHClust <- function(infile, outfile1, outfile2){
 
   library(\"gplots\")
   library(\"RColorBrewer\")
@@ -134,33 +136,40 @@ print OUT
   colnames(C) <- samp_names[2:length(samp_names)];
   rownames(C) <- Counts[,1];
     
-  
   Cnormed <- array(0, dim=c(nrows,ncols));
   for (i in 1:nrows){
-    for (j in 1:ncols){
+      for (j in 1:ncols){
           if (C[i,j] > 0){
             Cnormed[i,j] = log10((C[i,j])/sum(C[,j]));
           }else{
             Cnormed[i,j] = 2
           }
+      }
     }
+  
+    minimumval = min(Cnormed)
+    for (i in 1:nrows){
+      for (j in 1:ncols){
+        if (Cnormed[i,j] > 0){
+          Cnormed[i,j] = minimumval - 0.001;
+        }
+      }
+    }
+
+  Cprop <- array(0, dim=c(nrows,ncols));
+  for (i in 1:nrows){
+      for (j in 1:ncols){
+        Cprop[i,j] = C[i,j]/sum(C[,j]);
+      }
   }
   
-  minimumval = min(Cnormed)
-  for (i in 1:nrows){
-    for (j in 1:ncols){
-          if (Cnormed[i,j] > 0){
-                Cnormed[i,j] = minimumval - 0.001;
-          }
-        }
-   }
-
-  print(Cnormed)
   colnames(Cnormed) <- colnames(C);
   rownames(Cnormed) <- rownames(C);
+  colnames(Cprop) <- colnames(C);
+  rownames(Cprop) <- rownames(C);
+
   reds = rev(rainbow(200))[1:10];
   COLORS = c(rainbow(200)[32:200],reds);
-  pdf(outfile);
   CR = NULL;
   CC = NULL;
   if (nrows > 50){
@@ -177,20 +186,36 @@ print OUT
   }
   sw1 = 0.01/nrows;
   sw2 = 0.01/ncols;
+
+  pdf(outfile1);
   par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5));
   if(nrows > 80 || ncols > 80){
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.2), lhei=c(1,4));
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }else{
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.2), lhei=c(1,4));
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }
   dev.off()
+
+
+  pdf(outfile2);
+  par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5));
+  if(nrows > 80 || ncols > 80){
+    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+  }else{
+    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+  }
+  dev.off()
+
 }
 
-jrwHClust(\"$infile\", \"$outfile\")\n";
+jrwHClust(\"$infile\", \"$outfile1\", \"$outfile2\")\n";
 close OUT;
 
 #  run R batch template
 #********************************************************************
 system("R CMD BATCH $prefix\.in $prefix\.out"); 
-#system("rm $prefix\.in $prefix\.out");
+
+
+
+
 
