@@ -125,6 +125,22 @@
             <state>incomplete</state>
             <name>bsml2fasta.create_blastx_post_input</name>
         </commandSet>
+       	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.tag_polypeptides_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_cpu_hours_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.resize_cluster_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_ergatis_values_post</name>
+        </commandSet>
 		<commandSet type="serial">
 			<state>incomplete</state>
 			<name>concatenate_files.post_overlap_analysis</name>
