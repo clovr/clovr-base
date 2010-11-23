@@ -204,6 +204,7 @@
             <state>incomplete</state>
             <name>tabula_rasa.prep_parse_evidence</name>
         </commandSet>
+        <commandSet type="parallel">
         <commandSet type="serial">
             <state>incomplete</state>
             <name>parse_evidence.hmmpfam_pre</name>
@@ -214,8 +215,17 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>parse_evidence.hmmpfam_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>parse_evidence.ber_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>parse_evidence.hypothetical</name>
         </commandSet>    
+        </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>p_func.default</name>
