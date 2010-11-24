@@ -11,7 +11,7 @@
           <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
-	<hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
           <name>UPLOAD_EC2</name>
           <description>Upload image to EC2 on a successful build</description>
           <defaultValue>true</defaultValue>
@@ -31,6 +31,11 @@
           <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the target image name, usually clovr-standard-datestring</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>UPLOAD_DIAG</name>
+          <description>Upload image to DIAG</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -47,17 +52,22 @@ export BUILD_ID=$BUILD_ID
 export BUILD_DIR=$BUILD_DIR
 export BUILD_NAME=$BUILD_NAME
 export UPLOAD_EC2=$UPLOAD_EC2
-if [ "$BUNDLE_TOOLS" = "true" ]
+if [ &quot;$BUNDLE_TOOLS&quot; = &quot;true&quot; ]
 then
-	bundletools="-t"
+	bundletools=&quot;-t&quot;
 fi
-sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-standard
-if [ $? = 0 ] &amp;&amp; [ "$UPLOAD_EC2" = "true" ]
+sudo -E /opt/vappio-util/vp-build -s /opt/vappio-install/recipes/clovrsplash.sh $bundletools $IMAGE_NAME clovr-standard
+if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_EC2&quot; = &quot;true&quot; ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
   curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
 fi
-</command>
+
+if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_DIAG&quot; = &quot;true&quot; ]
+then
+  bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
+  curl http://localhost:8888/job/Bundle%20diag%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
+fi</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
