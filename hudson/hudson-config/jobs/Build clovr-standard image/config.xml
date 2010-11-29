@@ -17,10 +17,20 @@
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
         <hudson.model.BooleanParameterDefinition>
+          <name>UPLOAD_DIAG</name>
+          <description>Upload image to DIAG</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
           <name>BUNDLE_TOOLS</name>
           <description>Bundle guest tools for VMware and Virtualbox</description>
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SPLASHSCRIPT</name>
+          <description>Script to install a splash screen on the image</description>
+          <defaultValue>/opt/vappio-install/recipes/clovrsplash.sh</defaultValue>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUILD_DIR</name>
           <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the prefix for the loopback directory that is mounted as BUILD_DIR.live</description>
@@ -31,11 +41,6 @@
           <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the target image name, usually clovr-standard-datestring</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.BooleanParameterDefinition>
-          <name>UPLOAD_DIAG</name>
-          <description>Upload image to DIAG</description>
-          <defaultValue>true</defaultValue>
-        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -56,7 +61,8 @@ if [ &quot;$BUNDLE_TOOLS&quot; = &quot;true&quot; ]
 then
 	bundletools=&quot;-t&quot;
 fi
-sudo -E /opt/vappio-util/vp-build -s /opt/vappio-install/recipes/clovrsplash.sh $bundletools $IMAGE_NAME clovr-standard
+
+sudo -E /opt/vappio-util/vp-build -s $SPLASHSCRIPT $bundletools $IMAGE_NAME clovr-standard
 if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_EC2&quot; = &quot;true&quot; ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
