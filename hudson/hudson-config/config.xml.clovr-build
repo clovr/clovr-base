@@ -1,19 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <version>1.374</version>
-  <numExecutors>1</numExecutors>
+  <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
-  <systemMessage>
-&lt;div&gt;
-&lt;p&gt;&lt;img src='/clovr-logo-small.png'&gt; 
-Automated testing and image builds for &lt;a href='http://clovr.sf.net'&gt;CloVR&lt;/a&gt;&lt;/p&gt;
-&lt;iframe id=mytests src="" width=100% height=250&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;script&gt;
-document.getElementById('mytests').src='http://'+window.location.hostname+'/'
-&lt;/script&gt;
+  <systemMessage>&lt;div&gt;&#xd;
+&lt;p&gt;&lt;img src=&apos;/clovr-logo-small.png&apos;&gt; &#xd;
+Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;&lt;/p&gt;&#xd;
+&lt;iframe id=mytests src=&quot;&quot; width=100% height=250&gt;&lt;/iframe&gt;&#xd;
+&lt;/div&gt;&#xd;
+&lt;script&gt;&#xd;
+document.getElementById(&apos;mytests&apos;).src=&apos;http://&apos;+window.location.hostname+&apos;/&apos;&#xd;
+&lt;/script&gt;&#xd;
 </systemMessage>
   <jdks/>
   <clouds/>
@@ -39,6 +38,7 @@ document.getElementById('mytests').src='http://'+window.location.hostname+'/'
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Bundle diag image</string>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -51,28 +51,6 @@ document.getElementById('mytests').src='http://'+window.location.hostname+'/'
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>.*(image)</includeRegex>
-    </listView>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>Appliance roles</name>
-      <description>&lt;p&gt;Apply set of recipes to the current running image&lt;/p&gt;&#xd;
-&lt;p&gt;Use with caution, this will update the live image providing this hudson instance&lt;/p&gt;</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <jobNames class="tree-set">
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>^(Install).*</includeRegex>
     </listView>
   </views>
   <primaryView>Buildbox</primaryView>
