@@ -9,7 +9,7 @@
       <name>Fasta-file Check</name>
       <type>RunUnixCommand</type>
       <executable>vp-describe-task</executable>
-      <arg>--show-all --block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_TAG$; "tag-is-fasta"`</arg>
+      <arg>--show-all --block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_TAG$; "tag-is-fasta --db_type=$;PROGRAM$;"`</arg>
     </command>
   </commandSet>
 </commandSetRoot>
