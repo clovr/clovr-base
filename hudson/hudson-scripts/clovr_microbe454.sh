@@ -1,5 +1,4 @@
 #!/bin/bash
-exit 1
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
