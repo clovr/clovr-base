@@ -7,7 +7,7 @@
 
 
 use strict;
-use lib '/opt/mugsy_x86-64';
+use lib '/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/mapping';
 use AlignmentTree;
 use Storable qw(store retrieve);
 use Data::Dumper;
@@ -29,7 +29,7 @@ my $k=0;
 my $i=0;
 my $label;
 while(my $line=<STDIN>){
-    if($line =~ /^a\s+score=(\d+)/){
+    if($line =~ /^a\s+score=([\d\.\-]+)/){
 	my $name = "WGA_$label";
 	if(exists $atree->{_alignments}->{"WGA_$label"}){
 	    print "Creating new alignment name. $name taken\n";

@@ -139,7 +139,10 @@ sub insert{
 	    #Check that column count is consistent
 	    my ($cigs,$columncount) = &get_cigs($align->[4]);
 	    $align_width = $columncount if(!$align_width);
-	    die "Bad input. Mismatched column count $columncount in $align->[4], expecting $align_width" if($columncount != $align_width);
+	    if($columncount != $align_width){
+		&printAlignmentDebug($alignmentref,\*STDERR);
+		die "Bad input. Mismatched column count $columncount in $align->[4], expecting $align_width";
+	    }
 	}
 	if($orientation =~ /\d/){
 	    if($orientation>0){
@@ -1212,9 +1215,12 @@ sub printAlignment{
 }
 
 sub printAlignmentDebug{
-    my($alignobj) = @_;
+    my($alignobj,$handle) = @_;
     foreach my $alni2 (@$alignobj){
-	print "#ALIGNOBJ $alignobj ",join(' ',@$alni2),"\n";
+	if(!$handle){
+	    $handle=\*STDOUT;
+	}
+	print $handle "#ALIGNOBJ $alignobj ",join(' ',@$alni2),"\n";
     }
 }
 

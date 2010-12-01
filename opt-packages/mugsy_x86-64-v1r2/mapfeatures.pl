@@ -80,7 +80,7 @@ more than one start or end in a single display line
 
 
 use strict;
-use lib '/opt/mugsy_x86-64';
+use lib '/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/mapping';
 
 use Pod::Usage;
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);
@@ -253,7 +253,6 @@ while(my $line=<$fh>){
 	}
     }
 }
-close $fh;
 
 #Save a list of clusters
 my $clusters = {};
@@ -644,9 +643,9 @@ foreach my $cstr (sort {$classes_sum->{$b}->{'ngenes'} <=> $classes_sum->{$a}->{
 print "Number of clusters containing aligned features\n";
 print "CLUSTERS: $validcluster\n";
 print "Number aligned features mapped into clusters\n";
-print "MAPPED: $mappedgenescount AVGCOV:",$avgcov/$mappedgenescount," AVGID:",$avgid/$mappedgenescount,"\n";
+print "MAPPED: $mappedgenescount AVGCOV:",$avgcov/$mappedgenescount," AVGID:",$avgid/$mappedgenescount,"\n" if($mappedgenescount);
 print "Number features with an overlapping alignment but are not mapped into clusters\n";
-print "UNMAPPED: $unmappedgenescount AVGCOV:",$avgunmappedcov/$unmappedgenescount," AVGID:",$avgunmappedid/$mappedgenescount,"\n";
+print "UNMAPPED: $unmappedgenescount AVGCOV:",$avgunmappedcov/$unmappedgenescount," AVGID:",$avgunmappedid/$mappedgenescount,"\n" if($unmappedgenescount && $mappedgenescount);
 print "Number of features with no overlapping alignment\n";
 print "NOHIT:$nohit\n";
 print "Number of new ORFs that match an annotated start and stop codon\n";

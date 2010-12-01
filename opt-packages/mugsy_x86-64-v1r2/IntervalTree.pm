@@ -1,5 +1,7 @@
 package IntervalTree;
 
+#Adapted from bx-python
+
 use strict;
 use Math::Random qw(random_uniform);
 use POSIX qw(ceil floor);
