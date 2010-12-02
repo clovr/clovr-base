@@ -58,6 +58,7 @@ Ext.onReady(function(){
         split: true,
 //        margins: '0 5 0 0',
         margins: '0 0 0 5',
+        pipelineWizard: pipepanel,
         url: "/vappio/queryTag_ws.py"
 //        host: hostname_field.getValue()
     });

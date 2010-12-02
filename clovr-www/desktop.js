@@ -47,26 +47,7 @@ Ext.onReady(function(){
         autoShow: true
     });
 
-    // Grid to store tagged data sets.
-    var taggrid = new clovr.TagGrid({
-//        region: 'center',
-        pipelinePanel: pipepanel,
 
-
-        url: "/vappio/queryTag_ws.py",
-        host: hostname_field.getValue()
-    });
-
-    var tagWindow = new Ext.Window({
-        title: 'Data Sets',
-        layout: 'fit',
-        items: [taggrid],
-        height: 300,
-        width: 300,
-        x: 0,
-        y: 0,
-        autoShow: true
-    });
 
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
@@ -96,9 +77,8 @@ Ext.onReady(function(){
     var gangliaWindow = new Ext.Window({
         items: [gangliaPanel],
         title: 'Cluster Load',
-        layout: 'fit',
-        height: 200,
-        width: 400,
+        height: 250,
+        width: 420,
         x: 30,
         y: 60,
         autoShow: true
@@ -118,6 +98,28 @@ Ext.onReady(function(){
         y: 90,
         autoShow: true
     });
+
+    // Grid to store tagged data sets.
+    var taggrid = new clovr.TagGrid({
+//        region: 'center',
+        pipelinePanel: pipepanel,
+        pipelineWizard: pipelineWizard,
+
+        url: "/vappio/queryTag_ws.py",
+        host: hostname_field.getValue()
+    });
+
+    var tagWindow = new Ext.Window({
+        title: 'Data Sets',
+        layout: 'fit',
+        items: [taggrid],
+        height: 300,
+        width: 300,
+        x: 0,
+        y: 0,
+        autoShow: true
+    });
+
     var viewport = new Ext.Viewport({
         layout:'border',
         items:[

@@ -41,7 +41,11 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             ddGroup: 'tagDDGroup',
             enableDragDrop: true,
             autoExpandColumn: 'name',
-            
+            listeners: {
+                rowdblclick: function(grid,index,e) {
+                    create_details_view(config,grid.store.getAt(index).data.name);
+                }
+            },
             colModel: new Ext.grid.ColumnModel({
                 defaults: {
                     sortable: true
@@ -72,6 +76,11 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 {text: 'Add',
                  handler: function() {
                      clovr.uploadFileWindow({'store': jstore});
+                 }},
+                {text: 'Get Details',
+                 handler: function() {
+                     var selections = taggrid.getSelectionModel().getSelections();
+                     create_details_view(config,selections[0]);
                  }}
             ],
             tools: [
@@ -97,4 +106,24 @@ function renderName(value, p, record) {
     return String.format(
         '<div class=taggrid-title><b>{0}: {1} '+fileWord+'</b><br/>{2}</div>',
         value,record.data.fileCount,desc);
+}
+
+function create_details_view(config,dataset_name) {
+    if(config.pipelineWizard) { 
+        config.pipelineWizard.getLayout().setActiveItem('dataset');
+        Ext.getCmp('dataset').loadDataset({dataset_name: dataset_name});
+    }
+    else {
+        var win = new Ext.Window({
+            layout: 'fit',
+            height: 400,
+            width: 400,
+            items: [
+                new clovr.ClovrDatasetPanel({
+                    dataset_name: dataset_name
+                })
+            ]
+        });
+        win.show();
+    }
 }

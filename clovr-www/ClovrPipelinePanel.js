@@ -51,7 +51,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.TabPanel, {
     * selected data sets.
     */
     setInput: function(input_tag) {
-        this.getActiveTab().setInput(input_tag);
+//        this.getLayout().getActiveTab().setInput(input_tag);
     }
 });
 

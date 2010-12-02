@@ -25,13 +25,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'panel': new Ext.TabPanel({
                     title: 'CloVR Metagenomics',
                     activeTab: 0,
-                    tbar: [
-                        {text: 'home',
-                         handler: function() {
-                             clovrpanel.getLayout().setActiveItem(0);
-                         }
-                        }
-                    ],
                     id: 'clovr_metagenomics'
                 })
             },
@@ -42,13 +35,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'panel': new Ext.TabPanel({
                     title: 'CloVR 16s',
                     activeTab: 0,
-                    tbar: [
-                        {text: 'home',
-                         handler: function() {
-                             clovrpanel.getLayout().setActiveItem(0);
-                         }
-                        }
-                    ],
                     id: 'clovr_16s'
                 })
             },
@@ -59,16 +45,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'panel_xtype': 'blastclovrformpanel',
                 'panel': new Ext.Panel({
                     layout: 'fit',
-                    //autoScroll: true,
-//                    title: 'CloVR Search',
-//                    activeTab: 0,
-                    tbar: [
-                        {text: 'home',
-                         handler: function() {
-                             clovrpanel.getLayout().setActiveItem(0);
-                         }
-                        }
-                    ],
                     id: 'clovr_search'
                 })
             },
@@ -80,34 +56,23 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'panel': new Ext.TabPanel({
                     title: 'CloVR Microbe',
                     activeTab: 0,
-                    tbar: [
-                        {text: 'home',
-                         handler: function() {
-                             clovrpanel.getLayout().setActiveItem(0);
-                         }
-                        }
-            ],
                     id: 'clovr_microbe'
                 })
             }
         };
 
-        var pipeline_to_protocol = {
-            'clovr_metagenomics_noorf': 'clovr_metagenomics',
-            'clovr_metagenomics_orf': 'clovr_metagenomics',
-            'clovr_metatranscriptomics': 'clovr_metagenomics',
-            'clovr_total_metagenomics':'clovr_metagenomics',
-            'clovr_16S': 'clovr_16s',
-            'clovr_search': 'clovr_search',
-            'clovr_microbe_annotation': 'clovr_microbe',
-            'clovr_microbe454': 'clovr_microbe'
-        };
+        var pipeline_to_protocol = clovr.PIPELINE_TO_PROTOCOL;
         
         config.layout = 'card';
         config.layoutConfig = {
             layoutOnCardChange: true
         };
-        
+        config.tbar = [
+            {text: 'Home',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem(0);
+             }
+            }];
         config.items = [
             {id: 'home',
              frame: true,
@@ -184,7 +149,14 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 //                          {style: 'text-align: center',
 //                           html: "<p>Bacterial assembly and annotation <a href='http://clovr.org/methods/clovr-microbe/'>Documentation</a></p>"}
                       ]}
-                      ]}]}];
+                 ]}]},
+            new clovr.ClovrDatasetPanel({'id': 'dataset',
+                                         pipeline_callback: function(conf) {
+                                             clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
+                                         }
+                                        })
+                                         
+        ];
         clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
         Ext.Ajax.request({

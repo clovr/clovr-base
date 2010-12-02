@@ -295,4 +295,59 @@ clovr.getClusterInfo = function(config) {
         }
     });
 }
+
+// Pulls info about a particular dataset
+clovr.getDatasetInfo = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/queryTag_ws.py',
+        params: {request: Ext.util.JSON.encode({
+            name: 'local',
+            tag_name: [config.dataset_name]
+        })},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            config.callback(rjson);
+        }
+    });
+}
+
+clovr.getPipelineInfo = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/pipelineStatus_ws.py',
+        params: {request: Ext.util.JSON.encode({name: 'local', pipelines:[]})},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            config.callback(rjson);
+        }
+
+    });
+}
+
+clovr.PIPELINE_TO_PROTOCOL = 
+    {
+        'clovr_metagenomics_noorf': 'clovr_metagenomics',
+        'clovr_metagenomics_orf': 'clovr_metagenomics',
+        'clovr_metatranscriptomics': 'clovr_metagenomics',
+        'clovr_total_metagenomics': 'clovr_metagenomics',
+        'clovr_16s': 'clovr_16s',
+        'clovr_search': 'clovr_search',
+        'clovr_search_webfrontend':'clovr_search',
+        'clovr_microbe_annotation': 'clovr_microbe',
+        'clovr_microbe454': 'clovr_microbe'
+    };
+
+clovr.getPipelineToProtocol = function(name) {
+    return clovr.PIPELINE_TO_PROTOCOL[name];
+}
+
+clovr.getProtocols = function() {
+    var protocols = {};
+    for(key in clovr.PIPELINE_TO_PROTOCOL) {
+        protocols[clovr.PIPELINE_TO_PROTOCOL[key]] = 1;
+    }
+    var keys = [];
+    for (var p in protocols)keys.push(p);
+    return keys;
+}
+
 // clearly, this is a work in progress...
