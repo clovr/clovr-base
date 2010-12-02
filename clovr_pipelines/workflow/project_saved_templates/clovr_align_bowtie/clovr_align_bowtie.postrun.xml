@@ -28,7 +28,5 @@
             <value>$;OUTPUT_DIRECTORY$;/add_config_to_tag.stderr</value>
         </param>
     </command>
-    <!--Pull in our GBrowse database creation pipeline to populate a GBrowse instance from our data-->
-    <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_gbrowse/pipeline.layout" />
   </commandSet>
 </commandSetRoot>

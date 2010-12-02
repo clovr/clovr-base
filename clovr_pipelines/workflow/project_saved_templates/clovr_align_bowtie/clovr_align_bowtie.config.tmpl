@@ -4,7 +4,7 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-FASTA_REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_align_bowtie_ref", "desc": "Input reference tag", "source": "tags"}
+REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_align_bowtie_ref", "desc": "Input reference tag", "source": "tags"}
 INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_align_bowtie_reads", "desc": "Input reads tag", "source": "tags"}
 
 PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_align_bowtie", "desc": "Name of pipeline"}
@@ -52,7 +52,7 @@ PIPELINE_TEMPLATE={"default": "clovr_align_bowtie", "visibility": "always_hidden
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.prestart.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
 PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.prerun.xml", "visibility": "always_hidden", "desc": null}
