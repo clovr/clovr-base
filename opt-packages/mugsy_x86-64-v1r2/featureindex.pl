@@ -10,7 +10,7 @@
 
 
 use strict;
-use lib '/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/mapping';
+use lib '/opt/opt-packages/mugsy_x86-64-v1r2';
 use AlignmentTree;
 use Storable qw(store retrieve);
 use Data::Dumper;
