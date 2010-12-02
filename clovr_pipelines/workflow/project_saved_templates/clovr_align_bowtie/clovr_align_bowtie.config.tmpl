@@ -1,0 +1,63 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+FASTA_REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_align_bowtie_ref", "desc": "Input reference tag", "source": "tags"}
+INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_align_bowtie_reads", "desc": "Input reads tag", "source": "tags"}
+
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_align_bowtie", "desc": "Name of pipeline"}
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[param]
+BOWTIE_BUILD_OPTS={"display": "bowtie-build options", "desc": "Command-line arguments to pass to bowtie-build"}
+OUTPUT_PREFIX={"display":"output prefix", "default": "asmbl", "desc": "bowtie build output prefix"}
+
+MAX_INSERT_SIZE={"display": "Max insert size", "desc": "Maximum insert size"}
+MAX_MISMATCHES={"display": "Max mismatches", "desc": "Maximum number of mismatches"}
+MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "desc": "Maximum number of alignments per read... those with more alignments will be ignored"}
+BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
+
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+
+[pipeline]
+
+PIPELINE_TEMPLATE={"default": "clovr_align_bowtie", "visibility": "always_hidden", "desc": null}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.prestart.xml", "visibility": "always_hidden", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.prerun.xml", "visibility": "always_hidden", "desc": null}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.postrun.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+
