@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 if(! -d $ENV{'MUGSY_INSTALL'}){
-    my $default_install = "/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/";
+    my $default_install = "/opt/opt-packages/mugsy_x86-64-v1r2";
     if( -d $default_install){
 	$ENV{'MUGSY_INSTALL'} = $default_install;
 	print STDERR "MUGSY_INSTALL environment variable not set. Using $default_install\n";
