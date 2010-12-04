@@ -4,8 +4,11 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>bowtie_build.default</name>
+            <name>bowtie.default</name>
         </commandSet>
-        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/pipeline.layout">
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.clovr_mapping_bowtie_noindices</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
