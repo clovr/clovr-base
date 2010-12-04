@@ -3,7 +3,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_crossbow.prerun</name>
+    <name>clovr_mapping_crossbow.prerun</name>
     <command>
       <name>Upload reference data</name>
       <type>RunUnixCommand</type>
