@@ -8,7 +8,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_mapping_bowtie_noindices</name>
+            <name>tag_data.clovr_mapping_bowtie_indices</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>

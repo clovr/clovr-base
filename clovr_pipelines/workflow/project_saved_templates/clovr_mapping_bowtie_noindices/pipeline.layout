@@ -6,6 +6,6 @@
             <state>incomplete</state>
             <name>bowtie_build.default</name>
         </commandSet>
-        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/pipeline.layout">
+        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/pipeline.layout">
     </commandSet>
 </commandSetRoot>
