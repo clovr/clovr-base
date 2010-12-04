@@ -4,23 +4,18 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_align_bowtie_ref", "desc": "Input reference tag", "source": "tags"}
-INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_align_bowtie_reads", "desc": "Input reads tag", "source": "tags"}
+REFERENCE_JAR_TAG={"display": "Input Reference Jar Tag", "default": "clovr_mapping_crossbow_ref", "desc": "Input reference jar tag", "source": "tags"}
+INPUT_MANIFEST_TAG={"display": "Input Manifest Tag", "default": "clovr_mapping_crossbow_manifest", "desc": "Input manifest tag", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_align_bowtie", "desc": "Name of pipeline"}
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mapping_crossbow", "desc": "Name of pipeline"}
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [param]
-BOWTIE_BUILD_OPTS={"display": "bowtie-build options", "desc": "Command-line arguments to pass to bowtie-build"}
-OUTPUT_PREFIX={"display":"output prefix", "default": "asmbl", "desc": "bowtie build output prefix"}
-
-MAX_INSERT_SIZE={"display": "Max insert size", "desc": "Maximum insert size"}
-MAX_MISMATCHES={"display": "Max mismatches", "desc": "Maximum number of mismatches"}
-MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "desc": "Maximum number of alignments per read... those with more alignments will be ignored"}
-BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
+OUTPUT_PREFIX={"display": "Output prefix", "default": "output", "desc": "Output prefix for all output files"}
+CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line arguments to be passed to Crossbow"}
 
 
 ##########################################################
@@ -47,17 +42,17 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc"
 
 [pipeline]
 
-PIPELINE_TEMPLATE={"default": "clovr_align_bowtie", "visibility": "always_hidden", "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_mapping_crossbow", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.prestart.xml", "visibility": "always_hidden", "desc": null}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.prerun.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie/clovr_align_bowtie.postrun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.postrun.xml", "visibility": "always_hidden", "desc": null}
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 

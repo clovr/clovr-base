@@ -12,7 +12,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_align_bowtie</name>
+            <name>tag_data.clovr_mapping_bowtie_noindices</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
