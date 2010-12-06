@@ -8,7 +8,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_crossbow</name>
+            <name>tag_data.clovr_mapping_crossbow</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
