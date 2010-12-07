@@ -1,2 +1,2 @@
-crossbow_snps	$;REPO_ROOT$;/output_repository/bowtie/$;PIPELINE_ID$;_default/crossbow.snps.list
+crossbow_snps	$;REPO_ROOT$;/output_repository/crossbow/$;PIPELINE_ID$;_default/crossbow.snps.list
 
