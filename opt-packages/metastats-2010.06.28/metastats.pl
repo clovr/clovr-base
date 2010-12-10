@@ -42,7 +42,7 @@ my $prefix     = $opt_o;
 #  split the prefix to get the counts
 #********************************************************************
 #$prefix -> ____________.$level.$g1\_vs_$g2.$g1count-$g2count.2tsv
-my @prefsplit = split /\./, $prefix;
+my @prefsplit = split /\./, $matrixfile;
 my @countstr = split "-", $prefsplit[$#prefsplit-1];
 my $g = $countstr[0];
 
