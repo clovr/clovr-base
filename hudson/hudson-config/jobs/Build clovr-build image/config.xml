@@ -38,7 +38,6 @@ sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-build
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
 namepfx=&quot;clovr-build-$buildname&quot;
-svn export --force https://clovr.svn.sourceforge.net/svnroot/clovr/trunk/hudson/hudson-config/config.xml.clovr-build $namepfx/var/lib/hudson/config.xml
 echo &quot;build&quot; &gt; $namepfx/shared/node_type
 mkdir -p $namepfx/shared/user-scripts
 echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/01-updaterecipes
