@@ -16,7 +16,7 @@
           <description>Upload image to EC2 on a successful build</description>
           <defaultValue>false</defaultValue>
         </hudson.model.BooleanParameterDefinition>
-	<hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
           <name>BUNDLE_TOOLS</name>
           <description>Bundle guest tools for VMware and Virtualbox</description>
           <defaultValue>false</defaultValue>
@@ -47,12 +47,12 @@ export BUILD_ID=$BUILD_ID
 export BUILD_DIR=$BUILD_DIR
 export BUILD_NAME=$BUILD_NAME
 export UPLOAD_EC2=$UPLOAD_EC2
-if [ "$BUNDLE_TOOLS" = "true" ]
+if [ &quot;$BUNDLE_TOOLS&quot; = &quot;true&quot; ]
 then
-	bundletools="-t"
+	bundletools=&quot;-t&quot;
 fi
 sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME qiime
-if [ $? = 0 ] &amp;&amp; [ "$UPLOAD_EC2" = "true" ]
+if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_EC2&quot; = &quot;true&quot; ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
   curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/qiime-$bldimgname

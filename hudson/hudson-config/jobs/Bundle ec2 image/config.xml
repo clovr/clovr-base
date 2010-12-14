@@ -11,7 +11,7 @@
           <description>Path to a raw disk image or a directory prefix. If a directory is specified, looks for dirname.img and attempts to inject AMI name in clovr.conf upon successful build</description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
-	<hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>INIT_SCRIPT</name>
           <description>Script to run before bundling the EC2 image</description>
           <defaultValue>/opt/vappio-install/recipes/enablecloudssh.sh</defaultValue>
@@ -20,7 +20,7 @@
           <name>TAR</name>
           <description>Generate tar of image directory on success. Only valid if IMAGE_NAME is a directory</description>
           <defaultValue>true</defaultValue>
-         </hudson.model.BooleanParameterDefinition>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>

@@ -41,6 +41,11 @@
           <description>For recovering a failed build only, leave blank by default for new builds. For failed builds, this is the target image name, usually clovr-standard-datestring</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>SVNTAG</name>
+          <description>Tag SVN repositories with build name</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -63,9 +68,16 @@ then
 fi
 
 sudo -E /opt/vappio-util/vp-build -s $SPLASHSCRIPT $bundletools $IMAGE_NAME clovr-standard
+
+bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
+
+if [ &quot;$SVNTAG&quot; = &quot;true&quot; ]
+then
+  curl &quot;http://localhost:8888/job/Tag%20SVN%20revision%20for%20image/buildWithParameters?BUILD_NAME=clovr-standard-$bldimgname&amp;BUILD_TIME=$BUILD_ID&quot;
+fi
+
 if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_EC2&quot; = &quot;true&quot; ]
 then
-  bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
   curl http://localhost:8888/job/Bundle%20ec2%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
 fi
 

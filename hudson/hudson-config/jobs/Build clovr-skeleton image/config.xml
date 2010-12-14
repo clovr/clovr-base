@@ -11,7 +11,7 @@
           <description></description>
           <defaultValue>/mnt/image.img</defaultValue>
         </hudson.model.StringParameterDefinition>
-	<hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
           <name>BUNDLE_TOOLS</name>
           <description>Bundle guest tools for VMware and Virtualbox</description>
           <defaultValue>false</defaultValue>
@@ -21,7 +21,7 @@
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
@@ -29,11 +29,11 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-if [ "$BUNDLE_TOOLS" = "true" ]
+if [ &quot;$BUNDLE_TOOLS&quot; = &quot;true&quot; ]
 then
-	bundletools="-t"
+	bundletools=&quot;-t&quot;
 fi
-sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-skeleton
+sudo -E /opt/vappio-util/vp-build $bundletools -s /opt/vappio-install/recipes/clovrsplash.sh $IMAGE_NAME clovr-skeleton
 </command>
     </hudson.tasks.Shell>
   </builders>

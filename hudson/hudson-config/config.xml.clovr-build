@@ -39,6 +39,7 @@ document.getElementById(&apos;mytests&apos;).src=&apos;http://&apos;+window.loca
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>Bundle diag image</string>
+        <string>Tag SVN revision for image</string>
       </jobNames>
       <jobFilters/>
       <columns>

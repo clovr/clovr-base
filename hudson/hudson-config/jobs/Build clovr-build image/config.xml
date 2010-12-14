@@ -21,7 +21,7 @@
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
@@ -29,9 +29,9 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 export BUILD_ID=$BUILD_ID
-if [ "$BUNDLE_TOOLS" = "true" ]
+if [ &quot;$BUNDLE_TOOLS&quot; = &quot;true&quot; ]
 then
-	bundletools="-t"
+	bundletools=&quot;-t&quot;
 fi
 sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-build
 #Runtime user-scripts
@@ -39,12 +39,12 @@ echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
 namepfx=&quot;clovr-build-$buildname&quot;
 svn export --force https://clovr.svn.sourceforge.net/svnroot/clovr/trunk/hudson/hudson-config/config.xml.clovr-build $namepfx/var/lib/hudson/config.xml
-echo "build" &gt; $namepfx/shared/node_type
+echo &quot;build&quot; &gt; $namepfx/shared/node_type
 mkdir -p $namepfx/shared/user-scripts
 echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/01-updaterecipes
 echo &quot;/opt/vappio-install/vp-bootstrap-install&quot; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
 echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/02-starthudson
-#echo &quot;export HUDSON_ARGS=\"--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\"&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
+#echo &quot;export HUDSON_ARGS=\&quot;--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\&quot;&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
 echo &quot;/etc/init.d/apt-cacher restart&quot; &gt; $namepfx/shared/user-scripts/04-aptcacher
 echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &amp;&quot; &gt; $namepfx/shared/user-scripts/05-irccat 
