@@ -3,4 +3,8 @@ mugsyalign_maf_tag	$;REPO_ROOT$;/output_repository/mugsyalign/$;PIPELINE_ID$;_de
 mugsyprep_map_tag	$;REPO_ROOT$;/output_repository/mugsyprep/$;PIPELINE_ID$;_default/mugsymap_complete.txt
 muscle_bsml_tag	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_mugsy/muscle.bsml.list	filetype=fasta
 muscle_raw_tag	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_mugsy/muscle.raw.list
-
+#################    Workflow xml download       ##########################
+# paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
+# For further reference, see preprocessing commands in tag_data.xml       #
+###########################################################################
+workflow_xml_tag        /tmp/workflow_xml.txt

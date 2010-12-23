@@ -15,3 +15,8 @@ tables_taxonomy	$;REPO_ROOT$;/output_repository/clovr_metagenomics_tables/$;PIPE
 piecharts_taxonomy	$;REPO_ROOT$;/output_repository/piecharts/$;PIPELINE_ID$;_taxonomy/piecharts.results.list
 skiff_taxonomy	$;REPO_ROOT$;/output_repository/skiff/$;PIPELINE_ID$;_taxonomy/skiff.results.list
 metastats_taxonomy	$;REPO_ROOT$;/output_repository/metastats/$;PIPELINE_ID$;_taxonomy/metastats.results.list
+#################    Workflow xml download       ##########################
+# paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
+# For further reference, see preprocessing commands in tag_data.xml       #
+###########################################################################
+workflow_xml_tag        /tmp/workflow_xml.txt

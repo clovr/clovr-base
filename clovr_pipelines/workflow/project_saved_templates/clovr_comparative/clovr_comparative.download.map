@@ -4,3 +4,8 @@ jaccard_fasta	$;REPO_ROOT$;/output_repository/jaccard/$;PIPELINE_ID$;_default/ja
 muscle_jaccard_raw	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_jaccard/muscle.raw.list	filetype=fasta
 joc_fasta	$;REPO_ROOT$;/output_repository/j_ortholog_clusters/$;PIPELINE_ID$;_default/j_ortholog_clusters.fsa.list	filetype=fasta,refdb=blast
 muscle_joc_raw	$;REPO_ROOT$;/output_repository/muscle/$;PIPELINE_ID$;_JOCs/muscle.raw.list
+#################    Workflow xml download       ##########################
+# paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
+# For further reference, see preprocessing commands in tag_data.xml       #
+###########################################################################
+workflow_xml_tag        /tmp/workflow_xml.txt

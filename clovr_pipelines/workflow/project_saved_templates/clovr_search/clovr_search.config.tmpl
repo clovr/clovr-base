@@ -35,6 +35,7 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 [output]
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
+## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
 [pipeline]

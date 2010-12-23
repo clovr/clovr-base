@@ -11,3 +11,8 @@ pangenome_core_ps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$
 pangenome_core_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_core/eps.output.list
 pangenome_pan_ps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/ps.output.list
 pangenome_pan_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$;PIPELINE_ID$;_pan/eps.output.list
+#################    Workflow xml download       ##########################
+# paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
+# For further reference, see preprocessing commands in tag_data.xml       #
+###########################################################################
+workflow_xml_tag        /tmp/workflow_xml.txt
