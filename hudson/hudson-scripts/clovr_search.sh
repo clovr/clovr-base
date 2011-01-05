@@ -13,15 +13,17 @@ vp-describe-protocols --config-from-protocol=clovr_search \
     -c input.REF_DB_TAG=NC_000964_blastpdb \
     -c input.PIPELINE_NAME=clovr_search_${DATE} \
     -c misc.PROGRAM=blastp \
-    > /tmp/$$.pipeline.conf
+    -c cluster.CLUSTER_NAME=$1 \
+    -c cluster.CLUSTER_CREDENTIAL=$2 \
+    > /tmp/$$.pipeline.conf.${DATE}
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline clovr_wrapper --name local -n clovr_search_$$ --pipeline-config=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline clovr_wrapper --pipeline-name clovr_search_$$_${DATE} --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"
     exit 1
 fi
 
-vp-describe-task --name local --exit-code --block $TASK_NAME
+vp-describe-task --name $1 --exit-code --block $TASK_NAME
 
 exit $?

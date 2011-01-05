@@ -12,12 +12,14 @@ vp-describe-protocols --config-from-protocol=clovr_metatranscriptomics \
     -c input.FASTA_TAG=clovr_metatranscriptomics_fasta \
     -c input.MAPPING_TAG=clovr_metatranscriptomics_map \
     -c input.PIPELINE_NAME=clovr_metatranscriptomics_${DATE} \
-    > /tmp/$$.pipeline.conf
+    -c cluster.CLUSTER_NAME=$1 \
+    -c cluster.CLUSTER_CREDENTIAL=$2 \
+    > /tmp/$$.pipeline.conf.${DATE}
 
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_metatranscriptomics_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-name clovr_metatranscriptomics_$$_${DATE} --pipeline clovr_wrapper --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
-    echo "runPipeline.py failed to run"
+    echo "vp-run-pipeline failed to run"
     exit 1
 fi
 
