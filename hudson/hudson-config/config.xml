@@ -96,8 +96,8 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>Pipeline tests</name>
-      <description>&lt;p&gt;CloVR pipelines&lt;/p&gt;&#xd;
+      <name>Pipeline local tests</name>
+      <description>&lt;p&gt;CloVR pipelines on local platform&lt;/p&gt;&#xd;
 </description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
@@ -116,6 +116,53 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^[0-9].*.pipeline</includeRegex>
     </listView>
+
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Pipeline EC2 tests</name>
+      <description>&lt;p&gt;CloVR pipelines on ec2 platform&lt;/p&gt;&#xd;
+</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>^EC2.*pipeline$</includeRegex>
+    </listView>
+
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Pipeline DIAG tests</name>
+      <description>&lt;p&gt;CloVR pipelines on diag platform&lt;/p&gt;&#xd;
+</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>^DIAG.*pipeline$</includeRegex>
+    </listView>
+
   </views>
   <primaryView>CloVR tests</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
