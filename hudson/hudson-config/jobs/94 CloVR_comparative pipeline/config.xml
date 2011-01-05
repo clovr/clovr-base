@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo -u www-data /opt/hudson/clovr_comparative.sh</command>
+      <command>sudo -u www-data /opt/hudson/clovr_comparative.sh local local</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
