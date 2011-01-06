@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*" -printf "%f\n" | sort -n | grep -i -P 'pipeline$' > /tmp/pipelinejobs.$$.txt
+find /var/lib/hudson/jobs/ -maxdepth 1 \( -name "[[:digit:]]*" -o -name "EC2*" -o -name "DIAG*" \) -printf "%f\n" | sort -n | grep -i -P 'pipeline$' > /tmp/pipelinejobs.$$.txt
 
 ip=`hostname`
 #ip=${ip:6}
