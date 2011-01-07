@@ -4,4 +4,4 @@ blastall_raw	$;REPO_ROOT$;/output_repository/ncbi-blastall/$;PIPELINE_ID$;_defau
 # paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
 # For further reference, see preprocessing commands in tag_data.xml       #
 ###########################################################################
-workflow_xml_tag        /tmp/workflow_xml.txt
+workflow_xml_tag	/tmp/workflow_xml.txt

@@ -17,4 +17,4 @@ histograms_taxonomy	$;REPO_ROOT$;/output_repository/histogram_stacked/$;PIPELINE
 # paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
 # For further reference, see preprocessing commands in tag_data.xml       #
 ###########################################################################
-workflow_xml_tag        /tmp/workflow_xml.txt
+workflow_xml_tag	/tmp/workflow_xml.txt

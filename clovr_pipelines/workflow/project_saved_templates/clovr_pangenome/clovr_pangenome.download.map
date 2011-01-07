@@ -15,4 +15,4 @@ pangenome_pan_eps_output	$;REPO_ROOT$;/output_repository/pangenome_make_graphs/$
 # paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
 # For further reference, see preprocessing commands in tag_data.xml       #
 ###########################################################################
-workflow_xml_tag        /tmp/workflow_xml.txt
+workflow_xml_tag	/tmp/workflow_xml.txt
