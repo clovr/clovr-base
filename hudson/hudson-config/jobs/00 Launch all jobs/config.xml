@@ -6,7 +6,32 @@
 WARNING:&#xd;
 DO NOT CHANGE THE NAME OF THIS JOB. DOING SO WILL CAUSE IT TO RUN RECURSIVELY. </description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.BooleanParameterDefinition>
+          <name>DIAG_PIPELINE_TESTS</name>
+          <description></description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>EC2_PIPELINE_TESTS</name>
+          <description></description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>UNIT_TESTS</name>
+          <description></description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>LOCAL_PIPELINE_TESTS</name>
+          <description></description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -15,8 +40,12 @@ DO NOT CHANGE THE NAME OF THIS JOB. DOING SO WILL CAUSE IT TO RUN RECURSIVELY. <
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo -u www-data /opt/hudson/launchAll.sh
-sudo -u www-data /opt/hudson/launchAllPipelines.sh
+      <command>if [ &quot;$UNIT_TESTS&quot; = &quot;true&quot; ]
+then
+ sudo -u www-data /opt/hudson/launchAll.sh
+fi
+
+sudo -u www-data /opt/hudson/launchAllPipelines.sh $LOCAL_PIPELINE_TESTS $DIAG_PIPELINE_TESTS $EC2_PIPELINE_TESTS
  </command>
     </hudson.tasks.Shell>
   </builders>
