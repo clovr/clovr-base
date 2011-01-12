@@ -16,4 +16,4 @@ do
 	curl `echo "http://$ip:8888/job/$line/build" | sed -e 's/ /\%20/g'`
     fi
 done < /tmp/jobs.$$.txt
-
+curl `echo "http://$ip:8888/job/Add hudson executors/buildWithParameters" | sed -e 's/ /\%20/g'`

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+touch /tmp/pipelinejobs.$$.txt
 if [ "$1" = "true" ]
 then
 	find /var/lib/hudson/jobs/ -maxdepth 1 -name "[[:digit:]]*" -printf "%f\n" | sort -n | grep -i -P 'pipeline$' > /tmp/pipelinejobs.$$.txt
