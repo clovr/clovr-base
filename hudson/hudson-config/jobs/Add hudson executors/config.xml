@@ -3,17 +3,7 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>NUMBER</name>
-          <description>number of jobs to run on hudson simultaneosly</description>
-          <defaultValue>1</defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -22,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>/opt/hudson/add_hudson_executors.sh</command>
+      <command>sudo -u www-data /opt/hudson/add_hudson_executors.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
