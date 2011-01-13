@@ -39,7 +39,7 @@ my $MAP_FILE = "/tmp/MapOrgList.txt";
 ###################             GLOBAL VARIABLES        #################
 
 my $q = new CGI;
-my $binaryFile = '/opt/opt-packages/comparative-data-1.0/binary_files/NcbiTreeWidgetDataStructure';
+my $binaryFile = '/mnt/data/comparative-data-1.0/binary_files/NcbiTreeWidgetDataStructure';
 my ($root) = retrieve($binaryFile) or die "Error in retrieving $binaryFile\n";
 
 ###################            SUBS DECLARATION         #################
