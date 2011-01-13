@@ -14,7 +14,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         config.autoScroll=true;
         var header_panel = new Ext.Panel({
             region: 'north',
-            html: 'Information for the '+config.dataset_name+' dataset'
+            html: '<div><h3>Information for the '+config.dataset_name+' dataset</h3></div>'
         });
         var footer_panel = new Ext.Panel({
             region: 'south'
@@ -66,7 +66,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         var datasetpanel = this;
         datasetpanel.header_panel.update('Information for the '+config.dataset_name+' dataset');
         datasetpanel.pipelines_panel.removeAll();
-        datasetpanel.pipelines_panel.getEl().mask('Loading...');
+        datasetpanel.getEl().mask('Loading...','x-mask-loading');
         clovr.getPipelineInfo({
             callback: function(r) {
                 var results_by_protocol = getResultsByProtocol(r.data,config);
@@ -120,7 +120,8 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                             },
                             fields: fields_for_grid //[{name: "pipeline_name", mapping: '["pipeline.PIPELINE_WRAPPER_NAME"]'}]
                         });
-                        
+
+                        store.filter([{property: 'ptype', value: 'clovr_wrapper'}]);
                         datasetpanel.pipelines_panel.add(
                             new Ext.Container({
                                 layout: 'column',
@@ -151,6 +152,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                                             viewConfig: {
                                                 forceFit: true
                                             },
+
                                             colModel: new Ext.grid.ColumnModel({
                                                 columns: [
                                                     {id: 'inputs',
@@ -169,7 +171,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                     }
                 });
                 datasetpanel.pipelines_panel.doLayout();
-                datasetpanel.pipelines_panel.getEl().unmask();
+                datasetpanel.getEl().unmask();
             }
         });
     }
@@ -191,7 +193,9 @@ var getResultsByProtocol = function(data,config) {
             if(tag_regex.exec(key)) {
                 if(pipeconf[key] == config.dataset_name) {
                     var prot = clovr.getPipelineToProtocol(pipeconf['pipeline.PIPELINE_TEMPLATE']);
-                    results_by_protocol[prot].push(elm[1]);
+                    if(results_by_protocol[prot]) {
+                        results_by_protocol[prot].push(elm[1]);
+                    }
                 }
             }
         }
@@ -225,21 +229,21 @@ function renderOutput(value, p, record) {
     var return_string="";
     var input_regexp = /^input/;
     var clean_input = /input\./;
-    var inputs = [];
-    for (field in record.json.config) {
-        if(input_regexp.exec(field)) {
-            inputs.push(field.replace(clean_input,"")+": "+ record.json.config[field]);
-        }
-    };
-
-    var outputs = ["<a href='/output/"+record.json.config['input.PIPELINE_NAME']+"_"+
-                   record.json.config["output.TAGS_TO_DOWNLOAD"]+".tar.gz'>"+record.json.config["output.TAGS_TO_DOWNLOAD"]+"</a>"];
-    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
-        outputs = record.json.config["output.TAGS_TO_DOWNLOAD"];
-    }
+    var tags = record.json.config["output.TAGS_TO_DOWNLOAD"].split(',');
+    var outputs = [];
+    Ext.each(tags, function(tag) {
+        outputs.push("<a href='/output/"+record.json.config['input.PIPELINE_NAME']+"_"+
+                     tag+".tar.gz'>"+tag+"</a>");
+    });
+//    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
+//        outputs = record.json.config["output.TAGS_TO_DOWNLOAD"];
+//    }
     
     if(record.data.state == "error") {
         return_string="Failed Pipeline "+ record.json.config['input.PIPELINE_NAME'];
+    }
+    else if(record.data.state != "complete") {
+        return_string="Pipeline not complete";
     }
     else {
         return_string = "<div>"+outputs.join("<br/>")+"</div>";

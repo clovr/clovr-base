@@ -7,12 +7,23 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
     
     constructor: function(config) {
         var pipeGrid = this;
-        var jstore = new Ext.data.JsonStore({
+        var jstore = new Ext.data.GroupingStore({
             //            root: 'rows',
-            fields: [
-                {name: "name"}, 
-                {name: "state"}
-            ]
+            reader: new Ext.data.JsonReader({
+                fields: [
+                    {name: "name"}, 
+                    {name: "state"},
+                    {name: "total"},
+                    {name: "complete"}
+                ]
+            }),
+            groupField: "state",
+            groupDir: "DESC",
+            listeners: {
+                load: function(store,records,o) {
+                    store.groupBy('state');
+                }
+            }
         });
 
         clovr.ClovrPipelinesGrid.superclass.constructor.call(this, Ext.apply(config, {
@@ -26,9 +37,15 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                 },
                 columns: [
                     {id: 'name', header: 'Pipeline Name', dataIndex: 'name'},
-                    {id: 'status', header: 'Status', dataIndex: 'state'}
+                    {id: 'status', header: 'Status', dataIndex: 'state', hidden: true},
+                    {id: 'steps', header: 'Step', dataIndex: 'total', renderer: renderStep}
                 ]
             }),
+            view: new Ext.grid.GroupingView({
+            	forceFit:true,
+            	startCollapsed: true,
+            	groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
+        	}),
             tools: [
                 {id: 'refresh',
                  handler: function() {getPipelineStatus()}
@@ -84,4 +101,8 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
     }
 });
 
+function renderStep(value, p, record) {
+    return String.format("Steps {0}/{1} complete", record.json.complete,record.json.total);
+}
+        
 Ext.reg('clovrpipelinesgrid', clovr.ClovrPipelinesGrid);

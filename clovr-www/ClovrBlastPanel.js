@@ -1,17 +1,26 @@
 /*
- * A form panel that is used to submit a blast job
+ * A panel that is used to submit a blast job.
  */
 
-clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
+clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
 
     constructor: function(config) {
 
-        var clovrform = this;
+        var wrapper_panel = this;
 
-        config.labelWidth = 120;
-        config.bodyStyle= 'padding: 5px';
-        config.autoScroll=true;
-        config.frame=true;
+        var blastform = new Ext.FormPanel({
+            id: 'clovr_search_form',
+            labelWidth: 120,
+            bodyStyle: 'padding: 5px',
+            autoScroll: true,
+            frame: true,
+            buttonAlign: 'center'
+ 
+        });
+        
+        wrapper_panel.form = blastform;
+        
+        // Parameters that we'll be customizing.
         var customParams = {
             'misc.PROGRAM': 1,
             'input.REF_DB_TAG': 1,
@@ -19,7 +28,8 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             'cluster.CLUSTER_NAME':1,
             'cluster.CLUSTER_CREDENTIAL':1
         };
-
+        
+        // Store for the different blast progs.
         var programStore = new Ext.data.ArrayStore({
             fields: ["program"],
             data: [["blastn"],
@@ -28,7 +38,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                    ["blastx"]
                   ]});
 
-        
+        // Combobox for the blast database.
         var databaseCombo = clovr.tagCombo({
             fieldLabel: 'Database',
             width: 225,
@@ -49,22 +59,28 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             }
         });
 
+        // Three different arrays to store the different form parameters types.
         var advanced_params =[];
         var hidden_params = [];
         var normal_params = [];
-        Ext.each(config.fields, function(field, i, fields) {
+
+        // Pull the clovr_search info out.
+        var pipeline = config.pipelines['clovr_search'];
+        //clovr.getPipelineFromPipelineList( 'clovr_search',config.pipelines);
+        
+        // Go through the configuration and create the form fields.
+        Ext.each(pipeline.fields, function(field, i, fields) {
             var dname = field.display ? field.display : field.field;
-            
-            if(field.visibility == 'default_hidden') {
-                advanced_params.push({xtype: 'textfield',
-                                      fieldLabel: dname,
-                                      name: field.field,
-                                      value: field['default'],
-                                      disabled: false,
-                                      toolTip: field.desc});
-            }
-            else if(!customParams[field.field]) {
-                if(field.visibility == 'always_hidden') {
+            if(!customParams[field.field]) {
+                if(field.visibility == 'default_hidden') {
+                    advanced_params.push({xtype: 'textfield',
+                                          fieldLabel: dname,
+                                          name: field.field,
+                                          value: field['default'],
+                                          disabled: false,
+                                          toolTip: field.desc});
+                }
+                else if(field.visibility == 'always_hidden') {
                     hidden_params.push({xtype: 'textfield',
                                         fieldLabel: dname,
                                         name: field.field,
@@ -83,12 +99,16 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             }
         });
 
+        // An array of input form elements for the sequence fieldset
         var seq_inputs = [];
 
         var seq_fieldset = {xtype: 'fieldset',
             hideMode: 'visibility',
             title: 'Select Query Sequence',
             items: []};
+        
+        // If there is sample data that needs to be included we'll create the 
+        // combobox with that info.
         if(config.sampleData) {
             var datasetSelect = new Ext.form.ComboBox({
                 mode: 'local',
@@ -109,7 +129,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                 displayField: 'name',
 
             });
-            clovrform.seqCombo = datasetSelect;
+            blastform.seqCombo = datasetSelect;
             var upload_button = {xtype: 'button',
                 text: 'Upload File',
                 fieldLabel: 'Or, Upload File',
@@ -125,6 +145,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             };
             seq_fieldset.items = [datasetSelect,upload_button,input_field];
         }
+
+        // If there is no sample data we'll use something else. Either a DnD or a 
+        // combobox populated with filtered tags.
         else {
 
             var dd_area_items = [
@@ -152,7 +175,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                                     Ext.each(d.selections, function(row) {
                                         tags.push(row.data.name);
                                     });
-                                    clovrform.getForm().setValues([{id: 'datasettag', value: tags}]);
+                                    blastform.getForm().setValues([{id: 'datasettag', value: tags}]);
                                     container.update(tags.join(', '));
                                 }
                             });
@@ -164,14 +187,14 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                   listeners: {
                       change: function(field, newval, oldval) {
                           if(newval) {
-                              clovrform.resetInputData({'field': field,
+                              blastform.resetInputData({'field': field,
                                                             value: newval});
                           }
                       }
                   }
                  }];
             }
-            clovrform.seqCombo = clovr.tagCombo(
+            blastform.seqCombo = clovr.tagCombo(
                 {
                     id: 'datasettag',
                     fieldLabel: 'Select Query Dataset',
@@ -193,7 +216,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                     }
                 });
             var combo_items = 
-                [clovrform.seqCombo];
+                [blastform.seqCombo];
             seq_fieldset.items =[
                 combo_items,
                  {xtype: 'button',
@@ -204,9 +227,9 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                   }
                  }];
         var uploadWindow = clovr.uploadFileWindow({
-            seqcombo: clovrform.seqCombo
+            seqcombo: blastform.seqCombo
         });
-        clovrform.uploadWindow = uploadWindow;
+        blastform.uploadWindow = uploadWindow;
         seq_inputs.push([
                 seq_fieldset,
             {xtype: 'combo',
@@ -224,9 +247,8 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             },
             databaseCombo
         ]);
-        var cred_conf = {
-            
-        };
+        
+        // Add credential/cluster comboboxes.
         normal_params.push(clovr.credentialCombo({
             name: 'cluster.CLUSTER_CREDENTIAL',
             default_value: config.default_credential,
@@ -238,36 +260,35 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             default_value: config.default_cluster,
             hidden: config.hide_cluster
         }));
-
-        seq_inputs.push(normal_params);
         
-        seq_inputs.push(
-            {xtype: 'fieldset',
-             title: 'Advanced',
-//             collapsed: true,
-             collapsible: true,
-             listeners: {
-                 afterlayout: {
+        // Add the hidden parameters to the sequence inputs.
+        seq_inputs.push(normal_params);
+        seq_inputs.push({
+            xtype: 'fieldset',
+            title: 'Advanced',
+            collapsible: true,
+            listeners: {
+                afterlayout: {
                     fn: function(set) {
                         set.collapse();
                     },
                     single: true
-                 }
-             },
-             items: advanced_params
-            }
-        );
+                }
+            },
+            items: advanced_params
+        });
         seq_inputs.push(hidden_params);
-        config.buttons = [
+
+        // Add buttons to the form.
+        var buttons = [
             {text: 'Submit',
              handler: function(b,e) {
-//                 console.log(clovrform.getForm().items);
-                 var form = clovrform.getForm();
+                 var form = wrapper_panel.form.getForm();
 //                 if(Ext.getCmp('pastedseq').getValue()) {
                     
 //                 }
-                 if(Ext.getCmp('datasettag').getValue()) {
-                     form.setValues([{id: 'input.INPUT_TAG', value: Ext.getCmp('datasettag').getValue()}]);
+                 if(wrapper_panel.form.seqCombo.getValue()) {
+                     form.setValues([{id: 'input.INPUT_TAG', value: wrapper_panel.form.seqCombo.getValue()}]);
                  }
 //                 if(Ext.getCmp('uploadfilepath').getValue()) {
 //                     console.log('uploadedfile');
@@ -275,64 +296,33 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                  
                  var pipename = 'clovr_search'+new Date().getTime();
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
-                 clovrform.getForm().setValues({"input.PIPELINE_NAME": pipename});
+                 wrapper_panel.form.getForm().setValues({"input.PIPELINE_NAME": pipename});
                  Ext.Msg.show({
                      title: 'Submitting Pipeline',
                      msg: 'The search is being submitted.',
                      wait: true
                  });
-                 Ext.Ajax.request({
-                     url: '/vappio/runPipeline_ws.py',
-                     params: {
-                         'request': Ext.util.JSON.encode(
-                             {'pipeline_config':clovrform.getForm().getValues(),
-                              'pipeline': 'clovr_wrapper',
-                              'name': 'local',
-                              'pipeline_name': wrappername
-                             })
-                     },
-                     success: function(response) {
-                         var r = Ext.util.JSON.decode(response.responseText);
-//                         document.location.hash=Ext.urlEncode({
-//                             'taskname': r.data,
-//                             'pipename': pipename,
-//                             'wrappername': wrappername
-//                         });
-                         
-                         if(config.submitcallback) {
-                             config.submitcallback(r);
-                         }
-                         else {
-                             Ext.Msg.show({
-                                 title: 'Success!',
-                                 msg: 'Your pipeline was submitted successfully',
-                                 buttons: Ext.Msg.OK
-                             });
-                         }
-//                         window.location.assign(document.location+'#'+Ext.urlEncode({
-//                             'taskname': r.data,
-//                             'pipename': pipename,
-//                             'wrappername': wrappername
-//                         }));
-//                         window.location.reload(true);
-//                         Ext.Msg.show({
-//                             title: 'Pipeline Submitted',
-//                             msg: response.responseText
-//                         })
-                     },
-                     failure: function(response) {
-                         Ext.Msg.show({
-                             title: 'Server Error',
-                             msg: response.responseText,
-                             icon: Ext.MessageBox.ERROR});
+
+                 var cluster_name = wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME');
+                 clovr.runPipeline({
+                     pipeline: 'clovr_wrapper',
+                     wrappername: wrappername,
+                     cluster: wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME').getValue(),
+                     params: wrapper_panel.form.getForm().getValues(),
+                     submitcallback: function(r) {
+                         config.submitcallback(r);
                      }
                  });
              }}
         ];
-        config.buttonAlign = 'center';
-        config.items = seq_inputs;
-        clovr.BlastClovrFormPanel.superclass.constructor.call(this,config);
-        this.doLayout();
+
+        blastform.add(seq_inputs);
+        blastform.addButton(buttons);
+        clovr.ClovrBlastPanel.superclass.constructor.call(this,{
+            id: 'clovr_search',
+            layout: 'fit',
+            items: blastform
+        });
     },
     resetInputData: function(field) {
         var datasetfields = [
@@ -346,7 +336,6 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         });
     },
     changeInputDataSet: function(conf) {
-        console.log('changing the dataset');
         if(conf.dataset_name) {
             Ext.getCmp('datasettag').setValue(conf.dataset_name);
         }
@@ -354,5 +343,5 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
 
 });
 
-Ext.reg('blastclovrformpanel', clovr.BlastClovrFormPanel);
+Ext.reg('clovrblastpanel', clovr.ClovrBlastPanel);
 

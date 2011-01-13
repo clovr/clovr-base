@@ -65,12 +65,11 @@ Ext.onReady(function(){
 
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
-        region: 'east',
-        width: 200,
+        height: 200,
         header: true,
         split: true,
-        collapsed: true,
-        collapseMode: 'mini',
+//        collapsed: true,
+//        collapseMode: 'mini',
         margins: '0 5 0 0',
         title: 'Pipelines'
     });
@@ -109,10 +108,10 @@ Ext.onReady(function(){
                      {columnWidth: 0.33,
                       style:'padding:10px 0 10px 10px',
                       items:[{
-                          title: 'Smaller element1',
+                          title: 'Pipelines',
                           layout: 'fit',
                           tools: tools,
-                          html: 'bogus markup'
+                          items: pipegrid
                       }]},
                      {columnWidth: 0.33,
                       style:'padding:10px 0 10px 10px',
@@ -124,8 +123,7 @@ Ext.onReady(function(){
                       }]}
                     ]},
             taggrid,
-            pipepanel,
-            pipegrid
+            pipepanel
         ]
     });
 });

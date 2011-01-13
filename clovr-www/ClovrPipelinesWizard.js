@@ -16,12 +16,12 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
          */
         var protocol_to_pipelines = {
             'clovr_metagenomics': {
-                'pipelines': {
-                    'clovr_metagenomics_noorf': 1,
-                    'clovr_metagenomics_orf': 1,
-                    'clovr_metatranscriptomics': 1,
-                    'clovr_total_metagenomics': 1
-                },
+//                'pipelines': {
+//                    'clovr_metagenomics_noorf': 1,
+//                    'clovr_metagenomics_orf': 1,
+//                    'clovr_metatranscriptomics': 1,
+//                    'clovr_total_metagenomics': 1
+//                },
                 'panel': new Ext.TabPanel({
                     title: 'CloVR Metagenomics',
                     activeTab: 0,
@@ -30,7 +30,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             },
             'clovr_16s': {
                 'pipelines': {
-                    'clover_16S': 1
+                    'clovr_16S': 1
                 },
                 'panel': new Ext.TabPanel({
                     title: 'CloVR 16s',
@@ -42,22 +42,15 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'pipelines': {
                     'clovr_search': 1
                 },
-                'panel_xtype': 'blastclovrformpanel',
-                'panel': new Ext.Panel({
-                    layout: 'fit',
-                    id: 'clovr_search'
-                })
+                'panel_xtype': 'clovrblastpanel'
             },
             'clovr_microbe': {
                 'pipelines': {
                     'clovr_microbe_annotation': 1,
+                    'clovr_microbe_illumina': 1,
                     'clovr_microbe454': 1
                 },
-                'panel': new Ext.TabPanel({
-                    title: 'CloVR Microbe',
-                    activeTab: 0,
-                    id: 'clovr_microbe'
-                })
+                'panel_xtype': 'clovrmicrobepanel'
             }
         };
 
@@ -150,12 +143,18 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 //                           html: "<p>Bacterial assembly and annotation <a href='http://clovr.org/methods/clovr-microbe/'>Documentation</a></p>"}
                       ]}
                  ]}]},
-            new clovr.ClovrDatasetPanel({'id': 'dataset',
-                                         pipeline_callback: function(conf) {
-                                             clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
-                                         }
-                                        })
-                                         
+            new clovr.ClovrDatasetPanel({
+                'id': 'dataset',
+                pipelineCallback: function(conf) {
+                    clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
+                    
+                    // HACK here to find a reference to the underlying form. 
+                    // Should probably have an accessor as part of the surrounding panel.
+                    if(clovrpanel.getLayout().activeItem.changeInputDataSet) {
+                        clovrpanel.getLayout().activeItem.changeInputDataSet(conf);
+                    }
+                }
+            })
         ];
         clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
@@ -166,25 +165,47 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 
                 // HACK here. Couldn't get Ext.iterate to go over an associative array.
                 // Not sure if there is a better solution to this.
-                for(var prop in pipelines) {
-                    if(pipelines.hasOwnProperty(prop)) {
+//                for(var prop in pipelines) {
+//                    if(pipelines.hasOwnProperty(prop)) {
                         // Need to map this pipeline to a protocol name.
                         // If we haven't seen this protocol before we'll create a new
                         // panel for it.
-                        if(pipeline_to_protocol[prop]) {
-                            var xtype =protocol_to_pipelines[pipeline_to_protocol[prop]].panel_xtype;
-                            if(!xtype){xtype = 'clovrformpanel'};
-                            protocol_to_pipelines[pipeline_to_protocol[prop]].panel.add(
-                                {xtype: xtype,
-                                 fields: pipelines[prop].fields,
-                                 title: prop
-                                });
-                        }
-                    }
+//                        if(pipeline_to_protocol[prop]) {
+//                            var xtype = protocol_to_pipelines[pipeline_to_protocol[prop]].panel_xtype;
+//                            if(!xtype){xtype = 'clovrformpanel'};
+ //                           
+ //                           protocol_to_pipelines[pipeline_to_protocol[prop]].panel.add(
+ //                               {xtype: xtype,
+  //                               fields: pipelines[prop].fields,
+   //                              title: prop,
+//                                 id: protocol_to_pipelines[pipeline_to_protocol[prop]].panel.getId() + '_form',
+ //                                id: prop + '_form',
+ //                                submitcallback: function() {
+  //                                   clovrpanel.getLayout().setActiveItem(0);
+  //                                   Ext.Msg.show({
+  //                                       title: 'Success!',
+  //                                       msg: 'Your pipeline was submitted successfully',
+   //                                      buttons: Ext.Msg.OK
+    //                                 });
+     //                            }
+      //                          });
+       //                 }
+        //            }
                     
-                }
+                //            }
                 for(var prot in protocol_to_pipelines) {
-                    clovrpanel.add(protocol_to_pipelines[prot].panel);
+                    if(!protocol_to_pipelines[prot].panel) {
+                        clovrpanel.add({
+                            xtype: protocol_to_pipelines[prot].panel_xtype,
+                            pipelines: pipelines,
+                            submitcallback: function() {
+                                clovrpanel.getLayout().setActiveItem(0);
+                            }
+                        });
+                    }
+                    else {
+                        clovrpanel.add(protocol_to_pipelines[prot].panel);
+                    }
                 }
                 clovrpanel.getLayout().setActiveItem(0);
             },
@@ -224,6 +245,7 @@ function clovrParsePipelines( r ) {
                     'display': pipe.config[i][1].display,
                     'desc': pipe.config[i][1].desc,
                     'default': pipe.config[i][1]['default'],
+                    'choices': pipe.config[i][1].choices,
                     'visibility': pipe.config[i][1].visibility
                 });
             }
