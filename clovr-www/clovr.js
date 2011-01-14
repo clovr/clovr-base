@@ -447,20 +447,28 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
                 name: prefix + field.field
                 //field.desc
             };
+            if(field.desc) {
+                field_config.plugins = ['fieldtip'];
+                field_config.qtip=field.desc;
+                field_config.qanchor='left';
+            }
         }
         else {
             field_config = {
                 xtype: 'textfield',
                 fieldLabel: dname,
                 name: prefix + field.field,
-                value: field['default']
-//                field.desc
+                value: field['default'],
             };
+            if(field.desc) {
+                field_config.plugins = ['fieldtip'];
+                field_config.qtip=field.desc;
+                field_config.qanchor='left';
+            }
         }
         if(field.visibility == 'default_hidden') {
             field_config.disabled=false;
             advanced_params.push(field_config)
-            
         }
         else if(!ignore_fields[field.field]) {
             if(field.visibility == 'always_hidden') {
