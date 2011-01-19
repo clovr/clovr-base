@@ -4,18 +4,23 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
+
 INPUT_TAG={"display": "Input Tag", "default": null, "desc": "Input tag of sequences to BLAST against", "source": "tags"}
+
 REF_DB_TAG={"display": "Reference database tag", "default": null, "desc": "Reference database tag to BLAST against", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
+[params]
 
-[misc]
 SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted"}
+
 EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST"}
+
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST"}
+
 PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}
 
+PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_blast_pipeline", "desc": "Name of pipeline"}
 
 
 ##########################################################
@@ -25,6 +30,7 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -33,12 +39,19 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "choices": ["blastall_raw"]}
 
+
+[download]
+
+
 [pipeline]
+
+SOP_VERSION=clovr_search_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
@@ -52,5 +65,6 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 

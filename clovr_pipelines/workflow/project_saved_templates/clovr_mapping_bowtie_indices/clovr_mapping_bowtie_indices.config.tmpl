@@ -4,19 +4,26 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
+
 REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_mapping_bowtie_indices_ref", "desc": "Input reference tag", "source": "tags"}
+
 INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_mapping_bowtie_indices_reads", "desc": "Input reads tag", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mapping_bowtie_indices", "desc": "Name of pipeline"}
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [param]
+
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mapping_bowtie_indices", "desc": "Name of pipeline"}
+
 MAX_INSERT_SIZE={"display": "Max insert size", "desc": "Maximum insert size"}
+
 MAX_MISMATCHES={"display": "Max mismatches", "desc": "Maximum number of mismatches"}
+
 MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "desc": "Maximum number of alignments per read... those with more alignments will be ignored"}
+
 BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 
 
@@ -27,6 +34,7 @@ BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -35,6 +43,7 @@ BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## These are the output tags which will be downloaded
@@ -42,7 +51,12 @@ BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
+[download]
+
+
 [pipeline]
+
+SOP_VERSION=clovr_mapping_bowtie_indices_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_indices", "visibility": "always_hidden", "desc": null}
 
@@ -56,5 +70,6 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 

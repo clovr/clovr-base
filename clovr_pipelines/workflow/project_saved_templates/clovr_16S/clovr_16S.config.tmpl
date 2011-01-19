@@ -4,14 +4,12 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
+
 FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "source": "tags"}
+
 MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipleline", "source": "tags"}
 
 REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-aligned-imputed-fasta", "desc": "Reference database", "source": "tags"}
-
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "desc": "Name of pipeline"}
-
-
 
 
 #########################################################
@@ -19,7 +17,8 @@ PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "des
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
-GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
+
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "desc": "Name of pipeline"}
 
 ##########################################################
 ## Cluster info.
@@ -28,7 +27,11 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
+
 
 #########################################################
 ## Output info.
@@ -36,12 +39,19 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "qiime_otu_table,qiime_fasttree,qiime_heatmap,qiime_summary_tables,qiime_summary_histograms,qiime_skiff,qiime_metastats,qiime_beta,rdp_res,rdp_tables,rdp_skiff,rdp_metastats,rdp_histograms,mothur_otu_list,mothur_shannon,mothur_chao,mothur_ace,mothur_rare,mothur_summary", "desc": "Comma separated list of tags that should be downloaded"}
 
+[download]
+
+
+
 [pipeline]
+
+SOP_VERSION=clovr_16s_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_16S", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
@@ -55,5 +65,6 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after download data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S/clovr_16S.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 

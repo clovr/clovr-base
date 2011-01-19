@@ -4,13 +4,10 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
+
 GENBANK_TAG={"display": "Input Genbank Tag", "default": "bifidobacter_genbank_tag", "desc": "Input Genbank tag", "source": "tags"}
 
 REFERENCE_DB_TAG={"display": "Reference database tag", "default": "clovr-prok-db", "desc": "Reference database", "source": "tags"}
-
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mugsy", "desc": "Name of pipeline"}
-
-ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
 
 
 #########################################################
@@ -19,6 +16,11 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 #########################################################
 [params]
 
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mugsy", "desc": "Name of pipeline"}
+
+ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
+
+OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
 
 ##########################################################
 ## Cluster info.
@@ -27,6 +29,7 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -35,14 +38,19 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag,mugsyprep_map_tag,muscle_bsml_tag,muscle_raw_tag", "desc": "Comma separated list of tags that should be downloaded"}
 
-OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
+[download]
+
+
 
 [pipeline]
+
+SOP_VERSION=clovr_mugsy_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_mugsy", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
@@ -56,5 +64,6 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after download data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/clovr_mugsy.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 

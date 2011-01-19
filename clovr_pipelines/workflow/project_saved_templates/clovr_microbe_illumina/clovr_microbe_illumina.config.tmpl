@@ -11,11 +11,23 @@
 ## together. For example: 
 ## tagData.py --name local --tag-name paired_end_illumina s_2_1_sequences.fastq s_2_2.sequences.fastq
 [input]
+
 SHORT_PAIRED_TAG={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "source": "tags"}
+
 LONG_PAIRED_TAG={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "source": "tags"}
 
 SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "source": "tags"}
+
 LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "source": "tags"}
+
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG_PAIRED_TAG$;,$;SHORT_TAG$;,$;LONG_TAG$;", "visibility": "always_hidden", "desc": null}
+
+
+[param]
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
@@ -24,6 +36,7 @@ PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "des
 
 ## organism info
 OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them"}
+
 ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species"}
 
 ## The hash length to start velvet optimiser with
@@ -40,12 +53,7 @@ END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash l
 ## If using paired end reads, use AT LEAST -ins_length and -ins_length_sd.
 ## -min_contig_lgth is already set.
 VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set."}
-GROUP_COUNT={"display": "Group count", "default": 10, "visibility": "always_hidden", "desc": null}
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
 
-## This is used for uploading the tags specified above
-## Don't change this.
-INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG_PAIRED_TAG$;,$;SHORT_TAG$;,$;LONG_TAG$;", "visibility": "always_hidden", "desc": null}
 
 ##########################################################
 ## Cluster info.
@@ -54,7 +62,11 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+GROUP_COUNT={"display": "Group count", "default": 10, "visibility": "always_hidden", "desc": null}
+
 
 #########################################################
 ## Output info.
@@ -62,6 +74,7 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Output tags to download
@@ -69,7 +82,13 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
+[download]
+
+
 [pipeline]
+
+SOP_VERSION=clovr_microbe_illumina_version_0.0
+
 PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "desc": null}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
@@ -83,4 +102,5 @@ PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "vi
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

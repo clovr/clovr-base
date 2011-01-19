@@ -4,6 +4,7 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
+
 FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metatranscriptomics_fasta", "desc": "Input fasta tag", "source": "tags"}
 
 MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metatranscriptomics_map", "desc": "Mapping tag for pipleline", "source": "tags"}
@@ -14,17 +15,16 @@ NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": 
 
 RRNA_DB_TAG={"display": "rRNA database tag", "default": "clovr-rrnadb", "desc": "Reference database", "source": "tags"}
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metatranscriptomics_pipeline", "desc": "Name of pipeline"}
-
-
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
+
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metatranscriptomics_pipeline", "desc": "Name of pipeline"}
+
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this"}
-GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
 
 
 ##########################################################
@@ -34,6 +34,9 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
+GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups to create, you don't need to modify this"}
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 
@@ -43,12 +46,20 @@ GROUP_COUNT={"display": "Group count", "default": 1, "desc": "Number of groups t
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "uclust_clusters,blast_rrna,tables_rrna,piecharts_rrna,skiff_rrna,metastats_rrna,blast_functional,tables_functional,piecharts_functional,skiff_functional,metastats_functional,blast_taxonomy,tables_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy", "desc": "Comma separated list of tags that should be downloaded"}
 
+
+[download]
+
+
+
 [pipeline]
+
+SOP_VERSION=clovr_metatranscriptomics_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_metatranscriptomics", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
@@ -63,6 +74,7 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metatranscriptomics/clovr_metatranscriptomics.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 
 

@@ -7,6 +7,13 @@
 
 INPUT_FSA_TAG={"display": "Input Fasta Tag", "desc": "Tag for input", "source": "tags"}
 
+## the reference databases to use for pipeline
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
+
+
+
+[param]
+
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
 ## otherwise will create the pipeline with current settings
@@ -14,13 +21,8 @@ PIPELINE_NAME={"display": "Pipeline name", "default": "test", "desc": "Name of p
 
 ## organism info
 OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them"}
+
 ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species"}
-
-## the reference databases to use for pipeline
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
-
-GROUP_COUNT={"display": "Group count", "default": 50, "desc": "Shouldn't need to modify"}
-
 
 
 
@@ -32,6 +34,9 @@ GROUP_COUNT={"display": "Group count", "default": 50, "desc": "Shouldn't need to
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
+GROUP_COUNT={"display": "Group count", "default": 50, "desc": "Shouldn't need to modify"}
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 
@@ -41,6 +46,7 @@ GROUP_COUNT={"display": "Group count", "default": 50, "desc": "Shouldn't need to
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Output tags to download
@@ -49,7 +55,12 @@ GROUP_COUNT={"display": "Group count", "default": 50, "desc": "Shouldn't need to
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,cds_fasta,annotation_sqn,annotation_genbank", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
 
+[download]
+
+
 [pipeline]
+
+SOP_VERSION=clovr_microbe_annotation_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation", "visibility": "always_hidden", "desc": null}
 
@@ -63,4 +74,5 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation/clovr_microbe_annotation.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

@@ -10,6 +10,12 @@
 ## See tagData.py --help for more info
 INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "source": "tags"}
 
+## For the annotation portion of the pipeline.
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
+
+
+
+[param]
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
@@ -36,14 +42,6 @@ INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert s
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "desc": null}
 SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to 1", "choices": [0, 1]}
 
-## For the annotation portion of the pipeline.
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
-
-## How many groups for ergatis
-GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to modify"}
-
-
-
 
 ##########################################################
 ## Cluster info.
@@ -52,6 +50,10 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
+
+## How many groups for ergatis
+GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to modify"}
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -60,6 +62,7 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 ## logging information
 #########################################################
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## These are the output tags which will be downloaded
@@ -67,7 +70,14 @@ GROUP_COUNT={"display": "Group count", "default": 20, "desc": "Shouldn't need to
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
 
+
+[download]
+
+
+
 [pipeline]
+
+SOP_VERSION=clovr_microbe454_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "desc": null}
 
@@ -81,4 +91,5 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe454/clovr_microbe454.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}

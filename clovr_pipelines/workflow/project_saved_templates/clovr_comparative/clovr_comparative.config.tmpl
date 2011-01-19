@@ -3,22 +3,26 @@
 ## Input information.
 ## Configuration options for the pipeline.
 #########################################################
+
 [input]
+
 GENBANK_TAG={"display": "Input Genbank Tag", "default": "bifidobacter_genbank_tag", "desc": "Input Genbank tag", "source": "tags"}
 
 REFERENCE_DB_TAG={"display": "Reference database tag", "default": "clovr-prok-db", "desc": "Reference database", "source": "tags"}
-
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_comparative", "desc": "Name of pipeline"}
-
-ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
 
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
+
 [params]
 
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_comparative", "desc": "Name of pipeline"}
+
+ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
+
+OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
 
 ##########################################################
 ## Cluster info.
@@ -26,7 +30,9 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## check for the presence of this cluster and if it's not
 ## running will start a cluster with the default settings
 ##########################################################
+
 [cluster]
+
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -34,15 +40,21 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 ## Specifies where locally the data will end up and also
 ## logging information
 #########################################################
+
 [output]
+
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccard_fasta,muscle_jaccard_raw,joc_fasta,muscle_joc_raw", "desc": "Comma separated list of tags that should be downloaded"}
 
-OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
+
+[download]
+
 
 [pipeline]
+
+SOP_VERSION=clovr_comparative_version_0.0
 
 PIPELINE_TEMPLATE={"default": "clovr_comparative", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
@@ -56,5 +68,6 @@ PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_tem
 #Postrun is run after pipeline completion and after download data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.postrun.xml", "visibility": "always_hidden", "desc": null}
+
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
 
