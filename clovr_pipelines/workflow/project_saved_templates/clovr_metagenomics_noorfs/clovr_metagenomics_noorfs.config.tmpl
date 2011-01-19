@@ -5,13 +5,13 @@
 #########################################################
 [input]
 
-FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metagenomics_noorfs_fasta", "desc": "Input fasta tag", "source": "tags"}
+FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metagenomics_noorfs_fasta", "desc": "Input fasta tag", "source": "tags", "type": "tag", "format_type": "nuc_fasta", "required": "true"}
 
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_noorfs_map", "desc": "Mapping tag for pipleline", "source": "tags"}
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_noorfs_map", "desc": "Mapping tag for pipleline", "source": "tags", "type": "tag", "format_type": "mapping", "required": "true"}
 
-PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Reference database", "source": "tags"}
+PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Reference database", "source": "tags", "type":"blastdb_tag", "required":"true"}
 
-NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Reference database", "source": "tags"}
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Reference database", "source": "tags", "type":"blastdb_tag", "required":"true"}
 
 
 #########################################################
@@ -20,7 +20,7 @@ NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": 
 #########################################################
 [params]
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metagenomics_noorfs_pipeline", "desc": "Name of pipeline"}
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_metagenomics_noorfs_pipeline", "desc": "Name of pipeline", "required": "true"}
 
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this"}
 
@@ -53,7 +53,7 @@ TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "uclust_clusters,artifi
 
 [pipeline]
 
-SOP_VERSION=clovr_metagenomics_noorfs_version_0.0
+SOP_VERSION={"display": "SOP Version" , "default":"clovr_metagenomics_noorfs_version_0.0"}
 
 PIPELINE_TEMPLATE={"default": "clovr_metagenomics_noorfs", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
