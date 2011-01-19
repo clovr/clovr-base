@@ -5,11 +5,11 @@
 #########################################################
 [input]
 
-FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "source": "tags"}
+FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "source": "tags", "type": "tag", "format_type": "nuc_fasta", "dataset_type": "16S", "required": "true"}
 
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipleline", "source": "tags"}
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipeline", "source": "tags", "type": "tag", "format_type": "mapping", "required":"true"}
 
-REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-aligned-imputed-fasta", "desc": "Reference database", "source": "tags"}
+REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-aligned-imputed-fasta", "desc": "Reference database", "source": "tags", "required": "true"}
 
 
 #########################################################
@@ -18,7 +18,7 @@ REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-alig
 #########################################################
 [params]
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "desc": "Name of pipeline"}
+PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_16S_pipeline", "desc": "Name of pipeline", "required": "true"}
 
 ##########################################################
 ## Cluster info.
