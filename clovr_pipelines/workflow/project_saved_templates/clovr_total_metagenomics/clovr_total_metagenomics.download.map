@@ -1,8 +1,0 @@
-#TAG_NAME	FILES
-uclust_polypeptide_fasta	$;REPO_ROOT$;/output_repository/uclust/$;PIPELINE_ID$;_polypeptide/uclust.fsa.list
-blastp_btab	$;REPO_ROOT$;/output_repository/ncbi-blastp/$;PIPELINE_ID$;_default/ncbi-blastp.btab.list
-#################    Workflow xml download       ##########################
-# paths for all the workflow xml dirs are written to /tmp/workflow_xml.txt#
-# For further reference, see preprocessing commands in tag_data.xml       #
-###########################################################################
-workflow_xml_tag	/tmp/workflow_xml.txt

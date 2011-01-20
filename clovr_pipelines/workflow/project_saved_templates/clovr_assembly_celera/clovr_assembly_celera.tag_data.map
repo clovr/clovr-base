@@ -1,2 +1,0 @@
-assembly_scf	$;REPO_ROOT$;/output_repository/celera_assembler_cloud/$;PIPELINE_ID$;_default/celera_assembler_cloud.scf.fasta.list
-assembly_qc	$;REPO_ROOT$;/output_repository/celera_assembler_cloud/$;PIPELINE_ID$;_default/celera_assembler_cloud.qc.list
