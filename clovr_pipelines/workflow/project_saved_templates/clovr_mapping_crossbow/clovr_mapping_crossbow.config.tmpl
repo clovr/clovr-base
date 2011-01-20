@@ -4,23 +4,17 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-
-REFERENCE_JAR_TAG={"display": "Input Reference Jar Tag", "default": "clovr_mapping_crossbow_ref", "desc": "Input reference jar tag", "source": "tags"}
-
-INPUT_MANIFEST_TAG={"display": "Input Manifest Tag", "default": "clovr_mapping_crossbow_manifest", "desc": "Input manifest tag", "source": "tags"}
+REFERENCE_JAR_TAG={"display": "Input Reference Jar Tag", "default": "clovr_mapping_crossbow_ref", "desc": "Input reference jar tag", "type": "tag", "require_value": true}
+INPUT_MANIFEST_TAG={"display": "Input Manifest Tag", "default": "clovr_mapping_crossbow_manifest", "desc": "Input manifest tag", "type": "tag", "require_value": true}
 
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
-[param]
-
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mapping_crossbow", "desc": "Name of pipeline"}
-
-OUTPUT_PREFIX={"display": "Output prefix", "default": "output", "desc": "Output prefix for all output files"}
-
-CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line arguments to be passed to Crossbow"}
+[params]
+OUTPUT_PREFIX={"display": "Output prefix", "default": "output", "desc": "Output prefix for all output files", "type": "string", "require_value": true}
+CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line arguments to be passed to Crossbow", "type": "string"}
 
 
 ##########################################################
@@ -30,7 +24,6 @@ CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line argument
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -39,34 +32,34 @@ CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line argument
 ## logging information
 #########################################################
 [output]
-
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "crossbow_snps", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "crossbow_snps", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["crssbow_snps"]}}
 
 
 [download]
 
 
 [pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_mapping_crossbow_version_0.0", "type": "string", "visibility": "always_hidden"}
 
-PIPELINE_TEMPLATE={"default": "clovr_mapping_crossbow", "visibility": "always_hidden", "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_mapping_crossbow", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.postrun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_crossbow/clovr_mapping_crossbow.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 

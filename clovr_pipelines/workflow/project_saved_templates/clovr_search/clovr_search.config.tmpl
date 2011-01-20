@@ -4,21 +4,15 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-
-INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to BLAST against", "type": "tag", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["nuc_fasta", "aa_fasta"]}}
-
-REF_DB_TAG={"display": "Reference database tag", "desc": "Reference database tag to BLAST against", "type": "blastdb_tag", "type_params": {"transform_name": "input.REF_DB_PATH"}}
+INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to BLAST against", "type": "dataset", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["nuc_fasta", "aa_fasta"]}, "require_value": true}
+REF_DB_TAG={"display": "Reference database tag", "desc": "Reference database tag to BLAST against", "type": "blastdb_dataset", "type_params": {"transform_name": "input.REF_DB_PATH"}, "require_value": true}
 
 
 [params]
-
-SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer"}
-
-EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float"}
-
-OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST", "type": "string"}
-
-PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}}
+SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer", "require_value": true}
+EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float", "require_value": true}
+OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST", "type": "string", "require_value": true}
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}, "require_value": true}
 
 ##########################################################
 ## Cluster info.
@@ -40,7 +34,7 @@ PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "type": "restricted_string list", "type_params": {"choices": ["blastall_raw"]}}
+TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of tags that should be downloaded, leave the default", "type": "restricted_string list", "type_params": {"choices": ["blastall_raw"]}, "require_value": true}
 
 
 [download]
@@ -52,18 +46,18 @@ TAGS_TO_DOWNLOAD={"default": "blastall_raw", "desc": "Comma separated list of ta
 
 SOP_VERSION={"default": "clovr_search_version_0.0", "type": "string", "visibility": "always_hidden"}
 
-PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running", "type": "string"}
+PIPELINE_TEMPLATE={"default": "clovr_search", "visibility": "always_hidden", "desc": "The type of the pipeline we are running", "type": "string", "require_value": "true"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.prestart.xml", "visibility": "always_hidden", "type": "string"}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.prestart.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.prerun.xml", "visibility": "always_hidden", "type": "string"}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.postrun.xml", "visibility": "always_hidden", "type": "string"}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_search/clovr_search.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string"}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 

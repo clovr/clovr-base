@@ -4,20 +4,19 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-
-INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to BLAST against", "type": "tag", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["nuc_fasta", "aa_fasta"]}}
-
-REF_DB_TAG={"display": "Reference database tag", "desc": "Reference database tag to BLAST against", "type": "blastdb_tag", "type_params": {"transform_name": "input.REF_DB_PATH"}}
+INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to BLAST against", "type": "tag", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["nuc_fasta", "aa_fasta"]}, "require_value": true}
+REF_DB_TAG={"display": "Reference database tag", "desc": "Reference database tag to BLAST against", "type": "blastdb_tag", "type_params": {"transform_name": "input.REF_DB_PATH"}, "require_value": true}
 
 
 [params]
-SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer"}
-EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float"}
+# Should remove this seqs per file
+SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer", "require_value": true}
+EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float", "require_value": true}
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST", "type": "string"}
-PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}}
-MAX_TARGET_SEQ={"display": "Max Target Sequences", "default": 250, "visibility": "default_hidden", "desc": "Number of database sequence to show alignments for", "type": "integer"}
-WORD_SIZE={"display": "Word size", "default": 3, "visibility": "default_hidden", "desc": "The length of the seed that initiates an alignment", "type": "integer"}
-LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": false, "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "type": "boolean", "type_params": {"true": "Yes", "false": "No"}}
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}, "require_value": true}
+MAX_TARGET_SEQ={"display": "Max Target Sequences", "default": 250, "visibility": "default_hidden", "desc": "Number of database sequence to show alignments for", "type": "integer", "require_value": true}
+WORD_SIZE={"display": "Word size", "default": 3, "visibility": "default_hidden", "desc": "The length of the seed that initiates an alignment", "type": "integer", "require_value": true}
+LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "type": "boolean", "type_params": {"true": "Yes", "false": "No"}, "require_value": true}
 
 
 

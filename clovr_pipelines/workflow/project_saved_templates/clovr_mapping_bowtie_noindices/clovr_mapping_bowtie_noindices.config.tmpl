@@ -4,31 +4,21 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-
-REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_mapping_bowtie_noindices_ref", "desc": "Input reference tag", "source": "tags"}
-
-INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_mapping_bowtie_noindices_reads", "desc": "Input reads tag", "source": "tags"}
+REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_mapping_bowtie_noindices_ref", "desc": "Input reference tag", "type": "dataset", "require_value": true}
+INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_mapping_bowtie_noindices_reads", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"]}, "require_value": true}
 
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
-[param]
-
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_mapping_bowtie_noindices", "desc": "Name of pipeline"}
-
-BOWTIE_BUILD_OPTS={"display": "bowtie-build options", "desc": "Command-line arguments to pass to bowtie-build"}
-
-OUTPUT_PREFIX={"display":"output prefix", "default": "asmbl", "desc": "bowtie build output prefix"}
-
-MAX_INSERT_SIZE={"display": "Max insert size", "desc": "Maximum insert size"}
-
-MAX_MISMATCHES={"display": "Max mismatches", "desc": "Maximum number of mismatches"}
-
-MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "desc": "Maximum number of alignments per read... those with more alignments will be ignored"}
-
-BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
+[params]
+BOWTIE_BUILD_OPTS={"display": "Bowtie-build options", "desc": "Command-line arguments to pass to bowtie-build", "type": "string"}
+OUTPUT_PREFIX={"display":"Output prefix", "default": "asmbl", "desc": "bowtie build output prefix", "type": "string", "require_value": true}
+MAX_INSERT_SIZE={"display": "Max insert size", "default": 300, "desc": "Maximum insert size", "type": "integer", "type_params": {"min": 0}, "require_value": true}
+MAX_MISMATCHES={"display": "Max mismatches", "default": 0, "desc": "Maximum number of mismatches", "type": "integer", "type_params": {"min": 0, "max": 3}, "require_value": true}
+MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Maximum number of alignments per read... those with more alignments will be ignored", "type": "integer", "require_value": true}
+BOWTIE_OPTS={"display":"Bowtie options", "desc": "Any other bowtie arguments", "type": "string"}
 
 
 ##########################################################
@@ -38,7 +28,6 @@ BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
@@ -47,33 +36,33 @@ BOWTIE_OPTS={"display":"bowtie options", "desc": "Any other bowtie arguments"}
 ## logging information
 #########################################################
 [output]
-
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam"]}}
 
 
 [download]
 
 
 [pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_mapping_bowtie_noindices_version_0.0", "type": "string", "visibility": "always_hidden"}
 
-PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "always_hidden", "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/clovr_mapping_bowtie_noindices.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/clovr_mapping_bowtie_noindices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/clovr_mapping_bowtie_noindices.postrun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/clovr_mapping_bowtie_noindices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}

@@ -4,10 +4,8 @@
 ## Input files and databases to be used.
 #########################################################
 [input]
-INPUT_TAG={"display": "Input Tag", "default": "clovr_total_metagenomics_input", "desc": "Tag to use for input into the pipeline", "source": "tags"}
-DB_TAG={"display": "Reference database tag", "default": "ncbi-nr", "desc": "The reference database to use for the tag", "source": "tags"}
-
-PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_total_metagenomics_run", "desc": "The name of the pipeline"}
+INPUT_TAG={"display": "Input Tag", "default": "clovr_total_metagenomics_input", "desc": "Tag to use for input into the pipeline", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.INPUT_FILE_LIST"}, "require_value": true}
+DB_TAG={"display": "Reference database tag", "default": "ncbi-nr", "desc": "The reference database to use for the tag", "type": "blastdb_dataset", "type_params": {"transform_name": "input.DB_FILE_LIST"}, "require_value": true}
 
 
 
@@ -16,11 +14,11 @@ PIPELINE_NAME={"display": "Pipeline Name", "default": "clovr_total_metagenomics_
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
-SEQS_PER_FILE={"display": "Sequences per file", "default": 5, "desc": "The number of sequences per file, you shouldn't need to modify this"}
+SEQS_PER_FILE={"display": "Sequences per file", "default": 5, "desc": "The number of sequences per file, you shouldn't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 ## Should be set to the number of nodes available in cluster
-TOTAL_FILES={"display": "Total files", "default": 1, "desc": "Total files to make, set to the number of exec nodes in the cluster"}
-NUM_SEQS={"default": 100, "desc": "The number of sequences to write to each BSML file, you shouldn't need to modify this"}
-GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shouldn't need to modify this"}
+TOTAL_FILES={"display": "Total files", "default": 1, "desc": "Total files to make, set to the number of exec nodes in the cluster", "type": "integer", "type_params": {"min": 1}, "require_value": true}
+NUM_SEQS={"default": 100, "desc": "The number of sequences to write to each BSML file, you shouldn't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
+GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shouldn't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 
 ##########################################################
 ## Cluster info.
@@ -40,20 +38,21 @@ GROUP_COUNT={"default": 1, "desc": "The total number of groups to make, you shou
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["uclust_polypeptide_fasta", "blastp_btab"]}}
 
 [pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "visibility": "always_hidden", "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_total_metagenomics", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prestart.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prestart.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.postrun.xml", "visibility": "always_hidden", "desc": null}
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_total_metagenomics/clovr_total_metagenomics.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
