@@ -8,39 +8,32 @@
 ## This can be multiple sff files that will be assembled
 ## together.
 ## tagData.py --help for more details
-INPUT_SFF_TAG={"display": "Input Tag", "default": "", "desc": "Input tag, should be an sff file", "source": "tags"}
+INPUT_SFF_TAG={"display": "Input Tag", "desc": "Input tag, should be an sff file", "type": "dataset", "require_value": true, "type_params": { "format_type": ["sff", null], "platform_type": ["454", null] } }
 
+[params]
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
 ## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipeline name", "default": "", "desc": "Name of the pipeline"}
+PIPELINE_NAME={"display": "Pipeline name", "desc": "Name of the pipeline", "type": "random_pipeline_name", "require_value": true }
 
 ## organism info
-OUTPUT_PREFIX={"display": "Output prefix", "default": "asmbl", "desc": "Organism output prefix"}
+OUTPUT_PREFIX={"display": "Output prefix", "default": "asmbl", "desc": "Organism output prefix", "type": "string", "require_value": true }
 
 ## sff_to_CA options
 ##
 ## trim can be one of the following values:
 ## none, soft, hard, chop
-TRIM={"display": "Trim", "default": "chop", "desc": null, "choices": ["none", "soft", "hard", "chop"]}
+TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_params": { "choices": ["none", "soft", "hard", "chop"] }, "require_value": true }
 ##
 ## clear can be one of the following values:
 ## all, 454, none, n, pair-of-n, discard-n
-CLEAR={"display": "Clear", "default": "454", "desc": null, "choices": ["all", "454", "none", "pair-of-n", "discard-n"]}
-LINKER={"display": "Linker", "default": "titanium", "desc": null}
-INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Must be two numbers separated by a space"}
+CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": { "choices": ["all", "454", "none", "pair-of-n", "discard-n"] }, "require_value": true }
+LINKER={"display": "Linker", "default": "titanium", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
+INSERT_SIZE={"display": "Insert size", "desc": "Must be two numbers separated by a space", "type": "insert_size" }
 
 ## celera assembler options
-SPEC_FILE={"display": "Spec file", "default": "/dev/null", "desc": null}
-SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "choices": [0, 1]}
-
-## The number of groups to use
-GROUP_COUNT={"display": "Group count", "default": 10, "desc": "Group count, you should never need to change this", "visibility": "default_hidden"}
-
-
-
-
-
+SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type": "string"}
+SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false: 0 } }
 
 ##########################################################
 ## Cluster info.
@@ -62,22 +55,23 @@ GROUP_COUNT={"display": "Group count", "default": 10, "desc": "Group count, you 
 ## Output: tags to download after run finishes
 ## Comma separated list of tags
 ## Possible options: assembly_scf, assembly_qc
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "choices": ["assembly_scf", "assembly_qc"]}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "type": "restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc"] } }
 
 [pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-PIPELINE_TEMPLATE={"default": "clovr_assembly_celera", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
-
+SOP_VERSION={"default": "clovr_assembly_celera_version_0.0", "type": "string", "visibility": "always_hidden"}
+PIPELINE_TEMPLATE={"default": "clovr_assembly_celera", "visibility": "always_hidden", "desc": "The type of the pipeline we are running", "type": "string"}
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string" }
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "type": "string" }
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_celera/clovr_assembly_celera.prerun.xml", "visibility": "always_hidden", "type": "string" }
 
 
 

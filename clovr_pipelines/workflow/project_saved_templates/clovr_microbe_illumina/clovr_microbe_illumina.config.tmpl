@@ -12,47 +12,47 @@
 ## tagData.py --name local --tag-name paired_end_illumina s_2_1_sequences.fastq s_2_2.sequences.fastq
 [input]
 
-SHORT_PAIRED_TAG={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "source": "tags"}
+SHORT_PAIRED_TAG={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "type": "paired_dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.SHORT_PAIRED_LIST" } }
 
-LONG_PAIRED_TAG={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "source": "tags"}
+LONG_PAIRED_TAG={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "type": "paired_dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.LONG_PAIRED_LIST" } }
 
-SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "source": "tags"}
+SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing any short non-paired end input reads (fasta or fastq", "type": "dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.SHORT_INPUT_LIST" } }
 
-LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "source": "tags"}
+LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "type": "dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.LONG_INPUT_LIST" } }
 
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "source": "tags"}
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "require_value": true }
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
-INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG_PAIRED_TAG$;,$;SHORT_TAG$;,$;LONG_TAG$;", "visibility": "always_hidden", "desc": null}
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG_PAIRED_TAG$;,$;SHORT_TAG$;,$;LONG_TAG$;", "visibility": "always_hidden", "type": "dataset list" }
 
 
-[param]
+[params]
 
 ## pipeline name
 ## if pipeline is already present, will simply monitor it
 ## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline"}
+PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline", "type": "random_pipeline_name", "visibility": "always_hidden" }
 
 ## organism info
-OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them"}
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
 
-ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species"}
+ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "require_value": true }
 
 ## The hash length to start velvet optimiser with
 ## Must be an odd number, less than end hash length and
 ## 19 < x < 31
-START_HASH_LENGTH={"default":19, "display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and 19 < x < 31"}
+START_HASH_LENGTH={"default":19, "display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and in the range 19 - 31", "type": "integer", "type_params": { "min": 19, "max": 31, "restrict_to": ["odd"] }, "require_value": true }
 
 ## The hash length of the last iteration of optimiser
 ## Must be odd, greater than start hash length and 
 ## 19 < x < 31
-END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and 19 < x < 31"}
+END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and in the range 19 - 31", "type": "integer", "type_params": { "min": 19, "max": 31, "restrict_to": ["odd"], "require_value": true }
 
 ## Other options sent to velvetg
 ## If using paired end reads, use AT LEAST -ins_length and -ins_length_sd.
 ## -min_contig_lgth is already set.
-VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set."}
+VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set.", "type": "string", "require_value": true }
 
 
 ##########################################################
@@ -62,10 +62,7 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## running will start a cluster with the default settings
 ##########################################################
 [cluster]
-
 -include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
-GROUP_COUNT={"display": "Group count", "default": 10, "visibility": "always_hidden", "desc": null}
 
 
 #########################################################
@@ -80,27 +77,27 @@ GROUP_COUNT={"display": "Group count", "default": 10, "visibility": "always_hidd
 ## Output tags to download
 ## Comma separated list (e.g. assembly_contigs,annotation_genbank )
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
 
 [download]
 
 
 [pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_microbe_illumina_version_0.0", "type": "string", "visibility": "always_hidden"}
-
-PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "desc": null}
+PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "type": "string" }
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prestart.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prestart.xml", "visibility": "always_hidden", "type": "string" }
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.prerun.xml", "visibility": "always_hidden", "type": "string" }
 PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.postrun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_illumina/clovr_microbe_illumina.postrun.xml", "visibility": "always_hidden", "type": "string" }
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string"}

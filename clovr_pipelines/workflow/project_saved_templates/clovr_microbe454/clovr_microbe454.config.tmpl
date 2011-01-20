@@ -7,31 +7,35 @@
 ## The input tag name for sff input data
 ## Should already be tagged data
 ## See tagData.py --help for more info
-INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "type": "tag", "type_params": { "format_type": ["sff"], "transform_name": "input.INPUT_FILE_LIST" }, "required": true }
+INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "type": "dataset", "type_params": { "format_type": ["sff"], "transform_name": "input.INPUT_FILE_LIST" }, "require_value": true }
 
 ## For the annotation portion of the pipeline.
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "tag", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "required": true }
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "require_value": true }
 
 [params]
+## pipeline name
+## if pipeline is already present, will simply monitor it
+## otherwise will create the pipeline with current settings
+PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline", "type": "random_pipeline_name", "visibility": "always_hidden" }
 ## organism info
-OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "required": true }
-ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "required": true }
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
+ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "require_value": true }
 
 ## sff_to_CA options
 ##
 ## trim can be one of the following values:
 ## none, soft, hard, chop
-TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_params": { "choices": ["none", "soft", "hard", "chop"] }, "required": true }
+TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_params": { "choices": ["none", "soft", "hard", "chop"] }, "require_value": true }
 ##
 ## clear can be one of the following values:
 ## all, 454, none, n, pair-of-n, discard-n
-CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": {"choices": ["all", "454", "none", "n", "pair-of-n", "discard-n"] }, "required": true }
-LINKER={"display": "Linker", "default": "titanium", "desc": "What linker to use", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "required": true }
+CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": {"choices": ["all", "454", "none", "n", "pair-of-n", "discard-n"] }, "require_value": true }
+LINKER={"display": "Linker", "default": "titanium", "desc": "What linker to use", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
 INSERT_SIZE={"display": "Insert size", "desc": "Insert size, must be two numbers separated by a space (ex '8000 1000')", "type": "insert_size" }
 
 ## celera assembler options
-SPEC_FILE={"display": "Spec file", "default": "/dev/null", "required": true, "type":"string"}
-SKIP_BANK={"display": "Skip bank", "default": true, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": "1", "false": "0" } }
+SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type":"string"}
+SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
 
 
 ##########################################################
