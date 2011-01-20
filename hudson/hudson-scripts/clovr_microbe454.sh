@@ -9,7 +9,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c input.OUTPUT_PREFIX=BD413_mini \
     -c input.ORGANISM="Acinetobacter baylii" \
     -c input.SKIP_BANK=1 \
-    -c input.PIPELINE_NAME=illumina_${DATE} \
+    -c pipeline.PIPELINE_NAME=illumina_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

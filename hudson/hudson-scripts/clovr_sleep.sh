@@ -10,7 +10,7 @@ vp-add-dataset -o --tag-name=clovr_sleep_files /tmp/clovr_sleep_*
 
 vp-describe-protocols --config-from-protocol=clovr_sleep \
     -c input.INPUT_TAG=clovr_sleep_files \
-    -c input.PIPELINE_NAME=clovr_sleep_${DATE} \
+    -c pipeline.PIPELINE_NAME=clovr_sleep_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

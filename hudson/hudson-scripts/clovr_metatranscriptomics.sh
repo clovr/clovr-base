@@ -11,7 +11,7 @@ DATE=`date +"%m-%d-%Y-%T"`
 vp-describe-protocols --config-from-protocol=clovr_metatranscriptomics \
     -c input.FASTA_TAG=clovr_metatranscriptomics_fasta \
     -c input.MAPPING_TAG=clovr_metatranscriptomics_map \
-    -c input.PIPELINE_NAME=clovr_metatranscriptomics_${DATE} \
+    -c pipeline.PIPELINE_NAME=clovr_metatranscriptomics_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

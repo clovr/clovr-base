@@ -8,7 +8,7 @@ vp-describe-protocols --config-from-protocol=clovr_pangenome \
     -c input.GENBANK_TAG=bifidobacter_genbank_tag \
     -c input.OUTPUT_PREFIX=bifidobacter \
     -c input.ORGANISM="Bifidobacter sp" \
-    -c input.PIPELINE_NAME=pangenome_${DATE} \
+    -c pipeline.PIPELINE_NAME=pangenome_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

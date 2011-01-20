@@ -10,7 +10,7 @@ DATE=`date +"%m-%d-%Y-%T"`
 vp-describe-protocols --config-from-protocol=clovr_16S \
     -c input.FASTA_TAG=clovr_16S_multi_input \
     -c input.MAPPING_TAG=clovr_16S_multi_mapping \
-    -c input.PIPELINE_NAME=clovr_16S_multi_${DATE} \
+    -c pipeline.PIPELINE_NAME=clovr_16S_multi_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

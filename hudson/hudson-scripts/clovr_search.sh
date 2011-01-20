@@ -11,8 +11,8 @@ DATE=`date +"%m-%d-%Y-%T"`
 vp-describe-protocols --config-from-protocol=clovr_search \
     -c input.INPUT_TAG=NC_000964_peps \
     -c input.REF_DB_TAG=NC_000964_blastpdb \
-    -c input.PIPELINE_NAME=clovr_search_${DATE} \
-    -c misc.PROGRAM=blastp \
+    -c pipeline.PIPELINE_NAME=clovr_search_${DATE} \
+    -c params.PROGRAM=blastp \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

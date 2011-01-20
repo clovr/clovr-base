@@ -12,7 +12,7 @@ vp-add-dataset -o --tag-name=clovr_mapping_bowtie_noindices_input_reads /opt/hud
 vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c input.REFERENCE_TAG=clovr_mapping_bowtie_noindices_reference \
     -c input.INPUT_READS_TAG=clovr_mapping_bowtie_noindices_input_reads \
-    -c input.PIPELINE_NAME=clovr_mapping_bowtie_noindices_${DATE} \
+    -c pipeline.PIPELINE_NAME=clovr_mapping_bowtie_noindices_${DATE} \
     -c param.BOWTIE_BUILD_OPTS="-t 8" \
     -c param.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
 
