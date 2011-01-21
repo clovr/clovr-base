@@ -40,7 +40,7 @@ START_HASH_LENGTH={"default":19, "display": "Start hash length", "desc": "The ha
 ## The hash length of the last iteration of optimiser
 ## Must be odd, greater than start hash length and 
 ## 19 < x < 31
-END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and in the range 19 - 31", "type": "integer", "type_params": { "min": 19, "max": 31, "restrict_to": ["odd"], "require_value": true }
+END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash length velvet optimiser will end with. Must be an odd number, greater than start hash length and in the range 19 - 31", "type": "integer", "type_params": { "min": 19, "max": 31, "restrict_to": ["odd"] }, "require_value": true }
 
 ## Other options sent to velvetg
 ## If using paired end reads, use AT LEAST -ins_length and -ins_length_sd.
