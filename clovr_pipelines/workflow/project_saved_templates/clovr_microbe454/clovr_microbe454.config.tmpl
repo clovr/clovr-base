@@ -27,7 +27,7 @@ TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_p
 ## all, 454, none, n, pair-of-n, discard-n
 CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": {"choices": ["all", "454", "none", "n", "pair-of-n", "discard-n"] }, "require_value": true }
 LINKER={"display": "Linker", "default": "titanium", "desc": "What linker to use", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
-INSERT_SIZE={"display": "Insert size", "desc": "Insert size, must be two numbers separated by a space (ex '8000 1000')", "type": "insert_size" }
+INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert size, must be two numbers separated by a space (ex '8000 1000')", "type": "insert_size" }
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type":"string"}
