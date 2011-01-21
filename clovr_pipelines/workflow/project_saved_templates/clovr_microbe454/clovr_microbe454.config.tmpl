@@ -13,10 +13,6 @@ INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline"
 REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "require_value": true }
 
 [params]
-## pipeline name
-## if pipeline is already present, will simply monitor it
-## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline", "type": "random_pipeline_name", "visibility": "always_hidden" }
 ## organism info
 OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
 ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "require_value": true }

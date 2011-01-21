@@ -11,7 +11,6 @@
 ## together. For example: 
 ## tagData.py --name local --tag-name paired_end_illumina s_2_1_sequences.fastq s_2_2.sequences.fastq
 [input]
-
 SHORT_PAIRED_TAG={"display": "Short Paired Input Tag", "desc": "The input tag describing any short paired end input reads (fasta or fastq", "type": "paired_dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.SHORT_PAIRED_LIST" } }
 
 LONG_PAIRED_TAG={"display": "Long Paired Input Tag", "desc": "The input tag describing any long paired end input reads (fasta or fastq", "type": "paired_dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.LONG_PAIRED_LIST" } }
@@ -28,12 +27,6 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG
 
 
 [params]
-
-## pipeline name
-## if pipeline is already present, will simply monitor it
-## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline", "type": "random_pipeline_name", "visibility": "always_hidden" }
-
 ## organism info
 OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
 
@@ -71,7 +64,6 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## logging information
 #########################################################
 [output]
-
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Output tags to download

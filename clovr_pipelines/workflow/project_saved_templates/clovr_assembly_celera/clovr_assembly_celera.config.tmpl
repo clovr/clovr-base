@@ -11,11 +11,6 @@
 INPUT_SFF_TAG={"display": "Input Tag", "desc": "Input tag, should be an sff file", "type": "dataset", "require_value": true, "type_params": { "format_type": ["sff", null], "platform_type": ["454", null] } }
 
 [params]
-## pipeline name
-## if pipeline is already present, will simply monitor it
-## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipeline name", "desc": "Name of the pipeline", "type": "random_pipeline_name", "require_value": true }
-
 ## organism info
 OUTPUT_PREFIX={"display": "Output prefix", "default": "asmbl", "desc": "Organism output prefix", "type": "string", "require_value": true }
 
@@ -33,7 +28,7 @@ INSERT_SIZE={"display": "Insert size", "desc": "Must be two numbers separated by
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type": "string"}
-SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false: 0 } }
+SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
 
 ##########################################################
 ## Cluster info.

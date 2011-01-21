@@ -26,12 +26,6 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;SHORT_PAIRED_TAG$;,$;LONG
 
 
 [params]
-## The hash length to start velvet optimiser with
-## pipeline name
-## if pipeline is already present, will simply monitor it
-## otherwise will create the pipeline with current settings
-PIPELINE_NAME={"display": "Pipline name", "default": "illumina_annotation", "desc": "The name of the pipeline", "type": "random_pipeline_name", "visibility": "always_hidden" }
-
 ## Must be an odd number, less than end hash length and
 ## 19 < x < 31
 START_HASH_LENGTH={"default":19, "display": "Start hash length", "desc": "The hash length velvet optimiser will start with. Must be an odd number, less than end hash length and in the range 19 - 31", "type": "integer", "type_params": { "min": 19, "max": 31, "restrict_to": ["odd"] }, "require_value": true }
@@ -63,7 +57,6 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## logging information
 #########################################################
 [output]
-
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Output tags to download
@@ -78,19 +71,19 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,po
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_microbe_illumina_version_0.0", "type": "string", "visibility": "always_hidden"}
-PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "type": "string" }
+PIPELINE_TEMPLATE={"default": "clovr_microbe_illumina", "visibility": "always_hidden", "type": "string", "require_value": true }
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.prestart.xml", "visibility": "always_hidden", "type": "string" }
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.prestart.xml", "visibility": "always_hidden", "type": "string", "require_value": true }
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.prerun.xml", "visibility": "always_hidden", "type": "string" }
-PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true }
+PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.postrun.xml", "visibility": "always_hidden", "type": "string" }
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_assembly_velvet/clovr_assembly_velvet.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true }
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string"}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
