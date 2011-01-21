@@ -6,9 +6,9 @@ DATE=`date +"%m-%d-%Y-%T"`
 
 vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c input.INPUT_SFF_TAG=hudson_sff_test \
-    -c input.OUTPUT_PREFIX=BD413_mini \
-    -c input.ORGANISM="Acinetobacter baylii" \
-    -c input.SKIP_BANK=1 \
+    -c params.OUTPUT_PREFIX=BD413_mini \
+    -c params.ORGANISM="Acinetobacter baylii" \
+    -c params.SKIP_BANK=1 \
     -c pipeline.PIPELINE_NAME=illumina_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \

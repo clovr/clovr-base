@@ -13,8 +13,8 @@ vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c input.REFERENCE_TAG=clovr_mapping_bowtie_noindices_reference \
     -c input.INPUT_READS_TAG=clovr_mapping_bowtie_noindices_input_reads \
     -c pipeline.PIPELINE_NAME=clovr_mapping_bowtie_noindices_${DATE} \
-    -c param.BOWTIE_BUILD_OPTS="-t 8" \
-    -c param.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
+    -c params.BOWTIE_BUILD_OPTS="-t 8" \
+    -c params.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
 TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_mapping_bowtie_noindices_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`

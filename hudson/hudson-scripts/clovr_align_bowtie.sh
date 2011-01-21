@@ -13,8 +13,8 @@ vp-describe-protocols --config-from-protocol=clovr_align_bowtie \
     -c input.REFERENCE_TAG=clovr_align_bowtie_reference \
     -c input.INPUT_READS_TAG=clovr_align_bowtie_input_reads \
     -c pipeline.PIPELINE_NAME=clovr_align_bowtie_${DATE} \
-    -c param.BOWTIE_BUILD_OPTS="-t 8" \
-    -c param.OUTPUT_PREFIX="e_coli" \
+    -c params.BOWTIE_BUILD_OPTS="-t 8" \
+    -c params.OUTPUT_PREFIX="e_coli" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}

@@ -9,8 +9,8 @@ vp-add-dataset -o --tag-name=clovr_microbe_illumina_tag /opt/hudson/illumina_dat
 vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_tag \
     -c pipeline.PIPELINE_NAME=clovr_microbe_illumina-${DATE} \
-    -c input.OUTPUT_PREFIX=test \
-    -c input.ORGANISM="Genus species" \
+    -c params.OUTPUT_PREFIX=test \
+    -c params.ORGANISM="Genus species" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}
