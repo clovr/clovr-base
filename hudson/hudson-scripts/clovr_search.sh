@@ -24,6 +24,6 @@ if [ "$?" == "1" ]; then
     exit 1
 fi
 
-vp-describe-task --name $1 --exit-code --block $TASK_NAME
+vp-describe-task --name local --exit-code --block $TASK_NAME
 
 exit $?
