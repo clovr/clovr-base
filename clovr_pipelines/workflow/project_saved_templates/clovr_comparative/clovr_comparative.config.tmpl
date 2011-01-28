@@ -18,8 +18,6 @@ REFERENCE_DB_TAG={"display": "Reference database tag", "default": "clovr-prok-db
 
 [params]
 
-PIPELINE_NAME={"display": "Pipeline name", "default": "clovr_comparative", "desc": "Name of pipeline"}
-
 ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
 
 OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
@@ -53,6 +51,8 @@ TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccar
 
 
 [pipeline]
+
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_comparative_version_0.0", "type": "string", "visibility": "always_hidden"}
 
