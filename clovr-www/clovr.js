@@ -12,6 +12,8 @@
 // clovr namespace
 Ext.namespace('clovr');
 
+clovr.tagStores = [];
+
 /**
  * Creates a window that can be used to upload a dataset.
  * @param {object} config A config object that supports the following params:
@@ -89,56 +91,63 @@ clovr.uploadFileWindow = function(config) {
                      success: function(r,o) {
                          var path = '/mnt/user_data/';
                          var values = uploadForm.getForm().getFieldValues();
-                         Ext.Ajax.request({
-                             url: '/vappio/tagData_ws.py',
-                             params: {
-                                 'request':Ext.util.JSON.encode({
-                                     'files': [path + values.file],
-                                     'name': 'local',
-                                     'expand': true,
-                                     'recursive': false,
-                                     'append': false,
-                                     'overwrite': true,
-                                     'compress': false,
-                                     'tag_name': values.uploadfilename,
-                                     'tag_metadata': {
-                                         'description': values.uploadfiledesc,
-                                         'format_type': values.inputfiletype
-                                     },
-                                     'tag_base_dir': path
-                                 })
-                             },
-                             success: function(r,o) {
-                                     Ext.Msg.show({
-                                         title: 'Tagging Data...',
-                                         width: 200,
-                                         mask: true,
-                                         closable: false,
-                                         wait: true,
-                                         progressText : 'Tagging Data'
-                                     });
-                                 uploadForm.getForm().reset();
-                                     clovr.checkTagTaskStatusToSetValue({
-                                         uploadwindow: uploadWindow,
-                                         seqcombo: config.seqcombo,
-                                         tagname: values.uploadfilename,
-                                         data: Ext.util.JSON.decode(r.responseText)
-                                     });
-                             },
-                             failure: function(r,o) {
-                             }
-                         });
-                     },
-                     failure: function(r,o) {
-                     }
-                 })
-             }
-            }
-        ]
-        
+                         clovr.tagData({
+                         	params: {
+				            	'files': [path + values.file],
+            					'name': 'local',
+            					'expand': true,
+            					'recursive': false,
+            					'append': false,
+				            	'overwrite': true,
+				            	'compress': false,
+				            	'tag_name': values.uploadfilename,
+		                    	'tag_metadata': {
+        	                		'description': values.uploadfiledesc,
+        	                		'format_type': values.inputfiletype
+        	                	},
+                            	'tag_base_dir': path
+                            },
+					        callback: function(r,o) {
+    	       					Ext.Msg.show({
+						            title: 'Tagging Data...',
+				        	        width: 200,
+					                mask: true,
+				    	            closable: false,
+				        	        wait: true,
+				            	    progressText : 'Tagging Data'
+					            });
+					            uploadForm.getForm().reset();
+				    	 	    clovr.checkTagTaskStatusToSetValue({
+				        			uploadwindow: uploadWindow,
+		    		        		seqcombo: config.seqcombo,
+		        		        	tagname: values.uploadfilename,
+		            		    	data: Ext.util.JSON.decode(r.responseText)
+		            			});
+		            		}
+		        		});
+                	},
+                	failure: function(r,o) {
+			    	}
+            	});
+        	}
+    	}]
     });
     uploadWindow.add(uploadForm);
     return uploadWindow;
+}
+
+clovr.tagData = function(config) {
+	Ext.Ajax.request({
+    	url: '/vappio/tagData_ws.py',
+        params: {
+        	'request':Ext.util.JSON.encode(config.params)
+        },
+        success: function(r,o) {
+        	config.callback(r,o);
+        },
+        failure: function(r,o) {
+        }
+    });
 }
 
 // Function to Monitor the status of a tag and set a 
@@ -160,12 +169,16 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                     	buttons: Ext.Msg.OK
                     });
                     if(seqcombo) {
-                        seqcombo.getStore().loadData([[config.tagname]],true);
+//                        seqcombo.getStore().loadData([[config.tagname]],true);
                         seqcombo.setValue(config.tagname);
                     }
                     Ext.TaskMgr.stop(task);
                     uploadWindow.hide();
-                    clovr.reloadTagStores();
+                    clovr.reloadTagStores({
+                        callback: function() {
+                            seqcombo.setValue(config.tagname);
+                        }
+                    });
                 }
                 else if(rdata.state =="failed") {
                 }
@@ -326,7 +339,48 @@ clovr.tagCombo = function(config) {
     return combo;
 }
                                        
+clovr.tagSuperBoxSelect = function(config) {
+    var sbs;
+    var store = new Ext.data.JsonStore({
+        fields: [{name: 'name', mapping: 'name'},
+                 {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')},
+                 {name: 'metadata.platform_type', mapping: ('[\"metadata.platform_type"\]')},
+                 {name: 'metadata.dataset_type', mapping: ('[\"metadata.dataset_type"\]')},
+                 {name: 'metadata.read_length', mapping: ('[\"metadata.read_length"\]')},
+                 {name: 'metadata.read_type', mapping: ('[\"metadata.read_type"\]')},
+                 {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')},                 
+                ],
+        
+//        mode: 'local',
+        autoLoad: false,
+//        idProperty: 'name',
+        listeners: {
+            load: function(store, records, o) {
+                if(config.filter) {
+                    store.filter([config.filter]);
+                }
+                if(config.sort) {
+                    store.sort(config.sort);
+                }
+//                sbs.setValue(store.getAt(0).data.name);
+                if(config.afterload) {
+                    config.afterload();
+                }
+            }
+        }
+    });
 
+    clovr.tagStores.push(store);
+    config.store = store;
+
+    sbs = new Ext.ux.form.SuperBoxSelect(config)
+    clovr.getDatasetInfo({
+        callback: function(json) {
+            sbs.getStore().loadData(json.data);
+        }
+    });
+    return sbs;
+}
 // Pulls data from clusterInfo_ws.py
 clovr.getClusterInfo = function(config) {
     Ext.Ajax.request({
@@ -345,7 +399,7 @@ clovr.getDatasetInfo = function(config) {
         name: 'local'
     };
     if(config.dataset_name) {
-        params.tag_name = config.dataset_name;
+        params.tag_name = [config.dataset_name];
     }
     Ext.Ajax.request({
         url: '/vappio/queryTag_ws.py',
@@ -466,12 +520,12 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
                 field_config.qanchor='left';
             }
         }
-        if(field.visibility == 'default_hidden') {
-            field_config.disabled=false;
-            advanced_params.push(field_config)
-        }
-        else if(!ignore_fields[field.field]) {
-            if(field.visibility == 'always_hidden') {
+        if(!ignore_fields[field.field]) {
+            if(field.visibility == 'default_hidden') {
+                field_config.disabled=false;
+                advanced_params.push(field_config)
+            }
+            else if(field.visibility == 'always_hidden') {
                 field_config.hidden=true;
                 field_config.hideLabel=true;
                 hidden_params.push(field_config);
@@ -493,7 +547,7 @@ clovr.runPipeline = function(config) {
             'request': Ext.util.JSON.encode(
                 {'pipeline_config': config.params,
                  'pipeline': config.pipeline,
-                 'name': config.cluster,
+                 'name': 'local',
                  'pipeline_name': config.wrappername
                 })
         },
@@ -533,8 +587,10 @@ clovr.runPipeline = function(config) {
     });
 }
 
-clovr.tagStores = [];
-clovr.reloadTagStores = function() {
+
+
+
+clovr.reloadTagStores = function(config) {
     clovr.getDatasetInfo({
         callback: function(data) {
             Ext.each(clovr.tagStores, function(store,i,stores) {
@@ -545,7 +601,10 @@ clovr.reloadTagStores = function() {
                     store.loadData(data.data);
                 }
             });
+            if(config.callback) {
+                config.callback();
+            }
         }     
     });
-}    
+}
 // clearly, this is a work in progress...

@@ -33,9 +33,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         });
         
         wrapper_panel.form=form;
-        var seq_combo = clovr.tagCombo({
-//            id: 'datasettag',
-            fieldLabel: 'Select Sequencing Dataset',
+        var seq_combo = clovr.tagSuperBoxSelect({
+            id: 'superselect25',
+            fieldLabel: 'Select Sequencing Dataset(s)',
             width: 225,
             triggerAction: 'all',
             mode: 'local',
@@ -46,59 +46,112 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             submitValue: false,
             lastQuery: '',
             allowBlank: false,
+            tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
             afterload: function() {
-                wrapper_panel.filter_seq_tech();
-                wrapper_panel.load_pipeline_subform(config.pipelines);
+//                wrapper_panel.filter_seq_tech();
+//                wrapper_panel.load_pipeline_subform(config.pipelines);
             },
             filter: {
                 fn: function(record) {
                     var re = /nuc_fasta|fastq|sff/i;
+//                    console.log(record.data['metadata.format_type']);
+//                    console.log(re.test(record.data['metadata.format_type']));
                     return re.test(record.data['metadata.format_type']);
                 }
             },
+            sort: [{field: 'name',direction: 'ASC'}],
             listeners: {
-                select: function(combo,rec) {
-                    wrapper_panel.filter_seq_tech();
-                    wrapper_panel.load_pipeline_subform(config.pipelines);
+                beforeselect: {fn: wrapper_panel.beforeDatasetSelectionChange,
+                               scope: wrapper_panel
+                              },
+                addItem: {fn: wrapper_panel.afterDatasetSelectionChange,
+                          scope: wrapper_panel},
+                removeItem: function(sbs,value,record) {
+                    sbs.getStore().sort('name', 'ASC');
+                    wrapper_panel.afterDatasetSelectionChange(sbs,value,record);
                 }
             }
         });
         
-        var annot_yes_box = new Ext.form.Radio({
-            boxLabel: 'Yes',
-            inputValue: '_annot',
-            name: 'annotate_cb',
-            checked: true,
+        var annot_assembly_box = new Ext.form.Radio({
+            boxLabel: 'Assembly only',
+            inputValue: 'assembly',
+            name: 'microbe_track',
+//            checked: true,
             listeners: {
-                check: function(box,checked) {
-                    if(checked) {
-                        wrapper_panel.load_pipeline_subform(config.pipelines);
-                    }
-                }
+//                check: function(box,checked) {
+//                    if(checked) {
+//                        wrapper_panel.load_pipeline_subform(config.pipelines);
+//                    }
+//            }
             }
         });
         
-        var annot_no_box = new Ext.form.Radio({
-            boxLabel: 'No',
-            inputValue: '',
-            name: 'annotate_cb',
+        var annot_both_box = new Ext.form.Radio({
+            boxLabel: 'Assembly+Annotation',
+            inputValue: 'assemblyannot',
+            name: 'microbe_track',
             listeners: {
-                check: function(box,checked) {
-                    if(checked) {
-                        wrapper_panel.load_pipeline_subform(config.pipelines);
-                    }
-                }
+//                check: function(box,checked) {
+//                    if(checked) {
+//                      wrapper_panel.load_pipeline_subform(config.pipelines);
+//                    }
+//                }
             }
         });
-        var annot_select = new Ext.form.RadioGroup({
-            fieldLabel: 'Annotate the Sequence?',
-//            columns: 1,
+        var annot_annot_box = new Ext.form.Radio({
+            boxLabel: 'Annotation only',
+            inputValue: 'annot',
+            name: 'microbe_track',
+            listeners: {
+//                check: function(box,checked) {
+//                    if(checked) {
+//                        wrapper_panel.load_pipeline_subform(config.pipelines);
+//                    }
+//                }
+            }
+        });
+        var track_select = new Ext.form.RadioGroup({
+            fieldLabel: 'Select a CLoVR Microbe Track',
+            columns: 1,
             width: 150,
             items: [
-                annot_yes_box,
-                annot_no_box
-            ]
+                annot_assembly_box,
+                annot_both_box,
+                annot_annot_box
+            ],
+            listeners: {
+                change: function(group,checked) {
+//                    if(checked) {
+                      wrapper_panel.load_pipeline_subform(config.pipelines);
+//                    }
+                }
+            }
         });
+
+        var track_fieldset = {
+            xtype: 'fieldset',
+            hideMode: 'visibility',
+            title: 'CLoVR Microbe Track',
+            items: track_select
+        };
+
+
+        var credential_combo = clovr.credentialCombo({
+            name: 'cluster.CLUSTER_CREDENTIAL',
+            default_value: config.default_credential,
+            hidden: config.hide_credential});
+        var cluster_combo = clovr.clusterCombo({
+            name: 'cluster.CLUSTER_NAME',
+            default_value: config.default_cluster,
+            hidden: config.hide_cluster
+        });
+        var cluster_fieldset = {
+            xtype: 'fieldset',
+            hideMode: 'visibility',
+            title: 'CLoVR Cluster Selection',
+            items: [credential_combo,cluster_combo]}
+        
 //        annot_select.setValue([true,false]);
         var uploadWindow = clovr.uploadFileWindow({
             seqcombo: seq_combo
@@ -139,65 +192,47 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                 }
             }
         });
-        form.seq_tech = sequencing_tech_combo;
+//        form.seq_tech = sequencing_tech_combo;
         form.input_tag = seq_combo;
-        form.annot_yes = annot_yes_box;
-        seq_fieldset.items = [seq_combo,upload_button,sequencing_tech_combo,annot_select];
-        
+        form.track_select = track_select;
+        form.track_select_radios = {
+            'annot': annot_annot_box,
+            'both': annot_both_box,
+            'assembly': annot_assembly_box
+        };
+//        form.annot_yes = annot_yes_box;
+        seq_fieldset.items = [seq_combo,upload_button];
+        wrapper_panel.pipeline_configs = config.pipelines;
 
         var buttons = [
             {text: 'Submit',
              handler: function(b,e) {
-                 var form = wrapper_panel.subform.getForm();
-                 var seq_tech = wrapper_panel.form.seq_tech.getValue();
-                 var input_tag = wrapper_panel.form.input_tag.getValue();
-
-                 var params = form.getValues();
-                 if(seq_tech == 'Illumina') {
-                     var readfield = form.findField('readlength');
-                     var readlen = readfield.getValue();
-                     var pairedfield = form.findField('paired');
-                     var paired = pairedfield.getValue();
-                     params['input.SHORT_PAIRED_TAG'] = '';
-                     params['input.SHORT_TAG'] = '';
-                     params['input.LONG_PAIRED_TAG'] = '';
-                     params['input.LONG_TAG'] = '';
-                     if(readlen =='short') {
-                         if(paired == 'paired') {
-                             params['input.SHORT_PAIRED_TAG'] = wrapper_panel.form.input_tag.getValue();
-                         }
-                         else {
-                             params['input.SHORT_TAG'] = wrapper_panel.form.input_tag.getValue();
-                         }
-                     }
-                     else {
-                         if(paired =='paired') {
-                             params['input.LONG_PAIRED_TAG'] = wrapper_panel.form.input_tag.getValue();
-                         }
-                         else {
-                             params['input.LONG_TAG'] = wrapper_panel.form.input_tag.getValue();
-                         }
-                     }
-                 }
-                 else {
-                     params['input.INPUT_SFF_TAG'] = wrapper_panel.form.input_tag.getValue();
-            	}
-            	var pipename = 'clovr_search'+new Date().getTime();
-                var wrappername = 'clovr_wrapper'+new Date().getTime();
+                 var subform = wrapper_panel.subform.getForm();
+                 var params = wrapper_panel.params_for_submission;
+                 var form = wrapper_panel.form;
+                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+                 var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+                 Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
+                                   'cluster.CLUSTER_CREDENTIAL': credential
+                                  });
+                 Ext.apply(params, subform.getValues());
+                 console.log(params);
+            	 var pipename = 'clovr_search'+new Date().getTime();
+                 var wrappername = 'clovr_wrapper'+new Date().getTime();
 //                console.log(params);
-                clovr.runPipeline({
-                    pipeline: 'clovr_wrapper',
-                    wrappername: wrappername,
-                    cluster: form.findField('cluster.CLUSTER_NAME').getValue(),
-                    params: params,
-                    submitcallback: function(r) {
-                        config.submitcallback(r);
-                    }
-                });
-
-            }}
+                 clovr.runPipeline({
+                     pipeline: 'clovr_wrapper',
+                     wrappername: wrappername,
+                     cluster: cluster_name,
+                     params: params,
+                     submitcallback: function(r) {
+                         config.submitcallback(r);
+                     }
+                 });
+                 
+             }}
         ];
-        form.add(seq_fieldset);
+        form.add(seq_fieldset,track_fieldset,cluster_fieldset);
         clovr.ClovrMicrobePanel.superclass.constructor.call(this,{
             id: 'clovr_microbe',
             layout: 'anchor',
@@ -219,92 +254,240 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         if(!this.subforms) {
             this.subforms = {};
         }
-        var seq_tech = this.form.seq_tech.value;
-        var input_tag = this.form.input_tag.value;
-        var input_tag_store = this.form.input_tag.store;
-        var annot_yes_checked = this.form.annot_yes.getValue();
-        var annotate_suffix = '';
-        if(annot_yes_checked) {
-            annotate_suffix = this.form.annot_yes.inputValue;
-        }
-        var form_name;
-        if(seq_tech && input_tag) {
-            
-            var index = input_tag_store.find('name',input_tag);
-            var record = input_tag_store.getAt(index);
-            form_name = this.INPUT_TYPE_TO_PIPELINE_NAME[record.data['metadata.format_type']][seq_tech+annotate_suffix];
+        var seq_tech = null; //this.form.seq_tech.value;
+        var input_tags = this.form.input_tag.getValueEx2();
+        var track = this.form.track_select.getValue();
+        var form_name = ''
+        var title = '';
+        var ignores = {};
+        var params = {};
+        var needs_metadata =[];
 
-            // HACK - This is a total HACK since the illumina pipeline takes
-            // one of several different inputs
-            if(form_name == 'clovr_microbe_illumina' ) { //|| form_name == 'clovr_assembly_velvet') {
-                if(!this.subforms[form_name]) {
-                    this.subforms[form_name] = this.create_illumina_fieldset(pipelines[form_name]);
-                    this.add(this.subforms[form_name]);
-//                    console.log(this.subforms[form_name]);
+        if(track) {
+        input_tags.each(function(tag) {
+            // First see if we have a 454 sff file.
+            if(tag.data['metadata.format_type'] == 'sff') {
+                if(input_tags.length > 1) {
+                    Ext.Msg.show({
+                        title: 'Oops!',
+                        msg: 'Only 1 sff file can be used as input',
+                        icon: Ext.MessageBox.ERROR
+                        
+                    });
+//                    break;
+                }
+                else if(track.inputValue == 'annot') {
+                    Ext.Msg.show({
+                        title: 'Oops!',
+                        msg: 'sff files must be assembled before annotation!',
+                        icon: Ext.MessageBox.ERROR
+                        
+                    });
+//                    break;
+                }
+                else if(track.inputValue == 'assembly') {
+                    form_name = 'clovr_assembly_celera';
+                    title = 'CLoVR Celera Assembler Settings';
+                    ignores = {'input.INPUT_SFF_TAG': 1};
+                    params['input.INPUT_SFF_TAG'] = tag.data.name;
+                }
+                else if(track.inputValue == 'assemblyannot') {
+                    form_name = 'clovr_microbe454';
+                    title = 'CLoVR Microbe 454 Assembly/Annotation Settings';
+                    ignores = {'input.INPUT_SFF_TAG': 1};
+                    params['input.INPUT_SFF_TAG'] = tag.data.name;
                 }
             }
-            else if(form_name =='clovr_microbe454') {
-                if(!this.subforms[form_name]) {
-                    this.subforms[form_name] = this.create_fieldset_from_config(
-                        'CLoVR Microbe 454 Settings', pipelines[form_name], {'input.INPUT_SFF_TAG': 1});
-                    this.add(this.subforms[form_name]);
+            else if(tag.data['metadata.format_type'] == 'nuc_FASTA' ||
+                    tag.data['metadata.format_type'] == 'fastq') {
+                
+                // Load the annotation only pipeline.
+                if(track.inputValue == 'annot' &&
+                   tag.data['metadata.format_type'] == 'nuc_FASTA') {
+                    form_name = 'clovr_microbe_annotation';
+                    title = 'CLoVR Microbe Annotation Settings';
+                    ignores = {'input.INPUT_FSA_TAG': 1};
+                    
+                    if(!params['input.INPUT_FSA_TAG']) {
+                        params['input.INPUT_FSA_TAG'] = tag.data.name;
+                    }
+                    else {
+                        params['input.INPUT_FSA_TAG'] += ','+ tag.data.name;
+                    }
+                }
+                
+                // Load the assembly only pipeline
+                else if(track.inputValue == 'assembly') {
+                    form_name = 'clovr_assembly_velvet';
+                    title = 'CLoVR Velvet Assembler Settings';
+                    ignores = {'input.SHORT_PAIRED_TAG': 1,
+                               'input.LONG_PAIRED_TAG': 1,
+                               'input.SHORT_TAG': 1,
+                               'input.LONG_TAG': 1
+                              };
+                }
+
+                // Load the Assembly+Annotation pipeline
+                else if(track.inputValue == 'assemblyannot') {
+                    form_name = 'clovr_microbe_illumina';
+                    title = 'CLoVR Microbe Velvet Assembler/Annotation Settings';
+                    ignores = {'input.SHORT_PAIRED_TAG': 1,
+                               'input.LONG_PAIRED_TAG': 1,
+                               'input.SHORT_TAG': 1,
+                               'input.LONG_TAG': 1
+                              };
+                }
+                
+                // We have an assembled genome and can only do annotation
+                if(tag.data['metadata.dataset_type'] =='genome_assembly') {
+                }
+                else if(tag.data['metadata.read_length'] && tag.data['metadata.read_type']) {
+                    if(tag.data['metadata.read_length'] =='short') {
+                        if(tag.data['metadata.read_type'] == 'paired') {
+                            if(!params['input.SHORT_PAIRED_TAG']) {
+                                params['input.SHORT_PAIRED_TAG'] = tag.data.name;
+                            }
+                            else {
+                                params['input.SHORT_PAIRED_TAG'] += ','+tag.data.name;
+                            }
+                        }
+                        else {
+                            if(!params['input.SHORT_TAG']) {
+                                params['input.SHORT_TAG'] =  tag.data.name;
+                            }
+                            else {
+                                params['input.SHORT_TAG'] += ','+tag.data.name;
+                            }
+                        }
+                    }
+                    else {
+                        if(tag.data['metadata.read_type'] == 'paired') {
+                            if(!params['input.LONG_PAIRED_TAG']) {
+                                params['input.LONG_PAIRED_TAG'] = tag.data.name;
+                            }
+                            else {
+                                params['input.LONG_PAIRED_TAG'] += ','+tag.data.name;
+                            }
+                        }
+                        else {
+                            if(!params['input.LONG_TAG']) {
+                                params['input.LONG_TAG'] = tag.data.name;
+                            }
+                            else {
+                                params['input.LONG_TAG'] += ','+tag.data.name;
+                            }
+                        }
+                    }
+                }
+                else if(track.inputValue != 'annot') {
+                    // We'll have to prompt for metadata
+                    needs_metadata.push(tag);
                 }
             }
-            else if(form_name == 'clovr_assembly_celera') {
-                if(!this.subforms[form_name]) {
-                    this.subforms[form_name] = this.create_fieldset_from_config(
-                        'CLoVR Celera Assembler Settings',pipelines[form_name],{'input.INPUT_SFF_TAG': 1});
-                    this.add(this.subforms[form_name]);
-                }
-            }
-            else if(form_name == 'clovr_microbe_annotation') {
-                if(!this.subforms[form_name]) {
-                    this.subforms[form_name] = this.create_fieldset_from_config(
-                        'CLoVR Microbe Annotation',pipelines[form_name],{'input.INPUT_SFF_TAG': 1});
-                    this.add(this.subforms[form_name]);
-                }
-            }
-            
-        }
-//        console.log('here about to hide the forms');
-        for(form in this.subforms) {
-            if(form != form_name && this.subforms[form].isVisible) {
-                this.subforms[form].hide();
-            }
-        }
-        if(!this.subforms[form_name]) {
-            form_name = 'unsupported';
-//            console.log('here with an unsupported thing')
-            if(!this.subforms[form_name]) {
-                this.subforms[form_name] = new Ext.Container({
-                	anchor: '100%',
-                    html: 'This feature is not currently supported'
-                });
-                this.add(this.subforms[form_name]);
-        }
-        }
-//        console.log('here about to show the form');
-        if(this.subforms[form_name]) {
-			this.subform = this.subforms[form_name];
-            this.subforms[form_name].show();
-            this.doLayout();
-        }
-            
-    },
-    filter_seq_tech: function() {
-        var tech_filter = [];
-        var index = this.form.input_tag.store.find('name',this.form.input_tag.value);
-        var record = this.form.input_tag.store.getAt(index);
-        for(var tech in this.INPUT_TYPE_TO_PIPELINE_NAME[record.data['metadata.format_type']]) {
-            tech_filter.push(tech);
-        }
-        this.form.seq_tech.getStore().clearFilter();
-        this.form.seq_tech.getStore().filter({'property': 'name',
-                                              'value': new RegExp(tech_filter.join('|')),
-                                              caseSensitive: false
-                                             });
-        this.form.seq_tech.setValue(this.form.seq_tech.getStore().getAt(0).data.name);
         
+        });
+        }
+        // If there are datasets that are lacking the requiered metadata 
+        // then we'll go in here and prompt for it.
+        if(needs_metadata.length > 0) {
+            this.showIlluminaMetadataWindow(needs_metadata);
+        }
+        else {
+            this.params_for_submission = params;
+            for(form in this.subforms) {
+                if(form != form_name && this.subforms[form].isVisible) {
+                    this.subforms[form].hide();
+                }
+            }
+            
+            if(form_name != '' && !this.subforms[form_name]) {
+                this.subforms[form_name] = this.create_fieldset_from_config(title,pipelines[form_name],ignores);
+                this.add(this.subforms[form_name]);
+            }
+            
+            if(this.subforms[form_name]) {
+			    this.subform = this.subforms[form_name];
+                this.subforms[form_name].show();
+                this.doLayout();
+            }
+        }
+    },
+
+    // Called before the selection change is made
+    beforeDatasetSelectionChange: function(combo,rec,index) {
+        var selected = combo.getValueEx2();
+        var types_selected = {};
+        var select_radios = this.form.track_select_radios;
+        var ret_val = true;
+        selected.each(function(ds) {
+            types_selected[ds.data['metadata.format_type']] = 1;
+        });
+        
+        if(rec.data['metadata.format_type'] =='sff') {
+            combo.clearValue();
+            ret_val = true;
+            types_selected = [];
+        }
+        else if(types_selected['sff']) {
+            combo.clearValue();
+            ret_val = true;
+            types_selected = [];
+        }
+
+        // Now do what you would do assuming the selection goes through.
+        types_selected[rec.data['metadata.format_type']]=1;
+        
+        if(types_selected['sff'] || types_selected['fastq']) {
+            var annot_select = select_radios.annot;
+            
+            // Unselect the annotation only track
+            if(annot_select.getValue()) {
+                annot_select.setValue(false);
+            }
+            annot_select.disable();
+        }
+        else {
+            select_radios.annot.enable();
+        }
+
+        // Check and see if a track has already been selected.
+        var selected_track = this.form.track_select.getValue();
+        if(selected_track) {
+            this.load_pipeline_subform(this.pipeline_configs);
+        }
+        
+        return ret_val;
+    },
+    afterDatasetSelectionChange: function(combo,val,rec) {
+
+        var selected = combo.getValueEx2();
+        var types_selected = {};
+        var select_radios = this.form.track_select_radios;
+        var ret_val = true;
+        selected.each(function(ds) {
+            types_selected[ds.data['metadata.format_type']] = 1;
+        });
+
+        if(types_selected['sff'] || types_selected['fastq']) {
+            var annot_select = select_radios.annot;
+            
+            // Unselect the annotation only track
+            if(annot_select.getValue()) {
+                annot_select.setValue(false);
+            }
+            annot_select.disable();
+        }
+        else {
+            select_radios.annot.enable();
+        }
+
+        // Check and see if a track has already been selected.
+        var selected_track = this.form.track_select.getValue();
+        if(selected_track) {
+            this.load_pipeline_subform(this.pipeline_configs);
+        }
+        
+        return ret_val;
     },
 
     create_illumina_fieldset: function(pipeline_config) {
@@ -353,7 +536,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             {'input.SHORT_PAIRED_TAG': 1,
             'input.SHORT_TAG': 1,
             'input.LONG_TAG': 1,
-            'input.LONG_PAIRED_TAG': 1
+            'input.LONG_PAIRED_TAG': 1,
+            'cluster.CLUSTER_CREDENTIAL': 1,
+            'cluster.CLUSTER_NAME': 1
             });
         var advanced_panel ={
             xtype: 'fieldset',
@@ -388,6 +573,8 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
     },
     create_fieldset_from_config: function(title, pipeline_config, custom_params) {
         var params = [];
+
+        Ext.apply(custom_params,{'cluster.CLUSTER_CREDENTIAL': 1,'cluster.CLUSTER_NAME': 1})
         var other_params = clovr.makeDefaultFieldsFromPipelineConfig(pipeline_config.fields,
             custom_params);
         var advanced_panel ={
@@ -420,6 +607,153 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             buttonAlign: 'center',
         });
         return form;
+    },
+
+    showIlluminaMetadataWindow: function(records) {
+        var forms =[];
+        var panel = this;
+        
+        Ext.each(records, function(rec,i,recs) {
+
+            var formitems = [
+                {xtype: 'textfield',
+                 name: 'tag-name',
+                 value: rec.data.name,
+                 hidden: true
+                },
+                {xtype: 'textfield',
+                 name: 'tag_base_dir',
+                 value: rec.data['metadata.tag_base_dir'],
+                 hidden: true
+                }
+            ];
+
+            if(!rec.data['metadata.read_length']) {
+                formitems.push({
+                    xtype: 'radiogroup',
+                    fieldLabel: 'Read Length',
+                    items: [
+                        {boxLabel: 'Short',
+                         name: 'read_length',
+                         inputValue: 'short'
+                        },
+                        {boxLabel: 'Long',
+                         name: 'read_length',
+                         inputValue: 'long'
+                        }
+                    ]
+                });
+            }
+            if(!rec.data['metadata.read_type']) {
+                formitems.push({
+                    xtype: 'radiogroup',
+                    fieldLabel: 'Read Type',
+                    items: [
+                        {boxLabel: 'Paired End',
+                         name: 'read_type',
+                         inputValue: 'paired'
+                        },
+                        {boxLabel: 'Single End',
+                         name: 'read_type',
+                         inputValue: 'single'
+                        }
+                    ]
+                });
+            }
+            forms.push(
+                new Ext.form.FormPanel({
+                items: [
+                    {xtype: 'fieldset',
+                     title: 'Information for '+ rec.data.name,
+                     items: formitems
+                    }
+                ]
+                }));
+        });
+
+        var tag_task_list = [];
+        var win = new Ext.Window({
+            defaults: {frame: true},
+            height: 300,
+            autoScroll: true,
+            title: 'We need some additional information about your datasets',
+            items: forms,
+            buttonAlign: 'center',
+
+            listeners: {
+                close: function(p) {
+                    panel.form.track_select.setValue([false,false,false]);
+                }
+            },
+            buttons: [{
+                text: 'Submit',
+                handler: function() {
+                    Ext.each(forms, function(form,i,fms) {
+                        var values = form.getForm().getValues();
+                        var metadata = {};
+                        for (var field in values) {
+                            if(field !='tag-name' && field != 'tag_base_dir') {
+                                metadata[field] = values[field];
+                            }
+                        };
+                        clovr.tagData({
+                            params: {
+                            'name': 'local',
+                            'files': [],
+            			    'expand': false,
+            				'recursive': false,
+            			 	'append': true,
+ 		                    'overwrite': false,
+				            'compress': false,
+                            'tag_name': values['tag-name'],
+                            'tag_base_dir': values['tag_base_dir'],
+                                'tag_metadata': metadata},
+                            callback: function(r,o) {
+                                console.log(r);
+                                var response = Ext.util.JSON.decode(r.responseText);
+                                tag_task_list.push(response.data);
+                            }
+                        });
+                    });
+
+                    var task = {
+                        run: function() {
+                            // Check to make sure we've gotten back all of the tasks
+                            if(tag_task_list.length != forms.length) {
+                                return;
+                            }
+                            var new_task_list = [];
+                            Ext.each(tag_task_list, function(task_name,i,tasks) {
+                                console.log('here with a task '+task_name);
+                                var callback = function(r) {
+                                    var response = Ext.util.JSON.decode(r.responseText);
+                                    if(response.success =='true') {
+                                        console.log(response.data[0].state);
+                                        if(response.data[0].state == 'running') {
+                                            new_task_list.push(task_name);
+                                        }
+                                    }
+                                    else {
+                                        // Do something for an error
+                                    }
+                                };
+                                clovr.getTaskInfo(task_name, callback)
+                            });
+                            tag_task_list = new_task_list;
+                            
+                            if(tag_task_list.length ==0) {
+                                Ext.TaskMgr.stop(task);
+                                clovr.reloadTagStores();
+                                console.log('Finished!');
+                            }
+                        },
+                        interval: 2000
+                    };
+                    Ext.TaskMgr.start(task);
+                }
+            }]
+        });
+        win.show();
     }
 });
 

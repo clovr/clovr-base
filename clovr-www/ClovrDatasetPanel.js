@@ -3,15 +3,17 @@
  * and run an analysis on that tag if applicable. 
  */
 Ext.ns('clovr');
-clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
+clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 
     constructor: function(config) {
         
         var datasetpanel = this;
         
-        config.layout='border';
+
+//        config.layout='border';
         config.frame= true;
         config.autoScroll=true;
+        config.deferredRender=false;
         var header_panel = new Ext.Panel({
             region: 'north',
             html: '<div><h3>Information for the '+config.dataset_name+' dataset</h3></div>'
@@ -41,18 +43,103 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             split: true,
             items: [pipelines_panel]
         });
-//        config.items = [pipelines_panel];
-        config.items = [header_panel,pipelines_panel,footer_panel];
-        config.listeners = {
-            render: function() {
-                if(config.dataset_name) {
-                    datasetpanel.loadDataset(config);
-                }
-            }};
+        var pipelines_container = new Ext.Panel({
+            layout: 'border',
+            deferredRender:false,
+            title: 'Pipelines',
+            frame: true,
+            items: [header_panel,pipelines_panel,footer_panel],
+        });
+		
+		var metadata_grid = new Ext.grid.EditorGridPanel({
+			frame: true,
+			title: 'metadata',
+			buttonAlign: 'center',
+			colModel: new Ext.grid.ColumnModel({
+				defaults: {
+					sortable: true
+				},
+				columns: [
+					{header: 'key', dataIndex: 'name', width: 250, editor: new Ext.form.TextField()},
+					{id: 'value', header: 'value', dataIndex: 'value', editor: new Ext.form.TextField()}
+				]
+			}),
+			autoExpandColumn: 'value',
+			store: new Ext.data.Store({
+				reader: new Ext.data.JsonReader({
+					fields: ['name','value']
+				})
+			}),
+			buttons: [{
+				text: 'Submit Changes',
+				handler: function() {
+					var recs = metadata_grid.getStore().getModifiedRecords();
+					var new_params = [];
+					console.log(recs)
+					Ext.each(recs, function(rec) {
+						var newval = {};
+						newval[rec.data.name] = rec.data.value;
+//						console.log(newval);
+						new_params.push(newval);
+					});
+					console.log(new_params);
+					clovr.tagData({
+						params: {
+							name: 'local',
+							tag_name: datasetpanel.dataset_name,
+							tag_metadata: new_params,
+							append: true
+						},
+						callback: function(r,o) {
+							var data = Ext.util.JSON.decode(r.responseText);
+							console.log(data);
+							if(r.success) {
+								Ext.Msg.show({
+									title: 'Metadata updated successfully',
+									msg: 'You successfully updated the metadata'
+								});
+							}
+							else {
+								console.log(r);
+								Ext.Msg.show({
+									title: 'Failed to update metadata',
+									msg: data.data.msg,
+									icon: Ext.MessageBox.ERROR
+								});
+							}
+						}
+					});
+				}
+			},
+			{
+            text: 'Add Value',
+            handler : function(){
+                // access the Record constructor through the grid's store
+                var rec = metadata_grid.getStore().recordType;
+                var p = new rec({
+                    name: 'Key',
+                    value: 'value',
+                });
+                metadata_grid.stopEditing();
+                metadata_grid.getStore().insert(0, p);
+                metadata_grid.startEditing(0, 0);
+            }
+        }]
+		});
 
+
+        config.listeners ={
+            render: function() {
+                    if(config.dataset_name) {
+                        datasetpanel.loadDataset(config);
+                    }
+            }};
+        config.items = [pipelines_container,metadata_grid];
+        datasetpanel.metagrid = metadata_grid;
         datasetpanel.header_panel = header_panel;
         datasetpanel.footer_panel = footer_panel;
         datasetpanel.pipelines_panel = pipelines_panel;
+        datasetpanel.pipelines_container = pipelines_container;
         datasetpanel.pipelines_wrapper = pipelines_wrapper;
         datasetpanel.pipelineCallback = config.pipeline_callback;
 
@@ -67,6 +154,24 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         datasetpanel.header_panel.update('Information for the '+config.dataset_name+' dataset');
         datasetpanel.pipelines_panel.removeAll();
         datasetpanel.getEl().mask('Loading...','x-mask-loading');
+        datasetpanel.dataset_name = config.dataset_name;
+        clovr.getDatasetInfo({
+        	dataset_name: config.dataset_name,
+        	callback: function(d) {
+        		var fields_to_load = [];
+        		for(key in d.data[0]) {
+        			// Total HACK here
+        			if(key.match(/metadata./)) {
+						fields_to_load.push({
+							'name': key.replace(/metadata./,""),
+							'value': d.data[0][key]
+						});
+					}
+				}
+	        	datasetpanel.metagrid.getStore().loadData(fields_to_load);
+        	}
+    	});
+    	
         clovr.getPipelineInfo({
             callback: function(r) {
                 var results_by_protocol = getResultsByProtocol(r.data,config);
@@ -170,7 +275,8 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                             }));
                     }
                 });
-                datasetpanel.pipelines_panel.doLayout();
+                datasetpanel.setActiveTab(0);
+				datasetpanel.doLayout();
                 datasetpanel.getEl().unmask();
             }
         });
@@ -178,7 +284,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 
 });
 
-Ext.reg('clovrdatasetpanel', clovr.TagGrid);
+Ext.reg('clovrdatasetpanel', clovr.ClovrDatasetPanel);
 
 var getResultsByProtocol = function(data,config) {
     var results_by_protocol ={};
