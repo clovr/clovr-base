@@ -4,7 +4,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_microbe_illumina.prerun</name>
+    <name>clovr_assembly_velvet.prerun</name>
     <command>
       <name>Create temp directory</name>
       <type>RunUnixCommand</type>
