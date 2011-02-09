@@ -77,39 +77,17 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             boxLabel: 'Assembly only',
             inputValue: 'assembly',
             name: 'microbe_track',
-//            checked: true,
-            listeners: {
-//                check: function(box,checked) {
-//                    if(checked) {
-//                        wrapper_panel.load_pipeline_subform(config.pipelines);
-//                    }
-//            }
-            }
         });
         
         var annot_both_box = new Ext.form.Radio({
             boxLabel: 'Assembly+Annotation',
             inputValue: 'assemblyannot',
             name: 'microbe_track',
-            listeners: {
-//                check: function(box,checked) {
-//                    if(checked) {
-//                      wrapper_panel.load_pipeline_subform(config.pipelines);
-//                    }
-//                }
-            }
         });
         var annot_annot_box = new Ext.form.Radio({
             boxLabel: 'Annotation only',
             inputValue: 'annot',
             name: 'microbe_track',
-            listeners: {
-//                check: function(box,checked) {
-//                    if(checked) {
-//                        wrapper_panel.load_pipeline_subform(config.pipelines);
-//                    }
-//                }
-            }
         });
         var track_select = new Ext.form.RadioGroup({
             fieldLabel: 'Select a CLoVR Microbe Track',
@@ -122,9 +100,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             ],
             listeners: {
                 change: function(group,checked) {
-//                    if(checked) {
                       wrapper_panel.load_pipeline_subform(config.pipelines);
-//                    }
                 }
             }
         });
@@ -212,14 +188,16 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                  var form = wrapper_panel.form;
                  var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+                 
+                 subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });
                  Ext.apply(params, subform.getValues());
                  console.log(params);
-            	 var pipename = 'clovr_search'+new Date().getTime();
+            	 
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
-//                console.log(params);
+                 
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,

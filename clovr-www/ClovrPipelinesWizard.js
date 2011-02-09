@@ -16,17 +16,13 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
          */
         var protocol_to_pipelines = {
             'clovr_metagenomics': {
-//                'pipelines': {
-//                    'clovr_metagenomics_noorf': 1,
-//                    'clovr_metagenomics_orf': 1,
+                'pipelines': {
+                    'clovr_metagenomics_noorfs': 1,
+                    'clovr_metagenomics_orfs': 1,
 //                    'clovr_metatranscriptomics': 1,
 //                    'clovr_total_metagenomics': 1
-//                },
-                'panel': new Ext.TabPanel({
-                    title: 'CloVR Metagenomics',
-                    activeTab: 0,
-                    id: 'clovr_metagenomics'
-                })
+                },
+                'panel_xtype': 'clovrmetapanel'
             },
             'clovr_16s': {
                 'pipelines': {

@@ -11,7 +11,8 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 	{name: "name"}, 
                 	{name: "fileCount"},
                 	{name: "phantom_tag",type: "boolean"},
-	                {name: "type", mapping: ('[\"metadata.format_type"\]')}
+	                {name: "type", mapping: ('[\"metadata.format_type"\]')},
+                    {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')}
             	],
             	root : function(data) {
             	    Ext.each(data.data, function(elm) {
@@ -50,7 +51,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             autoExpandColumn: 'name',
             listeners: {
                 rowclick: function(grid,index,e) {
-                    create_details_view(config,grid.store.getAt(index).data.name);
+                    create_details_view(config,grid.store.getAt(index).data);
                 }
             },
             colModel: new Ext.grid.ColumnModel({
@@ -93,7 +94,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 {text: 'Get Details',
                  handler: function() {
                      var selections = taggrid.getSelectionModel().getSelections();
-                     create_details_view(config,selections[0].data.name);
+                     create_details_view(config,selections[0].data);
                  }}
             ],
             tools: [
@@ -121,10 +122,11 @@ function renderName(value, p, record) {
         value,record.data.fileCount,desc);
 }
 
-function create_details_view(config,dataset_name) {
+function create_details_view(config,dataset) {
     if(config.pipelineWizard) { 
         config.pipelineWizard.getLayout().setActiveItem('dataset');
-        Ext.getCmp('dataset').loadDataset({dataset_name: dataset_name});
+        Ext.getCmp('dataset').loadDataset({dataset_name: dataset.name,
+                                           dataset: dataset});
     }
     else {
         var win = new Ext.Window({
@@ -133,7 +135,8 @@ function create_details_view(config,dataset_name) {
             width: 400,
             items: [
                 new clovr.ClovrDatasetPanel({
-                    dataset_name: dataset_name
+                    dataset_name: dataset_name,
+                    dataset: dataset
                 })
             ]
         });

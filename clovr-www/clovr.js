@@ -13,6 +13,7 @@
 Ext.namespace('clovr');
 
 clovr.tagStores = [];
+clovr.requests = [];
 
 /**
  * Creates a window that can be used to upload a dataset.
@@ -64,7 +65,7 @@ clovr.uploadFileWindow = function(config) {
              store: new Ext.data.ArrayStore({
                  fields:['id','name'],
                  data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],
-                 ['sff','SFF'],['fastq','FASTQ']]
+                        ['sff','SFF'],['fastq','FASTQ'],['metagenomics_mapping_file','Metagenomics mapping file']]
              }),
              valueField: 'id',
              displayField: 'name'
@@ -176,7 +177,9 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                     uploadWindow.hide();
                     clovr.reloadTagStores({
                         callback: function() {
-                            seqcombo.setValue(config.tagname);
+                            if(seqcombo) {
+                                seqcombo.setValue(config.tagname);
+                            }
                         }
                     });
                 }
@@ -241,7 +244,7 @@ clovr.credentialCombo = function(config) {
             return data.data;
         },
         url: "/vappio/credential_ws.py",
-        baseParams: {request: Ext.util.JSON.encode({'name': 'local'})},
+        baseParams: {request: Ext.util.JSON.encode({'cluster': 'local'})},
         autoLoad: true,
         listeners: {
             load: function(store,records,o) {
@@ -272,21 +275,22 @@ clovr.clusterCombo = function(config) {
     var combo;
     var store = new Ext.data.JsonStore({
         fields: [
-            {name: "name"},
+            {name: "cluster_name"},
         ],
         root: function(data) {
             var jsonData = [];
             Ext.each(data.data, function(elm) {
-                jsonData.push({"name": elm});
+                jsonData.push({"cluster_name": elm.cluster_name});
             });
             return jsonData;
         },
         url: "/vappio/listClusters_ws.py",
+        baseParams: {request: '{}'},
         autoLoad: true,
         listeners: {
             load: function(store,records,o) {
                 if(!config.default_value) {
-                    combo.setValue(records[0].data.name);
+                    combo.setValue(records[0].data.cluster_name);
                 }
                 else {
                     combo.setValue(config.default_value);
@@ -298,11 +302,11 @@ clovr.clusterCombo = function(config) {
     });
     
     combo = new Ext.form.ComboBox(Ext.apply(config,{
-        valueField: 'name',
+        valueField: 'cluster_name',
         store: store,
         mode: 'local',
         triggerAction: 'all',
-        displayField: 'name',
+        displayField: 'cluster_name',
         fieldLabel: 'Cluster'
     }));
     return combo;
@@ -314,14 +318,19 @@ clovr.tagCombo = function(config) {
     var combo;
     var store = new Ext.data.JsonStore({
         fields: [{name: 'name', mapping: 'name'},
-                 {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')}],
+                 {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')},
+                 {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')},
+                 {name: 'metadata.metagenomics_mapping_file', mapping: ('[\"metadata.metagenomics_mapping_file"\]')},
+                ],
         autoLoad: false,
         listeners: {
             load: function(store, records, o) {
                 if(config.filter) {
                     store.filter(config.filter);
                 }
-                combo.setValue(store.getAt(0).data.name);
+                if(store.getAt(0)) {
+                    combo.setValue(store.getAt(0).data.name);
+                }
                 if(config.afterload) {
                     config.afterload();
                 }
@@ -385,7 +394,7 @@ clovr.tagSuperBoxSelect = function(config) {
 clovr.getClusterInfo = function(config) {
     Ext.Ajax.request({
         url: '/vappio/clusterInfo_ws.py',
-        params: {request: Ext.util.JSON.encode({name: config.cluster_name})},
+        params: {request: Ext.util.JSON.encode({cluster: config.cluster_name})},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
             config.callback(rjson);
@@ -395,21 +404,47 @@ clovr.getClusterInfo = function(config) {
 
 // Pulls info about a particular dataset
 clovr.getDatasetInfo = function(config) {
-    var params = {
-        name: 'local'
-    };
-    if(config.dataset_name) {
-        params.tag_name = [config.dataset_name];
+
+    if(!clovr.requests['querytag']) {
+        clovr.requests['querytag'] = {
+            running: false,
+            callbacks: []
+        };
     }
-    Ext.Ajax.request({
-        url: '/vappio/queryTag_ws.py',
-        params: {
-            request: Ext.util.JSON.encode(params)},
-        success: function(r,o) {
-            var rjson = Ext.util.JSON.decode(r.responseText);
-            config.callback(rjson);
+
+    // If we have already made this request, just add the callback on
+    // and don't make the request again.
+    if(clovr.requests.querytag.running) {
+        console.log('had one running already');
+        clovr.requests.querytag.callbacks.push(config.callback);
+    }
+    else {
+        clovr.requests.querytag.running = true;
+        clovr.requests.querytag.callbacks.push(config.callback);
+        var params = {
+            name: 'local'
+        };
+        if(config.dataset_name) {
+            params.tag_name = [config.dataset_name];
         }
-    });
+        Ext.Ajax.request({
+            url: '/vappio/queryTag_ws.py',
+            params: {
+                request: Ext.util.JSON.encode(params)},
+            success: function(r,o) {
+                
+                // Not sure if we're going to have a race condition here or not.
+                clovr.requests.querytag.running = false;
+                var rjson = Ext.util.JSON.decode(r.responseText);
+                Ext.each(clovr.requests.querytag.callbacks, function(cb) {
+                    console.log('here');
+                    cb(rjson);
+                    //                config.callback(rjson);
+                });
+                clovr.requests.querytag.callbacks = [];
+            }
+        });
+    }
 }
 
 clovr.getPipelineInfo = function(config) {
@@ -426,8 +461,8 @@ clovr.getPipelineInfo = function(config) {
 
 clovr.PIPELINE_TO_PROTOCOL = 
     {
-        'clovr_metagenomics_noorf': 'clovr_metagenomics',
-        'clovr_metagenomics_orf': 'clovr_metagenomics',
+        'clovr_metagenomics_noorfs': 'clovr_metagenomics',
+        'clovr_metagenomics_orfs': 'clovr_metagenomics',
         'clovr_metatranscriptomics': 'clovr_metagenomics',
         'clovr_total_metagenomics': 'clovr_metagenomics',
         'clovr_16S': 'clovr_16s',
