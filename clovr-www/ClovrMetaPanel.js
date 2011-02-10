@@ -169,7 +169,6 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
     showMappingFileWindow: function(record) {
         var forms =[];
         var panel = this;
-        console.log(record);
         var tagcombo = clovr.tagCombo({
             //            id: 'datasettag',
             fieldLabel: 'Select a metagenomics map',
@@ -228,6 +227,11 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             listeners: {
                 close: function(p) {
                     
+                }
+            },
+            listeners: {
+                close: function(p) {
+                    panel.form.track_select.setValue([false,false]);
                 }
             },
             buttons: [{

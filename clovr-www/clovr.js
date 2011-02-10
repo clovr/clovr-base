@@ -15,6 +15,74 @@ Ext.namespace('clovr');
 clovr.tagStores = [];
 clovr.requests = [];
 
+
+clovr.localFileSelector = function(config) {
+    var selectorTree = new Ext.tree.TreePanel({
+        autoScroll: true,
+        loader: new Ext.tree.TreeLoader({
+            processResponse: function(response, node, callback, scope){
+                var json = response.responseText;
+                var o = response.responseData || Ext.decode(json);
+                if(o.success) {
+                    var data = o.data;
+                    node.beginUpdate();
+                    for(var i in data ){
+                        var cls = '';
+                        var leaf = false;
+                        if(data[i].ftype =='dir') {
+                            cls ='folder';
+                        }
+                        else if(data[i].ftype =='file') {
+                            cls = 'file';
+                            leaf = true;
+                        }
+                        var node_data = {
+                            'text': i,
+                            'cls': cls,
+                            'leaf': leaf,
+                            'id': node.id + data[i].name
+                        };
+                        var n = this.createNode(node_data);
+                        if(n){
+                            node.appendChild(n);
+                        }
+                    }
+                    node.endUpdate();
+                    this.runCallback(callback, scope || node, [node]);
+                }else {
+                    this.handleFailure(response);
+                }
+            },
+            
+            listeners: {
+                beforeload: function(loader,node) {
+                    var params = loader.baseParams;
+                    var req = {'name': 'local',
+                        'path': node.id};
+                    this.baseParams = {'request': Ext.util.JSON.encode(req)};
+                }
+            },
+            dataUrl: '/vappio/listFiles_ws.py'
+        }),
+        root: new Ext.tree.AsyncTreeNode({
+            text: 'user-data',
+            cls: 'folder',
+            id: '/mnt/user_data/'
+        }),
+    });
+
+//    var params = {
+//        layout: 'fit',
+//        width: 400,
+//        height: 300,
+//        closeAction: 'hide',
+//        title: 'Select File on Image',
+//        items: selectorTree
+//    };
+//    Ext.apply(params,config);
+//    var selectorWindow = new Ext.Window(params);
+    return selectorTree;
+}
 /**
  * Creates a window that can be used to upload a dataset.
  * @param {object} config A config object that supports the following params:
@@ -23,34 +91,65 @@ clovr.requests = [];
  */
 clovr.uploadFileWindow = function(config) {
     
+//    var windows = new Ext.WindowGroup();
+    var localFileSelector = clovr.localFileSelector(
+    //    {manager: windows}
+    );
+
     // A window to house the upload form
     var uploadWindow = new Ext.Window({
+//        manager: windows,
         layout: 'fit',
         width: 400,
-        height: 300,
+        height: 375,
         closeAction: 'hide',
-        title: 'Upload File'
+        title: 'Upload File',
+        plugins: [
+            new Ext.ux.plugins.WindowDrawer({
+                xtype: 'windowdrawer',
+                layout: 'fit',
+                title: 'Select a file from user_data',
+                plain: true,
+                animate: true,
+                items: localFileSelector,
+                closable: true,
+                width: 300,
+                side: 'e',
+                resizable: true,
+            })
+        ]
     });
     
+
     // A form for the upload
     var uploadForm = new Ext.form.FormPanel({
         fileUpload: true,
         url: '/vappio/uploadFile_ws.py',
         frame: true,
         items: [
-            {xtype: 'fileuploadfield',
-             width: 200,
-             fieldLabel: 'Upload File',
-             name: 'file',
-             listeners: {
-                 change: function(field, newval, oldval) {
-                     if(newval) {
-                         //clovrform.changeInputDataSet(field);
+            {xtype: 'fieldset',
+             title: 'Select or Upload your dataset',
+             labelWidth: 125,
+             items: [
+                 {xtype: 'button',
+                  fieldLabel: 'Select from user_data <i>(recommended)</i>',
+                  text: 'Select file from image',
+                  handler: function() {
+                      uploadWindow.drawers.e.show();
+                  }},
+                 {xtype: 'fileuploadfield',
+                  width: 200,
+                  fieldLabel: 'Or, Upload a file',
+                  name: 'file',
+                  listeners: {
+                      change: function(field, newval, oldval) {
+                          if(newval) {
+                              //clovrform.changeInputDataSet(field);
                      }
-                 }
-             }
+                      }
+                  }
+                 }]
             },
-            
             // Combobox for type.
             {xtype: 'combo',
              name: 'inputfiletype',
@@ -85,52 +184,98 @@ clovr.uploadFileWindow = function(config) {
             }
         ],
         buttons: [
-            {text: 'Upload',
+            {text: 'Tag',
              handler: function() {
-                 uploadForm.getForm().submit({
-                     waitMsg: 'Uploading File',
-                     success: function(r,o) {
-                         var path = '/mnt/user_data/';
-                         var values = uploadForm.getForm().getFieldValues();
-                         clovr.tagData({
-                         	params: {
-				            	'files': [path + values.file],
-            					'name': 'local',
-            					'expand': true,
-            					'recursive': false,
-            					'append': false,
-				            	'overwrite': true,
-				            	'compress': false,
-				            	'tag_name': values.uploadfilename,
-		                    	'tag_metadata': {
-        	                		'description': values.uploadfiledesc,
-        	                		'format_type': values.inputfiletype
-        	                	},
-                            	'tag_base_dir': path
-                            },
-					        callback: function(r,o) {
-    	       					Ext.Msg.show({
-						            title: 'Tagging Data...',
-				        	        width: 200,
-					                mask: true,
-				    	            closable: false,
-				        	        wait: true,
-				            	    progressText : 'Tagging Data'
-					            });
-					            uploadForm.getForm().reset();
-				    	 	    clovr.checkTagTaskStatusToSetValue({
-				        			uploadwindow: uploadWindow,
-		    		        		seqcombo: config.seqcombo,
-		        		        	tagname: values.uploadfilename,
-		            		    	data: Ext.util.JSON.decode(r.responseText)
-		            			});
-		            		}
-		        		});
-                	},
-                	failure: function(r,o) {
-			    	}
-            	});
-        	}
+                 
+                 var form = uploadForm.getForm();
+                 var uploadfield = form.findField('file');
+                 if(uploadfield.getValue()) {
+                     
+                     uploadForm.getForm().submit({
+                         waitMsg: 'Uploading File',
+                         success: function(r,o) {
+                             var path = '/mnt/user_data/';
+                             var values = uploadForm.getForm().getFieldValues();
+                             clovr.tagData({
+                         	     params: {
+				            	     'files': [path + values.file],
+            					     'name': 'local',
+            					     'expand': true,
+            					     'recursive': false,
+            					     'append': false,
+				            	     'overwrite': true,
+				            	     'compress': false,
+				            	     'tag_name': values.uploadfilename,
+		                    	     'tag_metadata': {
+        	                		     'description': values.uploadfiledesc,
+        	                		     'format_type': values.inputfiletype
+        	                	     },
+                            	     'tag_base_dir': path
+                                 },
+					             callback: function(r,o) {
+    	       					     Ext.Msg.show({
+						                 title: 'Tagging Data...',
+				        	             width: 200,
+					                     mask: true,
+				    	                 closable: false,
+				        	             wait: true,
+				            	         progressText : 'Tagging Data'
+					                 });
+					                 uploadForm.getForm().reset();
+				    	 	         clovr.checkTagTaskStatusToSetValue({
+				        			     uploadwindow: uploadWindow,
+		    		        		     seqcombo: config.seqcombo,
+		        		        	     tagname: values.uploadfilename,
+		            		    	     data: Ext.util.JSON.decode(r.responseText)
+		            			     });
+		            		     }
+		        		     });
+                	     },
+                	     failure: function(r,o) {
+			    	     }
+            	     });
+                 }
+                 else {
+                     var path = '/mnt/user_data/';
+                     var selected = localFileSelector.getSelectionModel().getSelectedNode();
+                     values = form.getFieldValues();
+                     console.log(selected);
+                     clovr.tagData({
+                         params: {
+				             'files': [selected.id],
+            				 'name': 'local',
+            				 'expand': true,
+            				 'recursive': true,
+            				 'append': false,
+				             'overwrite': true,
+				             'compress': false,
+				             'tag_name': values.uploadfilename,
+		                     'tag_metadata': {
+        	                	 'description': values.uploadfiledesc,
+        	                	 'format_type': values.inputfiletype
+        	                 },
+                             'tag_base_dir': path
+                         },
+					     callback: function(r,o) {
+    	       				 Ext.Msg.show({
+						         title: 'Tagging Data...',
+				        	     width: 200,
+					             mask: true,
+				    	         closable: false,
+				        	     wait: true,
+				            	 progressText : 'Tagging Data'
+					         });
+					         uploadForm.getForm().reset();
+				    	 	 clovr.checkTagTaskStatusToSetValue({
+				        		 uploadwindow: uploadWindow,
+		    		        	 seqcombo: config.seqcombo,
+		        		         tagname: values.uploadfilename,
+		            		     data: Ext.util.JSON.decode(r.responseText)
+		            		 });
+                         }
+                     })
+                 }
+        	 }
     	}]
     });
     uploadWindow.add(uploadForm);
@@ -415,7 +560,6 @@ clovr.getDatasetInfo = function(config) {
     // If we have already made this request, just add the callback on
     // and don't make the request again.
     if(clovr.requests.querytag.running) {
-        console.log('had one running already');
         clovr.requests.querytag.callbacks.push(config.callback);
     }
     else {
@@ -437,7 +581,6 @@ clovr.getDatasetInfo = function(config) {
                 clovr.requests.querytag.running = false;
                 var rjson = Ext.util.JSON.decode(r.responseText);
                 Ext.each(clovr.requests.querytag.callbacks, function(cb) {
-                    console.log('here');
                     cb(rjson);
                     //                config.callback(rjson);
                 });
