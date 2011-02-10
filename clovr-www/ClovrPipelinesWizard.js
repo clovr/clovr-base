@@ -241,7 +241,7 @@ function clovrParsePipelines( r ) {
                     'display': pipe.config[i][1].display,
                     'desc': pipe.config[i][1].desc,
                     'default': pipe.config[i][1]['default'],
-                    'choices': pipe.config[i][1].choices,
+                    'type_params': pipe.config[i][1].type_params,
                     'visibility': pipe.config[i][1].visibility
                 });
             }

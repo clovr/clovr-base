@@ -239,7 +239,6 @@ clovr.uploadFileWindow = function(config) {
                      var path = '/mnt/user_data/';
                      var selected = localFileSelector.getSelectionModel().getSelectedNode();
                      values = form.getFieldValues();
-                     console.log(selected);
                      clovr.tagData({
                          params: {
 				             'files': [selected.id],
@@ -654,9 +653,9 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
         var dname = field.display ? field.display : field.field;
         var choices;
         var field_config = {};
-        if(field.choices) {
+        if(field.type_params && field.type_params.choices) {
             choices = [];
-            Ext.each(field.choices, function(choice) {
+            Ext.each(field.type_params.choices, function(choice) {
                 choices.push([choice]);
             });
             field_config = {
