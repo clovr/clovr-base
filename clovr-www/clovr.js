@@ -15,6 +15,207 @@ Ext.namespace('clovr');
 clovr.tagStores = [];
 clovr.requests = [];
 
+// Used to add a credential
+clovr.addCredentialWindow = function(config) {
+
+    var subforms = [];
+    
+    var win = {};
+
+    var configSet = {
+        xtype: 'fieldset',
+        title: 'Name Credential',
+        items: [
+            {xtype: 'textfield',
+             fieldLabel: 'Credential Name',
+             name: 'credential_name'
+            },
+            {xtype: 'textarea',
+             width: 200,
+             fieldLabel: 'Credential Description',
+             name: 'description'
+            },
+            {xtype: 'textfield',
+             hidden: true,
+             fieldLabel: 'cluster',
+             name: 'cluster',
+             value: 'local'
+            }
+        ]};
+    
+    var configPanel = new Ext.Panel({
+        layout: 'form',
+        frame: true,
+//        hidden: true,
+        items: [
+            {xtype: 'fieldset',
+             labelAlign: 'top',
+             title: 'Upload Credential Files',
+             name: 'diag_uploads',
+             id: 'diag_uploads',
+             items: [
+                 new Ext.form.FormPanel({
+                     fileUpload: true,
+                     url: '/vappio/uploadCred_ws.py',
+                     labelAlign: 'top',
+                     id: 'cert_file',
+                     items: [
+                         {xtype: 'fileuploadfield',
+                          width: 200,
+                          fieldLabel: 'Upload Certificate File',
+                          name: 'file'
+                         }
+                     ]
+                 }),
+                 new Ext.form.FormPanel({
+                     fileUpload: true,
+                     url: '/vappio/uploadCred_ws.py',
+                     labelAlign: 'top',
+                     id: 'pkey_file',
+                     items: [
+                         {xtype: 'fileuploadfield',
+                          width: 200,
+                          fieldLabel: 'Upload Key File',
+                          name: 'file'
+                         }
+                     ]
+                 })
+             ]}
+        ]
+    });
+
+    subforms['diag'] = {'added': false,
+                        'panel': configPanel};
+
+    var ctypeGroup = new Ext.form.RadioGroup({
+        columns: 1,
+        items: [
+            {name: 'ctype',
+             boxLabel: 'IGS DIAG',
+             inputValue: 'diag'
+            },
+            {name: 'ctype',
+             boxLabel: 'Amazon ec2',
+             inputValue: 'ec2'
+            }
+        ],
+        listeners: {
+            foo: function(group,checked) {
+                if(group.getValue()) {
+                    var ctype = group.getValue().inputValue;
+
+                    for( form in subforms ) {
+                        if(form == ctype) {
+                            if(!subforms[form].added) win.add(subforms[form].panel);
+                        }
+                        else if(subforms[form].panel) {
+                            subforms[form].panel.hide();
+                        }
+                    }
+                    if(subforms[ctype]) {
+                        subforms[ctype].panel.show();
+                        subforms[ctype].panel.doLayout();
+                        win.doLayout();
+                    }
+                }
+            }
+        }
+    });
+                                            
+    var formpanel = new Ext.form.FormPanel({
+        frame: true,
+        items: [
+            {xtype: 'fieldset',
+             title: 'Select a credential Type',
+             labelWidth: 1,
+             items: [
+                 ctypeGroup,
+             ]
+            },
+            configSet
+        ]
+    });
+
+    
+
+    win = new Ext.Window({
+        width: 400,
+        height: 400,
+        autoScroll: true,
+        title: 'Add Credential',
+        buttons: [
+            {text: 'Add Credential',
+             handler: function() {
+                 for(form in subforms) {
+                     if(subforms[form].panel && subforms[form].panel.isVisible()) {
+                         var ctype_panel = subforms[form].panel;
+                         var form_container = ctype_panel.get(form+"_uploads");
+                         console.log(form_container);
+                         var successful_returns = 0;
+                         var total_returns = form_container.items.items.length;
+                         var uploaded_files = [];
+                         Ext.each(form_container.items.items, function(field) {
+                             if(field.getXType() == 'form') {
+                                 if(field.getForm().isDirty()) {
+                                     console.log(field);
+                                     var formname =  field.getId();
+                                     console.log(formname);
+                                     field.getForm().submit({
+                                         waitMsg: 'Uploading File',
+                                         success: function(r,o) {
+                                             console.log(o);
+                                             successful_returns +=1;
+                                             var json = Ext.decode(o.response.responseText);
+
+                                             uploaded_files[formname] = json.data;
+                                             // Add the returned file to the 
+                                             if(successful_returns == total_returns) {
+                                                 var params = formpanel.getForm().getValues();
+
+                                                 Ext.apply(params,uploaded_files);
+                                                 Ext.apply(params,{'metadata': {}});
+                                                 console.log(params);
+                                                 // Adding the credential here
+                                                 Ext.Ajax.request({
+    	                                             url: '/vappio/credential_ws.py',
+                                                     params: {
+        	                                             'request':Ext.util.JSON.encode(params)
+                                                     },
+                                                     success: function(r,o) {
+                                                         console.log(r);
+                                                         console.log('success!');
+                                                     },
+                                                     failure: function(r,o) {
+                                                         console.log('fail');
+                                                     }
+                                                 });
+                                             }
+                                         },
+                                         failure: function(r,o) {
+                                             console.log(o);
+                                             var json = Ext.decode(o.response.responseText);
+                                             Ext.Msg.show({
+                                                 title: 'Your credential upload failed!',
+                                                 msg: json.data.msg,
+                                                 icon: Ext.MessageBox.ERROR,
+                    	                         buttons: Ext.Msg.OK
+                                             });
+                                         }
+                                     });
+                                 }
+                             }
+                         });
+                         
+                     }
+                 }
+             }}
+            
+        ]
+    });
+    
+    win.add(formpanel,configPanel);
+    win.show();
+}
 
 clovr.localFileSelector = function(config) {
     var selectorTree = new Ext.tree.TreePanel({
@@ -70,17 +271,6 @@ clovr.localFileSelector = function(config) {
             id: '/mnt/user_data/'
         }),
     });
-
-//    var params = {
-//        layout: 'fit',
-//        width: 400,
-//        height: 300,
-//        closeAction: 'hide',
-//        title: 'Select File on Image',
-//        items: selectorTree
-//    };
-//    Ext.apply(params,config);
-//    var selectorWindow = new Ext.Window(params);
     return selectorTree;
 }
 /**
