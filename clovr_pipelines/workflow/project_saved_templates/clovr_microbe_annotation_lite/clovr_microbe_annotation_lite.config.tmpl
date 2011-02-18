@@ -1,0 +1,57 @@
+## Configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_FSA_TAG={"display": "Input Fasta Tag", "desc": "Tag for input", "type": "dataset", "type_params": { "format_type": ["nuc_fasta"], "transform_name": "input.INPUT_FILE_LIST" }, "require_value": true }
+
+## For the annotation portion of the pipeline.
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "require_value": true }
+
+[params]
+## organism info
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
+ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "require_value": true }
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
+
+[download]
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_microbe_annotation_lite_version_0.0", "type": "string", "visibility": "always_hidden"}
+PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation_lite", "visibility": "always_hidden", "type": "string"}
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation_lite/clovr_microbe_annotation_lite.prestart.xml", "visibility": "always_hidden", "type": "string"}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation_lite/clovr_microbe_annotation_lite.prerun.xml", "visibility": "always_hidden", "type": "string"}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_microbe_annotation_lite/clovr_microbe_annotation_lite.postrun.xml", "visibility": "always_hidden", "type": "string" }
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string"}
+
