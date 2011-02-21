@@ -22,7 +22,10 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
                                 host = '';
                             }
                             else {
-                                host = 'http://'+data.data.master.public_dns;
+                                console.log(data);
+                                if(data.data.master) {
+                                    host = 'http://'+data.data.master.public_dns;
+                                }
                             }
                             GangliaPanel.loadImage(host);
                             GangliaPanel.getEl().unmask();

@@ -16,7 +16,8 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
         config.deferredRender=false;
         var header_panel = new Ext.Panel({
             region: 'north',
-            html: '<div><h3>Information for the '+config.dataset_name+' dataset</h3></div>'
+            height: 50,
+            html: 'Information for the '+config.dataset_name+' dataset'
         });
         var footer_panel = new Ext.Panel({
             region: 'south'
@@ -328,7 +329,7 @@ function renderInput(value, p, record) {
     };
 
     if(record.data.state == "error") {
-        return_string="Failed Pipeline "+ record.json.config['input.PIPELINE_NAME'];
+        return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
     }
     else {
         return_string = "<div>"+inputs.join("<br/>")+"</div>";
@@ -345,7 +346,7 @@ function renderOutput(value, p, record) {
     var tags = record.json.config["output.TAGS_TO_DOWNLOAD"].split(',');
     var outputs = [];
     Ext.each(tags, function(tag) {
-        outputs.push("<a href='/output/"+record.json.config['input.PIPELINE_NAME']+"_"+
+        outputs.push("<a href='/output/"+record.json.config['pipeline.PIPELINE_NAME']+"_"+
                      tag+".tar.gz'>"+tag+"</a>");
     });
 //    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
@@ -353,7 +354,7 @@ function renderOutput(value, p, record) {
 //    }
     
     if(record.data.state == "error") {
-        return_string="Failed Pipeline "+ record.json.config['input.PIPELINE_NAME'];
+        return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
     }
     else if(record.data.state != "complete") {
         return_string="Pipeline not complete";

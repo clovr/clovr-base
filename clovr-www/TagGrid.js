@@ -96,12 +96,13 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                      var selections = taggrid.getSelectionModel().getSelections();
                      create_details_view(config,selections[0].data);
                  }}
-            ],
-            tools: [
-                {id: 'refresh',
-                 handler: function() {jstore.reload()}
-                }]
-            
+            ]
+//            ,
+//            tools: [
+//                {id: 'refresh',
+//                 handler: function() {jstore.reload()}
+//                }]
+//            
         }));
     }
 });

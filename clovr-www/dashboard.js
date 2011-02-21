@@ -48,31 +48,49 @@ Ext.onReady(function(){
         region: 'center',
         title: 'Configure Analysis'
     });
+    
 
     // Grid to store tagged data sets.
     var taggrid = new clovr.TagGrid({
-        region: 'west',
+//        region: 'west',
         pipelinePanel: pipepanel,
         title: 'Data Sets',
-        width: 400,
+//        width: 400,
         split: true,
 //        margins: '0 5 0 0',
-        margins: '0 0 0 5',
+//        margins: '0 0 0 5',
         pipelineWizard: pipepanel,
         url: "/vappio/queryTag_ws.py"
 //        host: hostname_field.getValue()
     });
 
+    var credgrid = new clovr.ClovrCredentialGrid({
+        title: 'Credentials'
+    });
+
+    var westpanel = new Ext.TabPanel({
+        region: 'west',
+        defaults: {
+            frame: true
+        },
+        activeTab: 0,
+        split: true,
+        width: 400,
+//        margins: '0 0 0 5',
+        items: [
+            taggrid,
+            credgrid
+        ]
+    });
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
         height: 200,
-        header: true,
         split: true,
 //        collapsed: true,
 //        collapseMode: 'mini',
-        margins: '0 5 0 0',
-        title: 'Pipelines'
+//        margins: '0 5 0 0'
     });
+
 
     var viewport = new Ext.Viewport({
         layout:'border',
@@ -110,7 +128,7 @@ Ext.onReady(function(){
                       items:[{
                           title: 'Pipelines',
                           layout: 'fit',
-                          tools: tools,
+                          tools: tools.concat(pipegrid.parenttools),
                           items: pipegrid
                       }]},
                      {columnWidth: 0.33,
@@ -122,7 +140,7 @@ Ext.onReady(function(){
                           html: 'bogus markup'
                       }]}
                     ]},
-            taggrid,
+            westpanel,
             pipepanel
         ]
     });

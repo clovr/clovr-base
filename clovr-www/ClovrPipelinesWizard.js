@@ -28,11 +28,12 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'pipelines': {
                     'clovr_16S': 1
                 },
-                'panel': new Ext.TabPanel({
-                    title: 'CloVR 16s',
-                    activeTab: 0,
-                    id: 'clovr_16s'
-                })
+				'panel_xtype': 'clovr16spanel',
+//                'panel': new Ext.TabPanel({
+//                    title: 'CloVR 16s',
+//                    activeTab: 0,
+//                    id: 'clovr_16s'
+//                })
             },
             'clovr_search': {
                 'pipelines': {

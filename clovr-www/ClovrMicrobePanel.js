@@ -54,8 +54,6 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             filter: {
                 fn: function(record) {
                     var re = /nuc_fasta|fastq|sff/i;
-//                    console.log(record.data['metadata.format_type']);
-//                    console.log(re.test(record.data['metadata.format_type']));
                     return re.test(record.data['metadata.format_type']);
                 }
             },
@@ -117,17 +115,18 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             name: 'cluster.CLUSTER_CREDENTIAL',
             default_value: config.default_credential,
             hidden: config.hide_credential});
-        var cluster_combo = clovr.clusterCombo({
+/*        var cluster_combo = clovr.clusterCombo({
             name: 'cluster.CLUSTER_NAME',
             default_value: config.default_cluster,
             hidden: config.hide_cluster
         });
+        */
         var cluster_fieldset = {
             xtype: 'fieldset',
             hideMode: 'visibility',
-            title: 'CLoVR Cluster Selection',
-            items: [credential_combo,cluster_combo]}
-        
+            title: 'CLoVR Credential Selection',
+//            items: [credential_combo,cluster_combo]}
+			items: [credential_combo]};        
 //        annot_select.setValue([true,false]);
         var uploadWindow = clovr.uploadFileWindow({
             seqcombo: seq_combo
@@ -186,15 +185,16 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                  var subform = wrapper_panel.subform.getForm();
                  var params = wrapper_panel.params_for_submission;
                  var form = wrapper_panel.form;
-                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+
+				//form.getForm().findField('cluster.CLUSTER_NAME').getValue();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
                  
                  subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });
                  Ext.apply(params, subform.getValues());
-                 console.log(params);
             	 
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
                  
@@ -687,7 +687,6 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             'tag_base_dir': values['tag_base_dir'],
                                 'tag_metadata': metadata},
                             callback: function(r,o) {
-                                console.log(r);
                                 var response = Ext.util.JSON.decode(r.responseText);
                                 tag_task_list.push(response.data);
                             }
@@ -702,11 +701,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             }
                             var new_task_list = [];
                             Ext.each(tag_task_list, function(task_name,i,tasks) {
-                                console.log('here with a task '+task_name);
                                 var callback = function(r) {
                                     var response = Ext.util.JSON.decode(r.responseText);
                                     if(response.success =='true') {
-                                        console.log(response.data[0].state);
                                         if(response.data[0].state == 'running') {
                                             new_task_list.push(task_name);
                                         }
@@ -722,7 +719,6 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             if(tag_task_list.length ==0) {
                                 Ext.TaskMgr.stop(task);
                                 clovr.reloadTagStores();
-                                console.log('Finished!');
                             }
                         },
                         interval: 2000

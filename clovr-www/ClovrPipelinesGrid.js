@@ -26,6 +26,11 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             }
         });
 
+		this.parenttools = [
+        	{id: 'refresh',
+             handler: function() {getPipelineStatus()}
+             }];
+             
         clovr.ClovrPipelinesGrid.superclass.constructor.call(this, Ext.apply(config, {
 //            title: 'Pipelines',
             store: jstore,
@@ -45,11 +50,11 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             	forceFit:true,
             	startCollapsed: true,
             	groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
-        	}),
-            tools: [
-                {id: 'refresh',
-                 handler: function() {getPipelineStatus()}
-                }]
+        	})
+//            tools: [
+//                {id: 'refresh',
+//                 handler: function() {getPipelineStatus()}
+//                }]
         }));
 
 

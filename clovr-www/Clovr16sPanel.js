@@ -1,14 +1,14 @@
 /*
- * A panel that is used to configure/submit Clovr Metagenomics Pipelines
+ * A panel that is used to configure/submit Clovr 16s Pipelines
  */
 
-clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
+clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
 
     constructor: function(config) {
         var wrapper_panel = this;
 
         var form = new Ext.FormPanel({
-            id: 'clovr_meta_form',
+            id: 'clovr_16s_form',
             labelWidth: 120,
             anchor: '100%',
             bodyStyle: 'padding: 5px',
@@ -17,8 +17,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             buttonAlign: 'center'
  
         });
-        
-        wrapper_panel.form=form;
+        wrapper_panel.form=form;       
         var seq_combo = clovr.tagCombo({
 //            id: 'datasettag',
             fieldLabel: 'Select Sequencing Dataset',
@@ -43,61 +42,53 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                 select: function(combo,rec) {
                     wrapper_panel.load_pipeline_subform(config.pipelines);
                 }
+            },
+            afterload: function() {
+                seq_combo.fireEvent('select');
             }
-        });
-
-        var orf_box = new Ext.form.Radio({
-            boxLabel: 'Metagenomics with ORFs',
-            inputValue: 'orf',
-            name: 'metagenomics_track',
-        });
+        }); 
         
-        var noorf_box = new Ext.form.Radio({
-            boxLabel: 'Metagenomics without ORFs',
-            inputValue: 'noorf',
-            name: 'metagenomics_track',
-        });
-        var track_select = new Ext.form.RadioGroup({
-            fieldLabel: 'Select a CLoVR Metagenomics Track',
-            columns: 1,
-            width: 175,
-            items: [
-                orf_box,
-                noorf_box
-            ],
-            listeners: {
-                change: function(group,checked) {
-                    wrapper_panel.load_pipeline_subform(config.pipelines);
-                }
-            }
+        var mapping_file_field = new Ext.form.TextField({
+            emptyText: 'Select a mapping file',
+            readOnly: true 
         });
 
-        var track_fieldset = {
-            xtype: 'fieldset',
-            hideMode: 'visibility',
-            title: 'CLoVR Metagenomics Track',
-            items: track_select
-        };
+        var mapping_file = new Ext.form.CompositeField({
+            fieldLabel: 'CLoVR16s Mapping File',
+            msgTarget: 'under',
+            invalidClass: '',
+            items: [
+                mapping_file_field,
+                {xtype: 'button',
+                 text: 'Change',
+                 handler: function() {
+                     var input_tag = seq_combo.getValue();
+                     var input_tag_store = seq_combo.store;
+                     var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));
+                     wrapper_panel.showMappingFileWindow(input_tag_rec);
+                 }
+                }
+            ]
+        });
 
         var credential_combo = clovr.credentialCombo({
             name: 'cluster.CLUSTER_CREDENTIAL',
             default_value: config.default_credential,
             hidden: config.hide_credential});
-        var cluster_combo = clovr.clusterCombo({
-            name: 'cluster.CLUSTER_NAME',
-            default_value: config.default_cluster,
-            hidden: config.hide_cluster
-        });
-        var cluster_fieldset = {
+
+        var credential_fieldset = {
             xtype: 'fieldset',
             hideMode: 'visibility',
-            title: 'CLoVR Cluster Selection',
-            items: [credential_combo,cluster_combo]}
-        
+            title: 'CLoVR Credential Selection',
+            items: [credential_combo]}
 
         var uploadWindow = clovr.uploadFileWindow({
-            seqcombo: seq_combo
+            seqcombo: seq_combo,
+            callback: function() {
+                seq_combo.fireEvent('select');
+            }
         });
+        
         var seq_fieldset = {
             xtype: 'fieldset',
             hideMode: 'visibility',
@@ -111,30 +102,28 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                 uploadWindow.show();
             }};
 
-        form.track_select = track_select;
-        form.track_select_radios = {
-            'orf': orf_box,
-            'noorf': noorf_box
-        };
         form.input_tag = seq_combo;
-        seq_fieldset.items = [seq_combo,upload_button];
-        wrapper_panel.pipeline_configs = config.pipelines;
-
+        form.map_file = mapping_file_field;
+        form.map_file_comp = mapping_file;
+        seq_fieldset.items = [seq_combo,upload_button,mapping_file];
+        form.add(seq_fieldset,credential_fieldset);
         var buttons = [
             {text: 'Submit',
              handler: function(b,e) {
                  var subform = wrapper_panel.subform.getForm();
                  var form = wrapper_panel.form;
                  var params = wrapper_panel.params_for_submission;
-            	 var pipename = 'clovr_metagenomics'+new Date().getTime();
+            	 var pipename = 'clovr_16s'+new Date().getTime();
                  subform.findField('pipeline.PIPELINE_NAME').setValue(pipename);
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
-                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+//                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+                 var cluster_name = 'clovr_16s_' + credential + '_' + new Date().getTime();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });
                  Ext.apply(params,subform.getValues());
+
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,
@@ -147,9 +136,8 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                  
             }}
         ];
-        form.add(seq_fieldset,track_fieldset,cluster_fieldset);
-        clovr.ClovrMetaPanel.superclass.constructor.call(this,{
-            id: 'clovr_metagenomics',
+        clovr.Clovr16sPanel.superclass.constructor.call(this,{
+            id: 'clovr_16s',
             layout: 'anchor',
         	autoScroll: true,
         	buttonAlign: 'center',
@@ -158,17 +146,18 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             items: [form],
             buttons: buttons
         });
-    },
+	},
     changeInputDataSet: function(conf) {
         if(conf.dataset_name) {
             this.form.input_tag.setValue(conf.dataset_name);
             this.form.input_tag.fireEvent('select');
         }
     },
-
     showMappingFileWindow: function(record) {
         var forms =[];
         var panel = this;
+        var win;
+
         var tagcombo = clovr.tagCombo({
             //            id: 'datasettag',
             fieldLabel: 'Select a metagenomics map',
@@ -214,7 +203,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         ];
 
         
-        var win = new Ext.Window({
+        win = new Ext.Window({
             defaults: {frame: true},
             height: 300,
             width: 400,
@@ -231,7 +220,6 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             },
             listeners: {
                 close: function(p) {
-                    panel.form.track_select.setValue([false,false]);
                 }
             },
             buttons: [{
@@ -267,10 +255,13 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
 				            	    progressText : 'Tagging Data'
 					            });
                                 clovr.checkTagTaskStatusToSetValue({
-                                    seqcombo: tagcombo,
+                                    seqcombo: panel.form.input_tag,
                                     uploadwindow: win,
                                     tagname: record.data.name,
-                                    data: Ext.util.JSON.decode(r.responseText)
+                                    data: Ext.util.JSON.decode(r.responseText),
+                                    callback: function() {
+                                        panel.form.input_tag.fireEvent('select');
+                                    }
                                 });
                             }
                         });
@@ -281,65 +272,43 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         });
         win.show();
     },
+
     load_pipeline_subform: function(pipelines) {
-        if(!this.subforms) {
-            this.subforms = {};
-        }
+
         var input_tag = this.form.input_tag.value;
         var input_tag_store = this.form.input_tag.store;
-        var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));
-        var track = this.form.track_select.getValue();
-        var title ='';
-        var form_name = '';
-        var ignores = {};
-        var params = {};
-
-        if(track) {
-
-            if(track.inputValue == 'orf') {
-                title = 'CLoVR Metagenomics with ORFs Settings';
-                form_name = 'clovr_metagenomics_orfs';
-                ignores = {'cluster.CLUSTER_NAME': 1,
-                           'cluster.CLUSTER_CREDENTIAL':1,
-                           'input.FASTA_TAG': 1,
-                           'input.MAPPING_TAG': 1
-                          };
-            }
-            else if(track.inputValue =='noorf') {
-                title = 'CLoVR Metagenomics without ORFs Settings',
-                form_name = 'clovr_metagenomics_noorfs';
-                ignores = {'cluster.CLUSTER_NAME': 1,
-                           'cluster.CLUSTER_CREDENTIAL':1,
-                           'input.FASTA_TAG': 1,
-                           'input.MAPPING_TAG': 1
-                          };
-            }
-            if(!input_tag_rec.data['metadata.metagenomics_mapping_file']) {
-                this.showMappingFileWindow(input_tag_rec);
-            }
-            else {
-                params = {
+        var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));        
+        var map_file = this.form.map_file;
+        if(input_tag_rec.data['metadata.metagenomics_mapping_file']) {
+            this.form.map_file_comp.clearInvalid();
+            map_file.setValue(input_tag_rec.data['metadata.metagenomics_mapping_file']);
+            if(!this.subform) {
+                this.params_for_submission = {
                     'input.FASTA_TAG': input_tag,
                     'input.MAPPING_TAG': input_tag_rec.data['metadata.metagenomics_mapping_file']
                 };
-                this.params_for_submission = params;
-                for(form in this.subforms) {
-                    if(form != form_name && this.subforms[form].isVisible) {
-                        this.subforms[form].hide();
-                    }
-                }
-                if(form_name != '' && !this.subforms[form_name]) {
-                    this.subforms[form_name] = this.create_fieldset_from_config(title,pipelines[form_name],ignores);
-                    this.add(this.subforms[form_name]);
-                }
-                
-                if(this.subforms[form_name]) {
-			        this.subform = this.subforms[form_name];
-                    this.subforms[form_name].show();
-                    this.doLayout();
-                }
+                this.subform = this.create_fieldset_from_config(
+                    'CLoVR 16s Configuration',
+                    pipelines['clovr_16S'],
+                    {'input.FASTA_TAG': 1,
+                     'input.MAPPING_TAG': 1,
+                     'cluster.CLUSTER_NAME':1,
+                     'cluster.CLUSTER_CREDENTIAL': 1
+                    });
+                this.add(this.subform);
             }
+            this.subform.show();
+            this.doLayout();
         }
+        else {
+            map_file.setValue();
+            this.form.map_file_comp.markInvalid('You must specify a mapping file');
+            if(this.subform) {
+                this.subform.hide();
+            }
+            
+        }
+
     },
 
     create_fieldset_from_config: function(title, pipeline_config, custom_params) {
@@ -377,6 +346,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         });
         return form;
     }
+
 });
 
-Ext.reg('clovrmetapanel', clovr.ClovrMetaPanel);
+Ext.reg('clovr16spanel', clovr.Clovr16sPanel);

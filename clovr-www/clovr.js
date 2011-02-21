@@ -13,6 +13,7 @@
 Ext.namespace('clovr');
 
 clovr.tagStores = [];
+clovr.credStores = [];
 clovr.requests = [];
 
 // Used to add a credential
@@ -51,8 +52,8 @@ clovr.addCredentialWindow = function(config) {
             {xtype: 'fieldset',
              labelAlign: 'top',
              title: 'Upload Credential Files',
-             name: 'diag_uploads',
-             id: 'diag_uploads',
+             name: 'uploads',
+             id: 'uploads',
              items: [
                  new Ext.form.FormPanel({
                      fileUpload: true,
@@ -84,9 +85,6 @@ clovr.addCredentialWindow = function(config) {
         ]
     });
 
-    subforms['diag'] = {'added': false,
-                        'panel': configPanel};
-
     var ctypeGroup = new Ext.form.RadioGroup({
         columns: 1,
         items: [
@@ -98,28 +96,7 @@ clovr.addCredentialWindow = function(config) {
              boxLabel: 'Amazon ec2',
              inputValue: 'ec2'
             }
-        ],
-        listeners: {
-            foo: function(group,checked) {
-                if(group.getValue()) {
-                    var ctype = group.getValue().inputValue;
-
-                    for( form in subforms ) {
-                        if(form == ctype) {
-                            if(!subforms[form].added) win.add(subforms[form].panel);
-                        }
-                        else if(subforms[form].panel) {
-                            subforms[form].panel.hide();
-                        }
-                    }
-                    if(subforms[ctype]) {
-                        subforms[ctype].panel.show();
-                        subforms[ctype].panel.doLayout();
-                        win.doLayout();
-                    }
-                }
-            }
-        }
+        ]
     });
                                             
     var formpanel = new Ext.form.FormPanel({
@@ -146,10 +123,9 @@ clovr.addCredentialWindow = function(config) {
         buttons: [
             {text: 'Add Credential',
              handler: function() {
-                 for(form in subforms) {
-                     if(subforms[form].panel && subforms[form].panel.isVisible()) {
-                         var ctype_panel = subforms[form].panel;
-                         var form_container = ctype_panel.get(form+"_uploads");
+                 console.log('yo');
+                 var ctype_panel = configPanel;
+                         var form_container = ctype_panel.get("uploads");
                          console.log(form_container);
                          var successful_returns = 0;
                          var total_returns = form_container.items.items.length;
@@ -160,10 +136,10 @@ clovr.addCredentialWindow = function(config) {
                                      console.log(field);
                                      var formname =  field.getId();
                                      console.log(formname);
+                                     win.getEl().mask('Uploading Credential Files');
                                      field.getForm().submit({
-                                         waitMsg: 'Uploading File',
                                          success: function(r,o) {
-                                             console.log(o);
+											 win.getEl().mask('Adding Credential');
                                              successful_returns +=1;
                                              var json = Ext.decode(o.response.responseText);
 
@@ -181,11 +157,18 @@ clovr.addCredentialWindow = function(config) {
                                                      params: {
         	                                             'request':Ext.util.JSON.encode(params)
                                                      },
+                                                     timeout: 120000,
                                                      success: function(r,o) {
                                                          console.log(r);
-                                                         console.log('success!');
+                                                         win.getEl().unmask();
+                                                         clovr.reloadCredStores({
+                                                         	callback: function() {
+                                                         		win.close();
+                                                         	}
+                                                        });
                                                      },
                                                      failure: function(r,o) {
+                                                         console.log(r);
                                                          console.log('fail');
                                                      }
                                                  });
@@ -207,8 +190,8 @@ clovr.addCredentialWindow = function(config) {
                          });
                          
                      }
-                 }
-             }}
+            }
+        
             
         ]
     });
@@ -241,7 +224,7 @@ clovr.localFileSelector = function(config) {
                             'text': i,
                             'cls': cls,
                             'leaf': leaf,
-                            'id': node.id + data[i].name
+                            'id': node.id + '/'+ data[i].name
                         };
                         var n = this.createNode(node_data);
                         if(n){
@@ -266,7 +249,7 @@ clovr.localFileSelector = function(config) {
             dataUrl: '/vappio/listFiles_ws.py'
         }),
         root: new Ext.tree.AsyncTreeNode({
-            text: 'user-data',
+            text: 'user_data',
             cls: 'folder',
             id: '/mnt/user_data/'
         }),
@@ -416,7 +399,8 @@ clovr.uploadFileWindow = function(config) {
 				        			     uploadwindow: uploadWindow,
 		    		        		     seqcombo: config.seqcombo,
 		        		        	     tagname: values.uploadfilename,
-		            		    	     data: Ext.util.JSON.decode(r.responseText)
+		            		    	     data: Ext.util.JSON.decode(r.responseText),
+                                         callback: config.callback
 		            			     });
 		            		     }
 		        		     });
@@ -459,7 +443,8 @@ clovr.uploadFileWindow = function(config) {
 				        		 uploadwindow: uploadWindow,
 		    		        	 seqcombo: config.seqcombo,
 		        		         tagname: values.uploadfilename,
-		            		     data: Ext.util.JSON.decode(r.responseText)
+		            		     data: Ext.util.JSON.decode(r.responseText),
+                                 callback: config.callback
 		            		 });
                          }
                      })
@@ -513,6 +498,9 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                         callback: function() {
                             if(seqcombo) {
                                 seqcombo.setValue(config.tagname);
+                            }
+                            if(config.callback) {
+                                config.callback();
                             }
                         }
                     });
@@ -592,7 +580,8 @@ clovr.credentialCombo = function(config) {
             loadexceptions: function() {
             }
         }
-    });    
+    });
+    clovr.credStores.push(store);
     combo = new Ext.form.ComboBox(Ext.apply(config, {
         valueField: 'name',
         store: store,
@@ -676,7 +665,7 @@ clovr.tagCombo = function(config) {
     combo = new Ext.form.ComboBox(config);
     clovr.getDatasetInfo({
         callback: function(json) {
-            combo.getStore().loadData(json.data)
+            combo.getStore().loadData(json.data);
         }
     });
     return combo;
@@ -736,6 +725,17 @@ clovr.getClusterInfo = function(config) {
     });
 }
 
+// Pulls credential info from credential_ws.py
+clovr.getCredentialInfo = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/credential_ws.py',
+        params: {request: Ext.util.JSON.encode({cluster: config.cluster_name})},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            config.callback(rjson);
+        }
+    });
+}
 // Pulls info about a particular dataset
 clovr.getDatasetInfo = function(config) {
 
@@ -954,8 +954,24 @@ clovr.runPipeline = function(config) {
     });
 }
 
-
-
+clovr.reloadCredStores = function(config) {
+        clovr.getCredentialInfo({
+            cluster_name: 'local',
+            callback: function(data) {
+                Ext.each(clovr.credStores, function(store,i,stores) {
+                    if(store.url) {
+                        store.reload();
+                    }
+                    else {
+                        store.loadData(data.data);
+                    }
+                });
+                if(config && config.callback) {
+                    config.callback();
+                }
+            }     
+        });
+}
 
 clovr.reloadTagStores = function(config) {
     clovr.getDatasetInfo({
