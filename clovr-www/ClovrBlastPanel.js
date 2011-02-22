@@ -255,12 +255,12 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             hidden: config.hide_credential
 
         }));
-        normal_params.push(clovr.clusterCombo({
+/*        normal_params.push(clovr.clusterCombo({
             name: 'cluster.CLUSTER_NAME',
             default_value: config.default_cluster,
             hidden: config.hide_cluster
         }));
-        
+*/        
         // Add the hidden parameters to the sequence inputs.
         seq_inputs.push(normal_params);
         seq_inputs.push({
@@ -302,12 +302,12 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                      msg: 'The search is being submitted.',
                      wait: true
                  });
-
-                 var cluster_name = wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME');
+                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
+//                 var cluster_name = wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME');
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,
-                     cluster: wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME').getValue(),
+                     cluster: cluster_name,
                      params: wrapper_panel.form.getForm().getValues(),
                      submitcallback: function(r) {
                          config.submitcallback(r);

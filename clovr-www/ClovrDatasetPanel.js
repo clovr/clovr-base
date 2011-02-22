@@ -12,7 +12,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 
 //        config.layout='border';
         config.frame= true;
-        config.autoScroll=true;
         config.deferredRender=false;
         var header_panel = new Ext.Panel({
             region: 'north',
@@ -46,6 +45,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
         });
         var pipelines_container = new Ext.Panel({
             layout: 'border',
+            autoScroll: true,
             deferredRender:false,
             title: 'Pipelines',
             frame: true,
@@ -76,14 +76,11 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 				handler: function() {
 					var recs = metadata_grid.getStore().getModifiedRecords();
 					var new_params = [];
-					console.log(recs)
 					Ext.each(recs, function(rec) {
 						var newval = {};
 						newval[rec.data.name] = rec.data.value;
-//						console.log(newval);
 						new_params.push(newval);
 					});
-					console.log(datasetpanel.dataset);
 					clovr.tagData({
 						params: {
 							name: 'local',
@@ -99,7 +96,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 						},
 						callback: function(r,o) {
 							var data = Ext.util.JSON.decode(r.responseText);
-							console.log(data);
 							if(r.success) {
 								Ext.Msg.show({
 									title: 'Metadata updated successfully',
@@ -107,7 +103,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 								});
 							}
 							else {
-								console.log(r);
 								Ext.Msg.show({
 									title: 'Failed to update metadata',
 									msg: data.data.msg,

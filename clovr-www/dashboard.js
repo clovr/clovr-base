@@ -46,7 +46,7 @@ Ext.onReady(function(){
 //        split: true,
 //        margins: '0 5 0 0',
         region: 'center',
-        title: 'Configure Analysis'
+        title: 'Dashboard'
     });
     
 
@@ -70,6 +70,7 @@ Ext.onReady(function(){
 
     var westpanel = new Ext.TabPanel({
         region: 'west',
+        collapseMode: 'mini',
         defaults: {
             frame: true
         },
@@ -84,7 +85,7 @@ Ext.onReady(function(){
     });
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
-        height: 200,
+//        height: 200,
         split: true,
 //        collapsed: true,
 //        collapseMode: 'mini',
@@ -109,7 +110,7 @@ Ext.onReady(function(){
                      items:[hostname_field]
                     }]*/
             },
-            {title: 'CloVR Widgets',
+/*            {title: 'CloVR Widgets',
              region: 'south',
              height: 300,
              xtype: 'portal',
@@ -139,7 +140,7 @@ Ext.onReady(function(){
                           tools: tools,
                           html: 'bogus markup'
                       }]}
-                    ]},
+                    ]},*/
             westpanel,
             pipepanel
         ]

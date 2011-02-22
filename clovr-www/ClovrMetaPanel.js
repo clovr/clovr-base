@@ -83,16 +83,16 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             name: 'cluster.CLUSTER_CREDENTIAL',
             default_value: config.default_credential,
             hidden: config.hide_credential});
-        var cluster_combo = clovr.clusterCombo({
+/*        var cluster_combo = clovr.clusterCombo({
             name: 'cluster.CLUSTER_NAME',
             default_value: config.default_cluster,
             hidden: config.hide_cluster
-        });
+        });*/
         var cluster_fieldset = {
             xtype: 'fieldset',
             hideMode: 'visibility',
             title: 'CLoVR Cluster Selection',
-            items: [credential_combo,cluster_combo]}
+            items: [credential_combo]};//,cluster_combo]}
         
 
         var uploadWindow = clovr.uploadFileWindow({
@@ -129,7 +129,8 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             	 var pipename = 'clovr_metagenomics'+new Date().getTime();
                  subform.findField('pipeline.PIPELINE_NAME').setValue(pipename);
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
-                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+//                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential

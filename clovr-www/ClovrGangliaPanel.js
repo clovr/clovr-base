@@ -9,8 +9,10 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
         var GangliaPanel = this;
         var host = '';
         var dh = Ext.DomHelper;
-        config.id = 'gangliapanel';
-        var combo = clovr.clusterCombo({});
+        if(!config.id) {
+            config.id = 'gangliapanel';
+        }
+        var combo = clovr.clusterCombo({width: 225});
         combo.on({
             'select': {
                 fn: function(c) {
@@ -22,7 +24,6 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
                                 host = '';
                             }
                             else {
-                                console.log(data);
                                 if(data.data.master) {
                                     host = 'http://'+data.data.master.public_dns;
                                 }
@@ -33,12 +34,9 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
                     });
                 }}
         });
-        config.tbar = new Ext.Toolbar({
-            items: [
-                combo
-                ]
-        
-        });
+        this.parenttools = {
+        	items: ['Select Cluster:',combo]
+        };
 
         if(config.cluster_name) {
             combo.setValue(config.cluster_name);
@@ -46,7 +44,7 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
         config.listeners= {
                 'render': {
                     fn: function(panel) {
-                        dh.append('gangliapanel', {tag: 'img', id:'card1img', src: host+"/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime()});
+                        dh.append(config.id, {tag: 'img', id:config.id+'card1img', src: host+"/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime()});
                     },
                     options: {once: true}
                 }
@@ -60,9 +58,9 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
     },
     
     loadImage: function(host) {
-        if(Ext.get('card1img')) {
-            Ext.get('card1img').dom.src = host+ "/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime(); 
-            Ext.get('card1img').on('load', function() {this.show()},this,{single:true});
+        if(Ext.get(this.id+'card1img')) {
+            Ext.get(this.id+'card1img').dom.src = host+ "/ganglia/graph.php?g=load_report&z=medium&c=CloVR&m=load_one&r=hour&s=descending&hc=4&mc=2&st=" + new Date().getTime(); 
+            Ext.get(this.id+'card1img').on('load', function() {this.show()},this,{single:true});
         }
     }
 });

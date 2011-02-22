@@ -62,8 +62,109 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
              handler: function() {
                  clovrpanel.getLayout().setActiveItem(0);
              }
-            }];
+            },
+            '-',
+            'Click to configure a pipeline:',
+            {text: 'CLoVR Microbe',
+             cls: 'x-btn-text-icon',
+             iconAlign: 'left',
+             icon: '/clovr/images/clovr_microbe_icon_sml.png',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem('clovr_microbe');
+             }
+            },
+            {text: 'CLoVR Search',
+             cls: 'x-btn-text-icon',
+             iconAlign: 'left',
+             icon: '/clovr/images/clovr_search_icon_sml.png',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem('clovr_search');
+             }
+            },
+            {text: 'CLoVR Metagenomics',
+             cls: 'x-btn-text-icon',
+             iconAlign: 'left',
+             icon: '/clovr/images/clovr_metagenomics_icon_sml.png',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
+             }
+            },
+            {text: 'CLoVR 16s',
+             cls: 'x-btn-text-icon',
+             iconAlign: 'left',
+             icon: '/clovr/images/clovr_16s_icon_sml.png',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem('clovr_16s');
+             }
+            }
+            ];
+        // Stuff that will go in the header of each portal.
+        var tools = [{
+            id:'gear',
+            handler: function(e, target, panel){
+                // Need to implement a settings panel.
+            }
+        },{
+            id:'close',
+            handler: function(e, target, panel){
+                panel.ownerCt.remove(panel, true);
+            }
+        }];
+        
+        // Grid with running/complete pipelines in it
+        var pipegrid = new clovr.ClovrPipelinesGrid({
+            height: 200,
+            split: true
+            //        collapsed: true,
+            //        collapseMode: 'mini',
+            //        margins: '0 5 0 0'
+        });
+        
+        var gangliapanel = new clovr.ClovrGangliaPanel({
+            id: 'wizard_ganglia_panel'
+        });
         config.items = [
+            {xtype: 'portal',
+            bodyStyle: {
+            	background: '#0d5685'
+            },
+             items: [
+                 {columnWidth: .5,
+                  style:'padding:10px 5px 10px 10px',
+                  items: [
+                      {
+//                          title: 'Ganglia',
+                          tools: tools,
+                          name: 'ganglia_portlet',
+                          plugins : [ new Ext.plugins.TDGi.PanelHeaderToolbar(gangliapanel.parenttools) ],
+//                          height: 200,
+                          items: gangliapanel
+                      }
+                 ]},
+                 {columnWidth: .5,
+                  style:'padding: 10px 10px 10px 5px',
+                  items: [{
+                      title: 'Pipelines',
+                      layout: 'fit',
+                      tools: tools.concat(pipegrid.parenttools),
+                      items: pipegrid
+                  }]}
+             ]},
+            new clovr.ClovrDatasetPanel({
+                'id': 'dataset',
+                pipelineCallback: function(conf) {
+                    clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
+                    
+                    // HACK here to find a reference to the underlying form. 
+                    // Should probably have an accessor as part of the surrounding panel.
+                    if(clovrpanel.getLayout().activeItem.changeInputDataSet) {
+                        clovrpanel.getLayout().activeItem.changeInputDataSet(conf);
+                    }
+                }
+            })
+        ];
+                   
+                   var fooo= [
             {id: 'home',
              frame: true,
              layout: 'vbox',
@@ -140,7 +241,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 //                           html: "<p>Bacterial assembly and annotation <a href='http://clovr.org/methods/clovr-microbe/'>Documentation</a></p>"}
                       ]}
                  ]}]},
-            new clovr.ClovrDatasetPanel({
+/*            new clovr.ClovrDatasetPanel({
                 'id': 'dataset',
                 pipelineCallback: function(conf) {
                     clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
@@ -151,7 +252,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                         clovrpanel.getLayout().activeItem.changeInputDataSet(conf);
                     }
                 }
-            })
+            })*/
         ];
         clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
@@ -214,7 +315,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             }
             
         });
-        },
+    },
     /*
     * Use this function to set the input field of a selected pipeline with the currently 
     * selected data sets.

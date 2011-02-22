@@ -123,19 +123,15 @@ clovr.addCredentialWindow = function(config) {
         buttons: [
             {text: 'Add Credential',
              handler: function() {
-                 console.log('yo');
                  var ctype_panel = configPanel;
                          var form_container = ctype_panel.get("uploads");
-                         console.log(form_container);
                          var successful_returns = 0;
                          var total_returns = form_container.items.items.length;
                          var uploaded_files = [];
                          Ext.each(form_container.items.items, function(field) {
                              if(field.getXType() == 'form') {
                                  if(field.getForm().isDirty()) {
-                                     console.log(field);
                                      var formname =  field.getId();
-                                     console.log(formname);
                                      win.getEl().mask('Uploading Credential Files');
                                      field.getForm().submit({
                                          success: function(r,o) {
@@ -150,7 +146,6 @@ clovr.addCredentialWindow = function(config) {
 
                                                  Ext.apply(params,uploaded_files);
                                                  Ext.apply(params,{'metadata': {}});
-                                                 console.log(params);
                                                  // Adding the credential here
                                                  Ext.Ajax.request({
     	                                             url: '/vappio/credential_ws.py',
@@ -159,7 +154,6 @@ clovr.addCredentialWindow = function(config) {
                                                      },
                                                      timeout: 120000,
                                                      success: function(r,o) {
-                                                         console.log(r);
                                                          win.getEl().unmask();
                                                          clovr.reloadCredStores({
                                                          	callback: function() {
@@ -168,14 +162,11 @@ clovr.addCredentialWindow = function(config) {
                                                         });
                                                      },
                                                      failure: function(r,o) {
-                                                         console.log(r);
-                                                         console.log('fail');
                                                      }
                                                  });
                                              }
                                          },
                                          failure: function(r,o) {
-                                             console.log(o);
                                              var json = Ext.decode(o.response.responseText);
                                              Ext.Msg.show({
                                                  title: 'Your credential upload failed!',
@@ -583,6 +574,8 @@ clovr.credentialCombo = function(config) {
     });
     clovr.credStores.push(store);
     combo = new Ext.form.ComboBox(Ext.apply(config, {
+        forceSelection: true,
+		editable: false,
         valueField: 'name',
         store: store,
         mode: 'local',

@@ -346,7 +346,6 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         });
     },
     changeInputDataSet: function(conf) {
-        console.log('changing the dataset');
         if(conf.dataset_name) {
             Ext.getCmp('datasettag').setValue(conf.dataset_name);
         }

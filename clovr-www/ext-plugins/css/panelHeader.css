@@ -1,0 +1,12 @@
+.panelHeader {
+    -moz-background-clip: border;
+    -moz-background-origin: padding;
+    -moz-background-size: auto auto;
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: none !important;
+    background-position: 0 0;
+    background-repeat: repeat;
+    border: medium none;
+    margin: 2px 0;
+}
