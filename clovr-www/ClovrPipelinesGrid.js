@@ -7,6 +7,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
     
     constructor: function(config) {
         var pipeGrid = this;
+        pipeGrid.pBars = new Object();
         var jstore = new Ext.data.GroupingStore({
             //            root: 'rows',
             reader: new Ext.data.JsonReader({
@@ -30,7 +31,8 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
         	{id: 'refresh',
              handler: function() {getPipelineStatus()}
              }];
-             
+
+	
         clovr.ClovrPipelinesGrid.superclass.constructor.call(this, Ext.apply(config, {
 //            title: 'Pipelines',
             store: jstore,
@@ -43,13 +45,48 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                 columns: [
                     {id: 'name', header: 'Pipeline Name', dataIndex: 'name'},
                     {id: 'status', header: 'Status', dataIndex: 'state', hidden: true},
-                    {id: 'steps', header: 'Step', dataIndex: 'total', renderer: renderStep}
+                    {id: 'steps', header: 'Step', dataIndex: 'total', renderer: 
+                    function(value, p, record, ri, ci, store) {
+						if(!store.pBars) {
+							store.pBars = [];
+						}
+						console.log(record.json);
+//						if(record.json.state =='running') {
+							pipeGrid.pBars[record.json.name] = new Ext.ProgressBar({
+							text: String.format("Steps {0}/{1} complete", record.json.complete,record.json.total),
+							value: record.json.complete/record.json.total,
+							listeners: {
+								beforeshow: function(pb) {
+									pb.updateProgress(pb.value);
+								}
+							}
+							});
+							console.log(record.json.complete/record.json.total);
+							return String.format("<div id='{0}_step'></div>",record.json.name);
+//						}
+//						else {
+//							return String.format("Steps {0}/{1} complete", record.json.complete,record.json.total);
+//						}
+					}    
+				}
                 ]
             }),
             view: new Ext.grid.GroupingView({
             	forceFit:true,
-            	startCollapsed: true,
-            	groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
+//            	startCollapsed: true,
+            	groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})',
+            	listeners: {
+            		refresh: function(view) {
+            			for(name in pipeGrid.pBars) {
+            				console.log(view);
+            				console.log(name);
+            				pipeGrid.pBars[name].render(name+"_step");
+            				pipeGrid.pBars[name].updateProgress(pipeGrid.pBars[name].value);
+            				console.log(pipeGrid.pBars[name]);
+            			}
+            			console.log('here with a refresh');
+            		}
+            	}
         	})
 //            tools: [
 //                {id: 'refresh',
@@ -106,8 +143,5 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
     }
 });
 
-function renderStep(value, p, record) {
-    return String.format("Steps {0}/{1} complete", record.json.complete,record.json.total);
-}
-        
+
 Ext.reg('clovrpipelinesgrid', clovr.ClovrPipelinesGrid);
