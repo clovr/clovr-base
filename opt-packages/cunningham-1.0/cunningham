@@ -4,7 +4,7 @@
 #  author: james robert white, james.dna.white@gmail.com
 #          UMB-School of Medicine, Institute for Genome Sciences
 #  created: October 12, 2010
-#  last modified: November 17, 2010
+#  last modified: February 27, 2011
 
 #  *Cunningham is a program designed to provide an estimate of the total
 #  cpu hours a BLAST run will require for an input dataset and one 
@@ -12,16 +12,21 @@
 #  Cunningham uses linear models of runtime incorporating the number of shared
 #  seeds between database and query set, and query size.
 
-#  Uses a hacked version of meryl (go Brian Walenz!) from the Celera Assembler.
-#  If the query dataset is too large, cunningham randomly subsamples the sequences
-#  and scales up the estimate based on the runtimes computed for those samplings.
+#  Uses a hacked version of meryl from the Celera Assembler. 
+#  (https://sourceforge.net/apps/mediawiki/wgs-assembler). 
+#  (Lead by Brian Walenz & Jason Miller.) 
+
+#  If the query dataset has too many sequences, cunningham randomly subsamples 
+#  the sequences and scales up the estimate based on the runtimes computed 
+#  for those samplings.
 
 #  Output is to STDOUT.
 
-#  BIG Disclaimer: The runtime estimates produced by this program are designed
-#  for runs on c1.xlarge Amazon EC2 instances and may not be accurate
-#  to any degree at all whatsoever.
-#  You can't sue me for a bad estimate. --jrw
+#  Disclaimer: The runtime estimates produced by this program are designed
+#  for runs on c1.xlarge Amazon EC2 instances and MAY NOT BE ACCURATE TO ANY DEGREE
+#  AT ALL WHATSOEVER. Cunningham is free software and comes with absolutely no 
+#  warranty. You cannot sue me or my employer for an inaccurate runtime estimate. 
+#  -- jrw
 #*********************************************************************
  use POSIX qw(ceil floor);
  use Data::Dumper;
@@ -44,6 +49,9 @@ e.g.
 *Cunningham is a program designed to provide an estimate of the total
 cpu hours a BLAST run will require for an input dataset and one 
 of several standard databases provided in CloVR (http://clovr.org).
+By default, Cunningham rounds its estimate up to the hour. Check out 
+the Cunningham white paper @ Nature Precedings doi:10.1038/npre.2011.5593.1.
+
 
 .OPTIONS.
   -Q input fasta file\
@@ -53,6 +61,7 @@ of several standard databases provided in CloVR (http://clovr.org).
        clovr-cogdb     - blastp/blastx
        clovr-eggnogdb  - blastp/blastx
        clovr-keggdb    - kegg genes protein db - blastp/blastx
+       uniref100       - blastp/blastx
        ncbi-nr         - the full non-redundant ncbi db - blastp/blastx
        clovr-rrnadb    - the full SILVA rRNA db - blastn only
   -T temporary working directory (temp outputs are created and destroyed here, defaults to /tmp).
@@ -76,9 +85,10 @@ my $seedMatchPairSum = 0;  # This is the sum of the
 
 my $querySize        = 0;  # Total residues in the query dataset
 my $totalQuerySeqs   = 0;  # Total number of sequences in query
+my $avgQlength       = 0;  # Average query length
 my $runTimeEst       = 0;  # Final run time estimate in cpu hours
 my %dataBases        = ('clovr-refseqdb'=> 1, 'clovr-cogdb'=>1,  'clovr-eggnogdb'=>1, 
-                        'clovr-keggdb'=>1,    'ncbi-nr'=>1,      'clovr-rrnadb'=>1);
+                        'clovr-keggdb'=>1,    'ncbi-nr'=>1,      'clovr-rrnadb'=>1, 'uniref100'=>1);
 my %blastPrograms    = ('blastn'=>1,  'blastp'=>1,  'blastx'=>1);
 
 my $numSeqstoSample  = 50000;  
@@ -154,19 +164,19 @@ sub computeRunTimeEstimate
 {
 
   if ($blastProgram eq "blastn"){
-    # R results:      M              Q   CPU seconds estimate, must correct scaling
-    # *********   5.901604e-07   1.464347e-03 
-    $runTimeEst = (5.901604e-07*$seedMatchPairSum + 1.464347e-03*$querySize)/3600;        
+    # R results:      M              L       CPU seconds estimate, must correct scaling
+    # *********   4.325300e-07      3.187762e-01 
+    $runTimeEst = ceil((4.325300e-07*$seedMatchPairSum + 3.187762e-01*$avgQlength)/3600);
 
   }elsif($blastProgram eq "blastp"){
-    # R results:        M         Q 
-    #             2.988132e-07    0.000
-    $runTimeEst = (2.988132e-07*$seedMatchPairSum + 0.000*$querySize)/3600;
+    # R results:        M         L 
+    #             2.681186e-07 1.329480e-01
+    $runTimeEst = ceil((2.681186e-07*$seedMatchPairSum + 1.329480e-01*$avgQlength)/3600);
 
   }else{ # blastx
-    # R results:   M              Q
-    # *********  1.175414e-07     0.000
-    $runTimeEst = (1.175414e-07*$seedMatchPairSum + 0.000*$querySize)/3600;
+    # R results:   M              L
+    # *********  1.371630e-07 1.089534e-01
+    $runTimeEst = ceil((1.371630e-07*$seedMatchPairSum + 1.089534e-01*$avgQlength)/3600);
   }
 
   my $throughput_per_hour = $querySize/$runTimeEst;
@@ -202,6 +212,7 @@ sub computeQuerySize
 
   $querySize = $c;
   $totalQuerySeqs = $tot;
+  $avgQlength = ceil($querySize/$totalQuerySeqs);
   if ($quiet == 0){
     print "Total query size (residues): $querySize\nTotal number of sequences: $totalQuerySeqs\n";
   }
@@ -428,7 +439,7 @@ sub willItWork
   if ($blastProgram eq "blastx" or $blastProgram eq "blastp"){
     die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(clovr-refseqdb|clovr-rrnadb)/);
   }else{
-    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(clovr-cogdb|clovr-eggnogdb|clovr-keggdb|ncbi-nr)/);
+    die "Error: Can't use $database with $blastProgram! Try a different database/blast program.\n" if ($database =~ /(clovr-cogdb|clovr-eggnogdb|clovr-keggdb|ncbi-nr|uniref100)/);
   }
 }
 
