@@ -22,7 +22,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
         
         // Parameters that we'll be customizing.
         var customParams = {
-            'misc.PROGRAM': 1,
+            'params.PROGRAM': 1,
             'input.REF_DB_TAG': 1,
             'input.INPUT_TAG': 1,
             'cluster.CLUSTER_NAME':1,
@@ -35,7 +35,8 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             data: [["blastn"],
                    ["blastp"],
                    ["tblastn"],
-                   ["blastx"]
+                   ["blastx"],
+                   ["tblastx"]
                   ]});
 
         // Combobox for the blast database.
@@ -51,12 +52,19 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             editable: false,
             lastQuery: '',
             allowBlank: false,
+            tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>{[values["metadata.description"]]}</div></tpl>',
             filter: {
                 fn: function(record) {
                     var re = /_blastdb/;
                     return re.test(record.data['metadata.format_type']);
                 }
-            }
+            },
+            listeners: {
+                select: function(field, newval, oldval) {
+                    wrapper_panel.filterProgram();
+                }
+            },
+            afterload: function() {wrapper_panel.filterProgram()}
         });
 
         // Three different arrays to store the different form parameters types.
@@ -194,58 +202,70 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                   }
                  }];
             }
-            blastform.seqCombo = clovr.tagCombo(
-                {
-                    id: 'datasettag',
-                    fieldLabel: 'Select Query Dataset',
-                    width: 225,
-                    name: 'input.INPUT_TAG',
-                    triggerAction: 'all',
-                    mode: 'local',
-                    valueField: 'name',
-                    displayField: 'name',
-                    forceSelection: true,
-                    editable: false,
-                    lastQuery: '',
-                        allowBlank: false,
-                    filter: {
-                        fn: function(record) {
-                            var re = /fasta/i;
-                            return re.test(record.data['metadata.format_type']);
-                        }
+        
+        blastform.databaseCombo = databaseCombo;
+        blastform.seqCombo = clovr.tagCombo(
+            {
+                id: 'datasettag',
+                fieldLabel: 'Select Query Dataset',
+                width: 225,
+                name: 'input.INPUT_TAG',
+                triggerAction: 'all',
+                mode: 'local',
+                valueField: 'name',
+                displayField: 'name',
+                forceSelection: true,
+                editable: false,
+                lastQuery: '',
+                allowBlank: false,
+                tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>{[values["metadata.description"]]}</div></tpl>',
+                filter: {
+                    fn: function(record) {
+                        var re = /fasta/i;
+                        return re.test(record.data['metadata.format_type']);
                     }
-                });
-            var combo_items = 
-                [blastform.seqCombo];
-            seq_fieldset.items =[
-                combo_items,
-                 {xtype: 'button',
-                  text: 'Upload File',
-                  fieldLabel: 'Upload File',
-                  handler: function() {
-                      uploadWindow.show();
-                  }
-                 }];
+                },
+                afterload: function() {wrapper_panel.filterProgram()},
+                listeners: {
+                    select: function(field, newval, oldval) {
+                        wrapper_panel.filterProgram();
+                    }
+                }
+            });
+        var combo_items = 
+            [blastform.seqCombo];
+        seq_fieldset.items =[
+            combo_items,
+            {xtype: 'button',
+             text: 'Upload File',
+             fieldLabel: 'Upload File',
+             handler: function() {
+                 uploadWindow.show();
+             }
+            }];
         var uploadWindow = clovr.uploadFileWindow({
             seqcombo: blastform.seqCombo
         });
         blastform.uploadWindow = uploadWindow;
+
+        var programCombo = new Ext.form.ComboBox({
+            fieldLabel: 'BLAST Program',
+            width: 70,
+            name: 'params.PROGRAM',
+            store: programStore,
+            triggerAction: 'all',
+            mode: 'local',
+            valueField: 'program',
+            displayField: 'program',
+            forceSelection: true,
+            editable: false,
+            lastQuery: ''
+        });
+        blastform.programCombo = programCombo;
         seq_inputs.push([
                 seq_fieldset,
-            {xtype: 'combo',
-             fieldLabel: 'BLAST Program',
-             width: 70,
-             name: 'misc.PROGRAM',
-             store: programStore,
-             triggerAction: 'all',
-             mode: 'local',
-             valueField: 'program',
-             displayField: 'program',
-             forceSelection: true,
-             editable: false,
-             value: 'blastp'
-            },
-            databaseCombo
+            databaseCombo,
+            programCombo
         ]);
         
         // Add credential/cluster comboboxes.
@@ -340,6 +360,51 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             Ext.getCmp('datasettag').setValue(conf.dataset_name);
         }
     },
+    filterProgram: function() {
+        var panel = this;
+        var form = panel.form;
+
+        // All the possible inputs to blast
+        var type_to_good_program = {
+            'nuc_fasta': {
+                'nuc_blastdb': /^blastn|tblastx/,
+                'aa_blastdb':/tblastn/
+            },
+            'aa_fasta': {
+                'nuc_blastdb': /^blastx/,
+                'aa_blastdb': /blastp/
+            }
+        };
+
+        if(form.seqCombo && form.databaseCombo) {
+            var query = form.seqCombo.getValue();
+            var qstore = form.seqCombo.getStore();
+            var queryRec = qstore.getAt(qstore.find('name',query));
+            if(!queryRec) {
+                return;
+            }
+            var qtype = queryRec.json['metadata.format_type'];
+
+            var db = form.databaseCombo.getValue();
+            var dbstore = form.databaseCombo.getStore();
+            var dbRec = dbstore.getAt(dbstore.find('name',db));
+            if(!dbRec) {
+                return;
+            }
+            
+            var dbtype = dbRec.json['metadata.format_type'];
+            
+            var progCombo = form.programCombo;
+            progCombo.getStore().clearFilter();
+            progCombo.getStore().filterBy(
+                function(record) {
+                    var re = type_to_good_program[qtype.toLowerCase()][dbtype.toLowerCase()];
+                    return  re.test(record.data['program']);
+                }
+            );
+        progCombo.setValue(progCombo.getStore().getAt(0).data['program']);
+        }
+    }
 
 });
 

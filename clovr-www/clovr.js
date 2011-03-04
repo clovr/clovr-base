@@ -636,6 +636,7 @@ clovr.tagCombo = function(config) {
         fields: [{name: 'name', mapping: 'name'},
                  {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')},
                  {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')},
+                 {name: 'metadata.description', mapping: ('[\"metadata.description"\]')},
                  {name: 'metadata.metagenomics_mapping_file', mapping: ('[\"metadata.metagenomics_mapping_file"\]')},
                 ],
         autoLoad: false,
