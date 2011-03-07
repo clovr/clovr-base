@@ -279,7 +279,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
         var input_tag_store = this.form.input_tag.store;
         var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));        
         var map_file = this.form.map_file;
-        if(input_tag_rec.data['metadata.metagenomics_mapping_file']) {
+        if(input_tag_rec && input_tag_rec.data['metadata.metagenomics_mapping_file']) {
             this.form.map_file_comp.clearInvalid();
             map_file.setValue(input_tag_rec.data['metadata.metagenomics_mapping_file']);
             if(!this.subform) {

@@ -484,7 +484,9 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                         seqcombo.setValue(config.tagname);
                     }
                     Ext.TaskMgr.stop(task);
-                    uploadWindow.hide();
+                    if(uploadWindow) { 
+                        uploadWindow.hide();
+                    }
                     clovr.reloadTagStores({
                         callback: function() {
                             if(seqcombo) {

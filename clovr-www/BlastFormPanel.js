@@ -41,6 +41,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
             editable: false,
             lastQuery: '',
             allowBlank: false,
+            tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
             filter: {
                 fn: function(record) {
                     var re = /_blastdb/;
@@ -183,6 +184,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                     displayField: 'name',
                     forceSelection: true,
                     editable: false,
+                    tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
                     lastQuery: '',
                         allowBlank: false,
                     filter: {

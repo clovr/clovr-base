@@ -61,6 +61,11 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             },
             listeners: {
                 select: function(field, newval, oldval) {
+                    console.log('had a select');
+                    wrapper_panel.filterProgram();
+                },
+                change: function(field, newval, oldval) {
+                    console.log('had a change');
                     wrapper_panel.filterProgram();
                 }
             },
@@ -228,6 +233,11 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                 afterload: function() {wrapper_panel.filterProgram()},
                 listeners: {
                     select: function(field, newval, oldval) {
+                        console.log('had a select');
+                        wrapper_panel.filterProgram();
+                    },
+                    change: function(field, newval, oldval) {
+                        console.log('had a change');
                         wrapper_panel.filterProgram();
                     }
                 }
@@ -316,6 +326,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                  
                  var pipename = 'clovr_search'+new Date().getTime();
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
+                 var credential = wrapper_panel.form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
                  wrapper_panel.form.getForm().setValues({"input.PIPELINE_NAME": pipename});
                  Ext.Msg.show({
                      title: 'Submitting Pipeline',
@@ -324,11 +335,17 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                  });
                  var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
 //                 var cluster_name = wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME');
+                 
+                 var params = {};
+                 Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
+                                   'cluster.CLUSTER_CREDENTIAL': credential
+                                  });
+                 Ext.apply(params,wrapper_panel.form.getForm().getValues());
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,
                      cluster: cluster_name,
-                     params: wrapper_panel.form.getForm().getValues(),
+                     params: params,
                      submitcallback: function(r) {
                          config.submitcallback(r);
                      }
@@ -358,6 +375,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
     changeInputDataSet: function(conf) {
         if(conf.dataset_name) {
             Ext.getCmp('datasettag').setValue(conf.dataset_name);
+            this.filterProgram();
         }
     },
     filterProgram: function() {

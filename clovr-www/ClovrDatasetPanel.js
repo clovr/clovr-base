@@ -75,11 +75,9 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 				text: 'Submit Changes',
 				handler: function() {
 					var recs = metadata_grid.getStore().getModifiedRecords();
-					var new_params = [];
+					var new_params = {};
 					Ext.each(recs, function(rec) {
-						var newval = {};
-						newval[rec.data.name] = rec.data.value;
-						new_params.push(newval);
+						new_params[rec.data.name] = rec.data.value;
 					});
 					clovr.tagData({
 						params: {
@@ -96,19 +94,17 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
 						},
 						callback: function(r,o) {
 							var data = Ext.util.JSON.decode(r.responseText);
-							if(r.success) {
-								Ext.Msg.show({
-									title: 'Metadata updated successfully',
-									msg: 'You successfully updated the metadata'
-								});
-							}
-							else {
-								Ext.Msg.show({
-									title: 'Failed to update metadata',
-									msg: data.data.msg,
-									icon: Ext.MessageBox.ERROR
-								});
-							}
+    	       					     Ext.Msg.show({
+						                 title: 'Tagging Data...',
+				        	             width: 200,
+					                     mask: true,
+				    	                 closable: false,
+				        	             wait: true,
+				            	         progressText : 'Tagging Data'
+					                 });
+                            clovr.checkTagTaskStatusToSetValue({
+		            		    data: Ext.util.JSON.decode(r.responseText),
+		            		});
 						}
 					});
 				}
