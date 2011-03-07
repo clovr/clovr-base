@@ -333,7 +333,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                      msg: 'The search is being submitted.',
                      wait: true
                  });
-                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
+                 var cluster_name = 'clovr_search_' + credential + '_' + new Date().getTime();
 //                 var cluster_name = wrapper_panel.form.getForm().findField('cluster.CLUSTER_NAME');
                  
                  var params = {};
