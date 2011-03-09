@@ -1,4 +1,4 @@
-#File	Sample_Name	Family	Relationships	Status_p	Description
+#File	SampleName	Family	Relationships	Status_p	Description
 ts1.small.fasta	ts1	1	Twin_1	Lean	none
 ts2.small.fasta	ts2	1	Twin_1	Lean	none
 ts3.small.fasta	ts3	1	Mom_1	Overweight	none
