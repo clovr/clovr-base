@@ -56,7 +56,7 @@ PIPELINE_TEMPLATE={"default": "clovr_metagenomics_orfs", "visibility": "always_h
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.prestart.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
 PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_orfs/clovr_metagenomics_orfs.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
