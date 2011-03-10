@@ -197,7 +197,11 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                  Ext.apply(params, subform.getValues());
             	 
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
-                 
+                 Ext.Msg.show({
+                     title: 'Submitting Pipeline',
+                     msg: 'The search is being submitted.',
+                     wait: true
+                 });                 
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,

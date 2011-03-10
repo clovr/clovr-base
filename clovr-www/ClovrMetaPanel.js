@@ -136,6 +136,11 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });
                  Ext.apply(params,subform.getValues());
+	             Ext.Msg.show({
+                     title: 'Submitting Pipeline',
+                     msg: 'The search is being submitted.',
+                     wait: true
+                 });
                  clovr.runPipeline({
                      pipeline: 'clovr_wrapper',
                      wrappername: wrappername,
