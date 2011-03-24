@@ -5,9 +5,12 @@
 #########################################################
 [input]
 FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metagenomics_noorfs_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.FASTA_FILE_LIST"}, "require_value": true}
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_noorfs_map", "desc": "Mapping tag for pipleline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "require_value": true}
-PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Reference database", "type": "blastdb_dataset", "type_params": {"transform_name": "input.PROTEIN_DB_FILE_LIST"}, "require_value": true}
-NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Reference database", "type": "blastdb_dataset", "type_params": {"transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}, "require_value": true}
+
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_noorfs_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "require_value": true}
+
+PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Functional reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-cogdb", "clovr-eggnogdb", "clovr-keggdb"], "transform_name": "input.PROTEIN_DB_FILE_LIST"}, "require_value": true}
+
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}, "require_value": true}
 
 
 #########################################################
