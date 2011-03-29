@@ -188,21 +188,21 @@ print OUT
   sw2 = 0.01/ncols;
 
   pdf(outfile1);
-  par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5));
+  par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5), oma=c(10,0,0,6));
   if(nrows > 80 || ncols > 80){
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 4.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }else{
-    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+    heatmap.2(Cnormed, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 4.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }
   dev.off()
 
 
   pdf(outfile2);
-  par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5));
+  par(lwd = 2, omi=c(0.5, 0.5, 0.5, 0.5), oma=c(10,0,0,6));
   if(nrows > 80 || ncols > 80){
-    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 4.0, symbreaks=FALSE, symkey=FALSE, cexRow=CR, cexCol=CC, lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }else{
-    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 1.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
+    heatmap.2(Cprop, col=COLORS, trace = \"none\", density.info=\"none\", keysize = 4.0, symbreaks=FALSE, symkey=FALSE, colsep=c(1:ncols), rowsep=c(1:nrows), cexRow=CR, cexCol=CC, sepwidth=c(sw1,sw2), lmat=rbind(c(0, 3, 4), c(2,1,0)), lwid=c(1, 4, 1.6), lhei=c(1,4));
   }
   dev.off()
 
