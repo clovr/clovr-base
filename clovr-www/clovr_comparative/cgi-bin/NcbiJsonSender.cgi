@@ -58,16 +58,22 @@ my $params = $q->Vars;
 print "Content-type: text/html\n\n";
 if($$params{$MSG}) {
 	my $refSeqs = [];
-	my $refMaps = getMapNames($$params{$MSG});
+#	my $refMaps = getMapNames($$params{$MSG});
 	foreach(split(', ',$$params{$MSG})) {
 		push @$refSeqs, @{getRefSeqs($_)};
 	}
 	my $ref_seq_info = join(" ", @$refSeqs);
-	my $map_info = join("\n", @$refMaps);
-	appendToFile($REF_SEQ_FILE, $ref_seq_info);
-	appendToFile($MAP_FILE, $map_info);
-	my $run_pipeline = "perl InvokePipeline.cgi '$REF_SEQ_FILE' '$MAP_FILE' '$$params{'pipeline'}' '$$params{'genbank_file'}' '$$params{'map_file'}' '$$params{'pipeline_name'}'" ;
-	system($run_pipeline) == 0 or die "system $run_pipeline failed, $?, \n";
+
+	my $run_pipeline = "./run_comparative_track.bash $$params{'pipeline'} $ref_seq_info";
+	my $task_name = system( $run_pipeline );
+	$? == 0 or die "Error in executing pipeline, $run_pipeline, $?\n";
+	print $task_name;
+	
+#	my $map_info = join("\n", @$refMaps);
+#	appendToFile($REF_SEQ_FILE, $ref_seq_info);
+#	appendToFile($MAP_FILE, $map_info);
+#	my $run_pipeline = "perl InvokePipeline.cgi '$REF_SEQ_FILE' '$MAP_FILE' '$$params{'pipeline'}' '$$params{'genbank_file'}' '$$params{'map_file'}' '$$params{'pipeline_name'}'" ;
+#	system($run_pipeline) == 0 or die "system $run_pipeline failed, $?, \n";
 } 
 else {
 	my $arrayRef = getAllChildNodes($$params{$NODE});

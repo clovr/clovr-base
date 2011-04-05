@@ -50,24 +50,7 @@ function buildTree() {
 						pipeline : 'clovr_mugsy'
 					},
 					success : function(response) {
-						var jsonText = response.responseText;
-						Ext.Ajax.request({
-							url : '/vappio/runPipeline_ws.py',
-							params : {
-								request : jsonText
-							},
-							success : function(mess) {
-								var serverResponse = mess.responseText;
-								if(serverResponse[1] === 't') {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation successful');
-								} else {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-								}
-							},
-							failure : function() {
-								Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-							}
-						});
+						Ext.MessageBox.alert('Message', 'Pipeline invocation success. Task : ' + response.responseText);
 					},
 					failure : function(response) {
 						Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
@@ -102,30 +85,13 @@ function buildTree() {
 			else {
 				Ext.Ajax.request({
 					url : '../cgi-bin/NcbiJsonSender.cgi',
-					form : 'clovr_pan',
+					form : 'clovr_joc',
 					params : {
 						IDs : nodeIds,
 						pipeline : 'clovr_comparative'
 					},
 					success : function(response) {
-						var jsonText = response.responseText;
-						Ext.Ajax.request({
-							url : '/vappio/runPipeline_ws.py',
-							params : {
-								request : jsonText
-							},
-							success : function(mess) {
-								var serverResponse = mess.responseText;
-								if(serverResponse[1] === 't') {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation successful');
-								} else {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-								}
-							},
-							failure : function() {
-								Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-							}
-						});
+						Ext.MessageBox.alert('Message', 'Pipeline invocation success. Task : ' + response.responseText);
 					},
 					failure : function(response) {
 						Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
@@ -167,24 +133,7 @@ function buildTree() {
 						pipeline : 'clovr_pangenome'
 					},
 					success : function(response) {
-						var jsonText = response.responseText;
-						Ext.Ajax.request({
-							url : '/vappio/runPipeline_ws.py',
-							params : {
-								request : jsonText
-							},
-							success : function(mess) {
-								var serverResponse = mess.responseText;
-								if(serverResponse[1] === 't') {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation successful');
-								} else {
-									Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-								}
-							},
-							failure : function() {
-								Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
-							}
-						});
+						Ext.MessageBox.alert('Message', 'Pipeline invocation success. Task : ' + response.responseText);
 					},
 					failure : function(response) {
 						Ext.MessageBox.alert('Message', 'Pipeline invocation failed');
