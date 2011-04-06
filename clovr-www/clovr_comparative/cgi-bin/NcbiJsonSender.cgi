@@ -65,6 +65,7 @@ if($$params{$MSG}) {
 	my $ref_seq_info = join(" ", @$refSeqs);
 
 	my $run_pipeline = "./run_comparative_track.bash $$params{'pipeline'} $ref_seq_info";
+	print STDERR $run_pipeline,"\n";
 	my $task_name = system( $run_pipeline );
 	$? == 0 or die "Error in executing pipeline, $run_pipeline, $?\n";
 	print $task_name;
