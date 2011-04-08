@@ -1,0 +1,50 @@
+## WigeoN  (a reimplementation of the Pintail algorithm that does not penalize 'N' characters in query sequences).
+
+
+WigeoN examines the sequence conservation between a query and a trusted reference sequence, both in NAST alignment format.  Based on the sequence identity between the query and the reference sequence, there is an expected amount of variation among the alignment. If the observed variation is greater than the 95% quantile of the distribution of variation observed between non-anomalous sequences, then it is flagged as an anomaly.
+
+WigeoN is a reimplementation of the Pintail algorithm ( Appl Environ Microbiol. 2005 Dec;71(12):7724-36)
+
+
+
+INSTALLATION REQUIREMENTS
+
+The following software tools must be separately installed and made available via your standard PATH setting.
+
+       megablast:  http://www.ncbi.nlm.nih.gov/BLAST/download.shtml
+
+       cdbtools:  http://compbio.dfci.harvard.edu/tgi/cgi-bin/tgi/download.pl?ftp_dir=software&file_dir=cdbfasta/cdbfasta.tar.gz
+
+
+
+RUNNING WIGEON
+
+The simplest way to run WigeoN is via the wrapper script 'run_WigeoN.pl'.  
+
+The sample_data/ directory provides an example input file correpsonding to query sequences in NAST format.
+
+The 'runMe.sh' script demonstrates running WigeoN on these sequences.
+
+
+OUTPUT
+
+Example output is shown below.
+
+chimera_AJ888906|S000571347_d11.36_AJ271383|S000006708_d10.91_nc4967_ec1070	AJ888906|S000571347	div:	2.79	stDev: 3.47	Yes
+chimera_AJ007403|S000001688_d10.53_AF124342|S000387216_d11.46_nc3984_ec755	Z37138|S000001649	div:	5.59	stDev: 3.76	No
+
+
+The format is:
+
+query_accession (tab) reference_acc (tab) sequence_divergence (tab) alignment_stDev (tab) chimera_flag
+
+A chimera flag indicating "YES" means that the standard deviation of the alignment divergence between the query and the reference sequence at the corresponding divergence level is above the 95% cutoff for expected values with non-anomalous sequences.
+
+
+
+
+Questions, comments, etc?  contact Brian Haas (bhaas@broad.mit.edu)
+
+
+
+

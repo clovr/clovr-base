@@ -1,0 +1,61 @@
+
+Contents:
+
+The microbiomeutil/ package comes with the following:
+
+	ChimeraSlayer/  ChimeraSlayer for chimera detection.
+
+	NAST-iEr/  NAST-based alignment tool.
+
+	WigeoN/    A reimplementation of the Pintail 16S anomaly detection utility 
+
+	RESOURCES/  Reference 16S sequences and NAST-alignments that the tools above leverage.
+
+
+
+
+Installation Requirements:
+
+	The following software tools must be separately installed and made available via your standard PATH setting.
+
+	       megablast:  http://www.ncbi.nlm.nih.gov/BLAST/download.shtml
+
+           cdbtools:  http://compbio.dfci.harvard.edu/tgi/cgi-bin/tgi/download.pl?ftp_dir=software&file_dir=cdbfasta/cdbfasta.
+tar.gz
+
+
+
+
+Building and Testing:
+
+In the microbiomeutil/ directory, type:
+
+     make 
+
+The above will build the NAST-iEr alignment utility which is written in C.  The other tools are all written in Perl and so don't need to be compiled.
+
+
+Run tests in the following order:
+
+	make testNast
+
+	make testChimeraSlayer
+
+	make testWigeon
+
+
+    (or just type:  'make test' and it will cycle through each separately)
+
+
+Documentation for using the various tools is included on the microbiomeutil website:  http://microbiomeutil.sf.net
+
+
+Questions, comments, etc?  Please contact Brian Haas via bhaas@broadinstitute.org
+
+
+
+
+
+
+
+

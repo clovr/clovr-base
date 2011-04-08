@@ -1,0 +1,188 @@
+#!/usr/bin/perl
+#*********************************************************************
+#  leech.pl*
+#  author: james robert white, james.dna.white@gmail.com
+#  created: June 9, 2010
+
+#  leech is a program for visualizing curve data in two dimensions
+#  in particular OTU counts or estimators of species diversity.
+#  dimensions:
+#*********************************************************************
+use POSIX qw(ceil floor);
+use Data::Dumper;
+use Getopt::Std;
+use warnings;
+#*********************************************************************
+
+use vars qw/$opt_F $opt_P $opt_X $opt_Y $opt_T/;
+getopts("F:P:X:Y:T:");
+my $usage = 
+".USAGE.   
+./leech -F <csv file> -P <prefix> -X <x-axis name > -Y <y-axis name> -T <l or p (for lines or points)>
+
+.DESCRIPTION.
+Leech is a program designed to create plots in pdf format from a csv file. 
+
+.OPTIONS.
+  -F csv data file (see example for formatting)\
+  -P output prefix \
+  -X x-axis name for plot \
+  -Y y-axis name for plot \
+  -T l or p (lines or points) \
+
+.KEYWORDS.
+R, rarefaction, collectors, plotting, visualization
+\n";
+
+die $usage unless defined $opt_F
+              and defined $opt_P
+              and defined $opt_X
+              and defined $opt_Y
+              and defined $opt_T;
+
+my $matrixfile = $opt_F;
+my $prefix    = $opt_P;
+
+
+# first sanity check the file, make sure 
+# 1. the names are good
+# 2. the csv delimited format works
+# 3. there aren't too many unique features for the visualization
+# 4. there aren't too many samples for the visualization
+# 5. the elements are numbers and not something else
+
+my $numsamples    = 0;
+my $numfeatures   = 0;
+my $numheadtitles = 0;
+print "Performing sanity check of data file...\n";
+open IN, "$matrixfile" or die "Cannot open your matrix file: $matrixfile!!\nGoodbye.\n";
+my $ck = 0;
+my $row = 1;
+my @sampnames = ();
+while(<IN>){
+  chomp($_);
+  my @A = split ",", $_;
+  if ($ck == 0){
+    $numheadtitles = $#A+1;
+    $numsamples = $numheadtitles/2;
+    for (my $i=1; $i<=$#A; $i+=2){
+      if (length($A[$i]) > 20){
+        print "*Warning* Column $i has in data file an oftly long header title...\n";
+      }
+      push @sampnames, $A[$i];
+    }
+    $ck++; # done with the header line
+    next;
+  }else{
+    for my $i (1 .. $#A){ # for each element in this row
+      if ($A[$i] !~ /^\s*[\+\-]?\d+\.*\d*\s*$/ and $A[$i] ne ""){
+        die "*Warning* Matrix is inconsistent @ row $row ...\nGoodbye.\n";
+      }
+    }
+    $row++;
+  }  
+}
+close IN;
+
+my %seen = ();
+my @uniquenames = grep { ! $seen{$_} ++ } @sampnames;
+my $numunique = $#uniquenames + 1;
+
+if ($numsamples > 200){
+  print STDERR "There are over 200 samples, so we will not generate rarefaction curves. They will likely be uninformative.\n";
+  exit(0);
+}
+
+print 
+"\n**Sanity check passed:
+Filename: $matrixfile
+Total number of samples (columns): $numsamples
+Total number of unique features (unique sample names): $numunique
+\n";
+
+
+print "\n**Calling R to create figure...\n";
+open OUT, ">$prefix\.in" or die "Can't open temp file $prefix.in!\n";
+my $infile = "$matrixfile"; 
+my $outfile = "$prefix.pdf";
+print OUT 
+"rareplot <- function(infile, outfile){
+
+  A <-read.csv(infile, header=TRUE, strip.white = TRUE, as.is=FALSE, check.names= FALSE);
+  N = ncol(A);
+  L = nrow(A);
+     
+  Lengths <- array(0,dim=c(N,1));
+  C <- array(0, dim=c(L,N));
+  for (i in 1:L){
+    for (j in 1:N){
+      C[i,j] = as.numeric(A[i,j]);
+      if (!is.na(C[i,j])){
+        Lengths[j] = i;
+      }  
+    }
+  }
+
+  samplenames <- array(0, dim=c(1,N/2));
+  maxL = 0;
+  maxCount = 0;
+  for (j in 1:(N/2)){
+    for (i in 1:Lengths[j*2-1]){
+      if(C[i,j*2-1] > maxL){
+        maxL = C[i,j*2-1];
+      }
+      if (C[i,j*2] > maxCount){
+        maxCount = C[i,j*2];
+      }  
+    }
+  }
+  
+  numsamples = N/2;
+  for (j in 1:(N/2)){
+    samplenames[1,j] = names(A)[j*2];  
+  }
+ 
+  pdf(\"$outfile\", paper = \"USr\"); 
+  unames = unique(c(samplenames));
+  colmap = new.env(hash=TRUE); 
+  r = rainbow(length(unames));
+  for (i in 1:length(unames)){
+    colmap[[unames[i]]] = r[i]; 
+  }
+  leg.txt <- unames;
+  par(lwd=3, xpd=T, mar=par()\$mar+c(0, 0, 0, max(nchar(leg.txt))/2), cex=1.2); 
+";
+
+
+  if ($opt_T eq "l"){
+  print OUT
+"  plot(C[1:Lengths[1],1], C[1:Lengths[2],2], type='l', col = colmap[[samplenames[1]]], xlab='$opt_X', ylab='$opt_Y', frame.plot=FALSE, xlim = c(0, maxL), ylim=c(0, maxCount));
+  if (numsamples > 1){
+    for (j in 2:numsamples){
+      lines(C[1:Lengths[j*2-1],j*2-1], C[1:Lengths[j*2],j*2], col=colmap[[samplenames[j]]]);
+    }
+  }
+\n";
+  }else{
+print OUT
+"  plot(C[1:Lengths[1],1], C[1:Lengths[2],2], pch=20,col = colmap[[samplenames[1]]], xlab='$opt_X', ylab='$opt_Y', frame.plot=FALSE, xlim = c(0, maxL), ylim=c(0, maxCount));
+  if (numsamples > 1){
+    for (j in 2:numsamples){
+      points(C[1:Lengths[j*2-1],j*2-1], C[1:Lengths[j*2],j*2], pch=20, col=colmap[[samplenames[j]]]);
+    }
+  }\n";  
+  }
+
+print OUT
+"  legend(maxL+1, maxCount, leg.txt, bty=\"n\", bg=\"white\", border = \"white\", fill=r, col = \"white\")
+   dev.off()
+}
+
+rareplot(\"$infile\", \"$outfile\")\n";
+close OUT;
+
+#  run R batch template
+#********************************************************************
+system("R CMD BATCH $prefix\.in $prefix\.out"); 
+system("rm $prefix\.in $prefix\.out");
+
