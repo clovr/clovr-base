@@ -8,8 +8,6 @@ FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "
 
 MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
 
-REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-aligned-imputed-fasta", "desc": "Reference database", "type": "dataset", "type_params": {"transform_name": "input.REF_DB_FILE_LIST"}, "required": true}
-
 
 #########################################################
 ## Pipeline parameters
@@ -38,7 +36,7 @@ REF_DB_TAG={"display": "Reference database tag", "default": "clovr-core-set-alig
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "read_mapping,qiime_otu_table,qiime_fasttree,qiime_heatmap,qiime_summary_tables,qiime_summary_histograms,qiime_skiff,qiime_metastats,qiime_beta,rdp_res,rdp_tables,rdp_skiff,rdp_metastats,rdp_histograms,mothur_otu_list,mothur_shannon,mothur_chao,mothur_ace,mothur_rare,mothur_summary", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["read_mapping", "qiime_otu_table", "qiime_fasttree", "qiime_heatmap", "qiime_summary_tables", "qiime_summary_histograms", "qiime_skiff", "qiime_metastats", "qiime_beta", "rdp_res", "rdp_tables", "rdp_skiff", "rdp_metastats", "rdp_histograms", "mothur_otu_list", "mothur_shannon", "mothur_chao", "mothur_ace", "mothur_rare", "mothur_summary"]}}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,otu_table,fasttree,summary_tables,histograms,skiff,metastats,pcoa_plots,rarefactions,mothur_summary", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads", "chimeras", "otu_table", "fasttree", "summary_tables", "histograms", "skiff", "metastats", "pcoa_plots", "rarefactions", "mothur_summary"]}}
 
 [download]
 
