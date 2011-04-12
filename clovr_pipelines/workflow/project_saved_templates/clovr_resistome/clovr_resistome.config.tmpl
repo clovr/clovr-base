@@ -1,0 +1,86 @@
+## Template configuration file for clovr_resistome
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+
+[input]
+
+FASTA_TAG={"display": "Fasta Tag", "default": "resistome_tag", "desc": "Input Fasta tag", "source": "tags"}
+
+DATASET_TAG={"display": "Dataset Tag", "default": "bgi_tag", "desc": "Reference database", "source": "tags"}
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+
+[params]
+
+ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
+
+OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
+
+PROTEIN={"display" : "Dataset type", "default" : "F", "desc" : "F - Nucleotide, T - Protein"}
+
+SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer", "require_value": true}
+
+EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float", "require_value": true}
+
+OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST", "type": "string", "require_value": true}
+
+PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}, "require_value": true}
+
+IDENTITY={"display" : "identity percentage", "default" : 50, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
+
+ALIGN_COVERAGE={"display" : "Alignment length coverage", "default" : 50, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+
+[cluster]
+
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+
+[output]
+
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "", "desc": "Comma separated list of tags that should be downloaded"}
+
+
+[download]
+
+
+[pipeline]
+
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_resistome_version_0.0", "type": "string", "visibility": "always_hidden"}
+
+PIPELINE_TEMPLATE={"default": "clovr_resistome", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_resistome/clovr_resistome.prestart.xml", "visibility": "always_hidden", "desc": null}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_resistome/clovr_resistome.prerun.xml", "visibility": "always_hidden", "desc": null}
+#Postrun is run after pipeline completion and after download data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_resistome/clovr_resistome.postrun.xml", "visibility": "always_hidden", "desc": null}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+

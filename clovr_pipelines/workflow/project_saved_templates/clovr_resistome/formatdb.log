@@ -1,0 +1,54 @@
+
+========================[ Apr 11, 2011  7:26 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa"
+Formatted 195015 sequences in volume 0
+
+Creating alias files for multiple FASTA inputs...
+Input /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa (up to 152568) alias file /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00 (1-152568)
+Renamed /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.nal
+Input /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa (up to 195015) alias file /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00 (152569-195015)
+Renamed /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.nal
+SUCCESS: formatted database /mnt/projects/clovr/output_repository/formatdb/23_default/
+
+========================[ Apr 11, 2011  7:39 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa"
+Formatted 195015 sequences in volume 0
+
+Creating alias files for multiple FASTA inputs...
+Input /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa (up to 152568) alias file /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00 (1-152568)
+Renamed /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.nal
+Input /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa (up to 195015) alias file /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00 (152569-195015)
+Renamed /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.nal
+SUCCESS: formatted database /mnt/projects/clovr/output_repository/formatdb/23_default/db
+
+========================[ Apr 11, 2011  7:40 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa"
+Formatted 195015 sequences in volume 0
+
+Creating alias files for multiple FASTA inputs...
+Input /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa (up to 152568) alias file /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00 (1-152568)
+Renamed /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.nal
+Input /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa (up to 195015) alias file /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00 (152569-195015)
+Renamed /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.nal
+SUCCESS: formatted database /mnt/projects/clovr/output_repository/formatdb/23_default/db
+
+========================[ Apr 11, 2011  7:41 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa"
+Formatted 195015 sequences in volume 0
+
+Creating alias files for multiple FASTA inputs...
+Input /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa (up to 152568) alias file /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00 (1-152568)
+Renamed /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011152.scaffolds.fa.nal
+Input /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa (up to 195015) alias file /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00 (152569-195015)
+Renamed /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.00.nal to /mnt/staging/data/bgi_tag/SRS011247.scaffolds.fa.nal
+SUCCESS: formatted database /mnt/projects/clovr/output_repository/formatdb/23_default/db
+
+========================[ Apr 11, 2011  8:04 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/mnt/resistome/SRS011247.scaffolds.fa"
+Formatted 42447 sequences in volume 0
+SUCCESS: formatted database /tmp/resistome/db

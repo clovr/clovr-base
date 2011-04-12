@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation='commandSet.xsd'>
+<commandSet type="serial">
+	<state>incomplete</state>
+	<name>clovr_resistome.prestart</name>
+	<command>
+		<name>Dataset file check</name>
+		<type>RunUnixCommand</type>
+		<executable>vp-describe-task</executable>
+		<arg>--show-all --block --exit-code `vp-run-metrics -t -c input.DATASET_TAG=$;DATASET_TAG$; "tag-is-fasta"`</arg>
+	</command>
+</commandSet>
+</commandSetRoot>
