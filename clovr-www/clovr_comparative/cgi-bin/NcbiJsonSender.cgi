@@ -62,7 +62,7 @@ if($$params{$MSG}) {
 	foreach(split(', ',$$params{$MSG})) {
 		push @$refSeqs, @{getRefSeqs($_)};
 	}
-	my $ref_seq_info = join(" ", @$refSeqs);
+	my $ref_seq_info = join(",", @$refSeqs);
 
 	my $run_pipeline = "./run_comparative_track.bash $$params{'pipeline'} $ref_seq_info";
 	print STDERR $run_pipeline,"\n";
@@ -126,13 +126,13 @@ sub getRefSeqs ($) {
 		if($$root{$id}{$LEAF}) {
 			$$root{$id}{$SEQ_FETCHED} = $TRUE;
 			foreach(@{$$root{$id}{$ANNOT}}) {
-				push @$refSeqs, $$_[0];
+				push @$refSeqs, $$_[2];
 			}
 		}
 		elsif(defined @{$$root{$id}{$ANNOT}}) {
 			$$root{$id}{$SEQ_FETCHED} = $TRUE;
 			foreach(@{$$root{$id}{$ANNOT}}) {
-				push @$refSeqs, $$_[0];
+				push @$refSeqs, $$_[2];
 			}
 		}
 	}

@@ -10,26 +10,13 @@ my_worker_name="comparative_worker_${my_date}"
 my_temp_file="/tmp/comparative_track_${my_date}.config"
 
 track_name=$1
-
-shift
-
-cd /mnt
+acc_ids=$2
 
 umask 000
 
 touch "$my_temp_file"
 
-declare -a my_links
-
-for file in "$@"; do
-	my_links=(${my_links[*]} "ftp://${file} ")
-done
-
-wget -r -t 10 -N $(echo "${my_links[*]}")
-
-vp-add-dataset --tag-name ${my_tag_name} -o $(echo "$@") 
-
-vp_describe_command="vp-describe-protocols -p ${track_name} -c input.GENBANK_TAG=${my_tag_name} -c pipeline.PIPELINE_NAME=${my_worker_name}"
+vp_describe_command="vp-describe-protocols -p ${track_name} -c input.ACC_IDS=${acc_ids} -c input.GENBANK_TAG=${my_tag_name} -c pipeline.PIPELINE_NAME=${my_worker_name}"
 
 #echo $vp_describe_command
 
