@@ -5,6 +5,15 @@
 <commandSet type="serial">
 	<state>incomplete</state>
 	<name>clovr_pangenome.prestart</name>
+
+	<command>
+                <name>Download Genbank Files</name>
+                <type>RunUnixCommand</type>
+                <executable>vp-describe-task</executable>
+                <arg>--show-all --block --exit-code `vp-run-metrics -t "download-gbk-files -t $;GENBANK_TAG$; -l $;ACC_IDS$;"`
+</arg>
+        </command>
+
 	<command>
 		<name>Genbank file check</name>
 		<type>RunUnixCommand</type>
