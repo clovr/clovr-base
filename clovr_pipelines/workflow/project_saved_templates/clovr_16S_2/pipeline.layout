@@ -20,11 +20,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>mothur_align_seqs.chimeras</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>mothur_chimera_slayer.default</name>
+            <name>uchime.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
