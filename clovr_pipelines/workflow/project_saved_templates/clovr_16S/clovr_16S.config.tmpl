@@ -1,0 +1,63 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.FASTA_FILE_LIST", "dataset_type": "16S"}, "required": true}
+
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
+
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,otu_table,fasttree,summary_tables,histograms,skiff,metastats,pcoa_plots,rarefactions,mothur_summary,rarefaction_plots", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads", "chimeras", "otu_table", "fasttree", "summary_tables", "histograms", "skiff", "metastats", "pcoa_plots", "rarefactions", "mothur_summary", "rarefaction_plots"]}}
+
+[download]
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"display": "SOP Version", "default": "clovr_16S_version_2.0", "type": "string"}
+
+PIPELINE_TEMPLATE={"default": "clovr_16S_2", "visibility": "always_hidden", "desc": "The type of the pipeline we are running", "type": "string", "required": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S_2/clovr_16S_2.prestart.xml", "visibility": "always_hidden", "type": "string", "required": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S_2/clovr_16S_2.prerun.xml", "visibility": "always_hidden", "type": "string", "required": true}
+#Postrun is run after pipeline completion and after download data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_16S_2/clovr_16S_2.postrun.xml", "visibility": "always_hidden", "type": "string", "required": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "required": true}
+
