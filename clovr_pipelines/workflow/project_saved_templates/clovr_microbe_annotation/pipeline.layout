@@ -170,10 +170,6 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tabula_rasa.prep_ber_post</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>ber.post_overlap_analysis</name>
         </commandSet>
         <commandSet type="serial">
