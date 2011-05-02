@@ -15,19 +15,19 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                     {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')}
             	],
             	root : function(data) {
-            	    Ext.each(data.data, function(elm) {
+            	    Ext.each(data, function(elm) {
                 	    for(key in elm) {
                     	    if(key == 'files') {
                             elm.fileCount = elm[key].length;
                         }
                     	}});
-                	return data.data;
+                	return data;
             	},
             }),
             groupField: "type",
             groupDir: "DESC",
-            url: config.url,
-            autoLoad: true,
+//            url: config.url,
+//            autoLoad: true,
             baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
             listeners: {
                 load: function(store,records,o) {
@@ -41,7 +41,13 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 }
             }
         });
-        clovr.tagStores.push(jstore);		
+        clovr.tagStores.push(jstore);
+        clovr.getDatasetInfo({
+            dataset_name: config.dataset_name,
+			callback: function(d) {
+				jstore.loadData(d.data);
+			}
+		});
 		var uploadWin = clovr.uploadFileWindow({store: jstore});
         var taggrid = this;
         clovr.TagGrid.superclass.constructor.call(this, Ext.apply(config, {

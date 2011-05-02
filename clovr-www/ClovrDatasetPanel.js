@@ -3,14 +3,17 @@
  * and run an analysis on that tag if applicable. 
  */
 Ext.ns('clovr');
-clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
+clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 
     constructor: function(config) {
         
         var datasetpanel = this;
         
 
-//        config.layout='border';
+        config.layout='border';
+        config.bodyStyle = {
+            background: '#0D5685'
+        };
         config.frame= true;
         config.deferredRender=false;
         var header_panel = new Ext.Panel({
@@ -27,11 +30,8 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
             autoHeight: true,
             autoScroll: true,
             region: 'center',
-            layout: 'anchor',
-//            layoutConfig: {
-//                align: 'stretch'
-//                pack: 'start'
-//            }
+            height: 200,
+            layout: 'anchor'
         });
         var pipelines_wrapper = new Ext.Panel({
             id: 'pipelines_wrapper',
@@ -45,23 +45,82 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
         });
         var pipelines_container = new Ext.Panel({
             layout: 'border',
+            region: 'south',
+            height: 300,
             autoScroll: true,
             deferredRender:false,
             title: 'Pipelines',
             frame: true,
             items: [header_panel,pipelines_panel,footer_panel],
         });
-		
+		var pipe_store = new Ext.data.JsonStore({
+            root: function(data) {
+                return data;
+            },
+            fields: ['taskName']
+        });
+        var pipe_grid = new Ext.grid.GridPanel({
+            title: 'Pipelines',
+            region: 'south',
+            margins: '5 5 5 5',
+            height: 300,
+            store: pipe_store,
+            viewConfig: {
+                forceFit: true
+            },
+            
+            colModel: new Ext.grid.ColumnModel({
+                columns: [
+                    {id: 'inputs',
+                     header: 'Inputs', 
+                     dataIndex: "taskName",
+                     renderer: renderInput},
+                    {id: 'outputs',
+                     header: 'outputs', 
+                     dataIndex: "taskName",
+                     renderer: renderOutput}
+                ]
+            })
+        });
+        
+        var file_grid = new Ext.grid.GridPanel({
+            title: 'Files',
+            flex: 1,
+            margins: '5 5 5 5',
+            frame: true,
+            buttonAlign: 'center',
+            buttons: [
+            	{text: 'Delete'},
+            	{text: 'Add'},
+            	{text: 'Save'}
+            ],
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true
+                },
+                columns: [
+                    {id: 'file', header: 'file',dataIndex: 'file', width: 100}
+                ]
+            }),
+            autoExpandColumn: 'file',
+            store: new Ext.data.Store({
+                reader: new Ext.data.JsonReader({
+                    fields: ['file']
+                })
+            })
+        });
 		var metadata_grid = new Ext.grid.EditorGridPanel({
 			frame: true,
 			title: 'metadata',
+            margins: '5 5 5 5',
 			buttonAlign: 'center',
+            flex: 1,
 			colModel: new Ext.grid.ColumnModel({
 				defaults: {
 					sortable: true
 				},
 				columns: [
-					{header: 'key', dataIndex: 'name', width: 250, editor: new Ext.form.TextField()},
+					{header: 'key', dataIndex: 'name', width: 100, editor: new Ext.form.TextField()},
 					{id: 'value', header: 'value', dataIndex: 'value', editor: new Ext.form.TextField()}
 				]
 			}),
@@ -125,16 +184,37 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
         }]
 		});
 
-
+        var title_region = new Ext.Container({
+            height: 50,
+            style: {
+                'padding': '6px 0 0 0',
+                'font-size': '24pt',
+                'font-family': 'Trebuchet MS,helvetica,sans-serif',
+                'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
+            },
+            region: 'north',
+            html: config.dataset_name+' dataset'
+        });
+        var files_meta_region = new Ext.Container({
+            region: 'center',
+//            height: 250,
+            layout: 'hbox',
+            layoutConfig: {
+                align: 'stretch'
+            },
+            items: [file_grid, metadata_grid]
+        });
         config.listeners ={
             render: function() {
                     if(config.dataset_name) {
                         datasetpanel.loadDataset(config);
                     }
             }};
-        config.items = [pipelines_container,metadata_grid];
+        config.items = [title_region,files_meta_region,pipe_grid];
         datasetpanel.metagrid = metadata_grid;
-        datasetpanel.header_panel = header_panel;
+        datasetpanel.filegrid = file_grid;
+        datasetpanel.pipe_grid = pipe_grid;
+        datasetpanel.header_panel = title_region;
         datasetpanel.footer_panel = footer_panel;
         datasetpanel.pipelines_panel = pipelines_panel;
         datasetpanel.pipelines_container = pipelines_container;
@@ -149,7 +229,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
     
     loadDataset: function(config) {
         var datasetpanel = this;
-        datasetpanel.header_panel.update('Information for the '+config.dataset_name+' dataset');
+        datasetpanel.header_panel.update(config.dataset_name+' dataset');
         datasetpanel.pipelines_panel.removeAll();
         datasetpanel.getEl().mask('Loading...','x-mask-loading');
         datasetpanel.dataset_name = config.dataset_name;
@@ -157,57 +237,100 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
         clovr.getDatasetInfo({
         	dataset_name: config.dataset_name,
         	callback: function(d) {
-        		var fields_to_load = [];
+        		var meta_fields_to_load = [];
+                var files_to_load = [];
+                var output_pipes = [];
         		for(key in d.data[0]) {
         			// Total HACK here
         			if(key.match(/metadata./)) {
-						fields_to_load.push({
-							'name': key.replace(/metadata./,""),
-							'value': d.data[0][key]
-						});
+        				if(key.match(/metadata.pipeline_configs/)) {
+//        					console.log(key);
+        					var match = key.match(/metadata.pipeline_configs.([^\.]+)\./);
+							if(match && !output_pipes[match[1]]) {
+								output_pipes[match[1]] = 1;
+							}
+        				}
+						else {
+							meta_fields_to_load.push({
+								'name': key.replace(/metadata./,""),
+								'value': d.data[0][key]
+							});
+						}
 					}
-				}
-	        	datasetpanel.metagrid.getStore().loadData(fields_to_load);
-        	}
-    	});
-    	
-        clovr.getPipelineInfo({
-            callback: function(r) {
-                var results_by_protocol = getResultsByProtocol(r.data,config);
-                var protocols = clovr.getProtocols();
-                Ext.each(protocols, function(p) {
-                    
-                    if(results_by_protocol[p].length ==0) {
-                        datasetpanel.pipelines_panel.add(
-                            new Ext.Container({
-                                layout: 'column',
-                                items: [{
-                                    columnWidth: .2,
-                                    items: [{
-                                        xtype: 'button',
-                                        height: '72px',
-                                        width: '96px',
-                                        scale: 'clovr',
-                                        //                                            tooltip: {text: 'Click here to run CloVR Metagenomics'},
-                                        tooltipType: 'title',
-                                        text: "<img src='/clovr/images/"+p+"_icon.png'>",
-                                        handler: function() {
-                                            if(datasetpanel.pipelineCallback) {
-                                                datasetpanel.pipelineCallback({dataset_name: config.dataset_name,
-                                                                               pipeline_name: p
-                                                                              });
-                                            }
-                                            // clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
-                                        }
-                                    }]},{
-                                        columnWidth: .80,
-                                        items: [{
-                                            html: 'You have not run this protocol yet'
-                                        }]
-                                    }]  
-                            }));
-                        
+                    if(key == 'files') {
+                        Ext.each(d.data[0][key], function(f) {
+                            files_to_load.push({'file': f});
+                        });
                     }
+				}
+                datasetpanel.filegrid.getStore().loadData(files_to_load);
+	        	datasetpanel.metagrid.getStore().loadData(meta_fields_to_load);
+        	
+        	clovr.getPipelineInfo({
+            	callback: function(r) {
+//					console.log(output_pipes);
+                	var input_regex = /input/;
+                	var things_to_load = [];
+                	Ext.each(r.data, function(elm) {
+                    	var pipeconf = elm[1].config;
+						for(key in pipeconf) {
+							if(key == 'pipeline.PIPELINE_NAME' && output_pipes[pipeconf[key]]) {
+								things_to_load.push(elm[1]);
+							}
+            				else if(input_regex.exec(key)) {
+								var vals = pipeconf[key].split(',');
+                				for(val in vals) {
+                					if(vals[val] == config.dataset_name) {
+						    			things_to_load.push(elm[1]);
+						    			break;
+						    		}
+								}
+                			}
+                		}
+                	});
+                
+                	datasetpanel.pipe_grid.getStore().loadData(things_to_load);
+                	datasetpanel.pipe_grid.getStore().filterBy(
+                    	function(rec,id) {
+                        	return rec.json.ptype != 'clovr_wrapper';
+                    });
+                // Not going to do this right now
+/*              if(0) {
+                    var results_by_protocol = getResultsByProtocol(r.data,config);
+                    var protocols = clovr.getProtocols();
+                    Ext.each(protocols, function(p) {
+                        
+                        if(results_by_protocol[p].length ==0) {
+                            datasetpanel.pipelines_panel.add(
+                                new Ext.Container({
+                                    layout: 'column',
+                                    items: [{
+                                        columnWidth: .2,
+                                        items: [{
+                                            xtype: 'button',
+                                            height: '72px',
+                                            width: '96px',
+                                            scale: 'clovr',
+                                            //                                            tooltip: {text: 'Click here to run CloVR Metagenomics'},
+                                            tooltipType: 'title',
+                                            text: "<img src='/clovr/images/"+p+"_icon.png'>",
+                                            handler: function() {
+                                                if(datasetpanel.pipelineCallback) {
+                                                    datasetpanel.pipelineCallback({dataset_name: config.dataset_name,
+                                                                                   pipeline_name: p
+                                                                                  });
+                                                }
+                                                // clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
+                                            }
+                                        }]},{
+                                            columnWidth: .80,
+                                            items: [{
+                                                html: 'You have not run this protocol yet'
+                                            }]
+                                        }]  
+                                }));
+                            
+                        }
                     else {
                         var config_data =[];
                         var fields_for_grid = [];
@@ -216,7 +339,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
                         Ext.each(results_by_protocol[p], function(res) {
                             config_data.push(res);
                         });
-
+                        
                         var store = new Ext.data.JsonStore({
                             data: config_data,
                             root: function(data) {
@@ -224,7 +347,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
                             },
                             fields: fields_for_grid //[{name: "pipeline_name", mapping: '["pipeline.PIPELINE_WRAPPER_NAME"]'}]
                         });
-
+                        
                         store.filter([{property: 'ptype', value: 'clovr_wrapper'}]);
                         datasetpanel.pipelines_panel.add(
                             new Ext.Container({
@@ -274,13 +397,17 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.TabPanel, {
                             }));
                     }
                 });
-                datasetpanel.setActiveTab(0);
-				datasetpanel.doLayout();
-                datasetpanel.getEl().unmask();
-            }
-        });
-    }
+                }*/
+                //                datasetpanel.setActiveTab(0);
+					datasetpanel.doLayout();
+                	datasetpanel.getEl().unmask();
+            	}
+            
+    	});
 
+    		}
+    	});
+	}
 });
 
 Ext.reg('clovrdatasetpanel', clovr.ClovrDatasetPanel);
@@ -314,12 +441,13 @@ function renderInput(value, p, record) {
     var clean_input = /input\./;
     var inputs = [];
     for (field in record.json.config) {
-        if(input_regexp.exec(field)) {
+        // HACK here - looks like I can look at input.INPUT_TAGS instead of doing this
+        if(input_regexp.exec(field) && field != 'input.INPUT_TAGS') {
             inputs.push(field.replace(clean_input,"")+": "+ record.json.config[field]);
         }
     };
 
-    if(record.data.state == "error") {
+    if(record.json.state == "error") {
         return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
     }
     else {
@@ -332,8 +460,8 @@ function renderInput(value, p, record) {
 
 function renderOutput(value, p, record) {
     var return_string="";
-    var input_regexp = /^input/;
-    var clean_input = /input\./;
+    var input_regexp = /^output/;
+    var clean_input = /output\./;
     var tags = record.json.config["output.TAGS_TO_DOWNLOAD"].split(',');
     var outputs = [];
     Ext.each(tags, function(tag) {
@@ -343,11 +471,10 @@ function renderOutput(value, p, record) {
 //    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
 //        outputs = record.json.config["output.TAGS_TO_DOWNLOAD"];
 //    }
-    
-    if(record.data.state == "error") {
+    if(record.json.state == "error" || record.json.state == "failed") {
         return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
     }
-    else if(record.data.state != "complete") {
+    else if(record.json.state != "complete") {
         return_string="Pipeline not complete";
     }
     else {

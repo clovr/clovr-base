@@ -188,7 +188,10 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
 
 				//form.getForm().findField('cluster.CLUSTER_NAME').getValue();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
-                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
+                 var cluster_name = clovr.getClusterName({
+                     protocol: 'clovr_microbe_',
+                     credential: credential
+                 });
                  
                  subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
@@ -307,6 +310,10 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                                'input.SHORT_TAG': 1,
                                'input.LONG_TAG': 1
                               };
+                    params['input.SHORT_PAIRED_TAG'] = '';
+                    params['input.LONG_PAIRED_TAG']='';
+                    params['input.SHORT_TAG'] = '';
+                    params['input.LONG_TAG'] = '';
                 }
 
                 // Load the Assembly+Annotation pipeline
@@ -318,6 +325,10 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                                'input.SHORT_TAG': 1,
                                'input.LONG_TAG': 1
                               };
+                    params['input.SHORT_PAIRED_TAG'] = '';
+                    params['input.LONG_PAIRED_TAG']='';
+                    params['input.SHORT_TAG'] = '';
+                    params['input.LONG_TAG'] = '';
                 }
                 
                 // We have an assembled genome and can only do annotation
@@ -326,7 +337,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                 else if(tag.data['metadata.read_length'] && tag.data['metadata.read_type']) {
                     if(tag.data['metadata.read_length'] =='short') {
                         if(tag.data['metadata.read_type'] == 'paired') {
-                            if(!params['input.SHORT_PAIRED_TAG']) {
+                            if(params['input.SHORT_PAIRED_TAG'] == '') {
                                 params['input.SHORT_PAIRED_TAG'] = tag.data.name;
                             }
                             else {
@@ -334,7 +345,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             }
                         }
                         else {
-                            if(!params['input.SHORT_TAG']) {
+                            if(params['input.SHORT_TAG'] == '') {
                                 params['input.SHORT_TAG'] =  tag.data.name;
                             }
                             else {
@@ -344,7 +355,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                     }
                     else {
                         if(tag.data['metadata.read_type'] == 'paired') {
-                            if(!params['input.LONG_PAIRED_TAG']) {
+                            if(params['input.LONG_PAIRED_TAG'] == '') {
                                 params['input.LONG_PAIRED_TAG'] = tag.data.name;
                             }
                             else {
@@ -352,7 +363,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             }
                         }
                         else {
-                            if(!params['input.LONG_TAG']) {
+                            if(params['input.LONG_TAG'] == '') {
                                 params['input.LONG_TAG'] = tag.data.name;
                             }
                             else {

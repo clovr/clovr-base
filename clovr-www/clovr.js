@@ -215,7 +215,8 @@ clovr.localFileSelector = function(config) {
                             'text': i,
                             'cls': cls,
                             'leaf': leaf,
-                            'id': node.id + '/'+ data[i].name
+                            'id': node.id + '/'+ data[i].name,
+                            'checked': false
                         };
                         var n = this.createNode(node_data);
                         if(n){
@@ -235,14 +236,36 @@ clovr.localFileSelector = function(config) {
                     var req = {'name': 'local',
                         'path': node.id};
                     this.baseParams = {'request': Ext.util.JSON.encode(req)};
+                },
+                load:function(loader,node) {
+                    selectorTree.getRootNode().expand();
                 }
             },
             dataUrl: '/vappio/listFiles_ws.py'
         }),
+        listeners: {
+            'checkchange': function(node, checked){
+                if(!node.leaf) {
+                    Ext.each(node.childNodes, function(child) {
+                        child.getUI().checkbox.checked = checked;
+                        child.fireEvent('checkchange',child,checked);
+                    });
+                }
+                if(checked){
+                    node.getUI().addClass('complete');
+                }else{
+                    if(node.parentNode) {
+                        unsetTree(node.parentNode, checked);
+                    }
+                    node.getUI().removeClass('complete');
+                }
+            }
+        },
         root: new Ext.tree.AsyncTreeNode({
             text: 'user_data',
             cls: 'folder',
-            id: '/mnt/user_data/'
+            id: '/mnt/user_data/',
+            checked: false
         }),
     });
     return selectorTree;
@@ -299,6 +322,7 @@ clovr.uploadFileWindow = function(config) {
                   fieldLabel: 'Select from user_data <i>(recommended)</i>',
                   text: 'Select file from image',
                   handler: function() {
+                      localFileSelector.getLoader().load(localFileSelector.getRootNode());
                       uploadWindow.drawers.e.show();
                   }},
                  {xtype: 'fileuploadfield',
@@ -402,11 +426,15 @@ clovr.uploadFileWindow = function(config) {
                  }
                  else {
                      var path = '/mnt/user_data/';
-                     var selected = localFileSelector.getSelectionModel().getSelectedNode();
+                     var selected = localFileSelector.getChecked();
+                     var all_selected = [];
+                     Ext.each(selected, function(node) {
+                         all_selected.push(node.id);
+                     });
                      values = form.getFieldValues();
                      clovr.tagData({
                          params: {
-				             'files': [selected.id],
+				             'files': all_selected,
             				 'name': 'local',
             				 'expand': true,
             				 'recursive': true,
@@ -492,7 +520,7 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                             if(seqcombo) {
                                 seqcombo.setValue(config.tagname);
                             }
-                            if(config.callback) {
+                            if(config && config.callback) {
                                 config.callback();
                             }
                         }
@@ -558,9 +586,8 @@ clovr.credentialCombo = function(config) {
         root: function(data) {
             return data.data;
         },
-        url: "/vappio/credential_ws.py",
+		autoLoad: false,
         baseParams: {request: Ext.util.JSON.encode({'cluster': 'local'})},
-        autoLoad: true,
         listeners: {
             load: function(store,records,o) {
                 if(!config.default_value) {
@@ -575,6 +602,12 @@ clovr.credentialCombo = function(config) {
         }
     });
     clovr.credStores.push(store);
+    clovr.getCredentialInfo({
+    	cluster_name: 'local',
+    	callback: function(d) {
+    		store.loadData(d);
+    	}
+    });
     combo = new Ext.form.ComboBox(Ext.apply(config, {
         forceSelection: true,
 		editable: false,
@@ -721,16 +754,46 @@ clovr.getClusterInfo = function(config) {
     });
 }
 
+// Assigns a cluster name given a protocol and credential name
+clovr.getClusterName = function(config) {
+    var cluster_name = config.protocol + config.credential + '_' + new Date().getTime();
+    if(config.credential == 'local') {
+        cluster_name = 'local';
+    }
+    return cluster_name;
+}
+
 // Pulls credential info from credential_ws.py
 clovr.getCredentialInfo = function(config) {
-    Ext.Ajax.request({
-        url: '/vappio/credential_ws.py',
-        params: {request: Ext.util.JSON.encode({cluster: config.cluster_name})},
-        success: function(r,o) {
-            var rjson = Ext.util.JSON.decode(r.responseText);
-            config.callback(rjson);
-        }
-    });
+    if(!clovr.requests['credentials']) {
+        clovr.requests['credentials'] = {
+            running: false,
+            callbacks: []
+        };
+    }
+
+    // If we have already made this request, just add the callback on
+    // and don't make the request again.
+    if(clovr.requests.credentials.running) {
+        clovr.requests.credentials.callbacks.push(config.callback);
+    }
+    else {
+        clovr.requests.credentials.running = true;
+        clovr.requests.credentials.callbacks.push(config.callback);
+    	Ext.Ajax.request({
+        	url: '/vappio/credential_ws.py',
+        	params: {request: Ext.util.JSON.encode({cluster: config.cluster_name})},
+        	success: function(r,o) {
+           		var rjson = Ext.util.JSON.decode(r.responseText);
+                clovr.requests.credentials.running = false;
+           		Ext.each(clovr.requests.credentials.callbacks, function(cb) {
+                    cb(rjson);
+                });
+                clovr.requests.credentials.callbacks = [];
+            }
+//            	config.callback(rjson);
+    	});
+    }
 }
 // Pulls info about a particular dataset
 clovr.getDatasetInfo = function(config) {
@@ -798,7 +861,8 @@ clovr.PIPELINE_TO_PROTOCOL =
         'clovr_search_webfrontend': 'clovr_search',
         'clovr_microbe_annotation': 'clovr_microbe',
         'clovr_microbe454': 'clovr_microbe',
-        'clovr_microbe_illumina' : 'clovr_microbe'
+        'clovr_microbe_illumina' : 'clovr_microbe',
+        'clovr_assembly_velvet' : 'clovr_microbe'
     };
 
 clovr.getPipelineToProtocol = function(name) {
@@ -986,4 +1050,17 @@ clovr.reloadTagStores = function(config) {
         }     
     });
 }
+
+var unsetTree = function(node, checked) {
+    if(node.getUI().checkbox) {
+        node.getUI().checkbox.checked = checked;
+        if(!checked) {
+            node.getUI().removeClass('complete');
+        }
+        if(node.parentNode) {
+                unsetTree(node.parentNode,checked);
+        }
+    }
+}
+
 // clearly, this is a work in progress...

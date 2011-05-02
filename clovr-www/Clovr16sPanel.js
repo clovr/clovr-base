@@ -117,8 +117,11 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
                  subform.findField('pipeline.PIPELINE_NAME').setValue(pipename);
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
 //                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
-                 var cluster_name = 'clovr_16s_' + credential + '_' + new Date().getTime();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+                 var cluster_name = clovr.getClusterName({
+                     protocol: 'clovr_16s_',
+                     credential: credential
+                 });
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });

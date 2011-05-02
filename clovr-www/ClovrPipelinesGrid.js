@@ -46,6 +46,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     {id: 'name', header: 'Pipeline Name', dataIndex: 'name', renderer:
                     	function(value,p,record,ri,ci,store) {
                     		if(record.json.config) {
+                                //console.log(record.json.config['pipeline.PIPELINE_TEMPLATE']);
                     			var track = clovr.PIPELINE_TO_PROTOCOL[record.json.config['pipeline.PIPELINE_TEMPLATE']];
                     			var desc = record.json.config['pipeline.PIPELINE_DESC'];
                     			return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>{1}<br/>{2}</div>",track,value,desc);

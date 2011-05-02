@@ -131,10 +131,11 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                  var wrappername = 'clovr_wrapper'+new Date().getTime();
 //                 var cluster_name = form.getForm().findField('cluster.CLUSTER_NAME').getValue();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
-                 var cluster_name = 'clovr_microbe_' + credential + '_' + new Date().getTime();
-                 Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
-                                   'cluster.CLUSTER_CREDENTIAL': credential
-                                  });
+                 var cluster_name = clovr.getClusterName({
+                     protocol: 'clovr_meta_',
+                     credential: credential
+                 });
+
                  Ext.apply(params,subform.getValues());
 	             Ext.Msg.show({
                      title: 'Submitting Pipeline',
