@@ -182,11 +182,11 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>concatenate_files.final_cds</name>
+            <name>concatenate_files.final_polypeptides</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>split_multifasta.final_cds</name>
+            <name>split_multifasta.final_polypeptides</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
