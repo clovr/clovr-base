@@ -2,7 +2,7 @@
 set -e 
 source /opt/vappio-scripts/clovrEnv.sh
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 # Need to tag our data prior to kicking off the pipeline 
 vp-add-dataset --tag-name=clovr_total_metagenomics_hudson /opt/hudson/MOMSP_454Reads_Region1_subset2.fasta -o

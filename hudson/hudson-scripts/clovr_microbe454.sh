@@ -2,7 +2,7 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c input.INPUT_SFF_TAG=hudson_sff_test \

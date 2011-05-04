@@ -5,7 +5,7 @@ source /opt/vappio-scripts/clovrEnv.sh
 vp-add-dataset -o --tag-name=clovr_16S_single_input /opt/hudson/16S_data/AMP_Lung.small.fasta
 vp-add-dataset -o --tag-name=clovr_16S_single_mapping /opt/hudson/16S_data/IGS.qmap
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_16S \
     -c input.FASTA_TAG=clovr_16S_single_input \

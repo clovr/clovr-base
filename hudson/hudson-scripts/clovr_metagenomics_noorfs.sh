@@ -6,7 +6,7 @@ vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta /opt/hudson/Metagen
 
 vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_map /opt/hudson/Metagenomic_data/Twins.small.meta
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_metagenomics_noorfs \
     -c input.FASTA_TAG=clovr_metagenomics_noorfs_fasta \

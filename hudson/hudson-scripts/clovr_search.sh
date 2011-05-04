@@ -6,7 +6,7 @@ vp-add-dataset -o --tag-name=NC_000964_peps -m format_type=aa_FASTA /opt/hudson/
 
 vp-add-dataset -o --tag-name=NC_000964_blastpdb -m format_type=aa_blastdb /opt/hudson/NC_000964/NC_000964.faa*
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_search \
     -c input.INPUT_TAG=NC_000964_peps \

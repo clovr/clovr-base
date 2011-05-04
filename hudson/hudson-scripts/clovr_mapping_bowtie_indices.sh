@@ -2,7 +2,7 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 # Tag data that will be used in this pipeline
 vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_reference /opt/hudson/bowtie_index/NC_008253*

@@ -2,7 +2,7 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-add-dataset -o --tag-name=clovr_microbe_illumina_tag /opt/hudson/illumina_data/partial_reads_1.fastq /opt/hudson/illumina_data/partial_reads_2.fastq 
 

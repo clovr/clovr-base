@@ -2,7 +2,7 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-DATE=`date +"%m-%d-%y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_mugsy \
     -c input.GENBANK_TAG=bifidobacter_genbank_tag \

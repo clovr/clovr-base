@@ -2,7 +2,7 @@
 set -e
 source /root/clovrEnv.sh
 
-DATE=`date +"%m-%d-%Y-%T"`
+DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 touch /tmp/clovr_sleep_1 /tmp/clovr_sleep_2 /tmp/clovr_sleep_3
 
