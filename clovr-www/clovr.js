@@ -283,6 +283,20 @@ clovr.uploadFileWindow = function(config) {
     //    {manager: windows}
     );
 
+
+    var drawer = new Ext.ux.plugins.WindowDrawer({
+        xtype: 'windowdrawer',
+        layout: 'fit',
+        title: 'Select a file from user_data',
+        plain: true,
+        animate: true,
+        items: localFileSelector,
+        closable: true,
+        width: 300,
+        side: 'e',
+        resizable: true
+    });
+
     // A window to house the upload form
     var uploadWindow = new Ext.Window({
 //        manager: windows,
@@ -291,23 +305,23 @@ clovr.uploadFileWindow = function(config) {
         height: 375,
         closeAction: 'hide',
         title: 'Upload File',
-        plugins: [
-            new Ext.ux.plugins.WindowDrawer({
-                xtype: 'windowdrawer',
-                layout: 'fit',
-                title: 'Select a file from user_data',
-                plain: true,
-                animate: true,
-                items: localFileSelector,
-                closable: true,
-                width: 300,
-                side: 'e',
-                resizable: true,
-            })
+        plugins: [drawer
         ]
     });
     
-
+    var uploadField = new Ext.ux.form.FileUploadField({
+        width: 175,
+        //                  fieldLabel: 'Or, Upload a file',
+        name: 'file',
+        listeners: {
+            change: function(field, newval, oldval) {
+                if(newval) {
+                    
+                    //clovrform.changeInputDataSet(field);
+                }
+            }
+        }
+    });
     // A form for the upload
     var uploadForm = new Ext.form.FormPanel({
         fileUpload: true,
@@ -325,18 +339,19 @@ clovr.uploadFileWindow = function(config) {
                       localFileSelector.getLoader().load(localFileSelector.getRootNode());
                       uploadWindow.drawers.e.show();
                   }},
-                 {xtype: 'fileuploadfield',
-                  width: 200,
+                 {xtype: 'compositefield',
                   fieldLabel: 'Or, Upload a file',
-                  name: 'file',
-                  listeners: {
-                      change: function(field, newval, oldval) {
-                          if(newval) {
-                              //clovrform.changeInputDataSet(field);
-                     }
+                  items: [
+                      uploadField,
+                      {xtype: 'button',
+                       text: 'Clear',
+                       handler: function() {
+                           uploadField.reset();
+                       }
                       }
-                  }
-                 }]
+                  ]}
+             ]
+             
             },
             // Combobox for type.
             {xtype: 'combo',
@@ -377,7 +392,19 @@ clovr.uploadFileWindow = function(config) {
                  
                  var form = uploadForm.getForm();
                  var uploadfield = form.findField('file');
-                 if(uploadfield.getValue()) {
+
+                 if(uploadfield.getValue() && localFileSelector.getChecked()) {
+                     uploadWindow.drawers.e.show();
+    	       		 Ext.Msg.show({
+						 title: 'Ooops!',
+				         width: 300,
+				    	 closable: false,
+                         msg: 'You have both a local file and a remote file selected. This is currently not supported. <br/><br/>Please clear the selections from either the upload box or the local file selector and try again.',
+                         icon: Ext.MessageBox.ERROR,
+                    	 buttons: Ext.Msg.OK
+					 });
+                 }
+                 else if(uploadfield.getValue()) {
                      
                      uploadForm.getForm().submit({
                          waitMsg: 'Uploading File',
