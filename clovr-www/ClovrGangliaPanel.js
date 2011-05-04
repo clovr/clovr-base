@@ -12,7 +12,7 @@ clovr.ClovrGangliaPanel = Ext.extend(Ext.Panel, {
         if(!config.id) {
             config.id = 'gangliapanel';
         }
-        var combo = clovr.clusterCombo({width: 225});
+        var combo = clovr.clusterCombo({width: 100});
         combo.on({
             'select': {
                 fn: function(c) {

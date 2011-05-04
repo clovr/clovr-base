@@ -689,6 +689,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                                 metadata[field] = values[field];
                             }
                         };
+                        win.getEl().mask('Submitting Change');
                         clovr.tagData({
                             params: {
                             'name': 'local',
@@ -732,6 +733,8 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             tag_task_list = new_task_list;
                             
                             if(tag_task_list.length ==0) {
+                                win.getEl().unmask();
+                                win.close();
                                 Ext.TaskMgr.stop(task);
                                 clovr.reloadTagStores();
                             }

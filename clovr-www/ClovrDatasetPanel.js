@@ -14,11 +14,15 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         config.bodyStyle = {
             background: '#0D5685'
         };
+        config.buttons = [
+            { text: 'Delete Tag'}
+        ];
+        config.buttonAlign = 'center';
         config.frame= true;
         config.deferredRender=false;
         var header_panel = new Ext.Panel({
             region: 'north',
-            height: 50,
+            height: 30,
             html: 'Information for the '+config.dataset_name+' dataset'
         });
         var footer_panel = new Ext.Panel({
@@ -46,7 +50,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         var pipelines_container = new Ext.Panel({
             layout: 'border',
             region: 'south',
-            height: 300,
+            height: 150,
             autoScroll: true,
             deferredRender:false,
             title: 'Pipelines',
@@ -63,7 +67,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             title: 'Pipelines',
             region: 'south',
             margins: '5 5 5 5',
-            height: 300,
+            height: 200,
             store: pipe_store,
             viewConfig: {
                 forceFit: true
@@ -185,10 +189,10 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 		});
 
         var title_region = new Ext.Container({
-            height: 50,
+            height: 30,
             style: {
                 'padding': '6px 0 0 0',
-                'font-size': '24pt',
+                'font-size': '16pt',
                 'font-family': 'Trebuchet MS,helvetica,sans-serif',
                 'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
             },

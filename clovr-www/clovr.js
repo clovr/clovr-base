@@ -294,7 +294,14 @@ clovr.uploadFileWindow = function(config) {
         closable: true,
         width: 300,
         side: 'e',
-        resizable: true
+        resizable: true,
+        buttons: [
+            {text: 'Refresh',
+             handler: function() { 
+                 localFileSelector.getLoader().load(localFileSelector.getRootNode());
+             }
+            }
+        ]
     });
 
     // A window to house the upload form
@@ -1071,7 +1078,7 @@ clovr.reloadTagStores = function(config) {
                     store.loadData(data.data);
                 }
             });
-            if(config.callback) {
+            if(config && config.callback) {
                 config.callback();
             }
         }     
