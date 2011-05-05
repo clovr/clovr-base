@@ -8,6 +8,10 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>run_command.uchime_calc_cpu_hrs</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>split_multifasta.uniqueseqs</name>
         </commandSet>
         <commandSet type="serial">
