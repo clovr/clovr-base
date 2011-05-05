@@ -7,8 +7,6 @@ pick_otus:otu_picking_method	uclust
 pick_otus:similarity	0.97
 pick_otus:max_accepts     20
 pick_otus:max_rejects     500
-pick_otus:stepwords     20
-pick_otus:word_length     12
 
 # Representative set picker parameters
 pick_rep_set:rep_set_picking_method	first
