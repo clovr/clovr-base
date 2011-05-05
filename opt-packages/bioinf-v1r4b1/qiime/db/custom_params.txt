@@ -14,7 +14,6 @@ pick_otus:word_length     12
 pick_rep_set:rep_set_picking_method	first
 pick_rep_set:sort_by	otu
 
-
 # Multiple sequence alignment parameters
 align_seqs:template_fp	/opt/bioinf/qiime/db/core_set_aligned.fasta.imputed
 align_seqs:alignment_method	pynast
@@ -25,7 +24,7 @@ align_seqs:min_percent_id	75.0
 
 # Taxonomy assignment parameters
 assign_taxonomy:assignment_method	rdp
-assign_taxonomy:confidence	0.8
+assign_taxonomy:confidence	0.5
 
 # Alignment filtering (prior to tree-building) parameters
 filter_alignment:lane_mask_fp	/opt/bioinf/qiime/db/lanemask_in_1s_and_0s
