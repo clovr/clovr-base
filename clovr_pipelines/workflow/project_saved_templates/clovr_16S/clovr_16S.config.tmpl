@@ -6,8 +6,13 @@
 [input]
 FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_16S_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.FASTA_FILE_LIST", "dataset_type": "16S"}, "required": true}
 
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
+QUAL_TAG={"display": "Input Quality Scores Tag", "default": "", "desc": "Input quality scores tag", "type": "dataset", "type_params": {"format_type": ["quals"], "transform_name": "input.QUAL_FILE_LIST", "dataset_type": "16S"}, "required": false}
 
+MAPPING_TAG={"display": "Mapping Tag", "default": "clovr_16S_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;FASTA_TAG$;,$;QUAL_TAG$;,$;MAPPING_TAG$;", "visibility": "always_hidden", "type": "dataset list" }
 
 #########################################################
 ## Pipeline parameters
