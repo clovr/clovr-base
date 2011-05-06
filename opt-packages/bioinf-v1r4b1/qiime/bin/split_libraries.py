@@ -11,7 +11,7 @@ __maintainer__ = "William Walters"
 __email__ = "william.a.walters@colorado.edu"
 __status__ = "Development"
  
-
+import os
 from qiime.util import parse_command_line_parameters, get_options_lookup
 from optparse import make_option
 from sys import stderr
@@ -157,6 +157,9 @@ def main():
             stderr.write(
             "Qual file does not end with .qual: is it really a qual file?\n%s\n" 
             % q)
+        if os.stat(q)[6] == 0:
+            qual_files = set()
+            break
 
     for f in fasta_files:
         if not (f.endswith('fasta') or f.endswith('fna')):
