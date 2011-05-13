@@ -6,57 +6,45 @@
             <state>incomplete</state>
             <name>split_multifasta.default</name>
         </commandSet>
-        <commandSet type="parallel">
+        <commandSet type="serial">
             <state>incomplete</state>
-            <commandSet type="serial">
-                <state>incomplete</state>
-                <name>RNAmmer.default</name>
-            </commandSet>
-            <commandSet type="serial">
-                <state>incomplete</state>
-                <name>tRNAscan-SE.find_tRNA</name>
-            </commandSet>
-            <commandSet type="serial">
-                <state>incomplete</state>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                 <name>glimmer3.iter1</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>train_for_glimmer3_iteration.train_for_glimmer</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>glimmer3.iter2</name>
-                </commandSet>
-                <commandSet type="parallel">
-                    <state>incomplete</state>
-                    <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>translate_sequence.translate_prediction</name>
-                    </commandSet>
-                    <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>bsml2fasta.prediction_CDS</name>
-                    </commandSet>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>promote_gene_prediction.promote_prediction</name>
-                </commandSet>
-                <commandSet type="parallel">
-                    <state>incomplete</state>
-                    <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>translate_sequence.translate</name>
-                    </commandSet>
-                    <commandSet type="serial">
-                        <state>incomplete</state>
-                        <name>bsml2fasta.create_blastx_pre_input</name>
-                    </commandSet>
-                </commandSet>
-            </commandSet>
+            <name>RNAmmer.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tRNAscan-SE.find_tRNA</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>glimmer3.iter1</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>train_for_glimmer3_iteration.train_for_glimmer</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>glimmer3.iter2</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>translate_sequence.translate_prediction</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2fasta.prediction_CDS</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>promote_gene_prediction.promote_prediction</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>translate_sequence.translate</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2fasta.create_blastx_pre_input</name>
         </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
