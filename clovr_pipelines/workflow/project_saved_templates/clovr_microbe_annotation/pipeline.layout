@@ -46,6 +46,10 @@
             <state>incomplete</state>
             <name>bsml2fasta.create_blastx_pre_input</name>
         </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>concatenate_files.translate</name>
+        </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.tag_polypeptides</name>
@@ -65,10 +69,6 @@
         <commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.set_hmmpfam_groupcount</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>concatenate_files.translate</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
@@ -117,6 +117,10 @@
             <state>incomplete</state>
             <name>bsml2fasta.create_blastx_post_input</name>
         </commandSet>
+		<commandSet type="serial">
+			<state>incomplete</state>
+			<name>concatenate_files.post_overlap_analysis</name>
+		</commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.tag_polypeptides_post</name>
@@ -137,10 +141,6 @@
             <state>incomplete</state>
             <name>run_command.set_hmmpfam_groupcount_post</name>
         </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>concatenate_files.post_overlap_analysis</name>
-		</commandSet>
 		<commandSet type="serial">
 			<state>incomplete</state>
 			<name>split_multifasta.post_overlap_analysis</name>
