@@ -42,7 +42,7 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assemb
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_microbe_annotation_lite_version_0.0", "type": "string", "visibility": "always_hidden"}
-PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation_lite", "visibility": "always_hidden", "type": "string"}
+PIPELINE_TEMPLATE={"default": "clovr_microbe_annotation_lite", "visibility": "hidden", "type": "string"}
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics

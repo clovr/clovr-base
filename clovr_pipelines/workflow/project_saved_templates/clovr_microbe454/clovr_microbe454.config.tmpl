@@ -31,7 +31,7 @@ INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert s
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type":"string"}
-SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
+SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": 1, "false": 0, "transform_name": "params.SKIP_BANK_T" } }
 
 
 ##########################################################
@@ -62,7 +62,7 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assemb
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_microbe454_version_0.0", "type": "string", "visibility": "always_hidden"}
-PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "always_hidden", "type": "string"}
+PIPELINE_TEMPLATE={"default": "clovr_microbe454", "visibility": "hidden", "type": "string"}
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics

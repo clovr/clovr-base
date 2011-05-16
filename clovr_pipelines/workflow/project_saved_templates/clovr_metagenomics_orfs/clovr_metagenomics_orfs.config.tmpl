@@ -8,9 +8,9 @@ FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metagenomics_orfs_fas
 
 MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_orfs_map", "desc": "Mapping tag for pipleline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "require_value": true}
 
-PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Functional reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-cogdb", "clovr-eggnogdb", "clovr-keggdb"], "transform_name": "input.PROTEIN_DB_FILE_LIST"}, "require_value": true}
+PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Functional reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-cogdb", "clovr-eggnogdb", "clovr-keggdb"], "transform_name": "input.PROTEIN_DB_PATH"}, "require_value": true}
 
-NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}}
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_PATH"}}
 
 
 #########################################################
@@ -54,7 +54,7 @@ TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "read_mapping,uclust_cl
 
 SOP_VERSION={"default": "clovr_metagenomics_orfs_version_0.0", "type": "string", "visibility": "always_hidden", "type": "string"}
 
-PIPELINE_TEMPLATE={"default": "clovr_metagenomics_orfs", "visibility": "always_hidden", "desc": "The type of the pipeline we are running", "type": "string", "require_value": true}
+PIPELINE_TEMPLATE={"default": "clovr_metagenomics_orfs", "visibility": "hidden", "desc": "The type of the pipeline we are running", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
