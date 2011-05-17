@@ -8,15 +8,16 @@ vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c input.INPUT_SFF_TAG=hudson_sff_test \
     -c params.OUTPUT_PREFIX=BD413_mini \
     -c params.ORGANISM="Acinetobacter baylii" \
-    -c params.SKIP_BANK=1 \
-    -c pipeline.PIPELINE_NAME=illumina_${DATE} \
+    -c params.SKIP_BANK=true \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}
 
 vp-add-dataset --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-name clovr_microbe454_$$_${DATE} --pipeline clovr_wrapper --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+vp-run-pipeline --validate --pipeline-config /tmp/$$.pipeline.conf.${DATE}
+
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"

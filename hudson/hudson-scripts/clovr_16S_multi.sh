@@ -10,12 +10,11 @@ DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 vp-describe-protocols --config-from-protocol=clovr_16S \
     -c input.FASTA_TAG=clovr_16S_multi_input \
     -c input.MAPPING_TAG=clovr_16S_multi_mapping \
-    -c pipeline.PIPELINE_NAME=clovr_16S_multi_${DATE} \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     > /tmp/$$.pipeline.conf.${DATE}
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-name clovr_16S_multi_$$_${DATE} --pipeline clovr_wrapper --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"
