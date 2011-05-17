@@ -21,16 +21,6 @@ NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": 
 # This should probably be removed in the near future
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this", "visibility": "default_hidden", "type": "integer"}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
