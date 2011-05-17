@@ -34,15 +34,6 @@ SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true
 SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": 1, "false": 0, "transform_name": "params.SKIP_BANK_T" } }
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
