@@ -7,15 +7,6 @@
 TIME={"display": "Sleep time per file", "default": 10, "desc": "The number of seconds to sleep per file", "type": "integer", "type_params": {"min": 1, "max": 3600}, "require_value": true}
 INPUT_TAG={"display": "Input tag", "default": "clovrsleepfiles", "desc": "Name of tag to use for input", "type": "dataset", "type_params": {"transform_name": "input.INPUT_FILE_LIST"}, "require_value": true}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-#[cluster]
-#-include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
