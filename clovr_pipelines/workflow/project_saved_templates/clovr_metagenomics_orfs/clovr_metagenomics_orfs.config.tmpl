@@ -22,17 +22,6 @@ NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": 
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this", "type": "integer", "visibility": "default_hidden"}
 NUM_SEQS={"display": "MetaGene group size", "default": 400, "visibility": "default_hidden", "desc": "Number of groups to create for MetaGene, you don't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 
-
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
