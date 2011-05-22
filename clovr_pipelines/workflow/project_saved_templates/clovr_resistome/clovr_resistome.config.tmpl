@@ -10,6 +10,8 @@ FASTA_TAG={"display": "Fasta Tag", "default": "resistome_tag", "desc": "Input Fa
 
 DATASET_TAG={"display": "Dataset Tag", "default": "bgi_tag", "desc": "Reference database", "source": "tags"}
 
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}}
+
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
@@ -69,7 +71,7 @@ TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "", "desc": "Comma sepa
 
 SOP_VERSION={"default": "clovr_resistome_version_0.0", "type": "string", "visibility": "always_hidden"}
 
-PIPELINE_TEMPLATE={"default": "clovr_resistome", "visibility": "hidden", "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_resistome", "visibility": "always_hidden", "desc": "The type of the pipeline we are running"}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start

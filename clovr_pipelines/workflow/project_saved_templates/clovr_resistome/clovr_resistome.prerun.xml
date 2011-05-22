@@ -16,5 +16,11 @@
                         <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
                         <arg>--tag-name $;FASTA_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
                 </command>
+		<command>
+      			<name>Upload nucleotide metagenomics DB</name>
+	      		<type>RunUnixCommand</type>
+		        <executable>vp-transfer-dataset</executable>
+		        <arg>--tag-name $;NUCLEOTIDE_DB_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+		</command>
 	</commandSet>
 </commandSetRoot>
