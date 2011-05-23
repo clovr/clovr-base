@@ -6,9 +6,9 @@
 
 [input]
 
-FASTA_TAG={"display": "Fasta Tag", "default": "resistome_tag", "desc": "Input Fasta tag", "source": "tags"}
+FASTA_TAG={"display": "Fasta Tag", "default": "", "desc": "Input Fasta tag", "source": "tags"}
 
-DATASET_TAG={"display": "Dataset Tag", "default": "bgi_tag", "desc": "Reference database", "source": "tags"}
+DATASET_TAG={"display": "Dataset Tag", "default": "", "desc": "Reference database", "source": "tags"}
 
 NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}}
 
@@ -23,19 +23,19 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 
 OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
 
-PROTEIN={"display" : "Dataset type", "default" : "F", "desc" : "F - Nucleotide, T - Protein"}
+PROTEIN={"display" : "Dataset type", "default" : "", "desc" : "F - Nucleotide, T - Protein"}
 
-SEQS_PER_FILE={"display": "Sequences Per File", "default": 1000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer", "require_value": true}
+SEQS_PER_FILE={"display": "Sequences Per File", "default": 10000, "visibility": "default_hidden", "desc": "Number of sequences per distributed file.  This should not need to be changed as it will automatically be calculted", "type": "integer", "require_value": true}
 
 EXPECT={"display": "Expect value", "default": "1e-5", "visibility": "default_hidden", "desc": "Expect cutoff value for BLAST", "type": "float", "require_value": true}
 
 OTHER_OPTS={"display": "Other options", "default": "-m8", "visibility": "default_hidden", "desc": "Other options to pass to BLAST", "type": "string", "require_value": true}
 
-PROGRAM={"display": "BLAST Program", "default": "blastn", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}, "require_value": true}
+PROGRAM={"display": "BLAST Program", "default": "", "desc": "BLAST program to run", "type": "restricted_string", "type_params": {"choices": ["blastn", "blastp", "blastx", "tblastn", "tblastx"]}, "require_value": true}
 
-IDENTITY={"display" : "identity percentage", "default" : 50, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
+IDENTITY={"display" : "identity percentage", "default" : 30, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
 
-ALIGN_COVERAGE={"display" : "Alignment length coverage", "default" : 50, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
+ALIGN_COVERAGE={"display" : "Alignment length coverage", "default" : 80, "desc" : "to filter the noise", "type" : "integer", "require_value" : true}
 
 ##########################################################
 ## Cluster info.
@@ -60,9 +60,6 @@ ALIGN_COVERAGE={"display" : "Alignment length coverage", "default" : 50, "desc" 
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "", "desc": "Comma separated list of tags that should be downloaded"}
-
-
-[download]
 
 
 [pipeline]
