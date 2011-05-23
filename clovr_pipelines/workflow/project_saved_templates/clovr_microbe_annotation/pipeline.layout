@@ -48,7 +48,11 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>concatenate_files.translate</name>
+            <name>concatenate_files.cds_pre</name>
+        </commandSet>
+       	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.tag_cds</name>
         </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
@@ -56,7 +60,23 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.calculate_cpu_hours</name>
+            <name>run_command.calculate_blastx_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_blastx_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_hmm_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_hmm_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.sum_cpu_hours</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
@@ -64,15 +84,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.set_ergatis_values</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_hmmpfam_groupcount</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>split_multifasta.translate</name>
+            <name>split_multifasta.split_cds_pre</name>
         </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
