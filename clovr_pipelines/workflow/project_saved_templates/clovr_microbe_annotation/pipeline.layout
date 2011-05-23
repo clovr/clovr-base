@@ -117,47 +117,59 @@
             <state>incomplete</state>
             <name>overlap_analysis.default</name>
         </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>start_site_curation.default</name>
-		</commandSet>
-	    <commandSet type="serial">
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>start_site_curation.default</name>
+	</commandSet>
+	<commandSet type="serial">
             <state>incomplete</state>
             <name>translate_sequence.translate_new_models</name>
         </commandSet>
-	    <commandSet type="serial">
+	<commandSet type="serial">
             <state>incomplete</state>
             <name>bsml2fasta.create_blastx_post_input</name>
         </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>concatenate_files.post_overlap_analysis</name>
-		</commandSet>
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>concatenate_files.cds_post</name>
+	</commandSet>
+       	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.tag_cds_post</name>
+        </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.tag_polypeptides_post</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.calculate_cpu_hours_post</name>
+            <name>run_command.calculate_blastx_cpu_hours_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_blastx_ergatis_values_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_hmm_cpu_hours_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_hmm_ergatis_values_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.sum_cpu_hours_post</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.resize_cluster_post</name>
         </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_ergatis_values_post</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_hmmpfam_groupcount_post</name>
-        </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>split_multifasta.post_overlap_analysis</name>
-		</commandSet>
-		<commandSet type="parallel">
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>split_multifasta.split_cds_post</name>
+	</commandSet>
+	<commandSet type="parallel">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
