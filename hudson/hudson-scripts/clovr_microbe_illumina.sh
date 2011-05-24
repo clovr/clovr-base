@@ -8,7 +8,6 @@ vp-add-dataset -o --tag-name=clovr_microbe_illumina_tag /opt/hudson/illumina_dat
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_tag \
-    -c pipeline.PIPELINE_NAME=clovr_microbe_illumina-${DATE} \
     -c params.OUTPUT_PREFIX=test \
     -c params.ORGANISM="Genus species" \
     -c cluster.CLUSTER_NAME=$1 \
@@ -16,7 +15,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     > /tmp/$$.pipeline.conf.${DATE}
 
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-name microbe_illumina_$$_${DATE} --pipeline clovr_wrapper --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"

@@ -17,7 +17,7 @@ vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c params.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_mapping_bowtie_noindices_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"

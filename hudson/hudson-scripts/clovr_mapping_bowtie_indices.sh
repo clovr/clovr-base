@@ -12,11 +12,10 @@ vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_input_reads /opt/hudso
 vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_indices \
     -c input.REFERENCE_TAG=clovr_mapping_bowtie_indices_reference \
     -c input.INPUT_READS_TAG=clovr_mapping_bowtie_indices_input_reads \
-    -c pipeline.PIPELINE_NAME=clovr_mapping_bowtie_indices_${DATE} \
      > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
-TASK_NAME=`runPipeline.py --name local  --print-task-name --pipeline-name clovr_mapping_bowtie_indices_$$ --pipeline=clovr_wrapper --pipeline-config=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config=/tmp/$$.pipeline.conf`
 
 if [ "$?" == "1" ]; then
     echo "runPipeline.py failed to run"

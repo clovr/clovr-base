@@ -12,7 +12,6 @@ vp-add-dataset -o --tag-name=clovr_align_bowtie_input_reads /opt/hudson/e_coli_1
 vp-describe-protocols --config-from-protocol=clovr_align_bowtie \
     -c input.REFERENCE_TAG=clovr_align_bowtie_reference \
     -c input.INPUT_READS_TAG=clovr_align_bowtie_input_reads \
-    -c pipeline.PIPELINE_NAME=clovr_align_bowtie_${DATE} \
     -c params.BOWTIE_BUILD_OPTS="-t 8" \
     -c params.OUTPUT_PREFIX="e_coli" \
     -c cluster.CLUSTER_NAME=$1 \
@@ -21,7 +20,7 @@ vp-describe-protocols --config-from-protocol=clovr_align_bowtie \
 
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-name clovr_align_bowtie_$$_${DATE} --pipeline clovr_wrapper --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"
