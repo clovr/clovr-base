@@ -6,11 +6,9 @@
 
 [input]
 
-GENBANK_TAG={"display": "Input Genbank Tag", "default": "bifidobacter_genbank_tag", "desc": "Input Genbank tag", "source": "tags"}
+GENBANK_TAG={"display": "Input Genbank Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["genbank"]}, "require_value": true }
 
-REFERENCE_DB_TAG={"display": "Reference database tag", "default": "clovr-prok-db", "desc": "Reference database", "source": "tags"}
-
-ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,..."}
+ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,...", "type": "string", "require_value": false }
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
@@ -18,9 +16,9 @@ ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "defa
 
 [params]
 
-ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism"}
+ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism", "type": "string", "require_value": true }
 
-OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
+OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini", "type": "string", "require_value": true }
 
 
 #########################################################
@@ -34,27 +32,27 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccard_fasta,muscle_jaccard_raw,joc_fasta,muscle_joc_raw", "desc": "Comma separated list of tags that should be downloaded"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccard_fasta,muscle_jaccard_raw,joc_fasta,muscle_joc_raw", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["ncbi_blastp_raw","jaccard_fasta","muscle_jaccard_raw","joc_fasta","muscle_joc_raw"]}, "require_value": true }
 
 
 [pipeline]
 
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-SOP_VERSION={"default": "clovr_comparative_version_0.0", "type": "string", "visibility": "always_hidden"}
+SOP_VERSION={"default": "clovr_comparative_version_0.0", "type": "string", "visibility": "always_hidden", "type": "string", "require_value": "true" }
 
-PIPELINE_TEMPLATE={"default": "clovr_comparative", "visibility": "hidden", "desc": "The type of the pipeline we are running"}
+PIPELINE_TEMPLATE={"default": "clovr_comparative", "visibility": "hidden", "desc": "The type of the pipeline we are running", "type": "string", "require_value": "true" }
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.prestart.xml", "visibility": "always_hidden", "desc": null}
+PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.prestart.xml", "visibility": "always_hidden", "desc": null, "type": "string", "require_value": "true"}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.prerun.xml", "visibility": "always_hidden", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.prerun.xml", "visibility": "always_hidden", "desc": null, "type": "string", "require_value": "true" }
 #Postrun is run after pipeline completion and after download data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.postrun.xml", "visibility": "always_hidden", "desc": null}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_comparative/clovr_comparative.postrun.xml", "visibility": "always_hidden", "desc": null, "type": "string", "require_value": "true" }
 
-DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null}
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "desc": null, "type": "string", "require_value": "true" }
 

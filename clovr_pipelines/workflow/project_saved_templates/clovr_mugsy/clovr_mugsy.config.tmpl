@@ -4,9 +4,8 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-GENBANK_TAG={"display": "Input Genbank Tag", "default": "bifidobacter_genbank_tag", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["genbank"], "transform_name": "input.GENBANK_FILE_LIST"}, "require_value": true}
-REFERENCE_DB_TAG={"display": "Reference database tag", "default": "clovr-prok-db", "desc": "Reference database", "type": "dataset", "type_params": {"transform_name": "input.REFERENCE_DB_FILE_LIST"}, "require_value": true}
-ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,..."}
+GENBANK_TAG={"display": "Input Genbank Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["genbank"], "transform_name": "input.GENBANK_FILE_LIST"}, "require_value": true}
+ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,...", "type": "string", "require_value": false}
 
 #########################################################
 ## Pipeline parameters
