@@ -16,14 +16,6 @@ ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "defa
 ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism", "type": "organism", "require_value": true}
 OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini", "type": "string", "require_value": true}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
 ## Output info.
@@ -35,9 +27,6 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag,mugsyprep_map_tag,muscle_bsml_tag,muscle_raw_tag", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsyalign_maf_tag", "mugsyprep_map_tag", "muscle_bsml_tag", "muscle_raw_tag"]}}
-
-[download]
-
 
 
 [pipeline]

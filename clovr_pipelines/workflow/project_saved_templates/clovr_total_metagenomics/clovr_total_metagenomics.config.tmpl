@@ -20,15 +20,6 @@ TOTAL_FILES={"display": "Total files", "default": 1, "desc": "Total files to mak
 NUM_SEQS={"default": 100, "desc": "The number of sequences to write to each BSML file, you shouldn't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies what data to download and where locally 

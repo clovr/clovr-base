@@ -19,22 +19,6 @@ WORD_SIZE={"display": "Word size", "default": 3, "visibility": "default_hidden",
 LOW_COMPLEXITY={"display": "Low Complexity Filter", "default": "No", "desc": "Mask regions of low compositional complexity that may cause spurious or misleading results", "type": "boolean", "type_params": {"true": "Yes", "false": "No"}, "require_value": true}
 
 
-
-
-
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
-CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "always_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually", "type": "string"}
-EXEC_NODES={"default": 0, "visibility": "always_hidden", "desc": "Number of exec nodes, should not need to specify manually", "type": "integer"}
-CLOVR_CONF={"default": "clovr.conf", "visibility": "always_hidden", "desc": "Config file, should not need to specify manually", "type": "string"}
-CLUSTER_CREDENTIAL={"display": "Credential", "visibility": "always_hidden", "default": "local", "desc": "Credential to use to make the cluster", "type": "string"}
-
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also

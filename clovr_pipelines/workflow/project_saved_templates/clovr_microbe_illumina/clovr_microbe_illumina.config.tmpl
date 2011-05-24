@@ -48,16 +48,6 @@ END_HASH_LENGTH={"default":31, "display": "End hash length", "desc": "The hash l
 VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG Options", "desc": "Other options sent to velvetg. If using paired end reads, use AT LEAST -ins_length and -ins_length_sd. -min_contig_lgth is already set.", "type": "string", "require_value": true }
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
@@ -70,8 +60,6 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## Comma separated list (e.g. assembly_contigs,annotation_genbank )
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
-
-[download]
 
 
 [pipeline]

@@ -20,16 +20,6 @@ RRNA_DB_TAG={"display": "rRNA database tag", "default": "clovr-rrnadb", "desc": 
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
@@ -40,9 +30,6 @@ TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to c
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "uclust_clusters,blast_rrna,tables_rrna,piecharts_rrna,skiff_rrna,metastats_rrna,blast_functional,tables_functional,piecharts_functional,skiff_functional,metastats_functional,blast_taxonomy,tables_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["uclust_clusters", "blast_rrna", "tables_rrna", "piecharts_rrna", "skiff_rrna", "metastats_rrna", "blast_functional", "tables_functional", "piecharts_functional", "skiff_functional", "metastats_functional", "blast_taxonomy", "tables_taxonomy", "piecharts_taxonomy", "skiff_taxonomy", "metastats_taxonomy"]}}
-
-
-[download]
 
 
 

@@ -19,15 +19,6 @@ MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Ma
 BOWTIE_OPTS={"display":"Bowtie options", "desc": "Any other bowtie arguments", "type": "string"}
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
@@ -40,8 +31,6 @@ BOWTIE_OPTS={"display":"Bowtie options", "desc": "Any other bowtie arguments", "
 ## at the end of the pipeline to the local VM.
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam"]}}
-
-[download]
 
 
 [pipeline]

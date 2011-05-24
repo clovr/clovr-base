@@ -14,14 +14,6 @@ REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "
 OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "asmbl", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
 ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Must be two words in the form of: Genus species", "type": "organism", "require_value": true }
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
 ## Output info.
@@ -36,7 +28,6 @@ ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Mu
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
 
-[download]
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config

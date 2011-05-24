@@ -30,15 +30,6 @@ INSERT_SIZE={"display": "Insert size", "desc": "Must be two numbers separated by
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type": "string"}
 SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 
 #########################################################
 ## Output info.

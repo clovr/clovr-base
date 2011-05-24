@@ -17,15 +17,6 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "output", "desc": "Output 
 CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line arguments to be passed to Crossbow", "type": "string"}
 
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
@@ -39,8 +30,6 @@ CROSSBOW_OPTS={"display": "Crossbow Options", "desc": "Any command-line argument
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "crossbow_snps", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["crssbow_snps"]}}
 
-
-[download]
 
 
 [pipeline]

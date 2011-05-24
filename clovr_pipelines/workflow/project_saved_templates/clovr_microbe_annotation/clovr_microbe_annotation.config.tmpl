@@ -28,8 +28,6 @@ ORGANISM={"display": "Organism", "desc": "Genus and species of the organism.  Mu
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn", "bsml_pipeline_summary", "bsml_hmmpfam_pre", "bsml_hmmpfam_post", "btab_ber_pre", "btab_ber_post", "raw_ber_pre", "raw_ber_post"] } }
 
 
-[download]
-
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 

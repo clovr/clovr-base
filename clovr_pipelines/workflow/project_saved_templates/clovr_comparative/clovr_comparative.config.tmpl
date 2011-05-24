@@ -22,16 +22,6 @@ ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "
 
 OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini"}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-
-[cluster]
-
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
 ## Output info.
@@ -45,9 +35,6 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
 TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "ncbi_blastp_raw,jaccard_fasta,muscle_jaccard_raw,joc_fasta,muscle_joc_raw", "desc": "Comma separated list of tags that should be downloaded"}
-
-
-[download]
 
 
 [pipeline]
