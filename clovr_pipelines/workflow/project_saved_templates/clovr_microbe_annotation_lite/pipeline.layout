@@ -36,15 +36,15 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tabula_rasa.prep_promote_gp</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>promote_gene_prediction.promote_prediction</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>translate_sequence.translate</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2fasta.create_blastx_pre_input</name>
         </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
@@ -52,7 +52,23 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.calculate_cpu_hours</name>
+            <name>run_command.calculate_blastp_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_blastp_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_hmm_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_hmm_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.sum_cpu_hours</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
@@ -60,19 +76,11 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.set_ergatis_values</name>
+            <name>concatenate_files.polypeptides_pre</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.set_hmmpfam_groupcount</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>concatenate_files.translate</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>split_multifasta.translate</name>
+            <name>split_multifasta.split_polypeptides_pre</name>
         </commandSet>
         <commandSet type="parallel">
             <state>incomplete</state>
@@ -99,27 +107,23 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tabula_rasa.prep_ber</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>ber.pre_overlap_analysis</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>tabula_rasa.prep_overlap_analysis</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>overlap_analysis.default</name>
         </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>start_site_curation.default</name>
-		</commandSet>
-	    <commandSet type="serial">
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>start_site_curation.default</name>
+	</commandSet>
+	<commandSet type="serial">
             <state>incomplete</state>
             <name>translate_sequence.translate_new_models</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>bsml2fasta.create_blastx_post_input</name>
         </commandSet>
        	<commandSet type="serial">
             <state>incomplete</state>
@@ -127,29 +131,37 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.calculate_cpu_hours_post</name>
+            <name>run_command.calculate_blastp_cpu_hours_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_blastp_ergatis_values_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_hmm_cpu_hours_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_hmm_ergatis_values_post</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.sum_cpu_hours_post</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>run_command.resize_cluster_post</name>
         </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_ergatis_values_post</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_hmmpfam_groupcount_post</name>
-        </commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>concatenate_files.post_overlap_analysis</name>
-		</commandSet>
-		<commandSet type="serial">
-			<state>incomplete</state>
-			<name>split_multifasta.post_overlap_analysis</name>
-		</commandSet>
-		<commandSet type="parallel">
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>concatenate_files.polypeptides_post</name>
+	</commandSet>
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>split_multifasta.split_polypeptides_post</name>
+	</commandSet>
+	<commandSet type="parallel">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
@@ -174,10 +186,6 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tabula_rasa.prep_ber_post</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>ber.post_overlap_analysis</name>
         </commandSet>
         <commandSet type="serial">
@@ -190,19 +198,15 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>concatenate_files.final_cds</name>
+            <name>concatenate_files.final_polypeptides</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>split_multifasta.final_cds</name>
+            <name>split_multifasta.final_polypeptides</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>ncbi-blastp.COGS</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>tabula_rasa.prep_parse_evidence</name>
         </commandSet>
         <commandSet type="parallel">
         <commandSet type="serial">
