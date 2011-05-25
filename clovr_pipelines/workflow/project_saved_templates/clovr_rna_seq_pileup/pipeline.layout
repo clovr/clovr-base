@@ -4,15 +4,23 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.prepare_input_for_bowtie</name>
+            <name>sam_to_bam.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>bowtie.default</name>
+            <name>basic_alignment_stats.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_mapping_bowtie_indices</name>
+            <name>samtools_pileup.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>pileup_to_wig.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.clovr_rna_seq_pileup</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>

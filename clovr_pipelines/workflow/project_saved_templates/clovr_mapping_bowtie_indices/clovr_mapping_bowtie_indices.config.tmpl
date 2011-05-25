@@ -3,21 +3,42 @@
 ## Input information.
 ## Configuration options for the pipeline.
 #########################################################
-[input]
-REFERENCE_TAG={"display": "Input Reference Tag", "default": "clovr_mapping_bowtie_indices_ref", "desc": "Input reference tag", "type": "dataset", "require_value": true}
-INPUT_READS_TAG={"display": "Input Reads Tag", "default": "clovr_mapping_bowtie_indices_reads", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"]}, "require_value": true}
 
+## Our two input parameters here should deal with the two types of data that 
+## bowtie can handle. 
+##
+## 1.) Paired-end data - $;INPUT_PAIRED_TAG$; - This should be a comma-separated list of tags with 
+##                                              each tag corresponding to one set of paired end data
+## 2.) Non paired-end data - $;INPUT_READS_TAG$; - This tag will capture all non-paired end data and
+##                                                 is just a filelist of all data files
+##
+## Example: tagData.py --name local --tag-name paired_end_bowtie s_2_1_sequences.fastq s_2_2_sequences.fastq
+[input]
+INPUT_PAIRED_TAG={"display": "Paired-end Input Tag", "desc": "The input tag describing any paried-end sequence data (fastq)", "type": "paired_dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.PAIRED_READS_LIST"}}
+INPUT_READS_TAG={"display": "Input Reads Tag", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.READS_LIST"}, "require_value": true}
+REFERENCE_TAG={"display": "Reference bowtie indices", "desc": "bowtie-build generated indices that bowtie uses during alignment.", "type": "dataset", "type_params": {"transform_name": "input.REFERENCE_DB_PATH", "transform_type": ["prefix"]}, "require_value": true}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPUT_READS_TAG$;", "visibility": "always_hidden", "type": "dataset list" }
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
-MAX_INSERT_SIZE={"display": "Max insert size", "default": 250, "desc": "Maximum insert size", "type": "integer", "type_params": {"min": 0}, "requird": true}
+MAX_INSERT_SIZE={"display": "Max insert size", "default": 251, "desc": "Maximum insert size", "type": "integer", "type_params": {"min": 0}, "require_value": true}
 MAX_MISMATCHES={"display": "Max mismatches", "default": 2, "desc": "Maximum number of mismatches", "type": "integer", "type_params": {"min": 0, "max": 3}, "require_value": true}
 MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Maximum number of alignments per read... those with more alignments will be ignored", "type": "integer", "require_value": true}
-BOWTIE_OPTS={"display":"Bowtie options", "desc": "Any other bowtie arguments", "type": "string"}
 
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
 
 #########################################################
 ## Output info.
@@ -32,13 +53,15 @@ BOWTIE_OPTS={"display":"Bowtie options", "desc": "Any other bowtie arguments", "
 ## Possible options:
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam"]}}
 
+[download]
+
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
 SOP_VERSION={"default": "clovr_mapping_bowtie_indices_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
 
-PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_indices", "visibility": "hidden", "type": "string", "require_value": true}
+PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_indices", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
@@ -47,6 +70,7 @@ PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "a
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
 PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
 POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}

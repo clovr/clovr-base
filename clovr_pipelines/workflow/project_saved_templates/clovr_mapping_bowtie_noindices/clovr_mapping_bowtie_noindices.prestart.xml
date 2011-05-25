@@ -10,11 +10,5 @@
         <executable>vp-describe-task</executable>
         <arg>--show-all --block --exit-code `vp-run-metrics -t -c input.REFERENCE_TAG=$;REFERENCE_TAG$; "tag-is-fasta"`</arg>
     </command>
-    <command>
-        <name>Input reads fasta check</name>
-        <type>RunUnixCommand</type>
-        <executable>vp-describe-task</executable>
-        <arg>--show-all --block --exit-code `vp-run-metrics -t -c input.READS_TAG=$;READS_TAG$; "tag-is-fasta"`</arg>
-    </command>
   </commandSet>
 </commandSetRoot>

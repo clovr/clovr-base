@@ -1,0 +1,60 @@
+## Template configuration file for clovr_rna_seq_pileup
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_SAM_TAG={"display": "Input SAM Tag", "default": "_sam", "desc": "Input SAM tag", "type": "dataset", "type_params": {"format_type": ["sam"]}, "require_value": true}
+REFERENCE_TAG={"display": "Input Reference Tag", "default": "_ref", "desc": "Input reference tag", "type": "dataset", "require_value": true}
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}}
+
+[download]
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_rna_seq_pileup_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+
+PIPELINE_TEMPLATE={"default": "clovr_rna_seq_pileup", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_pileup/clovr_rna_seq_pileup.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_pileup/clovr_rna_seq_pileup.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+

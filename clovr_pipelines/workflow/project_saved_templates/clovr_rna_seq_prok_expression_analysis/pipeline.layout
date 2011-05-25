@@ -4,15 +4,19 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.prepare_input_for_bowtie</name>
+            <name>sort_sam_by_name.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>bowtie.default</name>
+            <name>htseq_count_reads.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_mapping_bowtie_indices</name>
+            <name>deseq.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.clovr_rna_seq_prok_expression_analysis</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>

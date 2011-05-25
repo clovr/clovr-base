@@ -1,0 +1,65 @@
+## Template configuration file for clovr_rna_seq_prok_expression_analysis
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_SAM_TAG={"display": "Input SAM Tag", "default": "_sam", "desc": "Input SAM tag", "type": "dataset", "type_params": {"format_type": ["sam"]}, "require_value": true}
+INPUT_GFF3_TAG={"display": "Input GFF3 Tag", "default": "_sam", "desc": "Input GFF3 tag", "type": "dataset", "type_params": {"format_type": ["gff3"]}, "require_value": true}
+INPUT_SAMPLE_MAP_TAG={"display": "Input Sample Map Tag", "default": "_sam", "desc": "Sample mapping file used during DESeq step", "type": "dataset", "require_value": true}
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+COUNT_MODE={"display": "Count Mode", "default": "union", "desc": "Scheme to decipher overlapping features and reads", "type": "restricted_string", "type_params": {"choices": ["union", "intersection-strict", "intersection-nonempty"]}, "required_value": true}
+COUNTING_FEATURE={"display": "Counting Feature", "default": "CDS", "desc": "Feature type to extract from gtf file and count over", "required_value": true}
+MIN_ALIGN_QUAL={"display": "Minimum Alignment Quality", "default": 0, "desc": "Minimum quality of alignment required to count a read", "required_value": true}
+IS_STRANDED={"display": "Is Stranded", "default": "no", "desc": "Indicates whether or not the rna-seq library is strand-specific", "type": "restricted_string", "type_params": {"choices": ["yes", "no"]}, "required_value": true}
+ID_ATTRIBUTE={"display": "ID Attribute", "default": "gene_id", "desc": "Attribute upon which to group features on when counting reads", "type": "string", "required_value": true}
+
+##########################################################
+## Cluster info.
+## If the cluster_tag is present, the script will first
+## check for the presence of this cluster and if it's not
+## running will start a cluster with the default settings
+##########################################################
+[cluster]
+-include_in_section /opt/clovr_pipelines/common_config/cluster.config
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "htseq_counts,sort_sam_by_name_sam,deseq_all_counts,deseq_count_stat,deseq_tiff", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["htseq_counts", "sort_sam_by_name_sam", "deseq_all_counts", "deseq_count_stat", "deseq_tiff"]}}
+
+[download]
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_rna_seq_prok_expression_analysis_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+
+PIPELINE_TEMPLATE={"default": "clovr_rna_seq_prok_expression_analysis", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_prok_expression_analysis/clovr_rna_seq_prok_expression_analysis.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_prok_expression_analysis/clovr_rna_seq_prok_expression_analysis.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+

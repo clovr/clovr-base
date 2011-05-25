@@ -1,0 +1,18 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start pipeline:</name>
+        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_noindices/pipeline.layout">
+        <commandSet type="parallel">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                    <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_prok_expression_analysis/pipeline.layout">
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_pileup/pipeline.layout">
+            </commandSet>                
+        </commandSet>
+    </commandSet>
+</commandSetRoot>           

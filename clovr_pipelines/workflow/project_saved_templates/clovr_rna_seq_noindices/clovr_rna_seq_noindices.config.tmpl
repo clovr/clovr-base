@@ -1,4 +1,4 @@
-## Template configuration file for
+## Configuration file for clovr_rna_seq_noindices
 #########################################################
 ## Input information.
 ## Configuration options for the pipeline.
@@ -7,6 +7,8 @@
 INPUT_PAIRED_TAG={"display": "Paired-end Input Tag", "desc": "The input tag describing any paried-end sequence data (fastq)", "type": "dataset list", "type_params": {"format_type": ["fastq"], "transform_name": "input.PAIRED_READS_LIST"}}
 INPUT_READS_TAG={"display": "Input Reads Tag", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.READS_LIST"}}
 REFERENCE_TAG={"display": "Reference FASTA sequence", "desc": "FASTA sequence to be converted into bowtie indices via bowtie-build.", "type": "dataset", "type_params": { "format_type": ["fasta"], "transform_name": "input.REFERENCE_FILE_LIST"}, "require_value": true}
+INPUT_GFF3_TAG={"display": "Input GFF3 Tag", "desc": "Input GFF3 tag", "type": "dataset", "type_params": {"format_type": ["gff3"], "transform_name": "input.GFF3_FILE_LIST"}, "require_value": true}
+INPUT_SAMPLE_MAP_TAG={"display": "Input Sample Map Tag", "desc": "Sample mapping file used during DESeq step", "type": "dataset", "type_params": {"transform_name": "input.SAMPLE_MAP_FILE_LIST"}, "require_value": true}
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
@@ -17,9 +19,17 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPU
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
+## Bowtie
 MAX_INSERT_SIZE={"display": "Max insert size", "default": 251, "desc": "Maximum insert size", "type": "integer", "type_params": {"min": 0}, "require_value": true}
 MAX_MISMATCHES={"display": "Max mismatches", "default": 2, "desc": "Maximum number of mismatches", "type": "integer", "type_params": {"min": 0, "max": 3}, "require_value": true}
 MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Maximum number of alignments per read... those with more alignments will be ignored", "type": "integer", "require_value": true}
+
+## Expression analysis
+COUNT_MODE={"display": "Count Mode", "default": "union", "desc": "Scheme to decipher overlapping features and reads", "type": "restricted_string", "type_params": {"choices": ["union", "intersection-strict", "intersection-nonempty"]}, "required_value": true}
+COUNTING_FEATURE={"display": "Counting Feature", "default": "CDS", "desc": "Feature type to extract from gtf file and count over", "type": "string", "required_value": true}
+MIN_ALIGN_QUAL={"display": "Minimum Alignment Quality", "default": 0, "desc": "Minimum quality of alignment required to count a read", "type": "integer", "required_value": true}
+IS_STRANDED={"display": "Is Stranded", "default": "no", "desc": "Indicates whether or not the rna-seq library is strand-specific", "type": "restricted_string", "type_params": {"choices": ["yes", "no"]}, "required_value": true}
+ID_ATTRIBUTE={"display": "ID Attribute", "default": "gene_id", "desc": "Attribute upon which to group features on when counting reads", "type": "string", "required_value": true}
 
 ##########################################################
 ## Cluster info.
@@ -41,17 +51,17 @@ MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Ma
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam"]}}
-
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam,htseq_counts,sort_sam_by_name_sam,deseq_all_counts,deseq_count_stat,deseq_tiff,samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download,", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam", "htseq_counts", "sort_sam_by_name_sam", "deseq_all_counts", "deseq_count_stat", "deseq_tiff","samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}}
 
 [download]
+
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-SOP_VERSION={"default": "clovr_mapping_bowtie_noindices_version_0.0", "type": "string", "visibility": "always_hidden"}
+SOP_VERSION={"default": "clovr_rna_seq_noindices_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
 
-PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "hidden", "type": "string", "require_value": true}
+PIPELINE_TEMPLATE={"default": "clovr_rna_seq_noindices", "visibility": "hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
@@ -59,11 +69,10 @@ PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "h
 PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
-PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "type": "string", "desc": null}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_noindices/clovr_rna_seq_noindices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_noindices/clovr_rna_seq_noindices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
