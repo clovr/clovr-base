@@ -16,7 +16,13 @@ umask 000
 
 touch "$my_temp_file"
 
-vp-add-dataset --tag-name ${my_tag_name}
+#...............................................
+# This work around here will create an empty tag.
+# Also, if the tag exists, it doesn't change those
+#+files
+#-----------------------------------------------
+vp-add-dataset --tag-name ${my_tag_name} --append
+#-----------------------------------------------
 
 vp_describe_command="vp-describe-protocols -p ${track_name} -c input.ACC_IDS=${acc_ids} -c input.GENBANK_TAG=${my_tag_name} -c pipeline.PIPELINE_NAME=${my_worker_name}"
 
