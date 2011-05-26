@@ -4,7 +4,7 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-GENBANK_TAG={"display": "Input Genbank Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["genbank"], "transform_name": "input.GENBANK_FILE_LIST"}, "require_value": true}
+GENBANK_TAG={"display": "Input Genbank Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["genbank"], "transform_name": "input.INPUT_FILE_LIST"}, "require_value": true}
 ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,...", "type": "string", "require_value": false}
 
 #########################################################
@@ -12,7 +12,7 @@ ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "defa
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
-ORGANISM={"display": "Organism name", "default": "some_organism_name", "desc": "Name of organism", "type": "organism", "require_value": true}
+ORGANISM={"display": "Organism name", "default": "Genus species", "desc": "Name of organism", "type": "organism", "require_value": true}
 OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini", "type": "string", "require_value": true}
 
 
