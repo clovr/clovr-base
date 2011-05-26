@@ -16,13 +16,15 @@ umask 000
 
 touch "$my_temp_file"
 
+vp-add-dataset --tag-name ${my_tag_name}
+
 vp_describe_command="vp-describe-protocols -p ${track_name} -c input.ACC_IDS=${acc_ids} -c input.GENBANK_TAG=${my_tag_name} -c pipeline.PIPELINE_NAME=${my_worker_name}"
 
 #echo $vp_describe_command
 
 $vp_describe_command 1>$my_temp_file
 
-run_pipeline="vp-run-pipeline --print-task-name --pipeline clovr_wrapper --pipeline-name ${my_wrapper_name} --pipeline-config $my_temp_file"
+run_pipeline="vp-run-pipeline --print-task-name --pipeline-config $my_temp_file"
 
 #echo $run_pipeline
 
