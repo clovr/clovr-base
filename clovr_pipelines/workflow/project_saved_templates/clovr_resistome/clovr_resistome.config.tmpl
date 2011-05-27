@@ -10,7 +10,7 @@ FASTA_TAG={"display": "Fasta Tag", "default": "", "desc": "Input Fasta tag", "ty
 
 DATASET_TAG={"display": "Dataset Tag", "default": "", "desc": "Reference database", "type": "dataset", "type_params": { "transform_name": "input.DATASET_FILE_LIST", "format_type": ["fasta"] }, "require_value": true }
 
-NUCLEOTIDE_DB_TAG={ "display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_FILE_LIST"}, "require_value": true } 
+NUCLEOTIDE_DB_TAG={ "display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_PATH"}, "require_value": true } 
 
 #########################################################
 ## Pipeline parameters
