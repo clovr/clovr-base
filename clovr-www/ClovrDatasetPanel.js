@@ -108,7 +108,11 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                     sortable: true
                 },
                 columns: [
-                    {id: 'file', header: 'file',dataIndex: 'file', width: 100}
+                    {id: 'file', header: 'file',dataIndex: 'file', width: 100, 
+                    renderer: function(val,p,rec) {
+                    	var regex = /.*\//;
+                    	return val.replace(regex,'');
+                    }}
                 ]
             }),
             autoExpandColumn: 'file',
@@ -244,34 +248,35 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         datasetpanel.dataset_name = config.dataset_name;
         datasetpanel.dataset = config.dataset;
         clovr.getDatasetInfo({
-        	dataset_name: config.dataset_name,
+        	criteria: {
+        		tag_name: config.dataset_name
+        	},
         	callback: function(d) {
         		var meta_fields_to_load = [];
                 var files_to_load = [];
                 var output_pipes = [];
-        		for(key in d.data[0]) {
+                var dataset = d.data[0];
+        		for(key in dataset.metadata) {
         			// Total HACK here
-        			if(key.match(/metadata./)) {
-        				if(key.match(/metadata.pipeline_configs/)) {
-//        					console.log(key);
-        					var match = key.match(/metadata.pipeline_configs.([^\.]+)\./);
-							if(match && !output_pipes[match[1]]) {
-								output_pipes[match[1]] = 1;
-							}
-        				}
-						else {
-							meta_fields_to_load.push({
-								'name': key.replace(/metadata./,""),
-								'value': d.data[0][key]
-							});
+        			if(key.match(/pipeline_configs/)) {
+//        				console.log(key);
+        				var match = key.match(/pipeline_configs.([^\.]+)\./);
+						if(match && !output_pipes[match[1]]) {
+							output_pipes[match[1]] = 1;
 						}
+        			}
+					else {
+						meta_fields_to_load.push({
+							'name': key,
+							'value': dataset.metadata[key]
+						});
 					}
-                    if(key == 'files') {
-                        Ext.each(d.data[0][key], function(f) {
-                            files_to_load.push({'file': f});
-                        });
-                    }
 				}
+				Ext.each(d.data[0].files, function(file) {
+					files_to_load.push({
+						'file': file
+					});
+				});
                 datasetpanel.filegrid.getStore().loadData(files_to_load);
 	        	datasetpanel.metagrid.getStore().loadData(meta_fields_to_load);
         	
@@ -283,7 +288,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                 	var things_to_load = [];
                 	Ext.each(r, function(elm) {
 						var inputs = elm.input_tags;
-						console.log(elm);
 						Ext.each(inputs, function(input) {
 							if(input == config.dataset_name) {
 								things_to_load.push(elm);
@@ -304,7 +308,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                 			}
                 		}*/
                 	});
-                	console.log(things_to_load);
                 	datasetpanel.pipe_grid.getStore().loadData(things_to_load);
                 	datasetpanel.pipe_grid.getStore().filterBy(
                     	function(rec,id) {

@@ -422,18 +422,16 @@ clovr.uploadFileWindow = function(config) {
                              clovr.tagData({
                          	     params: {
 				            	     'files': [path + values.file],
-            					     'name': 'local',
-            					     'expand': true,
-            					     'recursive': false,
-            					     'append': false,
-				            	     'overwrite': true,
-				            	     'compress': false,
+            					     'cluster': 'local',
+								     'action': 'create',
+				            	     'expand': true,
+            				 		 'recursive': true,
 				            	     'tag_name': values.uploadfilename,
-		                    	     'tag_metadata': {
+		                    	     'metadata': {
         	                		     'description': values.uploadfiledesc,
-        	                		     'format_type': values.inputfiletype
-        	                	     },
-                            	     'tag_base_dir': path
+        	                		     'format_type': values.inputfiletype,
+        	                		     'tag_base_dir': path
+        	                	     }
                                  },
 					             callback: function(r,o) {
     	       					     Ext.Msg.show({
@@ -449,7 +447,7 @@ clovr.uploadFileWindow = function(config) {
 				        			     uploadwindow: uploadWindow,
 		    		        		     seqcombo: config.seqcombo,
 		        		        	     tagname: values.uploadfilename,
-		            		    	     data: Ext.util.JSON.decode(r.responseText),
+		            		    	     response: Ext.util.JSON.decode(r.responseText),
                                          callback: config.callback
 		            			     });
 		            		     }
@@ -470,18 +468,16 @@ clovr.uploadFileWindow = function(config) {
                      clovr.tagData({
                          params: {
 				             'files': all_selected,
-            				 'name': 'local',
+            				 'cluster': 'local',
+							 'action': 'create',
             				 'expand': true,
             				 'recursive': true,
-            				 'append': false,
-				             'overwrite': true,
-				             'compress': false,
 				             'tag_name': values.uploadfilename,
-		                     'tag_metadata': {
+		                     'metadata': {
         	                	 'description': values.uploadfiledesc,
-        	                	 'format_type': values.inputfiletype
-        	                 },
-                             'tag_base_dir': path
+        	                	 'format_type': values.inputfiletype,
+        	                	 'tag_base_dir': path
+        	                 }
                          },
 					     callback: function(r,o) {
     	       				 Ext.Msg.show({
@@ -497,7 +493,7 @@ clovr.uploadFileWindow = function(config) {
 				        		 uploadwindow: uploadWindow,
 		    		        	 seqcombo: config.seqcombo,
 		        		         tagname: values.uploadfilename,
-		            		     data: Ext.util.JSON.decode(r.responseText),
+		            		     response: Ext.util.JSON.decode(r.responseText),
                                  callback: config.callback
 		            		 });
                          }
@@ -529,7 +525,7 @@ clovr.pipelineWindow = function(config) {
 
 clovr.tagData = function(config) {
 	Ext.Ajax.request({
-    	url: '/vappio/tagData_ws.py',
+    	url: '/vappio/tag_createupdate',
         params: {
         	'request':Ext.util.JSON.encode(config.params)
         },
@@ -581,7 +577,7 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                 else if(rdata.state =="failed") {
                 }
             };
-            clovr.getTaskInfo(config.data.data,callback);
+            clovr.getTaskInfo(config.response.data.task_name,callback);
         },
         interval: 5000
     };
@@ -611,7 +607,7 @@ clovr.getTaskInfo = function(task_name,callback) {
 clovr.getPipelineStatus = function(config) {
 
     Ext.Ajax.request({
-        url: '/vappio/pipelineStatus_ws.py',
+        url: '/vappio/pipeline_list',
         params: {request: 
                  Ext.util.JSON.encode(
                      {'cluster': config.cluster_name,
@@ -627,11 +623,13 @@ clovr.getPipelineStatus = function(config) {
 
 clovr.getPipelineList = function(config) {
     Ext.Ajax.request({
-        url: '/vappio/listPipelines_ws.py',
+        url: '/vappio/pipeline_list',
         params: {request: 
                  Ext.util.JSON.encode(
                      {'cluster': config.cluster_name,
-                      'pipelines': [config.pipe_name]
+                      'critiera': {
+                      	'pipeline_name': config.pipe_name
+                     }
                      })},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
@@ -739,11 +737,11 @@ clovr.clusterCombo = function(config) {
 clovr.tagCombo = function(config) {
     var combo;
     var store = new Ext.data.JsonStore({
-        fields: [{name: 'name', mapping: 'name'},
-                 {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')},
-                 {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')},
-                 {name: 'metadata.description', mapping: ('[\"metadata.description"\]')},
-                 {name: 'metadata.metagenomics_mapping_file', mapping: ('[\"metadata.metagenomics_mapping_file"\]')},
+        fields: [{name: 'name', mapping: 'tag_name'},
+                 {name: 'metadata.format_type', mapping: ('metadata.format_type')},
+                 {name: 'metadata.tag_base_dir', mapping: ('metadata.tag_base_dir')},
+                 {name: 'metadata.description', mapping: ('metadata.description')},
+                 {name: 'metadata.metagenomics_mapping_file', mapping: ('metadata.metagenomics_mapping_file')},
                 ],
         autoLoad: false,
         listeners: {
@@ -774,13 +772,13 @@ clovr.tagCombo = function(config) {
 clovr.tagSuperBoxSelect = function(config) {
     var sbs;
     var store = new Ext.data.JsonStore({
-        fields: [{name: 'name', mapping: 'name'},
-                 {name: 'metadata.format_type', mapping: ('[\"metadata.format_type"\]')},
-                 {name: 'metadata.platform_type', mapping: ('[\"metadata.platform_type"\]')},
-                 {name: 'metadata.dataset_type', mapping: ('[\"metadata.dataset_type"\]')},
-                 {name: 'metadata.read_length', mapping: ('[\"metadata.read_length"\]')},
-                 {name: 'metadata.read_type', mapping: ('[\"metadata.read_type"\]')},
-                 {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')},                 
+        fields: [{name: 'name', mapping: 'tag_name'},
+                 {name: 'metadata.format_type', mapping: ('metadata.format_type')},
+                 {name: 'metadata.platform_type', mapping: ('metadata.platform_type')},
+                 {name: 'metadata.dataset_type', mapping: ('metadata.dataset_type')},
+                 {name: 'metadata.read_length', mapping: ('metadata.read_length')},
+                 {name: 'metadata.read_type', mapping: ('metadata.read_type')},
+                 {name: 'metadata.tag_base_dir', mapping: ('metadata.tag_base_dir')},                 
                 ],
         
 //        mode: 'local',
@@ -885,13 +883,17 @@ clovr.getDatasetInfo = function(config) {
         clovr.requests.querytag.running = true;
         clovr.requests.querytag.callbacks.push(config.callback);
         var params = {
-            name: 'local'
+            cluster: 'local',
+            detail: true
         };
+        if(config.criteria) {
+        	params.criteria = config.criteria;
+        }
         if(config.dataset_name) {
             params.tag_name = [config.dataset_name];
         }
         Ext.Ajax.request({
-            url: '/vappio/queryTag_ws.py',
+            url: '/vappio/tag_list',
             params: {
                 request: Ext.util.JSON.encode(params)},
             success: function(r,o) {
@@ -925,7 +927,8 @@ clovr.PIPELINE_TO_PROTOCOL =
         'clovr_microbe_annotation': 'clovr_microbe',
         'clovr_microbe454': 'clovr_microbe',
         'clovr_microbe_illumina' : 'clovr_microbe',
-        'clovr_assembly_velvet' : 'clovr_microbe'
+        'clovr_assembly_velvet' : 'clovr_microbe',
+        'clovr_assembly_celera' : 'clovr_microbe'
     };
 
 clovr.getPipelineToProtocol = function(name) {
@@ -1030,9 +1033,64 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
             'hidden': hidden_params};
 }
 
+clovr.validatePipeline = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/pipeline_validate',
+        params: {
+            'request': Ext.util.JSON.encode(
+                {'config': config.params,
+                 'bare_run': false,
+                 'cluster': 'local'})
+        },
+        success: function(response) {
+            var r = Ext.util.JSON.decode(response.responseText);
+            if(!r.success) {
+                Ext.Msg.show({
+                    title: 'Pipeline Validation Failed!',
+                    msg: r.data.msg,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+            else {
+            	
+            	if(r.data.errors.length) {
+            		if(config.submitcallback) {
+                		config.submitcallback(r);
+                	}
+                	else {
+						var errors = [];
+                		Ext.each(r.data.errors, function(error) {
+                			errors.push(error.keys.join(',')+':'+error.message);
+                		});
+                		Ext.Msg.show({
+                			title: 'Pipeline configuration failed validation',
+                			msg: errors.join('<br/>'),
+                			icon: Ext.MessageBox.ERROR
+                		});
+                	}
+            	}
+            	else {
+                	Ext.Msg.show({
+                    	title: 'Success!',
+                    	msg: 'Your Pipeline validated successfully',
+                    	buttons: Ext.Msg.OK
+                	});
+            	}
+
+            }
+        },
+        failure: function(response) {
+            Ext.Msg.show({
+                title: 'Server Error',
+                msg: response.responseText,
+                icon: Ext.MessageBox.ERROR});
+        }
+    });
+
+}
 clovr.runPipeline = function(config) {
     Ext.Ajax.request({
-        url: '/vappio/runPipeline_ws.py',
+        url: '/vappio/pipeline_run',
         params: {
             'request': Ext.util.JSON.encode(
                 {'config': config.params,
@@ -1055,16 +1113,10 @@ clovr.runPipeline = function(config) {
                     msg: 'Your pipeline was submitted successfully',
                     buttons: Ext.Msg.OK
                 });
-            }
-            if(config.submitcallback) {
-                config.submitcallback(r);
-            }
-            else {
-                Ext.Msg.show({
-                    title: 'Success!',
-                    msg: 'Your pipeline was submitted successfully',
-                    buttons: Ext.Msg.OK
-                });
+            
+            	if(config.submitcallback) {
+                	config.submitcallback(r);
+            	}
             }
         },
         failure: function(response) {

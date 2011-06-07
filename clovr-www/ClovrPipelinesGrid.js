@@ -147,7 +147,6 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                         },
                         'rows': pipes
                     };
-                    console.log(pipes_to_load);
                     jstore.loadData(pipes_to_load);
                     jstore.filterBy(
                     	function(rec,id) {

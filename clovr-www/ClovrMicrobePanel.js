@@ -180,6 +180,30 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         wrapper_panel.pipeline_configs = config.pipelines;
 
         var buttons = [
+        	{text: 'Validate',
+        	handler: function(b,e) {
+                 var subform = wrapper_panel.subform.getForm();
+                 var params = wrapper_panel.params_for_submission;
+                 var form = wrapper_panel.form;
+
+				//form.getForm().findField('cluster.CLUSTER_NAME').getValue();
+                 var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+                 var cluster_name = clovr.getClusterName({
+                     protocol: 'clovr_microbe_',
+                     credential: credential
+                 });
+                 
+//                 subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
+                 Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
+                                   'cluster.CLUSTER_CREDENTIAL': credential
+                                  });
+                 Ext.apply(params, subform.getValues());
+            	 
+            	 clovr.validatePipeline({
+            	 	params: params
+            	 });
+            }
+            },
             {text: 'Submit',
              handler: function(b,e) {
                  var subform = wrapper_panel.subform.getForm();

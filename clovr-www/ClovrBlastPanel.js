@@ -56,16 +56,14 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             filter: {
                 fn: function(record) {
                     var re = /_blastdb/;
-                    return re.test(record.data['metadata.format_type']);
+                    return re.test(record.json.metadata.format_type);
                 }
             },
             listeners: {
                 select: function(field, newval, oldval) {
-                    console.log('had a select');
                     wrapper_panel.filterProgram();
                 },
                 change: function(field, newval, oldval) {
-                    console.log('had a change');
                     wrapper_panel.filterProgram();
                 }
             },
@@ -403,7 +401,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
             if(!queryRec) {
                 return;
             }
-            var qtype = queryRec.json['metadata.format_type'];
+            var qtype = queryRec.json.metadata.format_type;
 
             var db = form.databaseCombo.getValue();
             var dbstore = form.databaseCombo.getStore();
@@ -412,7 +410,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                 return;
             }
             
-            var dbtype = dbRec.json['metadata.format_type'];
+            var dbtype = dbRec.json.metadata.format_type;
             
             var progCombo = form.programCombo;
             progCombo.getStore().clearFilter();

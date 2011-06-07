@@ -5,14 +5,16 @@ Ext.ns('clovr');
 clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
 
     constructor: function(config) {
+    
+    	var taggrid = this;
         var jstore = new Ext.data.GroupingStore({
             reader: new Ext.data.JsonReader({
             	fields: [
-                	{name: "name"}, 
+                	{name: "name", mapping: "tag_name"}, 
                 	{name: "fileCount"},
-                	{name: "phantom_tag",type: "boolean"},
-	                {name: "type", mapping: ('[\"metadata.format_type"\]')},
-                    {name: 'metadata.tag_base_dir', mapping: ('[\"metadata.tag_base_dir"\]')}
+//                	{name: "phantom", mapping: 'phantom'},
+	                {name: "type", mapping: ('metadata.format_type')},
+                    {name: 'tag_base_dir', mapping: ('metadata.tag_base_dir')}
             	],
             	root : function(data) {
             	    Ext.each(data, function(elm) {
@@ -31,23 +33,21 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
             listeners: {
                 load: function(store,records,o) {
-                    store.filter([{
-                        property: 'phantom_tag',
-                        value: false
-                    }])
+                    store.filterBy(
+                    	function(r,id) {
+                    		var retval = false;
+                    		if(r.json.phantom == null) {
+                    			retval = true;
+                    		};
+                    		return retval;
+                    	}
+                    );
                     store.groupBy('type');
                 },
                 loadexception: function() {
                 }
             }
         });
-        clovr.tagStores.push(jstore);
-        clovr.getDatasetInfo({
-            dataset_name: config.dataset_name,
-			callback: function(d) {
-				jstore.loadData(d.data);
-			}
-		});
 		var uploadWin = clovr.uploadFileWindow({store: jstore});
         var taggrid = this;
         clovr.TagGrid.superclass.constructor.call(this, Ext.apply(config, {
@@ -58,6 +58,18 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             listeners: {
                 rowclick: function(grid,index,e) {
                     create_details_view(config,grid.store.getAt(index).data);
+                },
+                afterlayout: function(grid) {
+                	grid.body.mask('Loading');
+                	clovr.tagStores.push(jstore);
+        			clovr.getDatasetInfo({
+            			dataset_name: config.dataset_name,
+						callback: function(d) {
+							jstore.loadData(d.data);
+							taggrid.body.unmask();
+				
+						}
+					});
                 }
             },
             colModel: new Ext.grid.ColumnModel({
@@ -117,8 +129,8 @@ Ext.reg('taggrid', clovr.TagGrid);
 
 function renderName(value, p, record) {
     var desc = '';
-    if(record.json['metadata.description']) {
-        desc = record.json['metadata.description'];
+    if(record.json.metadata.description) {
+        desc = record.json.metadata.description;
     }
     var fileWord = 'files';
     if(record.data.fileCount ==1) {
