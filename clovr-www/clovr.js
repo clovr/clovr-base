@@ -509,6 +509,7 @@ clovr.uploadFileWindow = function(config) {
 clovr.pipelineWindow = function(config) {
 
     var pipePanel = new clovr.ClovrPipelinePanel({
+	    cluster: 'local',
         criteria: {
             'pipeline_name': config.pipeline_name
         }
@@ -611,6 +612,7 @@ clovr.getPipelineStatus = function(config) {
         params: {request: 
                  Ext.util.JSON.encode(
                      {'cluster': config.cluster_name,
+                      'detail': config.detail,
                       'criteria': config.criteria
                      })},
         success: function(r,o) {

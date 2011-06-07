@@ -9,6 +9,24 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
 
         var clovrpanel = this;
 
+        var title = new Ext.Container({
+            height: 30,
+            style: {
+                'padding': '3px 0 0 5px',
+                'font-size': '16pt',
+                'font-family': 'Trebuchet MS,helvetica,sans-serif',
+                'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
+            },
+            region: 'north',
+            html: config.criteria.pipeline_name+' pipeline'
+        });
+        
+        var master_container = new Ext.Container({
+        	region: 'center',
+        	style: {
+        		padding: '3px'
+        	}
+        });
         var input_grid = new Ext.grid.GridPanel({
             
         });
@@ -45,6 +63,8 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
         };
         clovr.getPipelineStatus({
             'criteria': config.criteria,
+            'cluster_name': config.cluster,
+            'detail': true,
             'callback': function(data) {
                 for(param in data.config) {
                     for(type in value_classes) {
@@ -55,7 +75,11 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                 }
             }
         });
-        
+        config.layout = 'border';
+        config.bodyStyle = {
+            background: '#0D5685'
+        };
+        config.items = [title,master_container];
         clovr.ClovrPipelinePanel.superclass.constructor.call(clovrpanel,config);
     }
 });
