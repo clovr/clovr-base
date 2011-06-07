@@ -61,7 +61,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             root: function(data) {
                 return data;
             },
-            fields: ['taskName']
+            fields: ['taskName','pipeline_id','inputs','outputs']
         });
         var pipe_grid = new Ext.grid.GridPanel({
             title: 'Pipelines',
@@ -75,6 +75,11 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             
             colModel: new Ext.grid.ColumnModel({
                 columns: [
+                	{id: 'pipeline_id',
+                	 header: 'Pipeline ID',
+                	 dataIndex: 'pipeline_id',
+                     width: 30
+                	},
                     {id: 'inputs',
                      header: 'Inputs', 
                      dataIndex: "taskName",
@@ -191,7 +196,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         var title_region = new Ext.Container({
             height: 30,
             style: {
-                'padding': '6px 0 0 0',
+                'padding': '3px 0 0 0',
                 'font-size': '16pt',
                 'font-family': 'Trebuchet MS,helvetica,sans-serif',
                 'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
@@ -271,13 +276,20 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 	        	datasetpanel.metagrid.getStore().loadData(meta_fields_to_load);
         	
         	clovr.getPipelineInfo({
+        		cluster_name: 'local',
             	callback: function(r) {
 //					console.log(output_pipes);
                 	var input_regex = /input/;
                 	var things_to_load = [];
-                	Ext.each(r.data, function(elm) {
-                    	var pipeconf = elm[1].config;
-						for(key in pipeconf) {
+                	Ext.each(r, function(elm) {
+						var inputs = elm.input_tags;
+						console.log(elm);
+						Ext.each(inputs, function(input) {
+							if(input == config.dataset_name) {
+								things_to_load.push(elm);
+							}
+						});
+/*						for(key in pipeconf) {
 							if(key == 'pipeline.PIPELINE_NAME' && output_pipes[pipeconf[key]]) {
 								things_to_load.push(elm[1]);
 							}
@@ -290,13 +302,13 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 						    		}
 								}
                 			}
-                		}
+                		}*/
                 	});
-                
+                	console.log(things_to_load);
                 	datasetpanel.pipe_grid.getStore().loadData(things_to_load);
                 	datasetpanel.pipe_grid.getStore().filterBy(
                     	function(rec,id) {
-                        	return rec.json.ptype != 'clovr_wrapper';
+                        	return rec.json.wrapper;
                     });
                 // Not going to do this right now
 /*              if(0) {
@@ -443,16 +455,17 @@ function renderInput(value, p, record) {
     var return_string="";
     var input_regexp = /^input/;
     var clean_input = /input\./;
-    var inputs = [];
-    for (field in record.json.config) {
+    var inputs = record.json.input_tags;
+/*    for (field in record.json.config) {
         // HACK here - looks like I can look at input.INPUT_TAGS instead of doing this
         if(input_regexp.exec(field) && field != 'input.INPUT_TAGS') {
             inputs.push(field.replace(clean_input,"")+": "+ record.json.config[field]);
         }
     };
-
+*/
     if(record.json.state == "error") {
-        return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
+		return_string = "Failed Pipeline "+record.json.pipeline_desc;
+//        return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
     }
     else {
         return_string = "<div>"+inputs.join("<br/>")+"</div>";
@@ -466,23 +479,28 @@ function renderOutput(value, p, record) {
     var return_string="";
     var input_regexp = /^output/;
     var clean_input = /output\./;
-    var tags = record.json.config["output.TAGS_TO_DOWNLOAD"].split(',');
+    var tags = record.json.output_tags;
     var outputs = [];
     Ext.each(tags, function(tag) {
-        outputs.push("<a href='/output/"+record.json.config['pipeline.PIPELINE_NAME']+"_"+
+        outputs.push("<a href='/output/"+record.json.pipeline_name+"_"+
                      tag+".tar.gz'>"+tag+"</a>");
     });
 //    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
 //        outputs = record.json.config["output.TAGS_TO_DOWNLOAD"];
 //    }
     if(record.json.state == "error" || record.json.state == "failed") {
-        return_string="Failed Pipeline "+ record.json.config['pipeline.PIPELINE_NAME'];
+        return_string="Failed Pipeline "+ record.json.pipeline_desc;
     }
-    else if(record.json.state != "complete") {
+    else if(record.json.state != "completed") {
         return_string="Pipeline not complete";
     }
     else {
-        return_string = "<div>"+outputs.join("<br/>")+"</div>";
+        if(record.json.output_tags.length > 0) {
+            return_string = "<div>"+outputs.join("<br/>")+"</div>";            
+        }
+        else {
+            return_string = 'No outputs from this pipeline';
+        }
     }
     return return_string;
 }

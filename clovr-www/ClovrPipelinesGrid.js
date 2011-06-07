@@ -12,7 +12,8 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             //            root: 'rows',
             reader: new Ext.data.JsonReader({
                 fields: [
-                    {name: "name"}, 
+                    {name: "name"},
+                    {name: "pipeline_desc"},
                     {name: "state"},
                     {name: "total"},
                     {name: "complete"}
@@ -32,7 +33,6 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
              handler: function() {getPipelineStatus()}
              }];
 
-	
         clovr.ClovrPipelinesGrid.superclass.constructor.call(this, Ext.apply(config, {
 //            title: 'Pipelines',
             store: jstore,
@@ -43,13 +43,13 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     sortable: true
                 },
                 columns: [
-                    {id: 'name', header: 'Pipeline Name', dataIndex: 'name', renderer:
+                    {id: 'name', header: 'Pipeline Name', dataIndex: 'pipeline_desc', renderer:
                     	function(value,p,record,ri,ci,store) {
-                    		if(record.json.config) {
+                    		if(record.json.protocol) {
                                 //console.log(record.json.config['pipeline.PIPELINE_TEMPLATE']);
-                    			var track = clovr.PIPELINE_TO_PROTOCOL[record.json.config['pipeline.PIPELINE_TEMPLATE']];
-                    			var desc = record.json.config['pipeline.PIPELINE_DESC'];
-                    			return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>{1}<br/>{2}</div>",track,value,desc);
+                    			var track = clovr.PIPELINE_TO_PROTOCOL[record.json.protocol];
+                    			var id = record.json.pipeline_id;
+                    			return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>Pipeline: {1}<br/>{2}</div>",track,id,value);
                     		}
                     		else {
                     			return value;
@@ -57,15 +57,15 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     	}
                     },
                     {id: 'status', header: 'Status', dataIndex: 'state', hidden: true},
-                    {id: 'steps', header: 'Step', dataIndex: 'total', renderer: 
+                    {id: 'steps', header: 'Step', dataIndex: 'num_steps', renderer: 
                     function(value, p, record, ri, ci, store) {
 						if(!store.pBars) {
 							store.pBars = [];
 						}
 //						if(record.json.state =='running') {
 							pipeGrid.pBars[record.json.name] = new Ext.ProgressBar({
-							text: String.format("Steps {0}/{1} complete", record.json.complete,record.json.total),
-							value: record.json.complete/record.json.total,
+							text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
+							value: record.json.num_complete/record.json.num_steps,
 							listeners: {
 								beforeshow: function(pb) {
 									pb.updateProgress(pb.value);
@@ -84,6 +84,17 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 				}
                 ]
             }),
+            listeners: {
+            	afterrender: function() {
+            		getPipelineStatus();
+            	},
+                rowclick: function(grid,index,e) {
+                    clovr.pipelineWindow({
+                        cluster_name: 'local',
+                        pipeline_name: grid.store.getAt(index).json.pipeline_name
+                    });
+                }
+            },
             view: new Ext.grid.GroupingView({
             	forceFit:true,
 //            	startCollapsed: true,
@@ -101,22 +112,22 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 //                {id: 'refresh',
 //                 handler: function() {getPipelineStatus()}
 //                }]
+
         }));
 
 
         function getPipelineStatus() {
             // Making a request here to get the pipeline status(s).
-            Ext.Ajax.request({
-                url: '/vappio/pipelineStatus_ws.py',
-                params: {request: Ext.util.JSON.encode({name: 'local',pipelines: []})},
-                success: function(response) {
-                    var pipes = Ext.util.JSON.decode(response.responseText).data;
+            
+            clovr.getPipelineList({
+            	cluster_name: 'local',
+            	callback: function(rdata) {
+            	    var pipes = rdata;
                     var fields = [];
                     var cols = [];
                     var keys = [];
                     var pipes_to_load = [];
-                    Ext.each(pipes, function(elm) {
-                        var pipe = elm[1];
+                    Ext.each(pipes, function(pipe) {
                         pipes_to_load.push(pipe);
                         for(key in pipe) {
                             if(key == 'files') {
@@ -127,28 +138,24 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                                 fields.push({'name': key});
                             }
                             keys[key]=true;
-                        }});
+                    }});
                     var data_to_load = {
                         'metaData': {
                             'fields': fields,
-                            'sortInfo': {'field': 'name'},
+                            'sortInfo': {'field': 'pipeline_desc'},
                             'root': 'rows'
                         },
-                        'rows': pipes};
+                        'rows': pipes
+                    };
+                    console.log(pipes_to_load);
                     jstore.loadData(pipes_to_load);
-                    //                    taggrid.reconfigure(jstore,new Ext.grid.ColumnModel(cols));
-                    
-                },
-                failure: function(response) {
-                    Ext.Msg.show({
-                    title: 'Server Error',
-                        msg: response.responseText,
-                        icon: Ext.MessageBox.ERROR});
+                    jstore.filterBy(
+                    	function(rec,id) {
+                        	return rec.json.wrapper;
+                    });
                 }
-                
             });
-        }
-        getPipelineStatus();
+    	}
     }
 });
 

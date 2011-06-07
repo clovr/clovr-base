@@ -16,6 +16,7 @@ clovr.tagStores = [];
 clovr.credStores = [];
 clovr.requests = [];
 
+
 // Used to add a credential
 clovr.addCredentialWindow = function(config) {
 
@@ -509,6 +510,23 @@ clovr.uploadFileWindow = function(config) {
     return uploadWindow;
 }
 
+clovr.pipelineWindow = function(config) {
+
+    var pipePanel = new clovr.ClovrPipelinePanel({
+        criteria: {
+            'pipeline_name': config.pipeline_name
+        }
+    });
+
+    var win = new Ext.Window({
+        height:500,
+        width: 400,
+        layout: 'fit',
+        items: pipePanel
+    });
+    win.show();
+}
+
 clovr.tagData = function(config) {
 	Ext.Ajax.request({
     	url: '/vappio/tagData_ws.py',
@@ -596,13 +614,32 @@ clovr.getPipelineStatus = function(config) {
         url: '/vappio/pipelineStatus_ws.py',
         params: {request: 
                  Ext.util.JSON.encode(
-                     {'name': config.cluster_name,
+                     {'cluster': config.cluster_name,
+                      'criteria': config.criteria
+                     })},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+            var rdata = rjson.data;
+            config.callback(rdata);
+        }
+    });
+}
+
+clovr.getPipelineList = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/listPipelines_ws.py',
+        params: {request: 
+                 Ext.util.JSON.encode(
+                     {'cluster': config.cluster_name,
                       'pipelines': [config.pipe_name]
                      })},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
-            var rdata = rjson.data[0][1];
-            config.callback(rdata);
+//            var rdata = [];
+//            if(rjson.data[0]) {
+//            	rdata = rjson.data[0][1];
+//            }
+            config.callback(rjson.data	);
         }
     });
 }
@@ -873,15 +910,7 @@ clovr.getDatasetInfo = function(config) {
 }
 
 clovr.getPipelineInfo = function(config) {
-    Ext.Ajax.request({
-        url: '/vappio/pipelineStatus_ws.py',
-        params: {request: Ext.util.JSON.encode({name: 'local', pipelines:[]})},
-        success: function(r,o) {
-            var rjson = Ext.util.JSON.decode(r.responseText);
-            config.callback(rjson);
-        }
-
-    });
+	clovr.getPipelineList(config);
 }
 
 clovr.PIPELINE_TO_PROTOCOL = 
@@ -934,7 +963,7 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
 
     // Go through the configuration and create the form fields.
     Ext.each(fields, function(field, i, fields) {
-        var dname = field.display ? field.display : field.field;
+        var dname = field.display ? field.display : field.name;
         var choices;
         var field_config = {};
         if(field.type_params && field.type_params.choices) {
@@ -959,7 +988,7 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
                 }),
                 value: field['default'],
                 fieldLabel: dname,
-                name: prefix + field.field
+                name: prefix + field.name
                 //field.desc
             };
             if(field.desc) {
@@ -972,7 +1001,7 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
             field_config = {
                 xtype: 'textfield',
                 fieldLabel: dname,
-                name: prefix + field.field,
+                name: prefix + field.name,
                 value: field['default'],
             };
             if(field.desc) {
@@ -981,12 +1010,12 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
                 field_config.qanchor='left';
             }
         }
-        if(!ignore_fields[field.field]) {
+        if(!ignore_fields[field.name]) {
             if(field.visibility == 'default_hidden') {
                 field_config.disabled=false;
                 advanced_params.push(field_config)
             }
-            else if(field.visibility == 'always_hidden') {
+            else if(field.visibility == 'hidden') {
                 field_config.hidden=true;
                 field_config.hideLabel=true;
                 hidden_params.push(field_config);
@@ -1006,10 +1035,9 @@ clovr.runPipeline = function(config) {
         url: '/vappio/runPipeline_ws.py',
         params: {
             'request': Ext.util.JSON.encode(
-                {'pipeline_config': config.params,
-                 'pipeline': config.pipeline,
-                 'name': 'local',
-                 'pipeline_name': config.wrappername
+                {'config': config.params,
+				 'bare_run': false,
+                 'cluster': 'local'
                 })
         },
         success: function(response) {

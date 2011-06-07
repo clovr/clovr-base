@@ -193,7 +193,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                      credential: credential
                  });
                  
-                 subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
+//                 subform.findField('pipeline.PIPELINE_NAME').setValue('clovr_microbe'+new Date().getTime());
                  Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
                                    'cluster.CLUSTER_CREDENTIAL': credential
                                   });
@@ -568,7 +568,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var params = [];
 
         Ext.apply(custom_params,{'cluster.CLUSTER_CREDENTIAL': 1,'cluster.CLUSTER_NAME': 1})
-        var other_params = clovr.makeDefaultFieldsFromPipelineConfig(pipeline_config.fields,
+        var other_params = clovr.makeDefaultFieldsFromPipelineConfig(pipeline_config,
             custom_params);
         var advanced_panel ={
             xtype: 'fieldset',

@@ -46,7 +46,7 @@ Ext.onReady(function(){
 //        split: true,
 //        margins: '0 5 0 0',
         region: 'center',
-        title: 'Dashboard'
+//        title: 'Dashboard'
     });
     
 
@@ -99,7 +99,7 @@ Ext.onReady(function(){
             {region: 'north',
              baseCls: 'dashboard_header',
              height: 75,
-             html: '<div id="clovr-vm-header"><div id="clovr-vm-masthead"><h1><a href="http://clovr.org/" title="CloVR"><span>CloVR</span></a></h1></div></div>'
+             html: '<div id="clovr-vm-header"><div id="clovr-vm-masthead"><h1><a href="/clovr" title="CloVR"><span>CloVR</span></a></h1></div></div>'
 
 
 //<div class=header_adapter><a class='clovr_logo' title='CloVR' href='http://clovr.org'></a></div>"

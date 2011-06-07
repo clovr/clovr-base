@@ -78,25 +78,25 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
         var normal_params = [];
 
         // Pull the clovr_search info out.
-        var pipeline = config.pipelines['clovr_search'];
+        var pipelineconf = config.pipelines['clovr_search'];
         //clovr.getPipelineFromPipelineList( 'clovr_search',config.pipelines);
         
         // Go through the configuration and create the form fields.
-        Ext.each(pipeline.fields, function(field, i, fields) {
-            var dname = field.display ? field.display : field.field;
-            if(!customParams[field.field]) {
+        Ext.each(pipelineconf, function(field, i, fields) {
+            var dname = field.display ? field.display : field.name;
+            if(!customParams[field.name]) {
                 if(field.visibility == 'default_hidden') {
                     advanced_params.push({xtype: 'textfield',
                                           fieldLabel: dname,
-                                          name: field.field,
+                                          name: field.name,
                                           value: field['default'],
                                           disabled: false,
                                           toolTip: field.desc});
                 }
-                else if(field.visibility == 'always_hidden') {
+                else if(field.visibility == 'hidden') {
                     hidden_params.push({xtype: 'textfield',
                                         fieldLabel: dname,
-                                        name: field.field,
+                                        name: field.name,
                                         value: field['default'],
                                         hidden: true,
                                         hideLabel: true
@@ -105,7 +105,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                 else {
                     normal_params.push({xtype: 'textfield',
                                         fieldLabel: dname,
-                                        name: field.field,
+                                        name: field.name,
                                         value: field['default']
                                        });
                 }

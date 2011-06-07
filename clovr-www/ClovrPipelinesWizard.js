@@ -258,8 +258,14 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         
         Ext.Ajax.request({
             url: '/vappio/listProtocols_ws.py',
+            params: {
+            	request: Ext.util.JSON.encode({
+            		'cluster': 'local',
+            		'verbose': true
+            	})
+            },
             success: function(response) {
-                var pipelines = clovrParsePipelines(Ext.util.JSON.decode(response.responseText).data);
+                var pipelines = Ext.util.JSON.decode(response.responseText).data;
                 
                 // HACK here. Couldn't get Ext.iterate to go over an associative array.
                 // Not sure if there is a better solution to this.
