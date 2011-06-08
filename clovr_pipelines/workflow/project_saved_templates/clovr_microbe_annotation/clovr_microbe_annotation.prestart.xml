@@ -10,5 +10,11 @@
       <executable>vp-describe-task</executable>
       <arg>--show-all --block --exit-code `vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_FSA_TAG$; "tag-is-fasta"`</arg>
     </command>
+    <command>
+      <name>Fasta-headers Check</name>
+      <type>RunUnixCommand</type>
+      <executable>vp-describe-task</executable>
+      <arg>--show-all --block --exit-code $(vp-run-metrics -t -c input.INPUT_TAG=$;INPUT_FSA_TAG$; "header-starts-with-num")</arg>
+    </command>
   </commandSet>
 </commandSetRoot>
