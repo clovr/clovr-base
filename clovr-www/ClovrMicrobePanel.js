@@ -8,7 +8,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var wrapper_panel = this;
 
         wrapper_panel.INPUT_TYPE_TO_PIPELINE_NAME = {
-            'nuc_FASTA': {
+            'nuc_fasta': {
                 'Illumina_annot': 'clovr_microbe_illumina',
                 'Illumina': 'clovr_assembly_velvet'
             },
@@ -271,7 +271,6 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var ignores = {};
         var params = {};
         var needs_metadata =[];
-
         if(track) {
         input_tags.each(function(tag) {
             // First see if we have a 454 sff file.
@@ -307,12 +306,12 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                     params['input.INPUT_SFF_TAG'] = tag.data.name;
                 }
             }
-            else if(tag.data['metadata.format_type'] == 'nuc_FASTA' ||
-                    tag.data['metadata.format_type'] == 'fastq') {
+            else if(tag.data['metadata.format_type'].toLowerCase() == 'nuc_fasta' ||
+                    tag.data['metadata.format_type'].toLowerCase() == 'fastq') {
                 
                 // Load the annotation only pipeline.
                 if(track.inputValue == 'annot' &&
-                   tag.data['metadata.format_type'] == 'nuc_FASTA') {
+                   tag.data['metadata.format_type'].toLowerCase() == 'nuc_fasta') {
                     form_name = 'clovr_microbe_annotation';
                     title = 'CLoVR Microbe Annotation Settings';
                     ignores = {'input.INPUT_FSA_TAG': 1};
@@ -358,9 +357,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                 // We have an assembled genome and can only do annotation
                 if(tag.data['metadata.dataset_type'] =='genome_assembly') {
                 }
-                else if(tag.data['metadata.read_length'] && tag.data['metadata.read_type']) {
-                    if(tag.data['metadata.read_length'] =='short') {
-                        if(tag.data['metadata.read_type'] == 'paired') {
+                else if(tag.json.metadata.read_length && tag.json.metadata.read_type) {
+                    if(tag.json.metadata.read_length =='short') {
+                        if(tag.json.metadata.read_type == 'paired') {
                             if(params['input.SHORT_PAIRED_TAG'] == '') {
                                 params['input.SHORT_PAIRED_TAG'] = tag.data.name;
                             }
@@ -378,7 +377,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                         }
                     }
                     else {
-                        if(tag.data['metadata.read_type'] == 'paired') {
+                        if(tag.json.metadata.read_type == 'paired') {
                             if(params['input.LONG_PAIRED_TAG'] == '') {
                                 params['input.LONG_PAIRED_TAG'] = tag.data.name;
                             }
@@ -629,9 +628,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
     showIlluminaMetadataWindow: function(records) {
         var forms =[];
         var panel = this;
-        
+        var selected_datasets = []
         Ext.each(records, function(rec,i,recs) {
-
+			selected_datasets.push(rec.data.name);
             var formitems = [
                 {xtype: 'textfield',
                  name: 'tag-name',
@@ -692,6 +691,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var win = new Ext.Window({
             defaults: {frame: true},
             height: 300,
+            width: 400,
             autoScroll: true,
             title: 'We need some additional information about your datasets',
             items: forms,
@@ -716,19 +716,28 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                         win.getEl().mask('Submitting Change');
                         clovr.tagData({
                             params: {
-                            'name': 'local',
-                            'files': [],
-            			    'expand': false,
-            				'recursive': false,
-            			 	'append': true,
- 		                    'overwrite': false,
-				            'compress': false,
-                            'tag_name': values['tag-name'],
-                            'tag_base_dir': values['tag_base_dir'],
-                                'tag_metadata': metadata},
+                            cluster: 'local',
+                            files: [],
+            			 	action: 'append',
+				            recursive: true,
+                            tag_name: values['tag-name'],
+                            metadata: metadata
+                        },
                             callback: function(r,o) {
                                 var response = Ext.util.JSON.decode(r.responseText);
-                                tag_task_list.push(response.data);
+                                if(response.success) {
+	                                tag_task_list.push(response.data.task_name);
+    	                        }
+    	                        else {
+    	                        	Ext.Msg.show({
+										title: 'Error Updating Tag',
+								        width: 300,
+										closable: false,
+						                msg: response.data.msg,
+						                icon: Ext.MessageBox.ERROR,
+						                buttons: Ext.Msg.OK
+									});
+    	                        }
                             }
                         });
                     });
@@ -744,7 +753,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                                 var callback = function(r) {
                                     var response = Ext.util.JSON.decode(r.responseText);
                                     if(response.success =='true') {
-                                        if(response.data[0].state == 'running') {
+                                        if(response.data.state == 'running') {
                                             new_task_list.push(task_name);
                                         }
                                     }
@@ -757,10 +766,22 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                             tag_task_list = new_task_list;
                             
                             if(tag_task_list.length ==0) {
-                                win.getEl().unmask();
-                                win.close();
                                 Ext.TaskMgr.stop(task);
-                                clovr.reloadTagStores();
+            					clovr.reloadTagStores({
+            						callback: function() {
+	                                	win.getEl().unmask();
+    	                            	win.destroy();
+    	                            	var records = panel.form.input_tag.getValueEx2();
+    	                            	var rec_names = [];
+    	                            	records.each(function(rec) {
+    	                            		if(rec) {
+	    	                            		rec_names.push(rec.data.name);
+	    	                            	}
+    	                            	});
+    	                            	panel.form.input_tag.setValue(rec_names);
+    	                            	panel.load_pipeline_subform(panel.pipeline_configs);
+									}
+								});
                             }
                         },
                         interval: 2000

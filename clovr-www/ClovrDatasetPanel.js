@@ -153,17 +153,14 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 					});
 					clovr.tagData({
 						params: {
-							name: 'local',
-							tag_name: datasetpanel.dataset_name,
-                            tag_base_dir: datasetpanel.dataset['metadata.tag_base_dir'],
-							tag_metadata: new_params,
-                            files: [],
-							append: true,
-            				expand: false,
-            				recursive: false,
-				            overwrite: false,
-				            compress: false,
-						},
+				        	files: [],
+            				cluster: 'local',
+							action: 'append',
+				            expand: true,
+            				recursive: true,
+				            tag_name: datasetpanel.dataset_name,
+		                    metadata: new_params
+		                },
 						callback: function(r,o) {
 							var data = Ext.util.JSON.decode(r.responseText);
     	       					     Ext.Msg.show({
@@ -175,7 +172,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 				            	         progressText : 'Tagging Data'
 					                 });
                             clovr.checkTagTaskStatusToSetValue({
-		            		    data: Ext.util.JSON.decode(r.responseText),
+		            		    response: Ext.util.JSON.decode(r.responseText),
 		            		});
 						}
 					});
@@ -248,6 +245,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         datasetpanel.dataset_name = config.dataset_name;
         datasetpanel.dataset = config.dataset;
         clovr.getDatasetInfo({
+        	detail: true,
         	criteria: {
         		tag_name: config.dataset_name
         	},

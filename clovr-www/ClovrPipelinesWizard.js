@@ -265,52 +265,30 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             	})
             },
             success: function(response) {
-                var pipelines = Ext.util.JSON.decode(response.responseText).data;
-                
-                // HACK here. Couldn't get Ext.iterate to go over an associative array.
-                // Not sure if there is a better solution to this.
-//                for(var prop in pipelines) {
-//                    if(pipelines.hasOwnProperty(prop)) {
-                        // Need to map this pipeline to a protocol name.
-                        // If we haven't seen this protocol before we'll create a new
-                        // panel for it.
-//                        if(pipeline_to_protocol[prop]) {
-//                            var xtype = protocol_to_pipelines[pipeline_to_protocol[prop]].panel_xtype;
-//                            if(!xtype){xtype = 'clovrformpanel'};
- //                           
- //                           protocol_to_pipelines[pipeline_to_protocol[prop]].panel.add(
- //                               {xtype: xtype,
-  //                               fields: pipelines[prop].fields,
-   //                              title: prop,
-//                                 id: protocol_to_pipelines[pipeline_to_protocol[prop]].panel.getId() + '_form',
- //                                id: prop + '_form',
- //                                submitcallback: function() {
-  //                                   clovrpanel.getLayout().setActiveItem(0);
-  //                                   Ext.Msg.show({
-  //                                       title: 'Success!',
-  //                                       msg: 'Your pipeline was submitted successfully',
-   //                                      buttons: Ext.Msg.OK
-    //                                 });
-     //                            }
-      //                          });
-       //                 }
-        //            }
-                    
-                //            }
-                for(var prot in protocol_to_pipelines) {
-                    if(!protocol_to_pipelines[prot].panel) {
-                        clovrpanel.add({
-                            xtype: protocol_to_pipelines[prot].panel_xtype,
-                            pipelines: pipelines,
-                            submitcallback: function() {
-                                clovrpanel.getLayout().setActiveItem(0);
-                            }
-                        });
-                    }
-                    else {
-                        clovrpanel.add(protocol_to_pipelines[prot].panel);
-                    }
-                }
+            	var rdata = Ext.util.JSON.decode(response.responseText);
+            	if(rdata.success) {
+	                var pipelines = Ext.util.JSON.decode(response.responseText).data;
+    	            for(var prot in protocol_to_pipelines) {
+        	            if(!protocol_to_pipelines[prot].panel) {
+            	            clovrpanel.add({
+                	            xtype: protocol_to_pipelines[prot].panel_xtype,
+                    	        pipelines: pipelines,
+                        	    submitcallback: function() {
+                            	    clovrpanel.getLayout().setActiveItem(0);
+	                            }
+    	                    });
+        	            }
+            	        else {
+                	        clovrpanel.add(protocol_to_pipelines[prot].panel);
+                    	}
+	                }
+	            }
+	            else {
+	                Ext.Msg.show({
+    	                title: 'Error getting protocol information',
+        	            msg: rdata.data.msg,
+            	        icon: Ext.MessageBox.ERROR});
+            	}
                 clovrpanel.getLayout().setActiveItem(0);
             },
             failure: function(response) {

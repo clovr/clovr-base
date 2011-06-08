@@ -11,18 +11,18 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             reader: new Ext.data.JsonReader({
             	fields: [
                 	{name: "name", mapping: "tag_name"}, 
-                	{name: "fileCount"},
+                	{name: "file_count"},
 //                	{name: "phantom", mapping: 'phantom'},
 	                {name: "type", mapping: ('metadata.format_type')},
                     {name: 'tag_base_dir', mapping: ('metadata.tag_base_dir')}
             	],
             	root : function(data) {
-            	    Ext.each(data, function(elm) {
+/*            	    Ext.each(data, function(elm) {
                 	    for(key in elm) {
                     	    if(key == 'files') {
                             elm.fileCount = elm[key].length;
                         }
-                    	}});
+                    	}});*/
                 	return data;
             	},
             }),
@@ -134,12 +134,12 @@ function renderName(value, p, record) {
         desc = record.json.metadata.description;
     }
     var fileWord = 'files';
-    if(record.data.fileCount ==1) {
+    if(record.data.file_count ==1) {
         fileWord = 'file';
     }
     return String.format(
         '<div class=taggrid-title><b>{0}: {1} '+fileWord+'</b><br/>{2}</div>',
-        value,record.data.fileCount,desc);
+        value,record.data.file_count,desc);
 }
 
 function create_details_view(config,dataset) {

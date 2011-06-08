@@ -536,6 +536,14 @@ clovr.tagData = function(config) {
         	config.callback(r,o);
         },
         failure: function(r,o) {
+			Ext.Msg.show({
+				 title: 'Server Error',
+		         width: 300,
+				 closable: false,
+                 msg: r.responseText,
+                 icon: Ext.MessageBox.ERROR,
+                 buttons: Ext.Msg.OK
+			});        	
         }
     });
 }
@@ -793,7 +801,7 @@ clovr.tagSuperBoxSelect = function(config) {
                  {name: 'metadata.tag_base_dir', mapping: ('metadata.tag_base_dir')},                 
                 ],
         
-//        mode: 'local',
+        mode: 'local',
         autoLoad: false,
 //        idProperty: 'name',
         listeners: {
@@ -896,7 +904,7 @@ clovr.getDatasetInfo = function(config) {
         clovr.requests.querytag.callbacks.push(config.callback);
         var params = {
             cluster: 'local',
-            detail: true
+            detail: config.detail
         };
         if(config.criteria) {
         	params.criteria = config.criteria;
