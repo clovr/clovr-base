@@ -24,11 +24,11 @@ TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_p
 ## all, 454, none, n, pair-of-n, discard-n
 CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": { "choices": ["all", "454", "none", "pair-of-n", "discard-n"] }, "require_value": true }
 LINKER={"display": "Linker", "default": "titanium", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
-INSERT_SIZE={"display": "Insert size", "desc": "Must be two numbers separated by a space", "type": "insert_size" }
+INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Must be two numbers separated by a space", "type": "insert_size" }
 
 ## celera assembler options
 SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type": "string"}
-SKIP_BANK={"display": "Skip bank", "default": 1, "desc": "To skip bank file creation, set 1 one if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
+SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "To skip bank file creation, set true if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
 
 
 #########################################################

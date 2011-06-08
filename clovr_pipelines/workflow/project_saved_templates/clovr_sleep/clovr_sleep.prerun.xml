@@ -8,8 +8,8 @@
     <command>
       <name>Upload data</name>
       <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+      <executable>vp-transfer-dataset</executable>
+      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block</arg>
     </command>
   </commandSet>
 </commandSetRoot>
