@@ -485,8 +485,7 @@ function renderOutput(value, p, record) {
     var tags = record.json.output_tags;
     var outputs = [];
     Ext.each(tags, function(tag) {
-        outputs.push("<a href='/output/"+record.json.pipeline_name+"_"+
-                     tag+".tar.gz'>"+tag+"</a>");
+        outputs.push("<a href='/output/"+tag+".tar.gz'>"+tag+"</a>");
     });
 //    if(Ext.isArray(record.json.config["output.TAGS_TO_DOWNLOAD"])) {
 //        outputs = record.json.config["output.TAGS_TO_DOWNLOAD"];

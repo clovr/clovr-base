@@ -30,7 +30,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             groupDir: "DESC",
 //            url: config.url,
 //            autoLoad: true,
-            baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
+//            baseParams: {request: Ext.util.JSON.encode({name: 'local'})},
             listeners: {
                 load: function(store,records,o) {
                     store.filterBy(
@@ -59,19 +59,20 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                 rowclick: function(grid,index,e) {
                     create_details_view(config,grid.store.getAt(index).data);
                 },
-                afterlayout: function(grid) {
-                	grid.body.mask('Loading');
-                	clovr.tagStores.push(jstore);
-        			clovr.getDatasetInfo({
-            			dataset_name: config.dataset_name,
-						callback: function(d) {
-							jstore.loadData(d.data);
-							taggrid.body.unmask();
-				
-						}
-					});
-                }
-            },
+                afterlayout: {
+                	fn: function(grid) {
+                		grid.body.mask('Loading','x-mask-loading');
+                		clovr.tagStores.push(jstore);
+        				clovr.getDatasetInfo({
+            				dataset_name: config.dataset_name,
+							callback: function(d) {
+								jstore.loadData(d.data);
+								taggrid.body.unmask();
+							}
+						});
+					},
+               		single: true
+            	}},
             colModel: new Ext.grid.ColumnModel({
                 defaults: {
                     sortable: true

@@ -63,7 +63,8 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 							store.pBars = [];
 						}
 //						if(record.json.state =='running') {
-							pipeGrid.pBars[record.json.name] = new Ext.ProgressBar({
+//							console.log(record.json);
+							pipeGrid.pBars[record.json.pipeline_name] = new Ext.ProgressBar({
 							text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
 							value: record.json.num_complete/record.json.num_steps,
 							listeners: {
@@ -75,7 +76,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 								}
 							}
 							});
-						return String.format("<div id='{0}_step'></div>",record.json.name);
+						return String.format("<div id='{0}_step'></div>",record.json.pipeline_name);
 //						}
 //						else {
 //							return String.format("Steps {0}/{1} complete", record.json.complete,record.json.total);
@@ -86,7 +87,11 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             }),
             listeners: {
             	afterrender: function() {
-            		getPipelineStatus();
+            		Ext.TaskMgr.start({
+            			run: function() {getPipelineStatus()},
+            			interval: 30000
+        			});
+//            		getPipelineStatus();
             	},
                 rowclick: function(grid,index,e) {
                     clovr.pipelineWindow({

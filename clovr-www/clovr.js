@@ -400,8 +400,8 @@ clovr.uploadFileWindow = function(config) {
                  
                  var form = uploadForm.getForm();
                  var uploadfield = form.findField('file');
-
-                 if(uploadfield.getValue() && localFileSelector.getChecked()) {
+				 var locals = localFileSelector.getChecked()
+                 if(uploadfield.getValue() && locals.length) {
                      uploadWindow.drawers.e.show();
     	       		 Ext.Msg.show({
 						 title: 'Ooops!',
@@ -419,9 +419,10 @@ clovr.uploadFileWindow = function(config) {
                          success: function(r,o) {
                              var path = '/mnt/user_data/';
                              var values = uploadForm.getForm().getFieldValues();
+                             var filename = uploadField.getValue();
                              clovr.tagData({
                          	     params: {
-				            	     'files': [path + values.file],
+				            	     'files': [path + filename],
             					     'cluster': 'local',
 								     'action': 'create',
 				            	     'expand': true,
@@ -516,8 +517,9 @@ clovr.pipelineWindow = function(config) {
     });
 
     var win = new Ext.Window({
-        height:500,
-        width: 400,
+        height:400,
+        title: 'Pipeline Information',
+        width: 600,
         layout: 'fit',
         items: pipePanel
     });
@@ -576,6 +578,14 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                     });
                 }
                 else if(rdata.state =="failed") {
+    	       		 Ext.Msg.show({
+						 title: 'Tagging failed',
+				         width: 300,
+				    	 closable: false,
+                         msg: rdata.data.msg,
+                         icon: Ext.MessageBox.ERROR,
+                    	 buttons: Ext.Msg.OK
+					 });
                 }
             };
             clovr.getTaskInfo(config.response.data.task_name,callback);
