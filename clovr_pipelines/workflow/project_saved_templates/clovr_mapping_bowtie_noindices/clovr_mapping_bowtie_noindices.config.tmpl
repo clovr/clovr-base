@@ -21,15 +21,6 @@ MAX_INSERT_SIZE={"display": "Max insert size", "default": 251, "desc": "Maximum 
 MAX_MISMATCHES={"display": "Max mismatches", "default": 2, "desc": "Maximum number of mismatches", "type": "integer", "type_params": {"min": 0, "max": 3}, "require_value": true}
 MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Maximum number of alignments per read... those with more alignments will be ignored", "type": "integer", "require_value": true}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also

@@ -32,15 +32,6 @@ MIN_ALIGN_QUAL={"display": "Minimum Alignment Quality", "default": 0, "desc": "M
 IS_STRANDED={"display": "Is Stranded", "default": "no", "desc": "Indicates whether or not the rna-seq library is strand-specific", "type": "restricted_string", "type_params": {"choices": ["yes", "no"]}, "required_value": true}
 ID_ATTRIBUTE={"display": "ID Attribute", "default": "gene_id", "desc": "Attribute upon which to group features on when counting reads", "type": "string", "required_value": true}
 
-##########################################################
-## Cluster info.
-## If the cluster_tag is present, the script will first
-## check for the presence of this cluster and if it's not
-## running will start a cluster with the default settings
-##########################################################
-[cluster]
--include_in_section /opt/clovr_pipelines/common_config/cluster.config
-
 #########################################################
 ## Output info.
 ## Specifies where locally the data will end up and also
