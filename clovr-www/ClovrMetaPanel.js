@@ -359,8 +359,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
     	        map_file.setValue(input_tag_rec.data['metadata.metagenomics_mapping_file']);
     	    }
     	    else {
-    	    	console.log('did not have a mapping file');
-    	    	map_file.setValue();
+    	    	map_file.setValue(null);
     	    }
         }
         if(track) {
@@ -406,6 +405,13 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
 			        this.subform = this.subforms[form_name];
                     this.subforms[form_name].show();
                     this.doLayout();
+                }
+            }
+        }
+        else {
+            for(form in this.subforms) {
+                if(form != form_name && this.subforms[form].isVisible) {
+                    this.subforms[form].hide();
                 }
             }
         }
