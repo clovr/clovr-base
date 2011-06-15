@@ -14,20 +14,11 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         /* This lookup is a HACK and should be replaced with the information in the meta-data 
          * returned from listProtocols.
          */
-        var protocol_to_pipelines = {
+        var track_to_panels = {
             'clovr_metagenomics': {
-                'pipelines': {
-                    'clovr_metagenomics_noorfs': 1,
-                    'clovr_metagenomics_orfs': 1,
-//                    'clovr_metatranscriptomics': 1,
-//                    'clovr_total_metagenomics': 1
-                },
                 'panel_xtype': 'clovrmetapanel'
             },
             'clovr_16s': {
-                'pipelines': {
-                    'clovr_16S': 1
-                },
 				'panel_xtype': 'clovr16spanel',
 //                'panel': new Ext.TabPanel({
 //                    title: 'CloVR 16s',
@@ -36,22 +27,14 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 //                })
             },
             'clovr_search': {
-                'pipelines': {
-                    'clovr_search': 1
-                },
                 'panel_xtype': 'clovrblastpanel'
             },
             'clovr_microbe': {
-                'pipelines': {
-                    'clovr_microbe_annotation': 1,
-                    'clovr_microbe_illumina': 1,
-                    'clovr_microbe454': 1
-                },
                 'panel_xtype': 'clovrmicrobepanel'
             }
         };
 
-        var pipeline_to_protocol = clovr.PIPELINE_TO_PROTOCOL;
+        var protocol_to_track = clovr.PROTOCOL_TO_TRACK;
         
         config.layout = 'card';
         config.layoutConfig = {
@@ -257,31 +240,35 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         clovr.ClovrPipelinesWizard.superclass.constructor.call(clovrpanel,config);
         
         Ext.Ajax.request({
-            url: '/vappio/listProtocols_ws.py',
+            url: '/vappio/protocol_list',
             params: {
             	request: Ext.util.JSON.encode({
             		'cluster': 'local',
-            		'verbose': true
+            		'detail': true
             	})
             },
             success: function(response) {
             	var rdata = Ext.util.JSON.decode(response.responseText);
             	if(rdata.success) {
-	                var pipelines = Ext.util.JSON.decode(response.responseText).data;
-    	            for(var prot in protocol_to_pipelines) {
-        	            if(!protocol_to_pipelines[prot].panel) {
-            	            clovrpanel.add({
-                	            xtype: protocol_to_pipelines[prot].panel_xtype,
-                    	        pipelines: pipelines,
-                        	    submitcallback: function() {
-                            	    clovrpanel.getLayout().setActiveItem(0);
-	                            }
-    	                    });
+	                var pipelines = rdata.data;
+	                var configs_by_protocol = [];
+	                Ext.each(pipelines, function(pipe) {
+	                	configs_by_protocol[pipe.protocol] = pipe.config;
+	                });
+					for(track in track_to_panels) {
+        	            if(!track_to_panels[track].panel) {
+   	        	            clovrpanel.add({
+       	        	            xtype: track_to_panels[track].panel_xtype,
+           	        	        pipelines: configs_by_protocol,
+               	        	    submitcallback: function() {
+                   	        	    clovrpanel.getLayout().setActiveItem(0);
+                    	        }
+   	                    	});
         	            }
-            	        else {
-                	        clovrpanel.add(protocol_to_pipelines[prot].panel);
-                    	}
-	                }
+   	        	        else {
+       	        	        clovrpanel.add(track_to_protocols[track].panel);
+           	        	}
+           	        }
 	            }
 	            else {
 	                Ext.Msg.show({

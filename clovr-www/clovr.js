@@ -566,10 +566,13 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
                     	icon: Ext.Msg.INFO,
                     	buttons: Ext.Msg.OK
                     });
-                    if(seqcombo) {
+
+					// Not sure why we were doing this here and down below. 
+					// I'm going to leave this out for now.
+//                    if(seqcombo) {
 //                        seqcombo.getStore().loadData([[config.tagname]],true);
-                        seqcombo.setValue(config.tagname);
-                    }
+//                        seqcombo.setValue(config.tagname);
+//                    }
                     Ext.TaskMgr.stop(task);
                     if(uploadWindow) { 
                         uploadWindow.hide();
@@ -611,7 +614,7 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
 clovr.getTaskInfo = function(task_name,callback) {
     Ext.Ajax.request({
         url: '/vappio/task_ws.py',
-        params: {request: Ext.util.JSON.encode({'name': 'local','task_name': task_name})},
+        params: {request: Ext.util.JSON.encode({'cluster': 'local','task_name': task_name})},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
             var rdata = rjson.data[0];
@@ -935,7 +938,7 @@ clovr.getPipelineInfo = function(config) {
 	clovr.getPipelineList(config);
 }
 
-clovr.PIPELINE_TO_PROTOCOL = 
+clovr.PROTOCOL_TO_TRACK = 
     {
         'clovr_metagenomics_noorfs': 'clovr_metagenomics',
         'clovr_metagenomics_orfs': 'clovr_metagenomics',

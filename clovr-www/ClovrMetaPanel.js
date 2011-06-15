@@ -251,18 +251,15 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                     else {
                         clovr.tagData({
                             params: {
-                                'files': [],
-                                'name': 'local',
-                                'expand': false,
-            					'recursive': false,
-            					'append': true,
-				            	'overwrite': false,
-				            	'compress': false,
-                                'tag_name': record.data.name,
-                                'tag_metadata': {
-                                    'metagenomics_mapping_file': val
-                                },
-                                'tag_base_dir': record.data['metadata.tag_base_dir']
+                            	cluster: 'local',
+	                            files: [],
+    	        			 	action: 'append',
+					            recursive: true,
+            	                tag_name: record.data.name,
+                	            metadata: {
+                                    'metagenomics_mapping_file': val,
+                                    'tag_base_dir': record.data['metadata.tag_base_dir']
+                                }
                             },
                             callback: function(r,o) {
                                 Ext.Msg.show({
