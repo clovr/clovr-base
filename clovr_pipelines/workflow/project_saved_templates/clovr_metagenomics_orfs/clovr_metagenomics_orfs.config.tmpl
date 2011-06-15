@@ -20,7 +20,7 @@ NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": 
 [params]
 # This should be removed in the future
 TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this", "type": "integer", "visibility": "default_hidden"}
-NUM_SEQS={"display": "MetaGene group size", "default": 400, "visibility": "default_hidden", "desc": "Number of groups to create for MetaGene, you don't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
+NUM_SEQS={"display": "MetaGene group size", "default": 400, "visibility": "always_hidden", "desc": "Number of groups to create for MetaGene, you don't need to modify this", "type": "integer", "type_params": {"min": 1}, "require_value": true}
 
 #########################################################
 ## Output info.
@@ -31,7 +31,7 @@ NUM_SEQS={"display": "MetaGene group size", "default": 400, "visibility": "defau
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "read_mapping,uclust_clusters,artificial_replicates,blast_functional,tables_functional,rawantn_functional,piecharts_functional,skiff_functional,metastats_functional,histograms_functional,blast_taxonomy,tables_taxonomy,rawantn_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy,histograms_taxonomy", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["read_mapping", "uclust_clusters", "artificial_replicates", "blast_functional", "tables_functional", "rawantn_functional","piecharts_functional", "skiff_functional", "metastats_functional", "histograms_functional", "blast_taxonomy", "tables_taxonomy", "rawantn_taxonomy","piecharts_taxonomy", "skiff_taxonomy", "metastats_taxonomy", "histograms_taxonomy"]}}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "read_mapping,uclust_clusters,artificial_replicates,blast_functional,tables_functional,rawantn_functional,piecharts_functional,skiff_functional,metastats_functional,histograms_functional,blast_taxonomy,tables_taxonomy,rawantn_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy,histograms_taxonomy", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["read_mapping", "uclust_clusters", "artificial_replicates", "blast_functional", "tables_functional", "rawantn_functional","piecharts_functional", "skiff_functional", "metastats_functional", "histograms_functional", "blast_taxonomy", "tables_taxonomy", "rawantn_taxonomy","piecharts_taxonomy", "skiff_taxonomy", "metastats_taxonomy", "histograms_taxonomy"]}, "visibility": "default_hidden"}
 
 
 
