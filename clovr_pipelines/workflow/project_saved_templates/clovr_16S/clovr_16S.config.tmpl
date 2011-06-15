@@ -30,13 +30,13 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;FASTA_TAG$;,$;QUAL_TAG$;,
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,uclust_otus,summary_tables,histograms,skiff,metastats,pcoa_plots,rarefactions,mothur_summary,rarefaction_plots", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads", "chimeras", "uclust_otus", "summary_tables", "histograms", "skiff", "metastats", "pcoa_plots", "rarefactions", "mothur_summary", "rarefaction_plots"]}}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,uclust_otus,summary_tables,histograms,skiff,metastats,pcoa_plots,rarefactions,mothur_summary,rarefaction_plots", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads", "chimeras", "uclust_otus", "summary_tables", "histograms", "skiff", "metastats", "pcoa_plots", "rarefactions", "mothur_summary", "rarefaction_plots"]}, "visibility": "default_hidden"}
 
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-SOP_VERSION={"display": "SOP Version", "default": "clovr_16S_version_2.0", "type": "string"}
+SOP_VERSION={"display": "SOP Version", "default": "clovr_16S_version_2.0", "type": "string", "visibility": "always_hidden"}
 
 PIPELINE_TEMPLATE={"default": "clovr_16S", "visibility": "hidden", "desc": "The type of the pipeline we are running", "type": "string", "required": true}
 
