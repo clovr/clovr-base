@@ -235,6 +235,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                      cluster: cluster_name,
                      params: params,
                      submitcallback: function(r) {
+                         form.getForm().reset();
                          config.submitcallback(r);
                      }
                  });

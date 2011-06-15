@@ -515,6 +515,7 @@ clovr.pipelineWindow = function(config) {
 
     var pipePanel = new clovr.ClovrPipelinePanel({
 	    cluster: 'local',
+	    pipeline: config.pipeline,
         criteria: {
             'pipeline_name': config.pipeline_name
         }

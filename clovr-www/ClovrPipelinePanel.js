@@ -9,6 +9,11 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
 
         var clovrpanel = this;
 
+		var title = config.criteria.pipeline_name+' pipeline';
+		if(config.pipeline.pipeline_id) {
+			title = "<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+					config.pipeline.pipeline_id+"/pipeline.xml>Pipeline "+config.pipeline.pipeline_id+"</a>";
+		}
         var title = new Ext.Container({
             height: 30,
             style: {
@@ -18,7 +23,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                 'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
             },
             region: 'north',
-            html: config.criteria.pipeline_name+' pipeline'
+            html: title
         });
         
 

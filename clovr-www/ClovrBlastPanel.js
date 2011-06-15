@@ -347,6 +347,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                      cluster: cluster_name,
                      params: params,
                      submitcallback: function(r) {
+                     	 wrapper_panel.form.getForm().reset();
                          config.submitcallback(r);
                      }
                  });

@@ -96,6 +96,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                 rowclick: function(grid,index,e) {
                     clovr.pipelineWindow({
                         cluster_name: 'local',
+                        pipeline: grid.store.getAt(index).json,
                         pipeline_name: grid.store.getAt(index).json.pipeline_name
                     });
                 }
