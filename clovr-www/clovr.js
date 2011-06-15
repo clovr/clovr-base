@@ -217,7 +217,7 @@ clovr.localFileSelector = function(config) {
                             'cls': cls,
                             'leaf': leaf,
                             'id': node.id + '/'+ data[i].name,
-                            'checked': false
+                            'checked': node.attributes.checked
                         };
                         var n = this.createNode(node_data);
                         if(n){
@@ -249,6 +249,7 @@ clovr.localFileSelector = function(config) {
                 if(!node.leaf) {
                     Ext.each(node.childNodes, function(child) {
                         child.getUI().checkbox.checked = checked;
+						child.attributes.checked = checked;
                         child.fireEvent('checkchange',child,checked);
                     });
                 }
@@ -256,6 +257,8 @@ clovr.localFileSelector = function(config) {
                     node.getUI().addClass('complete');
                 }else{
                     if(node.parentNode) {
+                    	node.parentNode.attributes.checked = checked;
+                    	node.parentNode.getUI().checkbox.checked = checked;
                         unsetTree(node.parentNode, checked);
                     }
                     node.getUI().removeClass('complete');
