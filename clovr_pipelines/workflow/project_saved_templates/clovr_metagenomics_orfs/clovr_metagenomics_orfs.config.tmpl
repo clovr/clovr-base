@@ -10,7 +10,7 @@ MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_orfs_map",
 
 PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Functional reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-cogdb", "clovr-eggnogdb", "clovr-keggdb"], "transform_name": "input.PROTEIN_DB_PATH"}, "require_value": true}
 
-NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"format_type": ["nuc_blastdb"], "transform_name": "input.NUCLEOTIDE_DB_PATH"}}
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-refseqdb"],"transform_name": "input.NUCLEOTIDE_DB_PATH"}, "require_value": true}
 
 
 #########################################################
