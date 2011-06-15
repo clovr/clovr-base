@@ -15,9 +15,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe454 \
 
 vp-add-dataset --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o
 
-vp-run-pipeline --validate --pipeline-config /tmp/$$.pipeline.conf.${DATE}
-
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"

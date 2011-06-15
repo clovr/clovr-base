@@ -14,7 +14,7 @@ vp-describe-protocols --config-from-protocol=clovr_mugsy \
 
 vp-add-dataset --tag-name=bifidobacter_genbank_tag -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ "$?" == "1" ]; then
 	echo "vp-run-pipeline failed to run"

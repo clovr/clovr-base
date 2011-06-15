@@ -20,7 +20,7 @@ vp-describe-protocols --config-from-protocol=clovr_align_bowtie \
 
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"

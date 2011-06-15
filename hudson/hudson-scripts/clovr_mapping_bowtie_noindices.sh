@@ -17,10 +17,8 @@ vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
     -c params.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
 
-vp-run-pipeline --validate --pipeline-config /tmp/$$.pipeline.conf
-
 # Run pipeline, block on checking status and verify exit code indicates a successful run
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config=/tmp/$$.pipeline.conf`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config=/tmp/$$.pipeline.conf --overwrite`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"

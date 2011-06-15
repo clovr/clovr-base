@@ -14,7 +14,7 @@ vp-describe-protocols --config-from-protocol=clovr_total_metagenomics \
     > /tmp/$$.pipeline.conf.${DATE}
 
 
-TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE}`
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ "$?" == "1" ]; then
     echo "vp-run-pipeline failed to run"
