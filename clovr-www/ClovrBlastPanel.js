@@ -397,7 +397,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
         if(form.seqCombo && form.databaseCombo) {
             var query = form.seqCombo.getValue();
             var qstore = form.seqCombo.getStore();
-            var queryRec = qstore.getAt(qstore.find('name',query));
+            var queryRec = qstore.getAt(qstore.findExact('name',query));
             if(!queryRec) {
                 return;
             }
@@ -405,7 +405,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
 
             var db = form.databaseCombo.getValue();
             var dbstore = form.databaseCombo.getStore();
-            var dbRec = dbstore.getAt(dbstore.find('name',db));
+            var dbRec = dbstore.getAt(dbstore.findExact('name',db));
             if(!dbRec) {
                 return;
             }

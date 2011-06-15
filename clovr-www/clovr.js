@@ -378,7 +378,8 @@ clovr.uploadFileWindow = function(config) {
              store: new Ext.data.ArrayStore({
                  fields:['id','name'],
                  data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],
-                        ['sff','SFF'],['fastq','FASTQ'],['metagenomics_mapping_file','Metagenomics mapping file']]
+                        ['sff','SFF'],['fastq','FASTQ'],['metagenomics_mapping_file','Metagenomics mapping file'],
+                        ['quality_scores','Quality Scores']]
              }),
              valueField: 'id',
              displayField: 'name'
@@ -768,6 +769,7 @@ clovr.tagCombo = function(config) {
                  {name: 'metadata.tag_base_dir', mapping: ('metadata.tag_base_dir')},
                  {name: 'metadata.description', mapping: ('metadata.description')},
                  {name: 'metadata.metagenomics_mapping_file', mapping: ('metadata.metagenomics_mapping_file')},
+                 {name: 'metadata.quality_scores', mapping: ('metadata.quality_scores')}
                 ],
         autoLoad: false,
         listeners: {
@@ -948,6 +950,7 @@ clovr.PROTOCOL_TO_TRACK =
         'clovr_metatranscriptomics': 'clovr_metagenomics',
         'clovr_total_metagenomics': 'clovr_metagenomics',
         'clovr_16S': 'clovr_16s',
+        'clovr_16S_nochimeracheck': 'clovr_16s',
         'clovr_search': 'clovr_search',
         'clovr_search_webfrontend': 'clovr_search',
         'clovr_microbe_annotation': 'clovr_microbe',

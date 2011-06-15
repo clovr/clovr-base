@@ -64,7 +64,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                  handler: function() {
                      var input_tag = seq_combo.getValue();
                      var input_tag_store = seq_combo.store;
-                     var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));
+                     var input_tag_rec = input_tag_store.getAt(input_tag_store.findExact('name',input_tag));
                      wrapper_panel.showMappingFileWindow(input_tag_rec);
                  }
                 }
@@ -346,7 +346,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
 
         var input_tag = this.form.input_tag.value;
         var input_tag_store = this.form.input_tag.store;
-        var input_tag_rec = input_tag_store.getAt(input_tag_store.find('name',input_tag));
+        var input_tag_rec = input_tag_store.getAt(input_tag_store.findExact('name',input_tag));
         var track = this.form.track_select.getValue();
         var title ='';
         var form_name = '';
