@@ -553,12 +553,81 @@ clovr.tagData = function(config) {
     });
 }
 
+clovr.checkTaskStatus = function(config) {
+    var task = {                
+        run: function() {
+        	var task_callback = function(r) {
+	            var rjson = Ext.util.JSON.decode(r.responseText);
+    	        var rdata = rjson.data[0];
+				var success_title = 'Task Completed Successfully';
+				if(config.success_title) {
+					success_title = config.successTitle;
+				}
+				var success_msg = 'Your task completed succesfully';
+				if(config.success_title) {
+					success_title = config.successMsg;
+				}			
+   	         
+   	         	if(rdata.state =="completed") {
+   	         		Ext.Msg.show({
+	                    title: success_title,
+	                    msg: success_msg,
+	                    icon: Ext.Msg.INFO,
+    	                buttons: Ext.Msg.OK
+        	        });			
+	                Ext.TaskMgr.stop(task);
+	                if(config.callback) {
+	                	config.callback();
+	                }
+	            }
+   		        else if(rdata.state =="failed") {
+   		        	var msg = 'Your task failed';
+   		        	if(rdata.msg) {
+   		        		msg = rdata.msg;
+   		        	}
+   		        	Ext.TaskMgr.stop(task);
+	    	       	Ext.Msg.show({
+						title: 'Task Failed',
+					    width: 300,
+					    closable: false,
+            	        msg: msg,
+                	    icon: Ext.MessageBox.ERROR,
+                    	buttons: Ext.Msg.OK
+					});	
+        		}
+        	};
+        	clovr.getTaskInfo(config.task_name,task_callback);
+        },
+        interval: 5000
+    };
+    Ext.TaskMgr.start(task);
+};
+
 // Function to Monitor the status of a tag and set a 
 // particular field value. 
 clovr.checkTagTaskStatusToSetValue = function(config) {
     var uploadWindow = config.uploadwindow;
     var seqcombo = config.seqcombo;
-
+	
+	clovr.checkTaskStatus({
+		task_name: config.response.data.task_name,
+		callback: function() {
+        	if(uploadWindow) { 
+            	uploadWindow.hide();
+            }
+        	clovr.reloadTagStores({
+            	callback: function() {
+            		if(seqcombo) {
+	                	seqcombo.setValue(config.tagname);
+    	            }
+        	        if(config && config.callback) {
+            	    	config.callback();
+	                }
+	            }
+	        });
+		}
+	});
+/*
     var task = {                
         run: function() {
             var callback = function(r) {
@@ -609,6 +678,7 @@ clovr.checkTagTaskStatusToSetValue = function(config) {
         interval: 5000
     };
     Ext.TaskMgr.start(task);
+    */
 }
 
 /**
@@ -938,6 +1008,40 @@ clovr.getDatasetInfo = function(config) {
             }
         });
     }
+}
+
+clovr.deleteTag = function(config) {
+
+	var params = {
+            cluster: 'local',
+            detail: config.detail
+    };
+    if(config.criteria) {
+        params.criteria = config.criteria;
+    }
+    if(config.dataset_name) {
+        params.tag_name = config.dataset_name;
+    }
+        
+    Ext.Ajax.request({
+        url: '/vappio/tag_delete',
+        params: {
+            request: Ext.util.JSON.encode(params)},
+        success: function(r,o) {
+            var rjson = Ext.util.JSON.decode(r.responseText);
+	        clovr.checkTaskStatus({
+				task_name: rjson.data,
+				callback: function() {
+					var params = {}
+					if(config.callback) {
+						params.callback = config.callback;
+					}
+					clovr.reloadTagStores(params);
+				}
+			});
+        }
+    });	
+
 }
 
 clovr.getPipelineInfo = function(config) {

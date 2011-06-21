@@ -14,9 +14,17 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         config.bodyStyle = {
             background: '#0D5685'
         };
-        config.buttons = [
-            { text: 'Delete Tag'}
-        ];
+        config.buttons = [{
+            text: 'Delete Tag',
+            handler: function() {
+            	clovr.deleteTag({
+            		dataset_name: datasetpanel.dataset_name,
+            		callback: function() {
+            			datasetpanel.parentPanel.getLayout().setActiveItem(0);
+            		}
+            	});
+            }
+        }];
         config.buttonAlign = 'center';
         config.frame= true;
         config.deferredRender=false;

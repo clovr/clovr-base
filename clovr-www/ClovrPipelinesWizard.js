@@ -135,6 +135,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
              ]},
             new clovr.ClovrDatasetPanel({
                 'id': 'dataset',
+                parentPanel: clovrpanel,
                 pipelineCallback: function(conf) {
                     clovrpanel.getLayout().setActiveItem(conf.pipeline_name);
                     
