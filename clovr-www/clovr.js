@@ -680,15 +680,14 @@ clovr.credentialCombo = function(config) {
             {name: "ctype"},
             {name: "active"}
             ],
-        root: function(data) {
-            return data.data;
-        },
 		autoLoad: false,
         baseParams: {request: Ext.util.JSON.encode({'cluster': 'local'})},
         listeners: {
             load: function(store,records,o) {
                 if(!config.default_value) {
-                    combo.setValue(records[0].data.name);
+                	if(store.getAt(0)) {
+                    	combo.setValue(store.getAt(0).data.name);
+	                }
                 }
                 else {
                     combo.setValue(config.default_value);
