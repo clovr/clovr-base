@@ -676,7 +676,7 @@ clovr.credentialCombo = function(config) {
     var store = new Ext.data.JsonStore({
         fields: [
             {name: "name"},
-            {name: "desc"},
+            {name: "description"},
             {name: "ctype"},
             {name: "active"}
             ],
@@ -701,7 +701,7 @@ clovr.credentialCombo = function(config) {
     clovr.getCredentialInfo({
     	cluster_name: 'local',
     	callback: function(d) {
-    		store.loadData(d);
+    		store.loadData(d.data);
     	}
     });
     combo = new Ext.form.ComboBox(Ext.apply(config, {
@@ -710,6 +710,7 @@ clovr.credentialCombo = function(config) {
         valueField: 'name',
         store: store,
         mode: 'local',
+        tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>{description}</div></tpl>',
         triggerAction: 'all',
         displayField: 'name',
         fieldLabel: 'Account'
