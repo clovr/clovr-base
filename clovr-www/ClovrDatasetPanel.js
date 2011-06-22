@@ -23,7 +23,52 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             			datasetpanel.parentPanel.getLayout().setActiveItem(0);
             		}
             	});
-            }
+            }},
+            {
+			text: 'Save Changes',
+			handler: function() {
+				var meta_recs = metadata_grid.getStore().getRange();
+				var metadata = {};
+				var compressed = false;
+				Ext.each(meta_recs, function(rec) {
+					metadata[rec.data.name] = rec.data.value;
+					if(rec.data.name == 'compressed') {
+						compressed = rec.data.value;
+					}
+				});
+				
+				var file_recs = file_grid.getStore().getRange();
+				var files = [];
+				Ext.each(file_recs, function(rec) {
+					files.push(rec.data.file);
+				});				
+				clovr.tagData({
+					params: {
+				        files: files,
+						cluster: 'local',
+						action: 'overwrite',
+				        expand: true,
+            			recursive: true,
+            			compressed: compressed,
+				        tag_name: datasetpanel.dataset_name,
+		                metadata: metadata
+		            },
+					callback: function(r,o) {
+						var data = Ext.util.JSON.decode(r.responseText);
+							Ext.Msg.show({
+						        title: 'Tagging Data...',
+				        	    width: 200,
+					            mask: true,
+				    	        closable: false,
+				        	    wait: true,
+				            	progressText : 'Tagging Data'
+					        });
+                    	clovr.checkTagTaskStatusToSetValue({
+		            		response: Ext.util.JSON.decode(r.responseText),
+		            	});
+					}
+				});
+			}
         }];
         config.buttonAlign = 'center';
         config.frame= true;
@@ -100,17 +145,35 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             })
         });
         
+        var file_actions = new Ext.ux.grid.RowActions({
+        	id: 'file_actions',
+        	keepselection: true,
+        	actions:[{
+				iconCls:'bin_closed',
+				tooltip:'Remove file from tag'
+			}]
+        });
+        file_actions.on(
+			'action',
+			function(grid, record, action, row, col) {
+				if(action == 'bin_closed') {
+					grid.getStore().remove(record);
+				}
+			}
+		);
         var file_grid = new Ext.grid.GridPanel({
             title: 'Files',
             flex: 1,
             margins: '5 5 5 5',
+            plugins: [file_actions],
             frame: true,
             buttonAlign: 'center',
             buttons: [
-            	{text: 'Delete'},
             	{text: 'Add'},
-            	{text: 'Save'}
             ],
+            removeVal: function(key,val) {
+            	this.getStore().remove(this.getStore().find(key,val));
+            },
             colModel: new Ext.grid.ColumnModel({
                 defaults: {
                     sortable: true
@@ -120,7 +183,11 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                     renderer: function(val,p,rec) {
                     	var regex = /.*\//;
                     	return val.replace(regex,'');
-                    }}
+                    }},file_actions
+/*                    {id: 'delete', header: '', dataIndex: 'file', width: 30,
+                    renderer: function(val,meta,rec) {
+                    	return "<div class='bin_closed icon_button'></div>";
+                    }}*/
                 ]
             }),
             autoExpandColumn: 'file',
@@ -130,19 +197,38 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                 })
             })
         });
+
+        var meta_actions = new Ext.ux.grid.RowActions({
+        	id: 'meta_actions',
+        	keepselection: true,
+        	actions:[{
+				iconCls:'bin_closed',
+				tooltip:'Remove key/value pair'
+			}]
+        });
+        meta_actions.on(
+			'action',
+			function(grid, record, action, row, col) {
+				if(action == 'bin_closed') {
+					grid.getStore().remove(record);
+				}
+			}
+		);        
 		var metadata_grid = new Ext.grid.EditorGridPanel({
 			frame: true,
 			title: 'metadata',
             margins: '5 5 5 5',
 			buttonAlign: 'center',
             flex: 1,
+            plugins: [meta_actions],
 			colModel: new Ext.grid.ColumnModel({
 				defaults: {
 					sortable: true
 				},
 				columns: [
 					{header: 'key', dataIndex: 'name', width: 100, editor: new Ext.form.TextField()},
-					{id: 'value', header: 'value', dataIndex: 'value', editor: new Ext.form.TextField()}
+					{id: 'value', header: 'value', dataIndex: 'value', editor: new Ext.form.TextField()},
+					meta_actions
 				]
 			}),
 			autoExpandColumn: 'value',
@@ -152,42 +238,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 				})
 			}),
 			buttons: [{
-				text: 'Submit Changes',
-				handler: function() {
-					var recs = metadata_grid.getStore().getModifiedRecords();
-					var new_params = {};
-					Ext.each(recs, function(rec) {
-						new_params[rec.data.name] = rec.data.value;
-					});
-					clovr.tagData({
-						params: {
-				        	files: [],
-            				cluster: 'local',
-							action: 'append',
-				            expand: true,
-            				recursive: true,
-				            tag_name: datasetpanel.dataset_name,
-		                    metadata: new_params
-		                },
-						callback: function(r,o) {
-							var data = Ext.util.JSON.decode(r.responseText);
-    	       					     Ext.Msg.show({
-						                 title: 'Tagging Data...',
-				        	             width: 200,
-					                     mask: true,
-				    	                 closable: false,
-				        	             wait: true,
-				            	         progressText : 'Tagging Data'
-					                 });
-                            clovr.checkTagTaskStatusToSetValue({
-		            		    response: Ext.util.JSON.decode(r.responseText),
-		            		});
-						}
-					});
-				}
-			},
-			{
-            text: 'Add Value',
+            text: 'Add',
             handler : function(){
                 // access the Record constructor through the grid's store
                 var rec = metadata_grid.getStore().recordType;

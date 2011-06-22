@@ -1,0 +1,12 @@
+.bin_closed {
+    background-image: url("icons/bin_closed.png") !important;
+}
+.icon_button {
+    float:left;
+    min-width:16px;
+    height:16px;
+    background-repeat:no-repeat;
+    margin: 0 3px 0 2px;
+    cursor:pointer;
+    overflow:hidden;
+}

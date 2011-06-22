@@ -512,7 +512,6 @@ clovr.uploadFileWindow = function(config) {
 }
 
 clovr.pipelineWindow = function(config) {
-
     var pipePanel = new clovr.ClovrPipelinePanel({
 	    cluster: 'local',
 	    pipeline: config.pipeline,
