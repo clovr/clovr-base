@@ -94,6 +94,34 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                 })
             })            
         });
+        var msg_grid = new Ext.grid.GridPanel({
+        	title: 'Messages',
+        	margins: '5 5 5 5',
+        	autoExpandColumn: 'message',
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true
+                },
+                columns: [
+                    {id: 'message', header: 'Message',dataIndex: 'text'},
+                    {id: 'time', header: 'Timestamp',dataIndex: 'timestamp', width:135, format: 'Y/m/d H:i:s T',xtype: 'datecolumn'},
+                    {id: 'type', header: 'Type',dataIndex: 'mtype'}
+                ]
+            }),
+            store: new Ext.data.Store({
+                reader: new Ext.data.JsonReader({
+                    fields: [{name: 'text'},
+                    	{name: 'timestamp',type:'date', dateFormat: 'timestamp', mapping: 'timestamp'},
+                    	{name: 'mtype'}
+                    ]
+                }),
+                listeners: {
+                	load: function() {
+                		this.sort('timestamp','DESC');
+                	}
+                }
+            })              
+        });
         
         var value_classes = {
             input: {
@@ -124,6 +152,13 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             'callback': function(data) {
             	var pipe = data[0];
             	
+            	// Pull the task info
+            	clovr.getTaskInfo(pipe.task_name,
+            		function(rdata) {
+            			var data = Ext.util.JSON.decode(rdata.responseText);
+						msg_grid.getStore().loadData(data.data[0].messages);
+            	});
+            		
             	// First we'll deal with the input tags
             	var input_data = [];
             	Ext.each(pipe.input_tags, function(tag) {
@@ -160,7 +195,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
         		padding: '3px'
         	},
         	activeTab: 0,
-        	items: [input_grid,parameters_grid,output_grid]
+        	items: [input_grid,parameters_grid,output_grid,msg_grid]
         });
         
         config.items = [title,master_container];
