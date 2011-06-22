@@ -19,7 +19,7 @@ SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing
 
 LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "type": "dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.LONG_INPUT_LIST" } }
 
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "directory" }, "require_value": true }
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "require_value": true }
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
