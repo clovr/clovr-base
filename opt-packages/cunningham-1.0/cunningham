@@ -458,7 +458,7 @@ sub checkConsistency
       $entrycount++;
       next;  
     } 
-    if ($_ =~ /(R|D|E|Q|H|I|L|K|M|F|P|S|W|Y|V|U|O)/){
+    if ($_ =~ /(E|Q|I|L|F|P|O)/){
       print "proteins found...\n" if $quiet == 0;
       return("protein");
     }
