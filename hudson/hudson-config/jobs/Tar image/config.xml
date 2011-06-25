@@ -35,6 +35,10 @@ then
   dname=`dirname $IMAGE_DIR`
   bname=`basename $IMAGE_DIR`
   tar -C $dname -cvzf $IMAGE_DIR.tgz $bname
+if [ -f $IMAGE_DIR.img ]
+then
+  gzip $IMAGE_DIR.img
+fi
 else
   tar -cvzf $IMAGE_DIR.tgz $IMAGE_DIR
 fi

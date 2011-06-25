@@ -9,7 +9,7 @@
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
           <description>Path to a raw disk image or a directory prefix. If a directory is specified, looks for dirname.img and attempts to inject AMI name in clovr.conf upon successful build</description>
-          <defaultValue>/mnt/image.img</defaultValue>
+          <defaultValue>/mnt/clovr-standard-2011-03-05-10-00-27</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>INIT_SCRIPT</name>
@@ -28,7 +28,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -E /opt/vappio-util/vp-bundle-diag -f $IMAGE_NAME $INIT_SCRIPT</command>
+#Need to redirect to /dev/null because of large stdout, progress bar
+sudo -E /opt/vappio-util/vp-bundle-diag -f $IMAGE_NAME $INIT_SCRIPT &gt; /dev/null</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

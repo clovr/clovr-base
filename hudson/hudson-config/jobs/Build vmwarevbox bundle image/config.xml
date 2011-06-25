@@ -19,12 +19,17 @@ Output is /mnt/clovr_testing.tgz&#xd;
         <hudson.model.StringParameterDefinition>
           <name>IMAGE_NAME</name>
           <description>Virtual machine image to convert into VMDK and VDI formats</description>
-          <defaultValue>/mnt/image.img</defaultValue>
+          <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>BUNDLE_NAME</name>
           <description>Output prefix for bundle</description>
-          <defaultValue>clovr_test</defaultValue>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SPLASHSCRIPT</name>
+          <description></description>
+          <defaultValue>/opt/vappio-install/recipes/clovrsplash.sh</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -38,7 +43,7 @@ Output is /mnt/clovr_testing.tgz&#xd;
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-sudo -E /opt/vappio-util/vp-bundle-release $IMAGE_NAME $BUNDLE_NAME
+sudo -E /opt/vappio-util/vp-bundle-release $IMAGE_NAME $BUNDLE_NAME $SPLASHSCRIPT
       </command>
     </hudson.tasks.Shell>
   </builders>

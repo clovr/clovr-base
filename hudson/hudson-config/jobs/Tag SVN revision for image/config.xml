@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Tag the CloVR related SVN repositories. Requires that the hudson user on the buildbox has saved passwords</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_NAME</name>
+          <description>Name of the build</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_TIME</name>
+          <description>Time stamp for the build. Should be in the format reported by Hudson in BUILD_ID</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>SVN_TIME=`echo &quot;$BUILD_TIME&quot; | perl -ne &apos;s/_(\d+)-(\d+).*/T$1:$2Z/;print $_;&apos;`
+echo p | svn --username=clovrbot copy -m &quot;clovr build snapshot $BUILD_TIME&quot; https://vappio.svn.sourceforge.net/svnroot/vappio/trunk https://vappio.svn.sourceforge.net/svnroot/vappio/tags/$BUILD_NAME -r {$SVN_TIME}
+echo p | svn --username=clovrbot copy -m &quot;clovr build snapshot $BUILD_TIME&quot; https://clovr.svn.sourceforge.net/svnroot/clovr/trunk https://clovr.svn.sourceforge.net/svnroot/clovr/tags/$BUILD_NAME -r {$SVN_TIME}
+echo p | svn --username=clovrbot copy -m &quot;clovr build snapshot $BUILD_TIME&quot; https://ergatis.svn.sourceforge.net/svnroot/ergatis/trunk https://ergatis.svn.sourceforge.net/svnroot/ergatis/tags/$BUILD_NAME -r {$SVN_TIME}</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
