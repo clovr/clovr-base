@@ -3,7 +3,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_mapping_bowtie_indices.prerun</name>
+    <name>clovr_align_bowtie_indices.prerun</name>
     <command>
       <name>Create temp directory</name>
       <type>RunUnixCommand</type>
