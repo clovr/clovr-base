@@ -11,7 +11,7 @@
       <executable>mkdir</executable>
       <arg>mkdir -p -m 777 $;TMP_DIR$;</arg>
     </command>
-    <INCLUDE file="$;DOCS_DIR$;/clovrtag_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=PRERUN_ITERATOR_XML" />
+    <INCLUDE file="$;DOCS_DIR$;/clovrtag_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=PRERUN_ITERATOR_XML,$;NODISTRIB$;=1" />
   </commandSet>
 </commandSetRoot>
 
