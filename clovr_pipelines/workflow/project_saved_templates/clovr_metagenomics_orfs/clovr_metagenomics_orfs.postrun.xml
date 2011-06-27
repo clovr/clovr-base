@@ -5,7 +5,7 @@
   <commandSet type="serial">
     <state>incomplete</state>
     <name>clovr.postrun</name>
-    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" />
+    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" keys="$;NODISTRIB$;=1"/>
 	<command>
                 <name>post-qc-metric</name>
                 <type>RunUnixCommand</type>
