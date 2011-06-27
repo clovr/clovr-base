@@ -3,7 +3,7 @@
                 xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_rna_seq_pileup.prerun</name>
+    <name>clovr_pileup.prerun</name>
     <command>
       <name>Upload SAM data</name>
       <type>RunUnixCommand</type>

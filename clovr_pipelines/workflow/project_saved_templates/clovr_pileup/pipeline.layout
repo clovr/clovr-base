@@ -20,7 +20,7 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>tag_data.clovr_rna_seq_pileup</name>
+            <name>tag_data.clovr_pileup</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>

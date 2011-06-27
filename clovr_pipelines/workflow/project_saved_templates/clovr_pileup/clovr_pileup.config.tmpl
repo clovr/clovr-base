@@ -1,4 +1,4 @@
-## Template configuration file for clovr_rna_seq_pileup
+## Template configuration file for clovr_pileup
 #########################################################
 ## Input information.
 ## Configuration options for the pipeline.
@@ -32,9 +32,9 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "samtools_bam,samtoo
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-SOP_VERSION={"default": "clovr_rna_seq_pileup_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+SOP_VERSION={"default": "clovr_pileup_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
 
-PIPELINE_TEMPLATE={"default": "clovr_rna_seq_pileup", "visibility": "always_hidden", "type": "string", "require_value": true}
+PIPELINE_TEMPLATE={"default": "clovr_pileup", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
@@ -42,10 +42,10 @@ PIPELINE_TEMPLATE={"default": "clovr_rna_seq_pileup", "visibility": "always_hidd
 PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_pileup/clovr_rna_seq_pileup.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_pileup/clovr_pileup.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_rna_seq_pileup/clovr_rna_seq_pileup.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_pileup/clovr_pileup.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
