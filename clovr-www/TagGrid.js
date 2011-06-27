@@ -57,7 +57,14 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
             autoExpandColumn: 'name',
             listeners: {
                 rowclick: function(grid,index,e) {
-                    create_details_view(config,grid.store.getAt(index).data);
+					if(!grid.select_fired) {
+    	            	grid.clicked = true;
+        	            create_details_view(config,grid.store.getAt(index).data);
+        	        }
+        	        grid.select_fired = false;
+                },
+                mouseout: function(e) {
+
                 },
                 afterlayout: {
                 	fn: function(grid) {
@@ -102,6 +109,10 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                             selects.push(val.data.name);
                         });
                         taggrid.pipelinePanel.setInput(selects.join(','));
+                    },
+                    rowselect: function(sm,index,rec) {
+                    	taggrid.select_fired = true;
+	                    create_details_view(config,rec.data);
                     }
                 }
             }),
