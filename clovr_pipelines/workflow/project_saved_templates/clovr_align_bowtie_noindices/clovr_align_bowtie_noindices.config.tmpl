@@ -40,9 +40,9 @@ TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc"
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
 
-SOP_VERSION={"default": "clovr_mapping_bowtie_noindices_version_0.0", "type": "string", "visibility": "always_hidden"}
+SOP_VERSION={"default": "clovr_align_bowtie_noindices_version_0.0", "type": "string", "visibility": "always_hidden"}
 
-PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "hidden", "type": "string", "require_value": true}
+PIPELINE_TEMPLATE={"default": "clovr_align_bowtie_noindices", "visibility": "hidden", "type": "string", "require_value": true}
 
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
@@ -50,11 +50,11 @@ PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_noindices", "visibility": "h
 PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
-PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie_indices/clovr_align_bowtie_indices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 PRERUN_ITERATOR_XML={"default": "$;DOCS_DIR$;/clovrtag_upload.iterator.xml", "visibility": "always_hidden", "type": "string", "desc": null}
 #Postrun is run after pipeline completion and after downlaod data
 #Possible actions: local a local database, web browser.reorganize data for local ergatis
-POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie_indices/clovr_align_bowtie_indices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
 DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 
