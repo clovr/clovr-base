@@ -1,0 +1,8 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start pipeline:</name>
+        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_align_bowtie_noindices/pipeline.layout">
+        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_pileup/pipeline.layout">
+    </commandSet>
+</commandSetRoot>           

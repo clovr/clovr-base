@@ -1,0 +1,61 @@
+## Configuration file for clovr_mapping_bowtie_indices
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_PAIRED_TAG={"display": "Paired-end Input Tag", "desc": "The input tag describing any paried-end sequence data (fastq)", "type": "dataset list", "type_params": {"format_type": ["fastq"], "transform_name": "input.PAIRED_READS_LIST"}}
+INPUT_READS_TAG={"display": "Input Reads Tag", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.READS_LIST"}}
+REFERENCE_BOWTIE_TAG={"display": "Reference bowtie indices", "desc": "bowtie-build generated indices that bowtie uses during alignment.", "type": "blastdb_dataset", "type_params": {"transform_name": "input.REFERENCE_BOWTIE_PATH"}, "require_value": true}
+REFERENCE_FASTA_TAG={"display": "Reference FASTA sequence", "desc": "FASTA sequence to be converted into bowtie indices via bowtie-build.", "type": "dataset", "type_params": { "format_type": ["fasta"], "transform_name": "input.REFERENCE_FILE_LIST"}, "require_value": true}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPUT_READS_TAG$;", "visibility": "always_hidden", "type": "string" }
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+## Bowtie
+MAX_INSERT_SIZE={"display": "Max insert size", "default": 251, "desc": "Maximum insert size", "type": "integer", "type_params": {"min": 0}, "require_value": true}
+MAX_MISMATCHES={"display": "Max mismatches", "default": 2, "desc": "Maximum number of mismatches", "type": "integer", "type_params": {"min": 0, "max": 3}, "require_value": true}
+MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Maximum number of alignments per read... those with more alignments will be ignored", "type": "integer", "require_value": true}
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam,samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download,", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam", "samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}}
+
+[download]
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_mapping_bowtie_indices_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+
+PIPELINE_TEMPLATE={"default": "clovr_mapping_bowtie_indices", "visibility": "hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mapping_bowtie_indices/clovr_mapping_bowtie_indices.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
