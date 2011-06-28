@@ -28,5 +28,18 @@
                 <value>$;OUTPUT_DIRECTORY$;/add_config_to_tag.stderr</value>
                 </param>
         </command>
+<commandSet type="serial">
+        <state>incomplete</state>
+        <name>postrun cleanup workflow</name>
+        <!--Preprocessing-->
+        <command>
+            <type>RunUnixCommand</type>
+            <name>terminate cluster on condition</name>
+            <state>incomplete</state>
+            <executable>vp-checkandterminate-cluster</executable>
+            <arg> $;TERMINATE_ONFINISH$; $;CLUSTER_NAME$;</arg>
+        </command>
+</commandSet>
+<!--     <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" /> -->
   </commandSet>
 </commandSetRoot>
