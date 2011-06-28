@@ -93,6 +93,9 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
         			});
 //            		getPipelineStatus();
             	},
+            	bodyresize: function(panel) {
+            		getPipelineStatus();
+            	},
                 rowclick: function(grid,index,e) {
                     clovr.pipelineWindow({
                         cluster_name: 'local',

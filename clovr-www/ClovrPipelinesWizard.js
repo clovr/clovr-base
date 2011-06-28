@@ -102,20 +102,38 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             //        collapseMode: 'mini',
             //        margins: '0 5 0 0'
         });
-        
-        var gangliapanel = new clovr.ClovrGangliaPanel({
-            id: 'wizard_ganglia_panel'
-        });
+/*    var taggrid = new clovr.TagGrid({
+//        region: 'west',
+//        pipelinePanel: pipepanel,
+//        title: 'Data Sets',
+//        width: 400,
+        split: true,
+//        margins: '0 5 0 0',
+//        margins: '0 0 0 5',
+//        pipelineWizard: pipepanel,
+//        url: "/vappio/queryTag_ws.py"
+//        host: hostname_field.getValue()
+    });      
+*/
+/*        var gangliapanel = new clovr.ClovrGangliaPanel({
+            id: 'wizard_ganglia_panel',
+            collapsed: true
+        });*/
         config.items = [
             {xtype: 'portal',
             bodyStyle: {
             	background: '#0d5685'
             },
-             items: [
-                 {columnWidth: .5,
-                  style:'padding:10px 5px 10px 10px',
-                  items: [
-                      {
+            items: [
+/*            	{columnWidth: .5,
+                style:'padding:10px 5px 10px 10px',
+                items: [{
+					title: 'Datasets',
+					tools: tools.concat(taggrid.parenttools),
+					items: taggrid
+				}
+				]},*/
+/*                      {
 //                          title: 'Ganglia',
                           tools: tools,
                           name: 'ganglia_portlet',
@@ -123,8 +141,8 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 //                          height: 200,
                           items: gangliapanel
                       }
-                 ]},
-                 {columnWidth: .5,
+                 ]},*/
+                 {columnWidth: 1,
                   style:'padding: 10px 10px 10px 5px',
                   items: [{
                       title: 'Pipelines',

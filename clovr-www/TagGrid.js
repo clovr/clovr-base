@@ -7,6 +7,10 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
     constructor: function(config) {
     
     	var taggrid = this;
+    	taggrid.parenttools = [{id: 'refresh',
+        	handler: function() {clovr.reloadTagStores();}
+        }];
+
         var jstore = new Ext.data.GroupingStore({
             reader: new Ext.data.JsonReader({
             	fields: [

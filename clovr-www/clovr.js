@@ -714,6 +714,12 @@ clovr.getPipelineStatus = function(config) {
             var rjson = Ext.util.JSON.decode(r.responseText);
             var rdata = rjson.data;
             config.callback(rdata);
+        },
+        failure: function(r,o) {
+            Ext.Msg.show({
+                title: 'Server Error',
+                msg: response.responseText,
+                icon: Ext.MessageBox.ERROR});
         }
     });
 }
@@ -857,6 +863,7 @@ clovr.tagCombo = function(config) {
         }
     });
     clovr.tagStores.push(store);
+    config.clearFilterOnReset = false;
     config.store = store;
     combo = new Ext.form.ComboBox(config);
     clovr.getDatasetInfo({
@@ -900,7 +907,7 @@ clovr.tagSuperBoxSelect = function(config) {
 
     clovr.tagStores.push(store);
     config.store = store;
-
+    config.clearFilterOnReset = false;
     sbs = new Ext.ux.form.SuperBoxSelect(config)
     clovr.getDatasetInfo({
         callback: function(json) {

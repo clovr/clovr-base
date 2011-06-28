@@ -196,7 +196,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
 					//form.getForm().findField('cluster.CLUSTER_NAME').getValue();
                  var credential = form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
                  var cluster_name = clovr.getClusterName({
-                     protocol: 'clovr_metagenomics_',
+                     protocol: 'clovr_16S_',
                      credential: credential
                  });
                  

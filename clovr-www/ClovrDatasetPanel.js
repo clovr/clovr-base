@@ -87,7 +87,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             autoHeight: true,
             autoScroll: true,
             region: 'center',
-            height: 200,
+            height: 150,
             layout: 'anchor'
         });
         var pipelines_wrapper = new Ext.Panel({
@@ -120,7 +120,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             title: 'Pipelines',
             region: 'south',
             margins: '5 5 5 5',
-            height: 200,
+            height: 150,
             store: pipe_store,
             viewConfig: {
                 forceFit: true
