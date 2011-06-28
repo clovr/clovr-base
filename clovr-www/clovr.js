@@ -719,7 +719,8 @@ clovr.getPipelineStatus = function(config) {
             Ext.Msg.show({
                 title: 'Server Error',
                 msg: response.responseText,
-                icon: Ext.MessageBox.ERROR});
+                icon: Ext.MessageBox.ERROR,
+            	buttons: Ext.Msg.OK});
         }
     });
 }
@@ -740,7 +741,16 @@ clovr.getPipelineList = function(config) {
 //            if(rjson.data[0]) {
 //            	rdata = rjson.data[0][1];
 //            }
-            config.callback(rjson.data	);
+			if(rjson.success) {
+	            config.callback(rjson.data	);
+	        }
+/*	        else {
+        	    Ext.Msg.show({
+            	    title: 'Server Error',
+	                msg: rjson.data.msg,
+    	            icon: Ext.MessageBox.ERROR,
+    	            buttons: Ext.Msg.OK});
+	        }*/
         }
     });
 }

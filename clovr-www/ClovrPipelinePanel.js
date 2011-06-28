@@ -9,13 +9,14 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
 
         var clovrpanel = this;
 
-		var title = config.criteria.pipeline_name+' pipeline';
+		var title_str = config.criteria.pipeline_name+' pipeline';
 		if(config.pipeline.pipeline_id) {
-			title = "<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+			title_str = "<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
 					config.pipeline.pipeline_id+"/pipeline.xml>Pipeline "+config.pipeline.pipeline_id+"</a>";
 		}
         var title = new Ext.Container({
             height: 30,
+            name: 'pipeline_title',
             style: {
                 'padding': '3px 0 0 5px',
                 'font-size': '16pt',
@@ -23,7 +24,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                 'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
             },
             region: 'north',
-            html: title
+            html: title_str
         });
         
 
@@ -152,13 +153,36 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             'callback': function(data) {
             	var pipe = data[0];
             	
+            	var things_for_title = ["<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+					config.pipeline.pipeline_id+"/pipeline.xml>Pipeline "+config.pipeline.pipeline_id+"</a>"];
+            	Ext.each(pipe.children, function(child) {
+            		clovr.getPipelineInfo({
+            			cluster_name: child[0],
+            			pipe_name: child[1],
+            			callback: function(response) {
+            				if(response[0]) {
+            					clovr.getClusterInfo({
+            						cluster_name: child[0],
+            						callback: function(response2) {
+										var host = response2.data.master.public_dns;
+			            				things_for_title.push("(<a target='_blank' style='color:black;' href=http://"+
+			            				host+"/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+										response[0].pipeline_id+"/pipeline.xml>Pipeline "+response[0].pipeline_id+")</a>");
+        			    				title.update(things_for_title.join(""));
+        			    			}
+        			    		});
+        	    			}
+            			}
+            		});
+            	
+            	});
             	// Pull the task info
             	clovr.getTaskInfo(pipe.task_name,
             		function(rdata) {
             			var data = Ext.util.JSON.decode(rdata.responseText);
 						msg_grid.getStore().loadData(data.data[0].messages);
             	});
-            		
+            	
             	// First we'll deal with the input tags
             	var input_data = [];
             	Ext.each(pipe.input_tags, function(tag) {

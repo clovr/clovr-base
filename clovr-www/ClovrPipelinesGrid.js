@@ -68,12 +68,12 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 							text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
 							value: record.json.num_complete/record.json.num_steps,
 							listeners: {
-								beforeshow: function(pb) {
+/*								beforeshow: function(pb) {
 									pb.updateProgress(pb.value);
 								},
 								resize: function(pb) {
 									pb.updateProgress(pb.value);
-								}
+								}*/
 							}
 							});
 						return String.format("<div id='{0}_step'></div>",record.json.pipeline_name);
@@ -111,8 +111,8 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             	listeners: {
             		refresh: function(view) {
             			for(name in pipeGrid.pBars) {
-            				pipeGrid.pBars[name].render(name+"_step");
             				pipeGrid.pBars[name].updateProgress(pipeGrid.pBars[name].value);
+            				pipeGrid.pBars[name].render(name+"_step");
             			}
             		}
             	}
