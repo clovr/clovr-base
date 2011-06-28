@@ -40,6 +40,5 @@
             <arg> $;TERMINATE_ONFINISH$; $;CLUSTER_NAME$;</arg>
         </command>
 </commandSet>
-<!--     <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" /> -->
   </commandSet>
 </commandSetRoot>
