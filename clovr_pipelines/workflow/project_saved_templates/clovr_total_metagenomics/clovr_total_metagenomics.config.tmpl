@@ -29,7 +29,7 @@ NUM_SEQS={"default": 100, "desc": "The number of sequences to write to each BSML
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["uclust_polypeptide_fasta", "blastp_btab"]}}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "uclust_polypeptide_fasta,blastp_btab", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["uclust_polypeptide_fasta", "blastp_btab"]}, "visibility": "default_hidden"}
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config

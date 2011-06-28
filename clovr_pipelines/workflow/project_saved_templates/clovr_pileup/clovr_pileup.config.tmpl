@@ -24,7 +24,7 @@ REFERENCE_TAG={"display": "Input Reference Tag", "default": "_ref", "desc": "Inp
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}, "visibility": "default_hidden"}
 
 [download]
 

@@ -41,7 +41,7 @@ SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "To skip bank file
 ## Output: tags to download after run finishes
 ## Comma separated list of tags
 ## Possible options: assembly_scf, assembly_qc
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "type": "restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc"] } }
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc", "desc": "You shouldn't need to modify this", "type": "restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc"] }, "visibility": "default_hidden" }
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config

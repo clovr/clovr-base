@@ -30,7 +30,7 @@ ID_ATTRIBUTE={"display": "ID Attribute", "default": "gene_id", "desc": "Attribut
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "htseq_counts,sort_sam_by_name_sam,deseq_all_counts,deseq_count_stat,deseq_tiff", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["htseq_counts", "sort_sam_by_name_sam", "deseq_all_counts", "deseq_count_stat", "deseq_tiff"]}}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "htseq_counts,sort_sam_by_name_sam,deseq_all_counts,deseq_count_stat,deseq_tiff", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["htseq_counts", "sort_sam_by_name_sam", "deseq_all_counts", "deseq_count_stat", "deseq_tiff"]}, "visibility": "default_hidden"}
 
 [download]
 

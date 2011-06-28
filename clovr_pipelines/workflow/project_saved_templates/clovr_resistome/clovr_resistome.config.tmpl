@@ -49,7 +49,7 @@ ALIGN_COVERAGE={ "display" : "Alignment length coverage", "default" : 80, "desc"
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["ncbi_blastp_raw"]}, "require_value": true}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["ncbi_blastp_raw"]}, "visibility": "default_hidden", "require_value": true}
 
 
 [pipeline]

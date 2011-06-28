@@ -10,7 +10,7 @@
 INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline", "type": "dataset", "type_params": { "format_type": ["sff"], "transform_name": "input.INPUT_FILE_LIST" }, "require_value": true }
 
 ## For the annotation portion of the pipeline.
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "require_value": true }
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "visibility": "always_hidden", "require_value": true }
 
 [params]
 ## organism info
@@ -45,7 +45,7 @@ SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "Whether to skip t
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_scf,assembly_qc,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["assembly_scf", "assembly_qc", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] }, "visibility": "default_hidden" }
 
 
 [pipeline]

@@ -19,7 +19,7 @@ SHORT_TAG={"display": "Short Reads Input Tag", "desc": "The input tag describing
 
 LONG_TAG={"display": "Long Reads Input Tag", "desc": "The input tag describing any long non-paired end input reads (fasta or fastq", "type": "dataset", "type_params": { "format_type": ["fastq", "nuc_fasta"], "transform_name": "input.LONG_INPUT_LIST" } }
 
-REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "require_value": true }
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-prok-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "visibility": "always_hidden", "require_value": true }
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
@@ -59,7 +59,7 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## Output tags to download
 ## Comma separated list (e.g. assembly_contigs,annotation_genbank )
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] } }
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] }, "visibility": "default_hidden" }
 
 
 [pipeline]
