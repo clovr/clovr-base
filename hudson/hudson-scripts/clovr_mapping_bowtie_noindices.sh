@@ -14,8 +14,7 @@ vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c input.REFERENCE_TAG=clovr_mapping_bowtie_noindices_ref \
     -c input.INPUT_PAIRED_TAG="clovr_mapping_bowtie_indices_paired_reads_1,clovr_mapping_bowtie_indices_paired_reads_2" \
     -c cluster.CLUSTER_NAME=$1 \
-    -c cluster.CLUSTER_CREDENTIAL=$2 \
-    -c params.OUTPUT_PREFIX="e_coli" > /tmp/$$.pipeline.conf
+    -c cluster.CLUSTER_CREDENTIAL=$2 > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config=/tmp/$$.pipeline.conf --overwrite`
