@@ -28,5 +28,6 @@
                 <value>$;OUTPUT_DIRECTORY$;/add_config_to_tag.stderr</value>
                 </param>
         </command>
+	 <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" />
    </commandSet>
  </commandSetRoot>
