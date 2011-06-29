@@ -10,6 +10,7 @@ vp-describe-protocols --config-from-protocol=clovr_mugsy \
     -c params.ORGANISM="Bifidobacter sp" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Mugsy Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 vp-add-dataset --tag-name=bifidobacter_genbank_tag -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk

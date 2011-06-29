@@ -16,6 +16,7 @@ vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_indices \
     -c input.REFERENCE_BOWTIE_TAG=clovr_mapping_bowtie_indices_bowtie_index \
     -c input.REFERENCE_FASTA_TAG=clovr_mapping_bowtie_indices_ref_fasta \
     -c cluster.CLUSTER_NAME=$1 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Mapping Bowtie Indices Test" \
     -c cluster.CLUSTER_CREDENTIAL=$2 > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run

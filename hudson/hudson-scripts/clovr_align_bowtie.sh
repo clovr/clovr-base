@@ -16,6 +16,7 @@ vp-describe-protocols --config-from-protocol=clovr_align_bowtie \
     -c params.OUTPUT_PREFIX="e_coli" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Align Bowtie Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 

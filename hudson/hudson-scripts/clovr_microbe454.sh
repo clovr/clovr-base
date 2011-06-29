@@ -11,6 +11,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c params.SKIP_BANK=true \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Microbe 454 Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 vp-add-dataset --tag-name=hudson_sff_test /opt/hudson/BD413_wt_contig170.sff -o

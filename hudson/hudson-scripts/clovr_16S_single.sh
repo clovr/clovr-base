@@ -12,6 +12,7 @@ vp-describe-protocols --config-from-protocol=clovr_16S \
     -c input.MAPPING_TAG=clovr_16S_single_mapping \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR 16S Single" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`

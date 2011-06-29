@@ -12,6 +12,7 @@ vp-describe-protocols --config-from-protocol=clovr_sleep \
     -c input.INPUT_TAG=clovr_sleep_files \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Sleep Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`

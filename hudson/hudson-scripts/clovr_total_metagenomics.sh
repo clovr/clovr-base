@@ -11,6 +11,7 @@ vp-describe-protocols --config-from-protocol=clovr_total_metagenomics \
     -c input.INPUT_TAG=clovr_total_metagenomics_hudson \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Metagenomics Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 

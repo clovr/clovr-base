@@ -23,6 +23,7 @@ vp-describe-protocols --config-from-protocol=clovr_rna_seq_indices \
     -c params.MIN_ALIGN_QUAL=0 \
     -c params.IS_STRANDED="no" \
     -c params.ID_ATTRIBUTE="ID" \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR RNA Seq Indices" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 > /tmp/$$.pipeline.conf
 

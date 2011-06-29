@@ -13,6 +13,7 @@ vp-describe-protocols --config-from-protocol=clovr_metagenomics_noorfs \
     -c input.MAPPING_TAG=clovr_metagenomics_noorfs_map \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Metagenomics Noorfs Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`

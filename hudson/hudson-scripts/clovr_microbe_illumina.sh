@@ -12,6 +12,7 @@ vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     -c params.ORGANISM="Genus species" \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Micorbe Illumina Test" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 
