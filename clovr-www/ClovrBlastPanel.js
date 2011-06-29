@@ -404,10 +404,10 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
         var type_to_good_program = {
             'nuc_fasta': {
                 'nuc_blastdb': /^blastn|tblastx/,
-                'aa_blastdb':/tblastn/
+                'aa_blastdb':/^blastx/
             },
             'aa_fasta': {
-                'nuc_blastdb': /^blastx/,
+                'nuc_blastdb': /tblastn/,
                 'aa_blastdb': /blastp/
             }
         };
