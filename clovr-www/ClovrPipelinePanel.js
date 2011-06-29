@@ -179,8 +179,10 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             	// Pull the task info
             	clovr.getTaskInfo(pipe.task_name,
             		function(rdata) {
-            			var data = Ext.util.JSON.decode(rdata.responseText);
-						msg_grid.getStore().loadData(data.data[0].messages);
+            		    var data = Ext.util.JSON.decode(rdata.responseText);
+			    if(msg_grid.getStore()) {
+                                msg_grid.getStore().loadData(data.data[0].messages);
+                            }
             	});
             	
             	// First we'll deal with the input tags
@@ -188,8 +190,9 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             	Ext.each(pipe.input_tags, function(tag) {
             		input_data.push([tag]);
             	});
-            	input_grid.getStore().loadData(input_data);
-            	
+            	if(input_grid.getStore()) {
+		    input_grid.getStore().loadData(input_data);
+            	}
                 for(param in pipe.config) {
                     for(type in value_classes) {
                         if(param.match(value_classes[type].regex)) {
@@ -199,13 +202,16 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                         }
                     }
                 }
-                parameters_grid.getStore().loadData(value_classes.params.values);
-                
+                if(parameters_grid.getStore()) {
+                    parameters_grid.getStore().loadData(value_classes.params.values);
+                }
                 var output_data = [];
                 Ext.each(pipe.output_tags, function(tag) {
                 	output_data.push(["<a href='/output/"+tag+".tar.gz'>"+tag+"</a>"]);
                 });
-                output_grid.getStore().loadData(output_data);
+                if(output_grid.getStore()) {
+                    output_grid.getStore().loadData(output_data);
+                }
             }
         });
         config.layout = 'border';

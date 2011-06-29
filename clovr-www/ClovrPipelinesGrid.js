@@ -67,6 +67,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
 							pipeGrid.pBars[record.json.pipeline_name] = new Ext.ProgressBar({
 							text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
 							value: record.json.num_complete/record.json.num_steps,
+							animate: true,
 							listeners: {
 /*								beforeshow: function(pb) {
 									pb.updateProgress(pb.value);

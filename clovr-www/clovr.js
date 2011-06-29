@@ -771,7 +771,7 @@ clovr.credentialCombo = function(config) {
             load: function(store,records,o) {
                 if(!config.default_value) {
                 	if(store.getAt(0)) {
-                    	combo.setValue(store.getAt(0).data.name);
+                    	//combo.setValue(store.getAt(0).data.name);
 	                }
                 }
                 else {
@@ -798,7 +798,8 @@ clovr.credentialCombo = function(config) {
         tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>{description}</div></tpl>',
         triggerAction: 'all',
         displayField: 'name',
-        fieldLabel: 'Account'
+        fieldLabel: 'Account',
+	emptyText: 'Select an account'
     }));
     return combo;
 }

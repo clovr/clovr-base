@@ -96,7 +96,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         
         // Grid with running/complete pipelines in it
         var pipegrid = new clovr.ClovrPipelinesGrid({
-            height: 300,
+            height: 400,
             split: true
             //        collapsed: true,
             //        collapseMode: 'mini',
