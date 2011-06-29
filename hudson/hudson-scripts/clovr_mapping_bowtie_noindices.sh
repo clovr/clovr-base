@@ -5,16 +5,17 @@ source /opt/vappio-scripts/clovrEnv.sh
 DATE=`date +"%m-%d-%Y-%T"`
 
 # Tag data that will be used in this pipeline
-vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_paired_reads_1 /opt/hudson/rna_seq_data/test1.txt /opt/hudson/rna_seq_data/test2.txt
+vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_paired_reads_1_$2 /opt/hudson/rna_seq_data/test1.txt /opt/hudson/rna_seq_data/test2.txt
 vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_paired_reads_2 /opt/hudson/rna_seq_data/testb1.txt /opt/hudson/rna_seq_data/testb2.txt
 vp-add-dataset -o --tag-name=clovr_mapping_bowtie_noindices_ref /opt/hudson/rna_seq_data/gasalab49.fsa
 
 # Generate configuration file that will be used by the pipeline
 vp-describe-protocols --config-from-protocol=clovr_mapping_bowtie_noindices \
     -c input.REFERENCE_TAG=clovr_mapping_bowtie_noindices_ref \
-    -c input.INPUT_PAIRED_TAG="clovr_mapping_bowtie_indices_paired_reads_1,clovr_mapping_bowtie_indices_paired_reads_2" \
+    -c input.INPUT_PAIRED_TAG="clovr_mapping_bowtie_indices_paired_reads_1_${2},clovr_mapping_bowtie_indices_paired_reads_2" \
     -c cluster.CLUSTER_NAME=$1 \
-    -c pipeline.PIPELINE_DESC="Hudson CloVR Mapping Bowtie Noindices Test" \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Mapping Bowtie Noindices Test $2" \
     -c cluster.CLUSTER_CREDENTIAL=$2 > /tmp/$$.pipeline.conf
 
 # Run pipeline, block on checking status and verify exit code indicates a successful run

@@ -2,17 +2,18 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset -o --tag-name=clovr_16S_single_input /opt/hudson/16S_data/AMP_Lung.small.fasta
+vp-add-dataset -o --tag-name=clovr_16S_single_input_$2 /opt/hudson/16S_data/AMP_Lung.small.fasta
 vp-add-dataset -o --tag-name=clovr_16S_single_mapping /opt/hudson/16S_data/IGS.qmap
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_16S \
-    -c input.FASTA_TAG=clovr_16S_single_input \
+    -c input.FASTA_TAG=clovr_16S_single_input_$2 \
     -c input.MAPPING_TAG=clovr_16S_single_mapping \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
-    -c pipeline.PIPELINE_DESC="Hudson CloVR 16S Single" \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR 16S Single Test $2" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`

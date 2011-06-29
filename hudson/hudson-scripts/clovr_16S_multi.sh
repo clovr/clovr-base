@@ -2,17 +2,18 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset -o --tag-name=clovr_16S_multi_input /opt/hudson/16S_data/A.fasta /opt/hudson/16S_data/B.fasta /opt/hudson/16S_data/C.fasta /opt/hudson/16S_data/D.fasta
+vp-add-dataset -o --tag-name=clovr_16S_multi_input_$2 /opt/hudson/16S_data/A.fasta /opt/hudson/16S_data/B.fasta /opt/hudson/16S_data/C.fasta /opt/hudson/16S_data/D.fasta
 vp-add-dataset -o --tag-name=clovr_16S_multi_mapping /opt/hudson/16S_data/IGS.multi.meta
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_16S \
-    -c input.FASTA_TAG=clovr_16S_multi_input \
+    -c input.FASTA_TAG=clovr_16S_multi_input_$2 \
     -c input.MAPPING_TAG=clovr_16S_multi_mapping \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
-    -c pipeline.PIPELINE_DESC="Hudson Clovr 16S Multi test" \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC="Hudson Clovr 16S Multi Test $2" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`

@@ -2,18 +2,19 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta /opt/hudson/Metagenomic_data/ts1.small.fasta  /opt/hudson/Metagenomic_data/ts20.small.fasta  /opt/hudson/Metagenomic_data/ts29.small.fasta  /opt/hudson/Metagenomic_data/ts4.small.fasta   /opt/hudson/Metagenomic_data/ts50.small.fasta  /opt/hudson/Metagenomic_data/ts7.small.fasta /opt/hudson/Metagenomic_data/ts19.small.fasta  /opt/hudson/Metagenomic_data/ts21.small.fasta  /opt/hudson/Metagenomic_data/ts3.small.fasta   /opt/hudson/Metagenomic_data/ts49.small.fasta  /opt/hudson/Metagenomic_data/ts51.small.fasta  /opt/hudson/Metagenomic_data/ts8.small.fasta /opt/hudson/Metagenomic_data/ts2.small.fasta   /opt/hudson/Metagenomic_data/ts28.small.fasta  /opt/hudson/Metagenomic_data/ts30.small.fasta  /opt/hudson/Metagenomic_data/ts5.small.fasta   /opt/hudson/Metagenomic_data/ts6.small.fasta   /opt/hudson/Metagenomic_data/ts9.small.fasta
+vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta_$2 /opt/hudson/Metagenomic_data/ts1.small.fasta  /opt/hudson/Metagenomic_data/ts20.small.fasta  /opt/hudson/Metagenomic_data/ts29.small.fasta  /opt/hudson/Metagenomic_data/ts4.small.fasta   /opt/hudson/Metagenomic_data/ts50.small.fasta  /opt/hudson/Metagenomic_data/ts7.small.fasta /opt/hudson/Metagenomic_data/ts19.small.fasta  /opt/hudson/Metagenomic_data/ts21.small.fasta  /opt/hudson/Metagenomic_data/ts3.small.fasta   /opt/hudson/Metagenomic_data/ts49.small.fasta  /opt/hudson/Metagenomic_data/ts51.small.fasta  /opt/hudson/Metagenomic_data/ts8.small.fasta /opt/hudson/Metagenomic_data/ts2.small.fasta   /opt/hudson/Metagenomic_data/ts28.small.fasta  /opt/hudson/Metagenomic_data/ts30.small.fasta  /opt/hudson/Metagenomic_data/ts5.small.fasta   /opt/hudson/Metagenomic_data/ts6.small.fasta   /opt/hudson/Metagenomic_data/ts9.small.fasta
 
 vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_map /opt/hudson/Metagenomic_data/Twins.small.meta
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
 vp-describe-protocols --config-from-protocol=clovr_metagenomics_noorfs \
-    -c input.FASTA_TAG=clovr_metagenomics_noorfs_fasta \
+    -c input.FASTA_TAG=clovr_metagenomics_noorfs_fasta_$2 \
     -c input.MAPPING_TAG=clovr_metagenomics_noorfs_map \
     -c cluster.CLUSTER_NAME=$1 \
     -c cluster.CLUSTER_CREDENTIAL=$2 \
-    -c pipeline.PIPELINE_DESC="Hudson CloVR Metagenomics Noorfs Test" \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC="Hudson CloVR Metagenomics Noorfs Test $2" \
     > /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
