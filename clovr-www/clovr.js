@@ -378,7 +378,7 @@ clovr.uploadFileWindow = function(config) {
              store: new Ext.data.ArrayStore({
                  fields:['id','name'],
                  data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],
-                        ['sff','SFF'],['fastq','FASTQ'],['metagenomics_mapping_file','Metagenomics mapping file'],
+                        ['sff','SFF'],['fastq','FASTQ'],['nuc_blastdb','Nucleotide BLAST DB'],['aa_blastdb','Protein BLAST DB'],['metagenomics_mapping_file','Metagenomics mapping file'],
                         ['quality_scores','Quality Scores']]
              }),
              valueField: 'id',
