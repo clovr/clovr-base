@@ -6,4 +6,5 @@
     <state>incomplete</state>
     <name>noop</name>
   </commandSet>
+  <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" />
 </commandSetRoot>
