@@ -1,0 +1,71 @@
+td.x-grid3-td-progress-cell {
+    padding: 0;
+}
+
+td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
+    padding: 0;
+    position: relative;
+    height: 26px;
+}
+
+.ux-progress-cell-inner {
+    position: absolute;
+    top: 3;
+    left: 0;
+    height: 21px;
+    width: 98%;
+    overflow: hidden;
+    border-width: 1px;
+	border-color: #000000;
+	border-style: solid;
+}
+
+.ux-progress-cell-background {
+    background: #E0E8F3 url(/extjs/resources/images/default/qtip/bg.gif) repeat-x scroll 0 -1px;
+    white-space: nowrap;
+}
+.x-grid3-td-progress-cell .low {
+    background: url(/extjs/resources/images/gray/progress/progress-bg.gif) repeat-x scroll 0 50%;
+    border-right: none;
+/*    background: #11aa11;*/
+}
+.x-grid3-td-progress-cell .medium {
+    background: #f1fa1a;
+}
+.x-grid3-td-progress-cell .high {
+    background: #ee1111;
+}
+
+.ux-progress-cell-foreground {
+    color: #000;
+    background-color: #9CBFEE;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.ux-progress-cell-inner-right {
+    text-align: right;
+}
+
+.ux-progress-cell-inner-center {
+    text-align: center;
+}
+
+.ux-progress-cell .ux-progress-cell-inner div {
+    padding: 3px 0 0 4px;
+}
+
+.ux-progress-cell-inner-right div {
+    padding: 3px 4px 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-center div {
+    padding: 3px 0 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-left div {
+    padding: 3px 0 0 4px;
+    position: relative;
+}

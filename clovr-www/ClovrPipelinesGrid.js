@@ -16,7 +16,9 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     {name: "pipeline_desc"},
                     {name: "state"},
                     {name: "total"},
-                    {name: "complete"}
+                    {name: "complete"},
+                    {name: "num_steps"},
+                    {name: "num_complete"}
                 ]
             }),
             groupField: "state",
@@ -57,41 +59,52 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     	}
                     },
                     {id: 'status', header: 'Status', dataIndex: 'state', hidden: true},
-                    {id: 'steps', header: 'Step', dataIndex: 'num_steps', renderer: 
+                    new Ext.ux.ProgressColumn({
+                    	header: 'step',
+                    	dataIndex: 'num_steps',
+                    	dividend: 'num_complete',
+                    	renderer: function(value,meta,record) {
+                    		return String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps);
+                    	}
+                    })
+/*                    {id: 'steps', header: 'Step', dataIndex: 'num_steps', renderer: 
                     function(value, p, record, ri, ci, store) {
 						if(!store.pBars) {
 							store.pBars = [];
 						}
 //						if(record.json.state =='running') {
 //							console.log(record.json);
-							pipeGrid.pBars[record.json.pipeline_name] = new Ext.ProgressBar({
-							text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
-							value: record.json.num_complete/record.json.num_steps,
-							animate: true,
-							listeners: {
-/*								beforeshow: function(pb) {
-									pb.updateProgress(pb.value);
-								},
-								resize: function(pb) {
-									pb.updateProgress(pb.value);
-								}*/
-							}
-							});
+//							console.log(pipeGrid.pBars[record.json.pipeline_name]);
+//							if(!pipeGrid.pBars[record.json.pipeline_name]) {
+								pipeGrid.pBars[record.json.pipeline_name] = new Ext.ProgressBar({
+								text: String.format("Steps {0}/{1} complete", record.json.num_complete,record.json.num_steps),
+								value: record.json.num_complete/record.json.num_steps,
+//								animate: true,
+								});
+//							}
+//							else {
+//								console.log('here for the second time')
+//								pipeGrid.pBars[record.json.pipeline_name].updateProgress(record.json.num_complete/record.json.num_steps);
+//								pipeGrid.pBars[record.json.pipeline_name].render(name+"_step");
+//							}
+//							var date = new Date;
+//							var now = date.getTime();
+//							pipeGrid.pBars[record.json.pipeline_name].currtime = now;
 						return String.format("<div id='{0}_step'></div>",record.json.pipeline_name);
 //						}
 //						else {
 //							return String.format("Steps {0}/{1} complete", record.json.complete,record.json.total);
 //						}
 					}    
-				}
+				}*/
                 ]
             }),
             listeners: {
             	afterrender: function() {
-            		Ext.TaskMgr.start({
+/*            		Ext.TaskMgr.start({
             			run: function() {getPipelineStatus()},
             			interval: 30000
-        			});
+        			});*/
 //            		getPipelineStatus();
             	},
             	bodyresize: function(panel) {
@@ -113,6 +126,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             		refresh: function(view) {
             			for(name in pipeGrid.pBars) {
             				pipeGrid.pBars[name].updateProgress(pipeGrid.pBars[name].value);
+//            				console.log(name+"_"+pipeGrid.pBars[name].currtime+"_step");
             				pipeGrid.pBars[name].render(name+"_step");
             			}
             		}
