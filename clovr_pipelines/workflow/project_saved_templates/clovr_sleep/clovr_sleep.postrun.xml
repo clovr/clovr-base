@@ -5,6 +5,6 @@
   <commandSet type="serial">
     <state>incomplete</state>
     <name>noop</name>
+    <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" />
   </commandSet>
-  <INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" />
 </commandSetRoot>
