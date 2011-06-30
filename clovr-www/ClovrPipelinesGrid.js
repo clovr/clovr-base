@@ -51,6 +51,9 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                                 //console.log(record.json.config['pipeline.PIPELINE_TEMPLATE']);
                     			var track = clovr.PROTOCOL_TO_TRACK[record.json.protocol];
                     			var id = record.json.pipeline_id;
+                    			if(!track) {
+                    				track = 'clovr';
+                    			}
                     			return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>Pipeline: {1}<br/>{2}</div>",track,id,value);
                     		}
                     		else {
@@ -60,7 +63,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     },
                     {id: 'status', header: 'Status', dataIndex: 'state', hidden: true},
                     new Ext.ux.ProgressColumn({
-                    	header: 'step',
+                    	header: 'Step',
                     	dataIndex: 'num_steps',
                     	dividend: 'num_complete',
                     	renderer: function(value,meta,record) {

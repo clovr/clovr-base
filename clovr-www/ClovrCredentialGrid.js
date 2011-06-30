@@ -52,7 +52,7 @@ clovr.ClovrCredentialGrid = Ext.extend(Ext.grid.GridPanel, {
                      handler: function() {
                          clovr.addCredentialWindow();
                      }},
-            		{text: 'refresh',
+            		{text: 'Refresh',
 	                 handler: function() {
     	             	credgrid.body.mask('Loading','x-mask-loading');
         	         	clovr.reloadCredStores({

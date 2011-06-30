@@ -132,7 +132,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                      var selections = taggrid.getSelectionModel().getSelections();
                      create_details_view(config,selections[0].data);
                  }},*/
-            	{text: 'refresh',
+            	{text: 'Refresh',
                  handler: function() {
                  	taggrid.body.mask('Loading','x-mask-loading');
                  	clovr.reloadTagStores({

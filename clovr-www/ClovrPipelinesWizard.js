@@ -48,7 +48,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             },
             '-',
             'Click to configure a pipeline:',
-            {text: 'CLoVR Microbe',
+            {text: '<div class="header_button_text">CloVR Microbe</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_microbe_icon_sml.png',
@@ -56,7 +56,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_microbe');
              }
             },
-            {text: 'CLoVR Search',
+            {text: '<div class="header_button_text">CloVR Search</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_search_icon_sml.png',
@@ -64,7 +64,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_search');
              }
             },
-            {text: 'CLoVR Metagenomics',
+            {text: '<div class="header_button_text">CloVR Metagenomics</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_metagenomics_icon_sml.png',
@@ -72,7 +72,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
              }
             },
-            {text: 'CLoVR 16s',
+            {text: '<div class="header_button_text">CloVR 16s</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_16s_icon_sml.png',

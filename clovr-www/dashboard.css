@@ -15,7 +15,10 @@
     display: block;
 /*    margin-top: 9px;*/
 }
+.header_button_text {
+	padding-left: 4px;
 
+}
 .clovr_search_button {
     background-image: transparent url("/clovr/images/clovr_search_icon.png");
 /*    height: 96px;
