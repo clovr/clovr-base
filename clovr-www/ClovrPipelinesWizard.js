@@ -72,7 +72,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
              }
             },
-            {text: '<div class="header_button_text">CloVR 16s</div>',
+            {text: '<div class="header_button_text">CloVR 16S</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_16s_icon_sml.png',
