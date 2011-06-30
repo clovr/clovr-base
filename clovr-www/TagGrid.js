@@ -125,11 +125,22 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                  handler: function() {
                      uploadWin.show();
                  }},
-                {text: 'Get Details',
+                 
+                 // This was only useful when clicking a dataset did nothing
+/*                {text: 'Get Details',
                  handler: function() {
                      var selections = taggrid.getSelectionModel().getSelections();
                      create_details_view(config,selections[0].data);
-                 }}
+                 }},*/
+            	{text: 'refresh',
+                 handler: function() {
+                 	taggrid.body.mask('Loading','x-mask-loading');
+                 	clovr.reloadTagStores({
+                 		callback: function() {
+                 			taggrid.body.unmask();
+                 		}
+                 	})}
+                }
             ]
 //            ,
 //            tools: [

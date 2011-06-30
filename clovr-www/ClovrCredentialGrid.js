@@ -5,6 +5,8 @@ Ext.ns('clovr');
 clovr.ClovrCredentialGrid = Ext.extend(Ext.grid.GridPanel, {
 
     constructor: function(config) {
+    
+    	var credgrid = this;
         var jstore = new Ext.data.Store({
             reader: new Ext.data.JsonReader({
             	fields: [
@@ -49,7 +51,17 @@ clovr.ClovrCredentialGrid = Ext.extend(Ext.grid.GridPanel, {
                     {text: 'Add',
                      handler: function() {
                          clovr.addCredentialWindow();
-                     }}
+                     }},
+            		{text: 'refresh',
+	                 handler: function() {
+    	             	credgrid.body.mask('Loading','x-mask-loading');
+        	         	clovr.reloadCredStores({
+            	     		callback: function() {
+                	 			credgrid.body.unmask();
+                 			}
+	                 	})
+	                 }
+    	            }
                 ],
 
             }));

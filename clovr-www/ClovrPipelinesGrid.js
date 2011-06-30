@@ -101,10 +101,10 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             }),
             listeners: {
             	afterrender: function() {
-/*            		Ext.TaskMgr.start({
+            		Ext.TaskMgr.start({
             			run: function() {getPipelineStatus()},
             			interval: 30000
-        			});*/
+        			});
 //            		getPipelineStatus();
             	},
             	bodyresize: function(panel) {

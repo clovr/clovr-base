@@ -30,10 +30,14 @@ td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
 /*    background: #11aa11;*/
 }
 .x-grid3-td-progress-cell .medium {
-    background: #f1fa1a;
+/*    background: #f1fa1a;*/
+    background: url(/extjs/resources/images/gray/progress/progress-bg.gif) repeat-x scroll 0 50%;
+    border-right: none;
 }
 .x-grid3-td-progress-cell .high {
-    background: #ee1111;
+/*    background: #ee1111;*/
+    background: url(/extjs/resources/images/gray/progress/progress-bg.gif) repeat-x scroll 0 50%;
+    border-right: none;
 }
 
 .ux-progress-cell-foreground {
