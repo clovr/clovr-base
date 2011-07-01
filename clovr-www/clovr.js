@@ -731,7 +731,7 @@ clovr.getPipelineList = function(config) {
         params: {request: 
                  Ext.util.JSON.encode(
                      {'cluster': config.cluster_name,
-                      'critiera': {
+                      'criteria': {
                       	'pipeline_name': config.pipe_name
                      }
                      })},
