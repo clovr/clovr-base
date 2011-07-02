@@ -12,6 +12,10 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>run_command.prepare_input_for_pileup</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>samtools_pileup.default</name>
         </commandSet>
         <commandSet type="serial">
