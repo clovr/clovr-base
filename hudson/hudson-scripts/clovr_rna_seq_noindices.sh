@@ -7,7 +7,7 @@ DATE=`date +"%m-%d-%Y-%T"`
 # Tag data that will be used in this pipeline
 vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_paired_reads_1_$2 /opt/hudson/rna_seq_data/test1.txt /opt/hudson/rna_seq_data/test2.txt
 vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_paired_reads_2 /opt/hudson/rna_seq_data/testb1.txt /opt/hudson/rna_seq_data/testb2.txt
-vp-add-dataset -o --tag-name=clovr_mapping_bowtie_indices_bowtie_index /opt/hudson/rna_seq_data/bowtie_indices/*
+vp-add-dataset -o --tag-name=clovr_mapping_bowtie_noindices_ref /opt/hudson/rna_seq_data/gasalab49.fsa
 vp-add-dataset -o --tag-name=clovr_rna_seq_prok_expression_analysis_gff3 /opt/hudson/rna_seq_data/gasalab49.gff3
 vp-add-dataset -o --tag-name=clovr_rna_seq_prok_expression_analysis_sample_mapping /opt/hudson/rna_seq_data/sample_matching.txt
 
