@@ -19,5 +19,11 @@
             <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
             <arg>--tag-name $;REFERENCE_BOWTIE_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
         </command>
+        <command>
+            <name>Upload reference fasta data</name>
+            <type>RunUnixCommand</type>
+            <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
+            <arg>--tag-name $;REFERENCE_FASTA_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
+        </command>
     </commandSet>
 </commandSetRoot>              
