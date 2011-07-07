@@ -34,7 +34,7 @@ MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Ma
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam,samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download,", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam", "samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}, "visibility": "default_hidden" }
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "samtools_bam,samtools_bam_index,basic_stats_idx,basic_stats_flag,samtools_pileup,pileup2wig_wig", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download,", "type": "restricted_string list", "type_params": {"choices": ["samtools_bam", "samtools_bam_index", "basic_stats_idx", "basic_stats_flag", "samtools_pileup", "pileup2wig_wig"]}, "visibility": "default_hidden" }
 
 [download]
 
