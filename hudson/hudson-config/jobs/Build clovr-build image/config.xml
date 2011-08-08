@@ -34,20 +34,20 @@ then
 	bundletools=&quot;-t&quot;
 fi
 sudo -E /opt/vappio-util/vp-build $bundletools $IMAGE_NAME clovr-build
-#Runtime user-scripts
+#Runtime user_data/user_scripts
 echo &quot;Enabling updates and hudson start at boot&quot;
 buildname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
 namepfx=&quot;clovr-build-$buildname&quot;
 echo &quot;build&quot; &gt; $namepfx/shared/node_type
-mkdir -p $namepfx/shared/user-scripts
-echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/01-updaterecipes
-echo &quot;/opt/vappio-install/vp-bootstrap-install&quot; &gt;&gt; $namepfx/shared/user-scripts/01-updaterecipes
-echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user-scripts/02-starthudson
-#echo &quot;export HUDSON_ARGS=\&quot;--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\&quot;&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
-echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user-scripts/02-starthudson
-echo &quot;/etc/init.d/apt-cacher restart&quot; &gt; $namepfx/shared/user-scripts/04-aptcacher
-echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &amp;&quot; &gt; $namepfx/shared/user-scripts/05-irccat 
-chmod a+x $namepfx/shared/user-scripts/*
+mkdir -p $namepfx/shared/user_data/user_scripts
+echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user_data/user_scripts/01-updaterecipes
+echo &quot;/opt/vappio-install/vp-bootstrap-install&quot; &gt;&gt; $namepfx/shared/user_data/user_scripts/01-updaterecipes
+echo &quot;#!/bin/bash&quot; &gt; $namepfx/shared/user_data/user_scripts/02-starthudson
+#echo &quot;export HUDSON_ARGS=\&quot;--argumentsRealm.passwd.admin=cb2clovr3 --argumentsRealm.roles.admin=admin\&quot;&quot; &gt;&gt; $namepfx/shared/user_data/user_scripts/02-starthudson
+echo &quot;/etc/init.d/hudson start&quot; &gt;&gt; $namepfx/shared/user_data/user_scripts/02-starthudson
+echo &quot;/etc/init.d/apt-cacher restart&quot; &gt; $namepfx/shared/user_data/user_scripts/04-aptcacher
+echo &quot;/var/lib/gems/1.8/gems/irc_cat-0.2.0/bin/irccat -c /etc/irccat.yml &amp;&quot; &gt; $namepfx/shared/user_data/user_scripts/05-irccat 
+chmod a+x $namepfx/shared/user_data/user_scripts/*
 perl -pi -e &apos;s/numvcpus = \S+/numvcpus = &quot;2&quot;/&apos; $namepfx/start_clovr.vmx
 perl -pi -e &apos;s/memsize = \S+/memsize = &quot;8192&quot;/&apos; $namepfx/start_clovr.vmx
 tar -cvzf $namepfx.tgz $namepfx || true
