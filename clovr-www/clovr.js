@@ -313,7 +313,7 @@ clovr.uploadFileWindow = function(config) {
 //        manager: windows,
         layout: 'fit',
         width: 400,
-        height: 375,
+        height: 400,
         closeAction: 'hide',
         title: 'Upload File',
         plugins: [drawer
