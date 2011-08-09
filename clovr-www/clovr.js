@@ -333,6 +333,12 @@ clovr.uploadFileWindow = function(config) {
             }
         }
     });
+    
+    var urlField = new Ext.form.TextArea({
+    	fieldLabel: 'Or, paste URLs <br/>(1 per line)',
+        width: 200,
+    });
+    
     // A form for the upload
     var uploadForm = new Ext.form.FormPanel({
         fileUpload: true,
@@ -360,7 +366,8 @@ clovr.uploadFileWindow = function(config) {
                            uploadField.reset();
                        }
                       }
-                  ]}
+                  ]},
+				  urlField
              ]
              
             },
@@ -405,7 +412,8 @@ clovr.uploadFileWindow = function(config) {
                  var form = uploadForm.getForm();
                  var uploadfield = form.findField('file');
 				 var locals = localFileSelector.getChecked()
-                 if(uploadfield.getValue() && locals.length) {
+				 var urls = urlField.getValue().split(/\r\n|\r|\n/);
+    			 if(uploadfield.getValue() && locals.length) {
                      uploadWindow.drawers.e.show();
     	       		 Ext.Msg.show({
 						 title: 'Ooops!',
@@ -427,6 +435,7 @@ clovr.uploadFileWindow = function(config) {
                              clovr.tagData({
                          	     params: {
 				            	     'files': [path + filename],
+				            	     'urls': urls,
             					     'cluster': 'local',
 								     'action': 'create',
 				            	     'expand': true,
@@ -473,6 +482,7 @@ clovr.uploadFileWindow = function(config) {
                      clovr.tagData({
                          params: {
 				             'files': all_selected,
+				             'urls': urls,
             				 'cluster': 'local',
 							 'action': 'create',
             				 'expand': true,
@@ -607,25 +617,36 @@ clovr.checkTaskStatus = function(config) {
 clovr.checkTagTaskStatusToSetValue = function(config) {
     var uploadWindow = config.uploadwindow;
     var seqcombo = config.seqcombo;
-	
-	clovr.checkTaskStatus({
-		task_name: config.response.data.task_name,
-		callback: function() {
-        	if(uploadWindow) { 
-            	uploadWindow.hide();
-            }
-        	clovr.reloadTagStores({
-            	callback: function() {
-            		if(seqcombo) {
-	                	seqcombo.setValue(config.tagname);
-    	            }
-        	        if(config && config.callback) {
-            	    	config.callback();
-	                }
+	if(config.response.success) {
+		clovr.checkTaskStatus({
+			task_name: config.response.data.task_name,
+			callback: function() {
+    	    	if(uploadWindow) { 
+        	    	uploadWindow.hide();
 	            }
-	        });
-		}
-	});
+    	    	clovr.reloadTagStores({
+        	    	callback: function() {
+            			if(seqcombo) {
+	            	    	seqcombo.setValue(config.tagname);
+    	            	}
+	        	        if(config && config.callback) {
+    	        	    	config.callback();
+	    	            }
+	        	    }
+		        });
+			}
+		});
+	}
+	else {
+		Ext.Msg.show({
+			title: 'Error',
+	        width: 300,
+			closable: false,
+			msg: config.response.data.msg,
+            icon: Ext.MessageBox.ERROR,
+            buttons: Ext.Msg.OK
+		});   		
+	}
 /*
     var task = {                
         run: function() {

@@ -12,6 +12,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
             //            root: 'rows',
             reader: new Ext.data.JsonReader({
                 fields: [
+                	{name: "pipeline_id", type: 'int'},
                     {name: "name"},
                     {name: "pipeline_desc"},
                     {name: "state"},
@@ -27,6 +28,10 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                 load: function(store,records,o) {
                     store.groupBy('state');
                 }
+            },
+            sortInfo: {
+            	field: 'pipeline_id',
+            	direction: 'DESC'
             }
         });
 
@@ -45,6 +50,24 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     sortable: true
                 },
                 columns: [
+                	{id: 'pipeline_id', header: 'ID', dataIndex: 'pipeline_id',width: 7, renderer: 
+                    	function(value,p,record,ri,ci,store) {
+                    		if(record.json.protocol) {
+                                //console.log(record.json.config['pipeline.PIPELINE_TEMPLATE']);
+                    			var track = clovr.PROTOCOL_TO_TRACK[record.json.protocol];
+                    			var id = record.json.pipeline_id;
+                    			if(!track) {
+                    				track = 'clovr';
+                    			}
+                    			//return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>Pipeline: {1}<br/>{2}</div>",track,id,value);
+                    			return String.format("<div><img style='float:left;padding-right:5px;' src='/clovr/images/{0}_icon_sml.png'/>{1}</div>",track,value);
+
+                    		}
+                    		else {
+                    			return value;
+                    		}
+                    	}                	
+                	},
                     {id: 'name', header: 'Pipeline Name', dataIndex: 'pipeline_desc', renderer:
                     	function(value,p,record,ri,ci,store) {
                     		if(record.json.protocol) {
@@ -54,7 +77,10 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     			if(!track) {
                     				track = 'clovr';
                     			}
-                    			return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>Pipeline: {1}<br/>{2}</div>",track,id,value);
+                    			//return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>Pipeline: {1}<br/>{2}</div>",track,id,value);
+                    			//return String.format("<div><img style='float:left' src='/clovr/images/{0}_icon_sml.png'/>{1}</div>",track,value);
+                    			return value
+
                     		}
                     		else {
                     			return value;
@@ -169,7 +195,7 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     var data_to_load = {
                         'metaData': {
                             'fields': fields,
-                            'sortInfo': {'field': 'pipeline_desc'},
+                            'sortInfo': {'field': 'pipeline_id','dir': 'DESC'},
                             'root': 'rows'
                         },
                         'rows': pipes
@@ -179,7 +205,9 @@ clovr.ClovrPipelinesGrid = Ext.extend(Ext.grid.GridPanel, {
                     	function(rec,id) {
                         	return rec.json.wrapper;
                     });
-                }
+                    
+                    jstore.sort();
+                    }
             });
     	}
     }
