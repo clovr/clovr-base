@@ -30,6 +30,7 @@ clovr.addCredentialWindow = function(config) {
         items: [
             {xtype: 'textfield',
              fieldLabel: 'Credential Name',
+             vtype: 'alphanum',
              name: 'credential_name'
             },
             {xtype: 'textarea',
