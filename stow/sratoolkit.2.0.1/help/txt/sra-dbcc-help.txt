@@ -1,0 +1,7 @@
+Usage: sra-dbcc [options] table
+
+    -5, --md5        Check components md5s if present, fail otherwise, unless other checks are requested (default: yes)
+    -b, --blob-crc   Check blobs CRC32 (default: no)
+
+    -h, --help       This help
+    -v, --version    Program version

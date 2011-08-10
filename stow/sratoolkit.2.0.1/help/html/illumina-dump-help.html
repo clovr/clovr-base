@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>illumina-dump help</title>
+</head>
+<body>
+
+<pre>
+Usage:
+  illumina-dump [options] [ -A ] <accession>
+  illumina-dump [options] <path>
+
+        -A, --accession             Accession.
+
+Options:
+
+        -D, --table-path            Path to accession data.
+        -O, --outdir                Output directory. Default: '.'
+        -N, --minSpotId             Minimum spot id to output.
+        -X, --maxSpotId             Maximum spot id to output.
+        -G, --spot-group            Split into files by SPOT_GROUP (member name).
+        -GL, --spot-group-list [name,[name...]] Filter by SPOT_GROUP (member).
+        -R, --read-filter [pass|reject|criteria|redacted] Split into files by READ_FILTER value, optional filter by a value.
+        -T, --group-in-dirs         Split into subdirectories instead of files.
+        -K, --keep-empty-files      Do not delete empty files.
+        -L, --log-level             Logging level: fatal|sys|int|err|warn|info.
+        -H, --help                  Prints this message.
+
+Format options:
+
+        -r, --read                  Output READ: "seq". Default: on
+        -q, --qual1                 Output QUALITY, whole spot (1) or split by reads (2): "qcal". Default: 1
+        -p, --qual4                 Output full QUALITY: "prb". Default: off
+        -i, --intensity             Output INTENSITY, if present: "int". Default: off
+        -n, --noise                 Output NOISE, if present: "nse". Default: off
+        -s, --signal                Output SIGNAL, if present: "sig2". Default:off
+        -qseq                       Output QSEQ format: whole spot (1) or split by reads (2): "qseq". Default: off
+</pre>
+</body>
+</html>
