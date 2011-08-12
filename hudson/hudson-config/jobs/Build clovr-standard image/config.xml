@@ -84,7 +84,9 @@ fi
 if [ $? = 0 ] &amp;&amp; [ &quot;$UPLOAD_DIAG&quot; = &quot;true&quot; ]
 then
   bldimgname=`echo &quot;$BUILD_ID&quot; | sed &apos;s/_/-/&apos;`
-  curl http://localhost:8888/job/Bundle%20diag%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
+  #curl http://localhost:8888/job/Bundle%20diag%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname
+  #DIAG2 requires conversion of vmdk that includes boot sector
+  curl http://localhost:8888/job/Bundle%20diag%20image/buildWithParameters?IMAGE_NAME=/mnt/clovr-standard-$bldimgname/clovr-standard-$bldimgname.vmdk
 fi</command>
     </hudson.tasks.Shell>
   </builders>

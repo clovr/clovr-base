@@ -29,7 +29,7 @@
     <hudson.tasks.Shell>
       <command>cd /mnt
 #Need to redirect to /dev/null because of large stdout, progress bar
-sudo -E /opt/vappio-util/vp-bundle-diag -f $IMAGE_NAME $INIT_SCRIPT &gt; /dev/null</command>
+sudo -E /opt/vappio-util/vp-bundle-diag -f $IMAGE_NAME $INIT_SCRIPT</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
