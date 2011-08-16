@@ -39,7 +39,9 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
             },
             listeners: {
                 select: function(combo,rec) {
-                   wrapper_panel.load_pipeline_subform(config.pipelines);
+                	if(!wrapper_panel.hidden) {
+	                   wrapper_panel.load_pipeline_subform(config.pipelines);
+	                }
                 }
             },
             afterload: function() {

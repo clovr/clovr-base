@@ -869,7 +869,7 @@ clovr.clusterCombo = function(config) {
 }
 
 // Generates a combobox for tags. Takes a config which can have
-// cluster config options as well as a filter and sort parameter.
+// cluster config options as well as a filter and sort parameters.
 clovr.tagCombo = function(config) {
     var combo;
     var store = new Ext.data.JsonStore({
@@ -888,6 +888,9 @@ clovr.tagCombo = function(config) {
                 }
                 if(store.getAt(0)) {
                     combo.setValue(store.getAt(0).data.name);
+                }
+                else {
+                	combo.clearValue();
                 }
                 if(config.afterload) {
                     config.afterload();
