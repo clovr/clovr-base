@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation='commandSet.xsd'>
+  <commandSet type="serial">
+    <state>incomplete</state>
+    <name>clovr_lgt_bwa.prerun</name>
+    <command>
+      <name>Upload data</name>
+      <type>RunUnixCommand</type>
+      <executable>vp-transfer-dataset</executable>
+      <arg>--tag-name $;INPUT_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand 2&gt;&amp;1</arg>
+    </command>
+    <command>
+      <name>Upload data</name>
+      <type>RunUnixCommand</type>
+      <executable>perl /opt/ergatis/global_saved_templates/clovr_lgt_bwa/upload_list.pl $;REF_TAG1$; $;CLUSTER_NAME$;</executable>
+    </command>
+    <command>
+      <name>Upload data</name>
+      <type>RunUnixCommand</type>
+      <executable>perl /opt/ergatis/global_saved_templates/clovr_lgt_bwa/upload_list.pl $;REF_TAG2$; $;CLUSTER_NAME$;</executable>
+    </command>
+    <command>
+      <name>Delete local tag</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/ergatis/global_saved_templates/clovr_lgt_bwa/delete_tag.sh $;INPUT_TAG$;</executable>
+    </command>
+    <command>
+        <name>Delete local data</name>
+        <type>RunUnixCommand</type>
+        <executable>find /mnt/user_data/lgt_tmp/ -name '*.sra' -exec rm {} \;</executable>
+    </command>
+  </commandSet>
+</commandSetRoot>
