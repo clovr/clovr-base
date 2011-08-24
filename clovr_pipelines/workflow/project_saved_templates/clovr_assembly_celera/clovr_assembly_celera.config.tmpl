@@ -8,7 +8,7 @@
 ## This can be multiple sff files that will be assembled
 ## together.
 ## tagData.py --help for more details
-INPUT_SFF_TAG={"display": "Input Tag", "desc": "Input tag, should be an sff file", "type": "dataset", "require_value": true, "type_params": { "format_type": ["sff", null], "platform_type": ["454", null] } }
+INPUT_SFF_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline. Expected: 454 reads in SFF format", "type": "dataset", "type_params": { "format_type": ["sff"], "transform_name": "input.INPUT_FILE_LIST" }, "require_value": true }
 
 [params]
 ## organism info
@@ -18,18 +18,17 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "asmbl", "desc": "Organism
 ##
 ## trim can be one of the following values:
 ## none, soft, hard, chop
-TRIM={"display": "Trim", "default": "chop", "type": "restricted_string", "type_params": { "choices": ["none", "soft", "hard", "chop"] }, "require_value": true }
+TRIM={"display": "Trim", "default": "chop", "desc": "None: use whole read, soft: OBT and ECR can increase clear range, hard: OBT can only shrink the clear range, chop: Erase sequence outside the clear range", "type": "restricted_string", "type_params": { "choices": ["none", "soft", "hard", "chop"] }, "require_value": true }
 ##
 ## clear can be one of the following values:
 ## all, 454, none, n, pair-of-n, discard-n
-CLEAR={"display": "Clear", "default": "454", "type": "restricted_string", "type_params": { "choices": ["all", "454", "none", "pair-of-n", "discard-n"] }, "require_value": true }
-LINKER={"display": "Linker", "default": "titanium", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
-INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Must be two numbers separated by a space", "type": "insert_size" }
+CLEAR={"display": "Clear", "desc": "all: Use the whole read, 454: Use the 454 clear ranges as is (default), n: Use the whole read up to the first N, pair-of-n: Use the whole read up to the frist pair of Ns, discard-n: Delete the read if there is an N in the clear range.", "default": "454", "type": "restricted_string", "type_params": {"choices": ["all", "454", "none", "n", "pair-of-n", "discard-n"] }, "require_value": true }
+LINKER={"display": "Linker", "desc": "Search for linker, create mated reads. Name is one of: 'flx' == GTTGGAACCGAAAGGGTTTGAATTCAAACCCTTTCGGTTCCAAC or 'titanium' == TCGTATAACTTCGTATAATGTATGCTATACGAAGTTATTACG and CGTAATAACTTCGTATAGCATACATTATACGAAGTTATACGA", "default": "titanium", "desc": "What linker to use", "type": "restricted_string", "type_params": { "choices": ["titanium", "flx"] }, "require_value": true }
+INSERT_SIZE={"display": "Insert size", "default": "8000 1000", "desc": "Insert size = i d. Mates are on average i +- d bp apart.", "type": "insert_size" }
 
 ## celera assembler options
-SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type": "string"}
-SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "To skip bank file creation, set true if you are running anywhere other than locally", "type": "boolean", "type_params": { "true": 1, "false": 0 } }
-
+SPEC_FILE={"display": "Spec file", "default": "/dev/null", "require_value": true, "type":"string"}
+SKIP_BANK={"display": "Skip bank", "default": "true", "desc": "Whether to skip the bank file creation or not, if running on anything but local set to true", "type": "boolean", "type_params": { "true": "toAmos,bank-transact,cleanup afg file", "false": "null", "transform_name": "params.SKIP_BANK_T" } }
 
 #########################################################
 ## Output info.
