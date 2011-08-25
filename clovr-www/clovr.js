@@ -308,19 +308,23 @@ clovr.uploadFileWindow = function(config) {
             }
         ]
     });
-
+    
+	var winHeight = 400;
+	if(config.notag) {
+		winHeight = 250;
+	}
     // A window to house the upload form
     var uploadWindow = new Ext.Window({
 //        manager: windows,
         layout: 'fit',
         width: 400,
-        height: 400,
+        height: winHeight,
         closeAction: 'hide',
         title: 'Upload File',
         plugins: [drawer
         ]
     });
-    
+       
     var uploadField = new Ext.ux.form.FileUploadField({
         width: 175,
         //                  fieldLabel: 'Or, Upload a file',
@@ -339,40 +343,10 @@ clovr.uploadFileWindow = function(config) {
     	fieldLabel: 'Or, paste URLs <br/>(1 per line)',
         width: 200,
     });
+
     
-    // A form for the upload
-    var uploadForm = new Ext.form.FormPanel({
-        fileUpload: true,
-        url: '/vappio/uploadFile_ws.py',
-        frame: true,
-        items: [
-            {xtype: 'fieldset',
-             title: 'Select or Upload your dataset',
-             labelWidth: 125,
-             items: [
-                 {xtype: 'button',
-                  fieldLabel: 'Select from user_data <i>(recommended)</i>',
-                  text: 'Select file from image',
-                  handler: function() {
-                      localFileSelector.getLoader().load(localFileSelector.getRootNode());
-                      uploadWindow.drawers.e.show();
-                  }},
-                 {xtype: 'compositefield',
-                  fieldLabel: 'Or, Upload a file',
-                  items: [
-                      uploadField,
-                      {xtype: 'button',
-                       text: 'Clear',
-                       handler: function() {
-                           uploadField.reset();
-                       }
-                      }
-                  ]},
-				  urlField
-             ]
-             
-            },
-            // Combobox for type.
+    var tagFormItems = [        
+    		// Combobox for type.
             {xtype: 'combo',
              name: 'inputfiletype',
              fieldLabel: 'File Type',
@@ -405,15 +379,48 @@ clovr.uploadFileWindow = function(config) {
              fieldLabel: 'Describe your dataset',
              submitValue: false
             }
-        ],
+        ];    
+    // A form for the upload
+    var uploadForm = new Ext.form.FormPanel({
+        fileUpload: true,
+        url: '/vappio/uploadFile_ws.py',
+        frame: true,
+        items: [
+            {xtype: 'fieldset',
+             title: 'Select or Upload your dataset',
+             labelWidth: 125,
+             items: [
+                 {xtype: 'button',
+                  fieldLabel: 'Select from user_data <i>(recommended)</i>',
+                  text: 'Select file from image',
+                  handler: function() {
+                      localFileSelector.getLoader().load(localFileSelector.getRootNode());
+                      uploadWindow.drawers.e.show();
+                  }},
+                 {xtype: 'compositefield',
+                  fieldLabel: 'Or, Upload a file',
+                  items: [
+                      uploadField,
+                      {xtype: 'button',
+                       text: 'Clear',
+                       handler: function() {
+                           uploadField.reset();
+                       }
+                      }
+                  ]},
+				  urlField
+             ]}],
         buttons: [
             {text: 'Tag',
              handler: function() {
                  
                  var form = uploadForm.getForm();
                  var uploadfield = form.findField('file');
-				 var locals = localFileSelector.getChecked()
-				 var urls = urlField.getValue().split(/\r\n|\r|\n/);
+				 var locals = localFileSelector.getChecked();
+				 var urls = [];
+				 if(urlField.getValue() != '') {
+					 urls = urlField.getValue().split(/\r\n|\r|\n/);
+				 }
     			 if(uploadfield.getValue() && locals.length) {
                      uploadWindow.drawers.e.show();
     	       		 Ext.Msg.show({
@@ -433,6 +440,18 @@ clovr.uploadFileWindow = function(config) {
                              var path = '/mnt/user_data/';
                              var values = uploadForm.getForm().getFieldValues();
                              var filename = uploadField.getValue();
+                             
+                             if(config.notag) {
+							 	 uploadForm.getForm().reset();
+								 localFileSelector.getRootNode().cascade(function(n) {
+                                 	var ui = n.getUI();
+								 	ui.toggleCheck(false);
+								 });
+								 uploadWindow.close();
+                             	config.notag({'files': [path + filename],
+                             				 'urls': urls});
+                             }
+                             else {
                              clovr.tagData({
                          	     params: {
 				            	     'files': [path + filename],
@@ -458,6 +477,10 @@ clovr.uploadFileWindow = function(config) {
 				            	         progressText : 'Tagging Data'
 					                 });
 					                 uploadForm.getForm().reset();
+					                 localFileSelector.getRootNode().cascade(function(n) {
+                                 	 	var ui = n.getUI();
+								 	 	ui.toggleCheck(false);
+									 });
 				    	 	         clovr.checkTagTaskStatusToSetValue({
 				        			     uploadwindow: uploadWindow,
 		    		        		     seqcombo: config.seqcombo,
@@ -467,6 +490,7 @@ clovr.uploadFileWindow = function(config) {
 		            			     });
 		            		     }
 		        		     });
+		        		 }
                 	     },
                 	     failure: function(r,o) {
 			    	     }
@@ -480,6 +504,18 @@ clovr.uploadFileWindow = function(config) {
                          all_selected.push(node.id);
                      });
                      values = form.getFieldValues();
+                     if(config.notag) {
+					 	uploadForm.getForm().reset();
+						localFileSelector.getRootNode().cascade(function(n) {
+                        	var ui = n.getUI();
+							ui.toggleCheck(false);
+						});
+						uploadWindow.hide();
+                     	config.notag({'files': all_selected,
+                     				  'urls': urls
+                     				});
+                     }
+                     else {
                      clovr.tagData({
                          params: {
 				             'files': all_selected,
@@ -504,6 +540,10 @@ clovr.uploadFileWindow = function(config) {
 				        	     wait: true,
 				            	 progressText : 'Tagging Data'
 					         });
+					         localFileSelector.getRootNode().cascade(function(n) {
+                                 var ui = n.getUI();
+								 ui.toggleCheck(false);
+							});
 					         uploadForm.getForm().reset();
 				    	 	 clovr.checkTagTaskStatusToSetValue({
 				        		 uploadwindow: uploadWindow,
@@ -515,9 +555,13 @@ clovr.uploadFileWindow = function(config) {
                          }
                      })
                  }
+                 }
         	 }
     	}]
     });
+    if(!config.notag) {
+    	uploadForm.add(tagFormItems);
+    }
     uploadWindow.add(uploadForm);
     return uploadWindow;
 }
@@ -1017,12 +1061,14 @@ clovr.getDatasetInfo = function(config) {
 
     // If we have already made this request, just add the callback on
     // and don't make the request again.
-    if(clovr.requests.querytag.running) {
+    if(clovr.requests.querytag.running && !config.force) {
         clovr.requests.querytag.callbacks.push(config.callback);
     }
     else {
-        clovr.requests.querytag.running = true;
-        clovr.requests.querytag.callbacks.push(config.callback);
+    	if(!config.force) {
+	        clovr.requests.querytag.running = true;
+	        clovr.requests.querytag.callbacks.push(config.callback);
+	    }
         var params = {
             cluster: 'local',
             detail: config.detail
@@ -1038,15 +1084,20 @@ clovr.getDatasetInfo = function(config) {
             params: {
                 request: Ext.util.JSON.encode(params)},
             success: function(r,o) {
-                
+                var rjson = Ext.util.JSON.decode(r.responseText);
+                if(!config.force) {
                 // Not sure if we're going to have a race condition here or not.
                 clovr.requests.querytag.running = false;
-                var rjson = Ext.util.JSON.decode(r.responseText);
+
                 Ext.each(clovr.requests.querytag.callbacks, function(cb) {
                     cb(rjson);
                     //                config.callback(rjson);
                 });
                 clovr.requests.querytag.callbacks = [];
+                }
+                else {
+                	config.callback(rjson)
+                }
             }
         });
     }

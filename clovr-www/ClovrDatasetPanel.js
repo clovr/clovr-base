@@ -27,49 +27,8 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             {
 			text: 'Save Changes',
 			handler: function() {
-				var meta_recs = metadata_grid.getStore().getRange();
-				var metadata = {};
-				var compressed = false;
-				Ext.each(meta_recs, function(rec) {
-					metadata[rec.data.name] = rec.data.value;
-					if(rec.data.name == 'compressed') {
-						compressed = rec.data.value;
-					}
-				});
-				
-				var file_recs = file_grid.getStore().getRange();
-				var files = [];
-				Ext.each(file_recs, function(rec) {
-					files.push(rec.data.file);
-				});				
-				clovr.tagData({
-					params: {
-				        files: files,
-						cluster: 'local',
-						action: 'overwrite',
-				        expand: true,
-            			recursive: true,
-            			compressed: compressed,
-				        tag_name: datasetpanel.dataset_name,
-		                metadata: metadata
-		            },
-					callback: function(r,o) {
-						var data = Ext.util.JSON.decode(r.responseText);
-							Ext.Msg.show({
-						        title: 'Tagging Data...',
-				        	    width: 200,
-					            mask: true,
-				    	        closable: false,
-				        	    wait: true,
-				            	progressText : 'Tagging Data'
-					        });
-                    	clovr.checkTagTaskStatusToSetValue({
-		            		response: Ext.util.JSON.decode(r.responseText),
-		            	});
-					}
-				});
-			}
-        }];
+				datasetpanel.saveDataset({});
+        }}];
         config.buttonAlign = 'center';
         config.frame= true;
         config.deferredRender=false;
@@ -169,7 +128,14 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             frame: true,
             buttonAlign: 'center',
             buttons: [
-            	{text: 'Add'},
+            	{text: 'Add',
+            	handler: function() {
+            		var win = clovr.uploadFileWindow({notag: function(new_files) {
+            			datasetpanel.saveDataset(new_files);
+            		
+            		}});
+            		win.show();
+            	}}
             ],
             removeVal: function(key,val) {
             	this.getStore().remove(this.getStore().find(key,val));
@@ -296,6 +262,64 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 
     },
     
+    saveDataset: function(config) {
+		var meta_recs = this.metagrid.getStore().getRange();
+		var metadata = {};
+		var compressed = false;
+		Ext.each(meta_recs, function(rec) {
+			metadata[rec.data.name] = rec.data.value;
+			if(rec.data.name == 'compressed') {
+				compressed = rec.data.value;
+			}
+		});
+				
+		var file_recs = this.filegrid.getStore().getRange();
+		var files = [];
+		Ext.each(file_recs, function(rec) {
+			files.push(rec.data.file);
+		});	
+		if(config.files) {
+			Ext.each(config.files, function(f) {
+				files.push(f);
+			});
+		}
+		if(config.urls && config.urls.length > 0) {
+			metadata.urls.push(config.urls);
+		}
+		var datasetpanel = this;
+		clovr.tagData({
+			params: {
+				files: files,
+				cluster: 'local',
+				action: 'overwrite',
+				expand: true,
+            	recursive: true,
+            	compressed: compressed,
+				tag_name: this.dataset_name,
+		        metadata: metadata
+		    },
+			callback: function(r,o) {
+				var data = Ext.util.JSON.decode(r.responseText);
+					Ext.Msg.show({
+						title: 'Tagging Data...',
+				        width: 200,
+					    mask: true,
+				    	closable: false,
+				        wait: true,
+				        progressText : 'Tagging Data'
+					});
+                clovr.checkTagTaskStatusToSetValue({
+		            response: Ext.util.JSON.decode(r.responseText),
+		            callback: function() {
+		            	datasetpanel.loadDataset({
+		            		dataset_name: datasetpanel.dataset_name,
+		            		dataset: datasetpanel.dataset
+		            	});
+		            }
+		        });
+			}
+		});
+    },
     loadDataset: function(config) {
         var datasetpanel = this;
         datasetpanel.header_panel.update(config.dataset_name+' dataset');
@@ -308,7 +332,9 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         	criteria: {
         		tag_name: config.dataset_name
         	},
+        	force: true,
         	callback: function(d) {
+        	
         		var meta_fields_to_load = [];
                 var files_to_load = [];
                 var output_pipes = [];
@@ -316,7 +342,6 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
         		for(key in dataset.metadata) {
         			// Total HACK here
         			if(key.match(/pipeline_configs/)) {
-//        				console.log(key);
         				var match = key.match(/pipeline_configs.([^\.]+)\./);
 						if(match && !output_pipes[match[1]]) {
 							output_pipes[match[1]] = 1;
@@ -336,11 +361,9 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
 				});
                 datasetpanel.filegrid.getStore().loadData(files_to_load);
 	        	datasetpanel.metagrid.getStore().loadData(meta_fields_to_load);
-        	
         	clovr.getPipelineInfo({
         		cluster_name: 'local',
             	callback: function(r) {
-//					console.log(output_pipes);
                 	var input_regex = /input/;
                 	var things_to_load = [];
                 	Ext.each(r, function(elm) {
