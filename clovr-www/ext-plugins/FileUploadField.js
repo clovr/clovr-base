@@ -101,8 +101,7 @@ Ext.ux.form.FileUploadField = Ext.extend(Ext.form.TextField,  {
             },
             change: function(){
                 var v = this.fileInput.dom.value;
-		var p = v.replace(/.*fakepath./,"");
-		console.log(p);
+                var p = v.replace(/.*fakepath./,"");
                 this.setValue(p);
                 this.fireEvent('fileselected', this, v);    
             }
