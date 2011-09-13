@@ -1,0 +1,6 @@
+#!/bin/bash
+
+/etc/vappio/master/S22-vappio-apps stop
+updateAllDirs.py --vappio-py --vappio-twisted
+/etc/vappio/master/S22-vappio-apps start
+
