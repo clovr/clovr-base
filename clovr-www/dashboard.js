@@ -23,6 +23,37 @@ Ext.onReady(function(){
         id: 'hostname',
         fieldLabel: 'Host',
     });
+
+	var statuspanel = new Ext.Container({
+		region: 'south',
+		collapsible: true,
+		height:'22px',
+		style: {
+			padding: '0 0 0 10px'
+		}
+	});
+	var infotask = {
+		run: function() {
+		    // Get the status of the VM:
+		    clovr.getVmInfo({callback: 
+	    	function(r) {
+	    		var now = new Date();
+	    		var time = now.format('Y/m/d H:i:s T');
+				if(r.data.patches.length > 0) {
+//					statuspanel.getEl().setStyle('background','#FBFF91');
+					statuspanel.update("<img style='margin:0 10px 0 0;padding-top:2px;float:left;' src=icons/error.png><div style='height:20px;padding-top:5px;font:11px arial,tahoma,helvetica,sans-serif;'>"+time+' | You have available patches (run vp-update-vm in a terminal to update)</div>');
+				}
+				else {
+//					statuspanel.getEl().setStyle('background','#91FF99');
+					statuspanel.update("<img style='margin:0 10px 0 0;padding-top:2px;float:left;' src=icons/accept.png><div style='height:20px;padding-top:5px;font:11px arial,tahoma,helvetica,sans-serif;'>"+time+' | CloVR is up to date</div>');
+				}
+	    	}
+	    	})
+		},
+	interval: 30000
+	};
+Ext.TaskMgr.start(infotask);
+
     var proxy = new Ext.data.ScriptTagProxy({
 //            url: hostname+'/vappio/listPipelines_ws.py',
             listeners: {
@@ -142,7 +173,8 @@ Ext.onReady(function(){
                       }]}
                     ]},*/
             westpanel,
-            pipepanel
+            pipepanel,
+            statuspanel
         ]
     });
 });

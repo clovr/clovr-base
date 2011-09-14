@@ -1392,6 +1392,39 @@ clovr.reloadTagStores = function(config) {
     });
 }
 
+clovr.getVmInfo = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/vm_info',
+        params: {
+            'request': Ext.util.JSON.encode(
+                {'cluster': 'local'
+                })
+        },
+        success: function(response) {
+            var r = Ext.util.JSON.decode(response.responseText);
+            if(!r.success) {
+                Ext.Msg.show({
+                    title: 'CloVR responded with an error!',
+                    msg: r.data.msg,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+            else {
+            	if(config && config.callback) {
+                	config.callback(r);
+            	}
+            }
+        },
+        failure: function(response) {
+            Ext.Msg.show({
+                title: 'Server Error',
+                msg: response.responseText,
+                icon: Ext.MessageBox.ERROR});
+        }
+    });	
+
+}
+
 var unsetTree = function(node, checked) {
     if(node.getUI().checkbox) {
         node.getUI().checkbox.checked = checked;
