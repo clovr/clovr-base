@@ -1,0 +1,29 @@
+[cluster]
+CLUSTER_NAME={"display": "Cluster Name", "default": "local", "visibility": "default_hidden", "desc": "Cluster name to run this on, shouldn't need to specify manually", "type": "string"}
+MASTER_INSTANCE_TYPE={"display": "Master Instance Type", "default": "default", "visibility": "default_hidden", "desc": "Instance type to use for the master, guaranteed values are 'default', 'small', 'medium', and 'large'", "type": "string", "require_value": true}
+MASTER_BID_PRICE={"display": "Master Bid Price", "default": "", "visibility": "default_hidden", "desc": "If spot instances are desired, set bid price", "type": "float"}
+EXEC_INSTANCE_TYPE={"display": "Exec Instance Type", "default": "default", "visibility": "default_hidden", "desc": "Instance type to use for the exec, guaranteed values are 'default', 'small', 'medium', and 'large'", "type": "string", "require_value": true}
+EXEC_BID_PRICE={"display": "Exec Bid Price", "default": "", "visibility": "default_hidden", "desc": "If spot instances are desired, set bid price", "type": "float"}
+EXEC_NODES={"display": "Number of exec nodes", "default": 0, "visibility": "default_hidden", "desc": "Number of exec nodes, should not need to specify manually", "type": "integer"}
+CLUSTER_CREDENTIAL={"display": "Credential", "visibilty": "default_hidden", "default": "local", "desc": "Credential to use to make the cluster", "type": "credential"}
+TERMINATE_ONFINISH={"display": "Terminate cluster", "visibility": "default_hidden", "default": "true", "desc": "Terminate a cluster automatically on successful pipeline", "type": "boolean"}
+
+[input]
+INPUT_TAG={"display": "Input tag", "default": "fooo", "visibility": "default_hidden", "desc": "", "type": "dataset","type_params": {"transform_name":"input.INPUT_FL"},"require_value":true}
+NUM_FILES={"display": "Total number of files", "default": 10, "visibility": "default_hidden", "desc": "", "type": "integer"}
+LINES_PER_FILE={"display": "Number of lines per file", "default": "", "visibility": "default_hidden", "desc": "", "type": "integer"}
+REF_TAG1={"display": "Input tag", "default": "fooo", "visibility": "default_hidden", "desc": "", "type": "string","type_params": {"transform_name":"input.REF_FILE1","transform_type":"prefix"},"require_value":true}
+REF_TAG2={"display": "Input tag", "default": "fooo", "visibility": "default_hidden", "desc": "", "type": "string","type_params": {"transform_name":"input.REF_FILE2","transform_type":"prefix"},"require_value":true}
+REMOTE_OUTPUT={"display": "Remote location where outputs will be placed", "default": "", "visibility": "default_hidden", "desc": "", "type": "string"}
+REMOTE_HOST={"display": "Remote server name", "default": "", "visibility": "default_hidden", "desc": "", "type": "string"}
+REMOTE_USER={"display": "Remote server username", "default": "", "visibility": "default_hidden", "desc": "", "type": "string"}
+REMOTE_KEY={"display": "Remote key", "default": "/mnt/keys/devel1.pem", "visibility": "default_hidden", "desc": "", "type": "string"}
+DECRYPT_SCRIPT={"display": "Decrypt script", "default": "", "visibility": "default_hidden", "desc": "", "type": "string"}
+NUM_RETRIES={"display": "Retry#", "default": 2, "visibility": "default_hidden", "desc": "", "type": "integer"}
+WAIT_TIME={"display": "Wait time (seconds)", "default": 100, "visibility": "default_hidden", "desc": "", "type": "integer"}
+MAX_PIPES={"display": "Max. pipes", "default": 50, "visibility": "default_hidden", "desc": "", "type": "integer"}
+
+[pipeline]
+PIPELINE_TEMPLATE={"display": "Pipeline Template", "default": "clovr_lgt_wrapper", "visibility": "default_hidden", "desc": "", "type": "string"}
+PIPELINE_WRAPPER={"display": "Pipeline Wrapper", "default": null, "visibility": "always_hidden", "desc": "", "type": "string"}
+

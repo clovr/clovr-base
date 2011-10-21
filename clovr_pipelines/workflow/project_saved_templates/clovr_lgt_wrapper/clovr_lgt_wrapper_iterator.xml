@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation='commandSet.xsd'>
+    <commandSet type="serial">
+        <name>Run LGT pipeline</name>
+        <command>
+            <type>RunUnixCommand</type>
+            <name>Start Cluster</name>
+            <state>incomplete</state>
+            <executable>vp-start-cluster</executable>
+            <arg>-t</arg>
+            <param>
+                <key>--cluster</key>
+                <value>$;I_FILE_BASE$;_cluster</value>
+            </param>
+            <param>
+                <key>--num-exec</key>
+                <value>0</value>
+            </param>
+            <param>
+                <key>--cred</key>
+                <value>$;CLUSTER_CREDENTIAL$;</value>
+            </param>
+            <param>
+                <key>--master-instance-type</key>
+                <value>$;MASTER_INSTANCE_TYPE$;</value>
+            </param>
+            <param>
+                <key>--exec-instance-type</key>
+                <value>$;EXEC_INSTANCE_TYPE$;</value>
+            </param>
+            <param>
+                <key>--master-bid-price</key>
+                <value>$;MASTER_BID_PRICE$;</value>
+            </param>
+            <param>
+                <key>--exec-bid-price</key>
+                <value>$;EXEC_BID_PRICE$;</value>
+            </param>
+        </command>
+        <command>
+            <type>RunUnixCommand</type>
+            <name>Copy Files</name>
+            <state>incomplete</state>
+            <executable>$;BIN_DIR$;/lgt_prep_files.pl</executable>
+            <param>
+                <key>--skip_transfer</key>
+                <value>$;SKIP_TRANSFER$;</value>
+            </param>
+           <param>
+                <key>--input_list</key>
+                <value>$;I_FILE_PATH$;</value>
+            </param>
+           <param>
+                <key>--output_dir</key>
+                <value>/mnt/staging/</value>
+            </param>
+            <param>
+                <key>--output_list</key>
+                <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;.list</value>
+            </param>
+           <param>
+                <key>--user</key>
+                <value>$;USER$;</value>
+            </param>
+           <param>
+                <key>--host</key>
+                <value>$;HOSTNAME$;</value>
+            </param>
+           <param>
+                <key>--key</key>
+                <value>$;KEY$;</value>
+            </param>
+           <param>
+                <key>--decrypt_script</key>
+                <value>$;DECRYPT_SCRIPT$;</value>
+            </param>
+            <param>
+                <key>stdout</key>
+                <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;.stdout</value>
+            </param>            
+            <param>
+                <key>stderr</key>
+                <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;.stderr</value>
+            </param>
+            <param>
+                <key>--tag-name</key>
+                <value>$;I_FILE_BASE$;</value>            
+            </param>
+        </command>
+        <command>
+            <type>RunUnixCommand</type>
+            <name>Tagging Data</name>
+            <executable>cat $;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;.list | vp-add-dataset</executable>
+            <arg>-o --stdin</arg>
+            <param>
+                <key>--tag-name</key>
+                <value>$;I_FILE_BASE$;</value>
+            </param>
+        </command>
+        <command>
+            <type>RunUnixCommand</type>
+            <name>Checking Cluster Status</name>
+            <state>incomplete</state>
+            <executable>vp-start-cluster</executable>
+            <param>
+                <key>--cluster</key>
+                <value>$;I_FILE_BASE$;_cluster</value>
+            </param>
+            <param>
+                <key>--num-exec</key>
+                <value>0</value>
+            </param>
+            <param>
+                <key>--cred</key>
+                <value>$;CLUSTER_CREDENTIAL$;</value>
+            </param>
+            <param>
+                <key>--master-instance-type</key>
+                <value>$;MASTER_INSTANCE_TYPE$;</value>
+            </param>
+            <param>
+                <key>--exec-instance-type</key>
+                <value>$;EXEC_INSTANCE_TYPE$;</value>
+            </param>
+            <param>
+                <key>--master-bid-price</key>
+                <value>$;MASTER_BID_PRICE$;</value>
+            </param>
+            <param>
+                <key>--exec-bid-price</key>
+                <value>$;EXEC_BID_PRICE$;</value>
+            </param>
+        </command>
+        <command>
+            <type>RunUnixCommand</type>
+            <name>Add Instances</name>
+            <state>incomplete</state>
+            <executable>vp-add-instances</executable>
+            <param>
+                <key>--cluster</key>
+                <value>$;I_FILE_BASE$;_cluster</value>
+            </param>
+            <param>
+                <key>--num-exec</key>
+                <value>$(($(wc -l $;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;.list | cut -f1 -d' ')/2+1))</value>
+            </param>
+        </command>
+        <command>
+          <name>Upload Query</name>
+          <type>RunUnixCommand</type>
+          <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
+          <arg>--tag-name $;I_FILE_BASE$; --dst-cluster $;I_FILE_BASE$;_cluster --block --expand</arg>
+        </command>
+        <command>
+          <name>Upload Ref 1</name>
+          <type>RunUnixCommand</type>
+          <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
+          <arg>--tag-name $;REF_TAG1$; --dst-cluster $;I_FILE_BASE$;_cluster --block --expand</arg>
+        </command>
+        <command>
+          <name>Upload Ref 2</name>
+          <type>RunUnixCommand</type>
+          <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
+          <arg>--tag-name $;REF_TAG2$; --dst-cluster $;I_FILE_BASE$;_cluster --block --expand</arg>
+        </command>
+	<command>
+	  <name>Writing config</name>
+          <type>RunUnixCommand</type>
+          <executable>vp-describe-protocols</executable>
+          <arg>--config-from-protocol=clovr_lgt_bwa -c input.INPUT_TAG=$;I_FILE_BASE$; -c input.REF_TAG1=$;REF_TAG1$; -c input.REF_TAG2=$;REF_TAG2$; -c pipeline.PIPELINE_WRAPPER_NAME=$;PIPELINE_PARENT$;</arg>
+          <param>
+              <key>stdout</key>
+              <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;_pipeline.config</value>
+          </param>
+	</command>
+        <command>
+          <name>Run Pipeline</name>
+          <type>RunUnixCommand</type>
+          <executable>vp-run-pipeline</executable>
+          <arg>--bare --cluster=$;I_FILE_BASE$;_cluster -t --overwrite --pipeline-parent=$;PIPELINE_PARENT$;</arg>
+	  <param>
+             <key>--pipeline-config</key>
+             <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;_pipeline.config</value>
+          </param>
+          <param>
+              <key>stdout</key>
+             <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;_pipeline_task.txt</value>
+          </param>
+	</command>
+        <command>
+          <name>Run Pipeline</name>
+          <type>RunUnixCommand</type>
+          <executable>$;BIN_DIR$;/clovr_log_pipe.pl</executable>
+          <param>
+             <key>--input_list</key>
+             <value>$;I_FILE_PATH$;</value>
+          </param>
+          <param>
+             <key>--input_list</key>
+             <value>$;I_FILE_PATH$;</value>
+          </param>
+          <param>
+              <key>stdout</key>
+             <value>$;OUTPUT_DIRECTORY$;/$;ITERATOR_NAME$;/g$;GROUP_NUMBER$;/$;I_FILE_BASE$;_pipeline_task.txt</value>
+          </param>
+        </command>
+    </commandSet>
+</commandSetRoot>
