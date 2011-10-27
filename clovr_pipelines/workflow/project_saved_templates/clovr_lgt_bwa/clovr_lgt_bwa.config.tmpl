@@ -7,7 +7,7 @@
 INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to BLAST against", "type": "dataset", "type_params": {"transform_name": "input.INPUT_FILE_LIST", "format_type": ["nuc_fasta", "aa_fasta"]}, "require_value": true}
 REF_TAG1={"display": "Reference tag 1", "desc": "Reference tag 1 (bacteria)", "type": "dataset list", "type_params": {"transform_type": "prefix", "transform_name": "input.REF_FILE1"}, "require_value": true}
 REF_TAG2={"display": "Reference tag 2", "desc": "Reference tag 2 (host)", "type": "dataset list", "type_params": {"transform_type": "prefix", "transform_name": "input.REF_FILE2"}, "require_value": true}
-
+THREAD_COUNT={"display": "# threads", "default":1, "desc": "Number of threads to utilize for each BWA", "type": "integer", "require_value": false}
 [params]
 
 #########################################################
