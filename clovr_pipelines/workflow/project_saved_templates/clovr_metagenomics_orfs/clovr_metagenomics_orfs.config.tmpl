@@ -6,7 +6,7 @@
 [input]
 FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_metagenomics_orfs_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.FASTA_FILE_LIST"}, "require_value": true}
 
-MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_orfs_map", "desc": "Mapping tag for pipleline", "type": "dataset", "type_params": {"format_type": ["metagenomics_mapping_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "require_value": true}
+MAPPING_TAG={"display": "Mapping tag", "default": "clovr_metagenomics_orfs_map", "desc": "Mapping tag for pipleline", "type": "dataset", "type_params": {"format_type": ["metagenomics_metadata_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "require_value": true}
 
 PROTEIN_DB_TAG={"display": "Functional (protein) database tag", "default": "clovr-cogdb", "desc": "Functional reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-cogdb", "clovr-eggnogdb", "clovr-keggdb"], "transform_name": "input.PROTEIN_DB_PATH"}, "require_value": true}
 
