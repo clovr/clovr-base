@@ -49,12 +49,12 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             }            
         });
         var mapping_file_field = new Ext.form.TextField({
-            emptyText: 'Select a mapping file',
+            emptyText: 'Select a CloVR Metagenomics Metadata File',
             readOnly: true 
         });
 
         var mapping_file = new Ext.form.CompositeField({
-            fieldLabel: 'CloVR Mapping File',
+            fieldLabel: 'CloVR Metagenomics Metadata File',
             msgTarget: 'under',
             invalidClass: '',
             items: [
@@ -229,7 +229,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         var panel = this;
         var tagcombo = clovr.tagCombo({
             //            id: 'datasettag',
-            fieldLabel: 'Select a metagenomics map',
+            fieldLabel: 'Select a Metagenomics Mapping File',
             width: 225,
             triggerAction: 'all',
             mode: 'local',
@@ -246,7 +246,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             },
             filter: {
                 fn: function(record) {
-                    var re = /metagenomics_mapping_file/i;
+                    var re = /clovr_metagenomics_metadata_file/i;
                     return re.test(record.data['metadata.format_type']);
                 }
             }
@@ -308,7 +308,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
 					            recursive: true,
             	                tag_name: record.data.name,
                 	            metadata: {
-                                    'metagenomics_mapping_file': val,
+                                    'clovr_metagenomics_metadata_file': val,
                                     'tag_base_dir': record.data['metadata.tag_base_dir']
                                 }
                             },
@@ -355,9 +355,9 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         var params = {};
         var map_file = this.form.map_file;
         if(input_tag_rec) {
-        	if(input_tag_rec.data['metadata.metagenomics_mapping_file']) {
+        	if(input_tag_rec.data['metadata.clovr_metagenomics_metadata_file']) {
 	            this.form.map_file_comp.clearInvalid();
-    	        map_file.setValue(input_tag_rec.data['metadata.metagenomics_mapping_file']);
+    	        map_file.setValue(input_tag_rec.data['metadata.clovr_metagenomics_metadata_file']);
     	    }
     	    else {
     	    	map_file.setValue(null);
@@ -383,13 +383,13 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
                            'input.MAPPING_TAG': 1
                           };
             }
-            if(!input_tag_rec.data['metadata.metagenomics_mapping_file']) {
+            if(!input_tag_rec.data['metadata.clovr_metagenomics_metadata_file']) {
                 this.showMappingFileWindow(input_tag_rec);
             }
             else {
                 params = {
                     'input.FASTA_TAG': input_tag,
-                    'input.MAPPING_TAG': input_tag_rec.data['metadata.metagenomics_mapping_file']
+                    'input.MAPPING_TAG': input_tag_rec.data['metadata.clovr_metagenomics_metadata_file']
                 };
                 this.params_for_submission = params;
                 for(form in this.subforms) {

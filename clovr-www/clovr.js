@@ -360,7 +360,7 @@ clovr.uploadFileWindow = function(config) {
              store: new Ext.data.ArrayStore({
                  fields:['id','name'],
                  data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],
-                        ['sff','SFF'],['fastq','FASTQ'],['nuc_blastdb','Nucleotide BLAST DB'],['aa_blastdb','Protein BLAST DB'],['metagenomics_mapping_file','Metagenomics mapping file'],
+                        ['sff','Nucleotide SFF'],['fastq','Nucleotide FASTQ'],['nuc_blastdb','Nucleotide BLAST DB'],['aa_blastdb','Protein BLAST DB'],['clovr_16s_metadata_file','16S Metadata File'],['clovr_metagenomics_metadata_file','Metagenomics Metadata File'],
                         ['quality_scores','Quality Scores']]
              }),
              valueField: 'id',
@@ -921,7 +921,8 @@ clovr.tagCombo = function(config) {
                  {name: 'metadata.format_type', mapping: ('metadata.format_type')},
                  {name: 'metadata.tag_base_dir', mapping: ('metadata.tag_base_dir')},
                  {name: 'metadata.description', mapping: ('metadata.description')},
-                 {name: 'metadata.metagenomics_mapping_file', mapping: ('metadata.metagenomics_mapping_file')},
+                 {name: 'metadata.clovr_metagenomics_metadata_file', mapping: ('metadata.clovr_metagenomics_metadata_file')},
+                 {name: 'metadata.clovr_16s_metadata_file', mapping: ('metadata.clovr_16s_metadata_file')},
                  {name: 'metadata.quality_scores', mapping: ('metadata.quality_scores')}
                 ],
         autoLoad: false,

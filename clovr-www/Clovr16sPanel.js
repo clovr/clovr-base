@@ -55,7 +55,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
         });
 
         var mapping_file = new Ext.form.CompositeField({
-            fieldLabel: 'CloVR Mapping File',
+            fieldLabel: 'CloVR 16S Metadata File',
             msgTarget: 'under',
             invalidClass: '',
             items: [
@@ -392,7 +392,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
 
         var tagcombo = clovr.tagCombo({
             //            id: 'datasettag',
-            fieldLabel: 'Select a metagenomics map',
+            fieldLabel: 'Select a CloVR 16S metadata file',
             width: 225,
             triggerAction: 'all',
             mode: 'local',
@@ -409,7 +409,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
             },
             filter: {
                 fn: function(record) {
-                    var re = /metagenomics_mapping_file/i;
+                    var re = /clovr_16s_metadata_file/i;
                     return re.test(record.data['metadata.format_type']);
                 }
             }
@@ -470,7 +470,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
 					            recursive: true,
             	                tag_name: record.data.name,
                 	            metadata: {
-                                    'metagenomics_mapping_file': val,
+                                    'clovr_16s_metadata_file': val,
                                     'tag_base_dir': record.data['metadata.tag_base_dir']
                                 }
                             },
@@ -524,13 +524,13 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
         	this.form.qual_check.disable();
             this.form.qual_file.setValue();
         }
-        if(input_tag_rec && input_tag_rec.data['metadata.metagenomics_mapping_file']) {
+        if(input_tag_rec && input_tag_rec.data['metadata.clovr_16s_metadata_file']) {
             this.form.map_file_comp.clearInvalid();
-            map_file.setValue(input_tag_rec.data['metadata.metagenomics_mapping_file']);
+            map_file.setValue(input_tag_rec.data['metadata.clovr_16s_metadata_file']);
 
                 var params = {
                     'input.FASTA_TAG': input_tag,
-                    'input.MAPPING_TAG': input_tag_rec.data['metadata.metagenomics_mapping_file']
+                    'input.MAPPING_TAG': input_tag_rec.data['metadata.clovr_16s_metadata_file']
                 };
                 this.params_for_submission = params;
             if(track) {
