@@ -163,7 +163,54 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       <includeRegex>^DIAG.*pipeline$</includeRegex>
     </listView>
 
-  </views>
+<listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Walthrough tests on DIAG</name>
+      <description>&lt;p&gt;CloVR pipelines with walkthrough datasets on diag platform&lt;/p&gt;&#xd;
+</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>^WALKTHROUGH_DIAG.*pipeline$</includeRegex>
+    </listView>
+ 
+<listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Walkthrough tests on EC2</name>
+      <description>&lt;p&gt;CloVR pipelines with walkthrough datasets on ec2 platform&lt;/p&gt;&#xd;
+</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>^WALKTHROUGH_EC2.*pipeline$</includeRegex>
+    </listView>
+
+ 
+ </views>
   <primaryView>CloVR tests</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
