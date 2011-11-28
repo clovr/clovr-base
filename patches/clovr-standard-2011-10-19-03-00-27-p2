@@ -1,0 +1,11 @@
+#!/bin/bash
+
+svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/vappio-metrics/sequence-stats /opt/vappio-metrics/sequence-stats
+svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/vappio-metrics/cunningham_calc_cpu_hours /opt/vappio-metrics/cunningham_calc_
+cpu_hours
+
+echo svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/vappio-metrics/sequence-stats /opt/vappio-metrics/sequence-stats >> /opt/vappio-scripts/cli/master_user-data.tmpl
+echo svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/vappio-metrics/cunningham_calc_cpu_hours /opt/vappio-metrics/cunningham_calc_cpu_hours >> /opt/vappio-scripts/cli/master_user-data.tmpl
+
+echo updateAllDirs.py --vappio-twisted --vappio-py >> /opt/vappio-scripts/cli/master_user-data.tmpl
+
