@@ -2,9 +2,11 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset -o --tag-name=obese_lean_twin_gut_metagenomics_data --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/ObeseLeanTwinGut/ObeseLeanTwinGut.tar.gz --expand
+if [ ! -d "/mnt/staging/data/obese_lean_twin_gut_metagenomics_data" ]; then
+	vp-add-dataset -o --tag-name=obese_lean_twin_gut_metagenomics_data --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/ObeseLeanTwinGut/ObeseLeanTwinGut.tar.gz --expand
 
-vp-transfer-dataset --tag-name=obese_lean_twin_gut_metagenomics_data
+	vp-transfer-dataset --tag-name=obese_lean_twin_gut_metagenomics_data
+fi
 
 vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta_$2 /mnt/staging/data/obese_lean_twin_gut_metagenomics_data/fastas/*.fna
 

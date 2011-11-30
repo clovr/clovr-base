@@ -2,9 +2,11 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset --tag-name=infant_gut_data_16S -o --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-16S/InfantGutMicrobiome/InfantGut16S.tar.gz --expand
+if [ ! -d "/mnt/staging/data/infant_gut_data_16S" ]; then
+	vp-add-dataset --tag-name=infant_gut_data_16S -o --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-16S/InfantGutMicrobiome/InfantGut16S.tar.gz --expand
 
-vp-transfer-dataset --tag-name=infant_gut_data_16S
+	vp-transfer-dataset --tag-name=infant_gut_data_16S
+fi
 
 vp-add-dataset -o --tag-name=clovr_16S_single_input_$2 /mnt/staging/data/infant_gut_data_16S/InfantGut16S.fasta
 vp-add-dataset -o --tag-name=clovr_16S_single_mapping /mnt/staging/data/infant_gut_data_16S/InfantGut16S.map
