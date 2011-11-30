@@ -11,7 +11,7 @@ vp-transfer-dataset --tag-name=ecoli_microbe_illumina_data
 vp-add-dataset -o --tag-name=clovr_microbe_illumina_walkthrough_tag_with_ecoli_$2 /mnt/staging/data/ecoli_microbe_illumina_data/illumina_4M_1.fastq /mnt/staging/data/ecoli_microbe_illumina_data/illumina_4M_2.fastq 
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
-    -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_walkthrough_tag_$2 \
+    -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_walkthrough_tag_with_ecoli_$2 \
     -c params.OUTPUT_PREFIX=test \
     -c params.ORGANISM="Eschirecia coli" \
     -c cluster.CLUSTER_NAME=$1 \
