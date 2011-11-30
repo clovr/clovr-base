@@ -116,7 +116,6 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^[0-9].*.pipeline</includeRegex>
     </listView>
-
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>Pipeline EC2 tests</name>
@@ -139,7 +138,6 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^EC2.*pipeline$</includeRegex>
     </listView>
-
     <listView>
       <owner class="hudson" reference="../../.."/>
       <name>Pipeline DIAG tests</name>
@@ -162,16 +160,14 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^DIAG.*pipeline$</includeRegex>
     </listView>
-
-<listView>
+    <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>Walthrough tests on DIAG</name>
-      <description>&lt;p&gt;CloVR pipelines with walkthrough datasets on diag platform&lt;/p&gt;&#xd;
-</description>
+      <name>Walkthrough DIAG tests</name>
+      <description>Walkthrough diag tests</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -185,16 +181,14 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^WALKTHROUGH_DIAG.*pipeline$</includeRegex>
     </listView>
- 
-<listView>
+    <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>Walkthrough tests on EC2</name>
-      <description>&lt;p&gt;CloVR pipelines with walkthrough datasets on ec2 platform&lt;/p&gt;&#xd;
-</description>
+      <name>Walkthrough EC2 tests</name>
+      <description>walk though ec2 tests</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[7]/jobNames/comparator"/>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -208,9 +202,7 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       </columns>
       <includeRegex>^WALKTHROUGH_EC2.*pipeline$</includeRegex>
     </listView>
-
- 
- </views>
+  </views>
   <primaryView>CloVR tests</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
