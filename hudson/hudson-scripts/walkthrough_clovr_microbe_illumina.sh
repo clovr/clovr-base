@@ -4,7 +4,11 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
-vp-add-dataset -o --tag-name=clovr_microbe_illumina_walkthrough_tag_$2 /opt/hudson/walkthrough_datasets/clovr_microbe_illumina/ecoli/illumina_4M_1.fastq /opt/hudson/walkthrough_datasets/clovr_microbe_illumina/ecoli/illumina_4M_2.fastq 
+vp-add-dataset -o --tag-name=ecoli_microbe_illumina_data --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/EcoliIllumina/EcoliIlluminaPairedEnd.tar.gz --expand
+
+vp-transfer-dataset --tag-name=ecoli_microbe_illumina_data
+
+vp-add-dataset -o --tag-name=clovr_microbe_illumina_walkthrough_tag_with_ecoli_$2 /mnt/staging/data/ecoli_microbe_illumina_data/illumina_4M_1.fastq /mnt/staging/data/ecoli_microbe_illumina_data/illumina_4M_2.fastq 
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_illumina \
     -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_walkthrough_tag_$2 \

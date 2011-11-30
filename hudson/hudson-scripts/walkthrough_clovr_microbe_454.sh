@@ -4,7 +4,11 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
-vp-add-dataset --tag-name=hudson_sff_walkthrough_test_$2 /opt/hudson/walkthrough_datasets/clovr_microbe_454/ecoli/Ecoli454.sff -o
+vp-add-dataset --tag-name=ecoli_microbe_454_data --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/Ecoli454/Ecoli454_500k.tar.gz --expand
+
+vp-transfer-dataset --tag-name=ecoli_microbe_454_data
+
+vp-add-dataset --tag-name=hudson_sff_walkthrough_test_with_ecoli_$2 /mnt/staging/data/ecoli_microbe_454_data/Ecoli454.sff -o
 
 vp-describe-protocols --config-from-protocol=clovr_microbe454 \
     -c input.INPUT_SFF_TAG=hudson_sff_walkthrough_test_$2 \

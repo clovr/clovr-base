@@ -2,9 +2,13 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta_$2 /opt/hudson/walkthrough_datasets/clovr_metagenomics/fastas/*.fasta
+vp-add-dataset -o --tag-name=obese_lean_twin_gut_metagenomics_data --url=http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/ObeseLeanTwinGut/ObeseLeanTwinGut.tar.gz --expand
 
-vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_map /opt/hudson/walkthrough_datasets/clovr_metagenomics/InfantGutMetagenome.map
+vp-transfer-dataset --tag-name=obese_lean_twin_gut_metagenomics_data
+
+vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_fasta_$2 /mnt/staging/data/obese_lean_twin_gut_metagenomics_data/fastas/*.fna
+
+vp-add-dataset -o --tag-name=clovr_metagenomics_noorfs_map /mnt/staging/data/obese_lean_twin_gut_metagenomics_data/ObeseLeanTwin.map
 
 DATE=`date +"%m-%d-%Y-%T" | sed -e 's/:/_/g'`
 
