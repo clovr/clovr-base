@@ -8,7 +8,14 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
     constructor: function(config) {
 
         var clovrpanel = this;
-
+        var master_container = new Ext.TabPanel({
+        	region: 'center',
+//        	layout: '',
+        	style: {
+        		padding: '3px'
+        	},
+        	activeTab: 0
+        });
 		var title_str = config.criteria.pipeline_name+' pipeline';
 		if(config.pipeline.pipeline_id) {
 			title_str = "<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
@@ -27,7 +34,29 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             html: title_str
         });
         
-
+        var child_grid = new Ext.grid.GridPanel({
+        	title: 'Child Pipelines',
+        	margins: '5 5 5 5',
+        	columnWidth: 0.5,
+        	height: 200,
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true
+                },
+                columns: [
+                    {id: 'cluster_name', header: 'Cluster'},
+                    {id: 'state', header: 'State'},
+                    {id: 'ganglia', header: 'Ganglia'},
+                    {id: 'ergatis', header: 'Ergatis'}
+                ]
+            }),
+            autoExpandColumn: 'cluster_name',
+            store: new Ext.data.Store({
+                reader: new Ext.data.JsonReader({
+                    fields: ['cluster_name','state','ganglia','ergatis']
+                })
+            })                
+        });
         var input_grid = new Ext.grid.GridPanel({
         	title: 'Inputs',
         	margins: '5 5 5 5',
@@ -155,6 +184,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             	
             	var things_for_title = ["<a target='_blank' style='color:black;' href=/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
 					config.pipeline.pipeline_id+"/pipeline.xml>Pipeline "+config.pipeline.pipeline_id+"</a>"];
+				var things_for_child_grid = [];
             	Ext.each(pipe.children, function(child) {
             		clovr.getPipelineInfo({
             			cluster_name: child[0],
@@ -165,10 +195,24 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             						cluster_name: child[0],
             						callback: function(response2) {
 										var host = response2.data.master.public_dns;
-			            				things_for_title.push("(<a target='_blank' style='color:black;' href=http://"+
-			            				host+"/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
-										response[0].pipeline_id+"/pipeline.xml>Pipeline "+response[0].pipeline_id+")</a>");
-        			    				title.update(things_for_title.join(""));
+										var ergatis = "<a target='_blank' style='color:black;' href=http://"+host+"/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+    										response[0].pipeline_id+"/pipeline.xml>Ergatis</a>";
+    									var ganglia = "<a target='_blank' style='color:black;' href=http://"+host+"/ganglia>Ganglia</a>";
+			            				if(pipe.children.length > 1) {
+			            				    var new_child = {'cluster_name': child[0],
+			            				                    'state': response2.data.state,
+			            				                    'ganglia': ganglia,
+			            				                    'ergatis': ergatis
+			            				                    };
+			            				    things_for_child_grid.push(new_child);
+			            				    child_grid.getStore().loadData(things_for_child_grid);
+			            				}
+			            				else {
+    			            				things_for_title.push("(<a target='_blank' style='color:black;' href=http://"+
+    			            				host+"/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
+    										response[0].pipeline_id+"/pipeline.xml>Pipeline "+response[0].pipeline_id+")</a>");
+    										title.update(things_for_title.join(""));
+    									}
         			    			}
         			    		});
         	    			}
@@ -176,6 +220,10 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             		});
             	
             	});
+            	
+            	if(pipe.children.length > 1) {
+            	    master_container.add(child_grid);
+            	}
             	// Pull the task info
             	clovr.getTaskInfo(pipe.task_name,
             		function(rdata) {
@@ -218,15 +266,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
         config.bodyStyle = {
             background: '#0D5685'
         };
-        var master_container = new Ext.TabPanel({
-        	region: 'center',
-//        	layout: '',
-        	style: {
-        		padding: '3px'
-        	},
-        	activeTab: 0,
-        	items: [input_grid,parameters_grid,output_grid,msg_grid]
-        });
+        master_container.add(input_grid,parameters_grid,output_grid,msg_grid);
         
         config.items = [title,master_container];
         clovr.ClovrPipelinePanel.superclass.constructor.call(clovrpanel,config);
