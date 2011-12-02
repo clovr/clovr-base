@@ -75,6 +75,8 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             boxLabel: 'Assembly only',
             inputValue: 'assembly',
             name: 'microbe_track',
+            fieldLabel: '',
+            labelSeparator: ''
         });
         
         var annot_both_box = new Ext.form.Radio({
@@ -246,6 +248,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         clovr.ClovrMicrobePanel.superclass.constructor.call(this,{
             id: 'clovr_microbe',
             layout: 'anchor',
+//            style:'padding: 10px 10px 10px 5px',
         	autoScroll: true,
         	buttonAlign: 'center',
         	frame: true,

@@ -25,7 +25,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             height: 30,
             name: 'pipeline_title',
             style: {
-                'padding': '3px 0 0 5px',
+                'padding': '3px 0 3px 5px',
                 'font-size': '16pt',
                 'font-family': 'Trebuchet MS,helvetica,sans-serif',
                 'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
@@ -263,6 +263,28 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             }
         });
         config.layout = 'border';
+        config.buttonAlign = 'center';
+        if(config.pipeline.state != 'running' && config.pipeline.state != 'completed') {
+            config.buttons = [{text: 'Resume',
+                handler: function() {
+                    Ext.Msg.show({
+                        title: 'Restarting Pipeline',
+                        msg: 'Your pipeline is being resumed.',
+                        wait: true
+                    }); 
+                    clovr.resumePipeline({params: {
+                        'pipeline_name': config.pipeline.pipeline_name,
+                        'cluster': 'local',
+                        'user_name': config.pipeline.user_name},
+                        'submitcallback': function() {
+                            if(clovrpanel.win) {
+                                clovrpanel.win.close();
+                            }
+                        }
+                    });
+                }
+            }];
+        }
         config.bodyStyle = {
             background: '#0D5685'
         };

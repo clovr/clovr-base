@@ -3,101 +3,47 @@
  * and make a form out of it.
  */
 
-clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
+clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
 
     constructor: function(config) {
-
-        var clovrform = this;
+        var title = new Ext.Container({
+            height: '30px',
+            name: 'form_title',
+            style: {
+                'padding': '3px 0 2px 5px',
+                'vertical-align': 'baseline', 
+                'font-size': '16pt',
+                'font-family': 'Trebuchet MS,helvetica,sans-serif',
+                'line-height': '33px',
+                'background': 'url("/clovr/images/clovr-vm-header-bg-short.png") repeat-x scroll center top'
+            },
+            region: 'north',
+            html: config.protocol
+        });
+        var clovrform = this.createForm();
+        config.form = clovrform
+        // Fields that won't be drawn
+        config.ignore_fields = [];
         
         // We'll use this field to store a reference to the field that is used for tag input.
         this.tag_field = null;
-
-        var input_fieldset = {xtype: 'fieldset',
-             title: 'Input Data Sets'
-            };
+        
+        // Generate the input fields
+        var input_fieldset = this.createInputFields(config);
+        
         var itemsArray = [input_fieldset];
-
-        var input_regexp = /^input.INPUT_/;
-        var tag_regex = /.*TAG$/;
-
-        var advanced_params = [];
-        var hidden_params = [];
-        var input_params = [];
         
-        Ext.each(config.fields, function(field, i, fields) {
-            if(tag_regex.exec(field.field) && field.visibilty != 'default_hidden') {
-
-                var fieldValue = field['default'];
-                if(!fieldValue) {
-                    fieldValue = 'Drag a data set here';
-                }
-                var dragCont = new Ext.Container({
-                    fieldLabel: field.display,
-                    ddGroup: 'tagDDGroup',
-                    cls: 'input_drag_area',
-                    width: 200,
-                    html: fieldValue,
-                    name: field.field,
-                    listeners: {
-                        render: function(container) {
-                            var dropZone = new Ext.dd.DropTarget(container.el,{
-                                ddGroup: 'tagDDGroup',
-                                notifyEnter: function(s, e, d) {
-                                    
-                                    container.el.dom.style.backgroundColor = 'red';
-                                    //                                    container.el.highlight();;
-                                },
-                                notifyOut: function(s, e, d) {
-                                    container.el.dom.style.backgroundColor = '';
-                                },
-                                notifyDrop: function(s, e, d) {
-                                    var tags = [];
-                                    Ext.each(d.selections, function(row) {
-                                        tags.push(row.data.name);
-                                    });
-                                    clovrform.getForm().setValues([{id: container.name, value: tags}]);
-                                    container.update(tags.join(', '));
-                                }
-                            });
-                        }}
-                });
-                input_params.push(dragCont);
-                field.default_hidden=true;
-            }
-            if(field.visibility == 'default_hidden' && field.display) {
-                advanced_params.push({xtype: 'textfield',
-                                      fieldLabel: field.display,
-                                      name: field.field,
-                                      value: field['default'],
-                                      disabled: false,
-                                      toolTip: field.desc});
-            }
-            else if(field.visibility == 'always_hidden' || !field.visibility || !field.display) {
-                hidden_params.push({xtype: 'textfield',
-                                    fieldLabel: field.display,
-                                    name: field.field,
-                                    value: field['default'],
-                                    hidden: true,
-                                    hideLabel: true
-                                   });
-            }
-            else {
-                itemsArray.push(
-                    {
-                        hidden: field.default_hidden,
-                        hideLabel: field.default_hidden,
-                        fieldLabel: field.display,
-                        name: field.field,
-                        value: field['default']
-                    });
-
-            }
-        });
+        // Generate the cluster fields
+        var cluster_fieldset = this.createClusterFields(config);
+        itemsArray.push(cluster_fieldset);
         
-        // add the input tag parameters to the input_fieldset
-        input_fieldset.items = input_params;
+        // Generate all the other fields
+        var other_fields = clovr.makeDefaultFieldsFromPipelineConfig(config.fields,config.ignore_fields);
         
-        // add the advanced parameters to the items array
+        // add the normal ones...
+        itemsArray.push(other_fields.normal);
+        
+        // add the advanced ones...
         itemsArray.push(
             {xtype: 'fieldset',
              title: 'Advanced',
@@ -110,43 +56,27 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
                     single: true
                  }
              },
-             items: advanced_params
+             items: other_fields.advanced
             });
 
-        // add the hidden params to the items array
-        itemsArray.push(hidden_params);
-        config.items = itemsArray;
+        // add the hidden ones
+        itemsArray.push(other_fields.hidden);
+        
+        // Add the fields to the form
+        clovrform.add(itemsArray);
+        
+        // Call the parent constructor.
         clovr.ClovrFormPanel.superclass.constructor.call(this, Ext.apply(config, {
-            items: itemsArray,
+            items: [title,clovrform],
             buttonAlign: 'center',
+            style: {
+                padding: '0px'
+            },
             autoScroll: true,
             frame: true,
-            buttons: [{text: 'Submit',
-                       handler: function(b,e) {
-                           Ext.Ajax.request({
-                               url: '/vappio/runPipeline_ws.py',
-                               params: {
-                                   'request': Ext.util.JSON.encode(
-                                       {'pipeline_config':clovrform.getForm().getValues(),
-                                        'pipeline': 'clovr_wrapper',
-                                        'name': 'local',
-                                        'pipeline_name': 'clovr_wrapper'+new Date().getTime()
-                                       })
-                               },
-                               success: function(response) {
-                                   Ext.Msg.show({
-                                       title: 'Pipeline Submitted',
-                                       msg: response.responseText
-                                   })
-                               },
-                               failure: function(response) {
-                                   Ext.Msg.show({
-                                       title: 'Server Error',
-                                       msg: response.responseText,
-                                       icon: Ext.MessageBox.ERROR});
-                               }                               
-                           });
-                       }}],
+            style: {
+                background: '#0D5685'
+            },
             defaultType: 'textfield'
         }));
     },
@@ -154,6 +84,120 @@ clovr.ClovrFormPanel = Ext.extend(Ext.form.FormPanel, {
 //        console.log(this.tag_field);
 //        this.getForm().setValues([{id: this.tag_field,
 //                                  value: input_tag}]);
+    },
+    validate: function() {
+        clovr.validatePipeline({
+            pipeline: 'clovr_wrapper',
+            wrappername: this.wrappername,
+            cluster: this.cluster_name,
+            params: this.form.getForm().getValues()
+        });    
+    
+    },
+    run: function() {
+        var panel = this;
+        clovr.runPipeline({
+            pipeline: 'clovr_wrapper',
+            wrappername: this.wrappername,
+            cluster: this.cluster_name,
+            params: this.form.getForm().getValues(),
+            submitcallback: function(r) {
+                panel.form.getForm().reset();
+                panel.submitcallback(r);         
+            }
+        });
+    
+    },
+    createClusterFields: function(config) {
+        var credential_combo = clovr.credentialCombo({
+            name: 'cluster.CLUSTER_CREDENTIAL',
+            default_value: config.default_credential,
+            hidden: config.hide_credential});
+/*        var cluster_combo = clovr.clusterCombo({
+            name: 'cluster.CLUSTER_NAME',
+            default_value: config.default_cluster,
+            hidden: config.hide_cluster
+        });*/
+        var cluster_fieldset = {
+            xtype: 'fieldset',
+            hideMode: 'visibility',
+            title: 'CLoVR Cluster Selection',
+            items: [credential_combo]};
+        config.ignore_fields['cluster.CLUSTER_CREDENTIAL'] = 1;
+        return cluster_fieldset;
+    
+    },
+    createInputFields: function(config) {
+        var input_fieldset = {xtype: 'fieldset',
+             title: 'Input Data Sets'
+            };
+        var input_regexp = /^input.INPUT_/;
+        var tag_regex = /.*TAG$/;
+
+        var input_fields = [];
+        Ext.each(config.fields, function(field, i, fields) {
+            if(tag_regex.exec(field.name) && field.visibilty != 'default_hidden') {
+                config.ignore_fields[field.name] = 1;
+                var tag_combo = clovr.tagCombo({
+                    fieldLabel: field.display,
+                    width: 225,
+                    triggerAction: 'all',
+                    mode: 'local',
+                    valueField: 'name',
+                    displayField: 'name',
+                    forceSelection: true,
+                    editable: false,
+//                    submitValue: false,
+                    lastQuery: '',
+                    allowBlank: false,
+                    name: field.name,
+                    tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
+                    filter: {
+                        fn: function(record) {
+                            var re_types = [];
+                            Ext.each(field.type_params, function(type,i,params) {
+                                re_types.push(type.format_type);
+                            });
+                            var restr = re_types.join('|');
+                            var re = new RegExp(restr);
+                            return re.test(record.data['metadata.format_type']);
+                        }
+                    },
+                    listeners: {
+                        select: function(combo,rec) {
+    //                        wrapper_panel.load_pipeline_subform(config.pipelines);
+                	    }
+                },
+                afterload: function() {
+                   	tag_combo.fireEvent('select');
+                } 
+            });
+            input_fields.push(tag_combo);
+        }});
+        
+        // add the input tag parameters to the input_fieldset
+        input_fieldset.items = [input_fields];
+        return input_fieldset;
+    },
+    createForm: function() {
+        var panel = this;
+        return new Ext.form.FormPanel({
+            region: 'center',
+            style: {
+                'padding': '3px 3px 3px 3px'
+            },
+            frame: true,
+            buttonAlign: 'center',
+            buttons: [{
+                text: 'Validate',
+                handler: function(b,e) {
+                    panel.validate();
+                }},{
+                text: 'Run',
+                handler: function(b,e) {
+                    panel.run();
+            }}]
+        });    
     }
 });
 

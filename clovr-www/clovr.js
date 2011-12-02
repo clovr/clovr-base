@@ -567,21 +567,22 @@ clovr.uploadFileWindow = function(config) {
 }
 
 clovr.pipelineWindow = function(config) {
-    var pipePanel = new clovr.ClovrPipelinePanel({
-	    cluster: 'local',
-	    pipeline: config.pipeline,
-        criteria: {
-            'pipeline_name': config.pipeline_name
-        }
-    });
-
     var win = new Ext.Window({
         height:400,
         title: 'Pipeline Information',
         width: 600,
         layout: 'fit',
-        items: pipePanel
     });
+    var pipePanel = new clovr.ClovrPipelinePanel({
+	    cluster: 'local',
+	    pipeline: config.pipeline,
+	    win: win,
+        criteria: {
+            'pipeline_name': config.pipeline_name
+        }
+    });
+    win.add(pipePanel);
+    
     win.show();
 }
 
@@ -1315,6 +1316,41 @@ clovr.validatePipeline = function(config) {
         }
     });
 
+}
+clovr.resumePipeline = function(config) {
+    Ext.Ajax.request({
+        url: '/vappio/pipeline_resume',
+        params: {
+            'request': Ext.util.JSON.encode(config.params)
+        },
+        success: function(response) {
+            var r = Ext.util.JSON.decode(response.responseText);
+            if(!r.success) {
+                Ext.Msg.show({
+                    title: 'Pipeline Resume Failed!',
+                    msg: r.data.msg,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+            else {
+                Ext.Msg.show({
+                    title: 'Success!',
+                    msg: 'Your pipeline was submitted successfully',
+                    buttons: Ext.Msg.OK
+                });
+            
+            	if(config.submitcallback) {
+                	config.submitcallback(r);
+            	}
+            }
+        },
+        failure: function(response) {
+            Ext.Msg.show({
+                title: 'Server Error',
+                msg: response.responseText,
+                icon: Ext.MessageBox.ERROR});
+        }
+    });
 }
 clovr.runPipeline = function(config) {
     Ext.Ajax.request({

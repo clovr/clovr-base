@@ -36,7 +36,56 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 
         var protocol_to_track = clovr.PROTOCOL_TO_TRACK;
         
+        var prot_menu = new Ext.menu.Menu({});
+        
+        var prot_store = new Ext.data.JsonStore({
+            fields: ['protocol'],
+            filter: {
+                fn: function(record) {
+                    return !protocol_to_track[record.data.protocol];
+                }
+            },
+            listeners: {
+                load: function(store, records, o) {
+                    store.filterBy(prot_store.filter.fn);
+                }
+            }
+        });
+        var prot_combo = new Ext.form.ComboBox({
+            store: prot_store,
+            displayField: 'protocol',
+//            typeAhead: true,
+            mode: 'local',
+            triggerAction: 'all',
+            emptyText: 'Select a protocol...',
+//            selectOnFocus: true,
+            submitValue: false,
+//            forceSelection: true,
+            editable: false,
+            lastQuery: '',
+//            allowBlank: false,
+            width: 160,
+            listeners: {
+                select: function(cb,rec) {
+                    var new_panel = new clovr.ClovrFormPanel({
+                        id: 'foobar',
+                        protocol: rec.json.protocol,
+           	        	fields: rec.json.config,
+               	        submitcallback: function() {
+                            clovrpanel.getLayout().setActiveItem(0);
+                            new_panel.destroy();
+                        }
+                    });
+                    clovrpanel.add(new_panel);
+                    new_panel.doLayout();
+                    clovrpanel.getLayout().setActiveItem('foobar');
+                }
+            },    
+            iconCls: 'no-icon'
+        });  
+            
         config.layout = 'card';
+//        config.bodyStyle = {background: '#0d5685'};
         config.layoutConfig = {
             layoutOnCardChange: true
         };
@@ -79,6 +128,9 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
              handler: function() {
                  clovrpanel.getLayout().setActiveItem('clovr_16s');
              }
+            },'-',
+            {menu: prot_menu,
+             text: 'Other Protocols'
             }
             ];
         // Stuff that will go in the header of each portal.
@@ -271,13 +323,36 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             	if(rdata.success) {
 	                var pipelines = rdata.data;
 	                var configs_by_protocol = [];
+	                var prot_menu_items = [];
 	                Ext.each(pipelines, function(pipe) {
 	                	configs_by_protocol[pipe.protocol] = pipe.config;
+	                	if(!protocol_to_track[pipe.protocol]) {
+	                	    prot_menu_items.push({
+                                text: pipe.protocol,
+                                handler: function() {
+                                    var new_panel = new clovr.ClovrFormPanel({
+                                        id: 'foobar',
+                                        protocol: pipe.protocol,
+                           	        	fields: pipe.config,
+                               	        submitcallback: function() {
+                                            clovrpanel.getLayout().setActiveItem(0);
+                                            new_panel.destroy();
+                                        }
+                                    });
+                                    clovrpanel.add(new_panel);
+                                    new_panel.doLayout();
+                                    clovrpanel.getLayout().setActiveItem('foobar');
+                                }
+                            });
+                        }
 	                });
+	                prot_menu_items.sort(function(a,b) {return (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0);});
+	                prot_menu.add(prot_menu_items);
 					for(track in track_to_panels) {
         	            if(!track_to_panels[track].panel) {
    	        	            clovrpanel.add({
        	        	            xtype: track_to_panels[track].panel_xtype,
+//       	        	            style:'padding: 10px 10px 10px 5px',
            	        	        pipelines: configs_by_protocol,
                	        	    submitcallback: function() {
                    	        	    clovrpanel.getLayout().setActiveItem(0);
