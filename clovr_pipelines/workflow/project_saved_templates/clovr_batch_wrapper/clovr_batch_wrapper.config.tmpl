@@ -1,0 +1,13 @@
+[batch.options]
+BATCH_TAG={"display": "Batch Tag", "desc": "A tag that holds a batch file, if one has been created already", "type": "dataset", "type_params": {"transform_name": "batch.options.BATCH_FILE"}}
+CONCURRENT_PRERUN={"display": "Concurrent Preruns", "default": 3, "desc": "Number of prerun operations to run concurrently", "type": "integer", "require_value": true}
+CONCURRENT_PIPELINES={"display": "Concurrent Pipelines", "default": 5, "desc": "Number of pipelines to run concurrently", "type": "integer", "require_value": true}
+CONCURRENT_POSTRUN={"display": "Concurrent Postruns", "default": 3, "desc": "Number of postrun steps to run concurrently", "type": "integer", "require_value": true}
+GROUP_COUNT={"display": "Group Count", "default": 10, "desc": "If any options should be automatically split, split it this many times", "type": "integer", "require_value": false}
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+PIPELINE_TEMPLATE={"display": "Pipeline Template", "default": "clovr_batch_wrapper", "desc": "Set that this is a batch run, do not modify", "type": "string", "require_value": true}
+# Set that we are our own wrapper
+PIPELINE_WRAPPER={"display": "Pipeline Wrapper", "default": null, "visibility": "always_hidden", "desc": "", "type": "string"}
