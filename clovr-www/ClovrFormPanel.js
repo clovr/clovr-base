@@ -136,10 +136,13 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
 
         var input_fields = [];
         Ext.each(config.fields, function(field, i, fields) {
-            if(tag_regex.exec(field.name) && field.visibilty != 'default_hidden') {
-                config.ignore_fields[field.name] = 1;
+            
+            // This is a HACK to detect fields that are tags/datasets.
+            if((field.type=='dataset' || tag_regex.exec(field.name)) && field.visibilty != 'default_hidden') {
+
                 var tag_combo = clovr.tagCombo({
                     fieldLabel: field.display,
+                    field: field,
                     width: 225,
                     triggerAction: 'all',
                     mode: 'local',
@@ -167,13 +170,53 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
                         select: function(combo,rec) {
     //                        wrapper_panel.load_pipeline_subform(config.pipelines);
                 	    }
-                },
-                afterload: function() {
-                   	tag_combo.fireEvent('select');
-                } 
-            });
-            input_fields.push(tag_combo);
-        }});
+                    },
+                    afterload: function() {
+                       	tag_combo.fireEvent('select');
+                    } 
+                });
+                input_fields.push(tag_combo);
+            }
+            else if(field.type=='dataset list' && field.visibilty != 'default_hidden') {
+                config.ignore_fields[field.name] = 1;                
+                var tag_combo = clovr.tagSuperBoxSelect({
+                    fieldLabel: field.display,
+                    field: field,
+                    width: 225,
+                    triggerAction: 'all',
+                    mode: 'local',
+                    valueField: 'name',
+                    displayField: 'name',
+                    forceSelection: true,
+                    editable: false,
+//                    submitValue: false,
+                    lastQuery: '',
+                    allowBlank: false,
+                    name: field.name,
+                    tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
+                    filter: {
+                        fn: function(record) {
+                            var re_types = [];
+                            Ext.each(field.type_params, function(type,i,params) {
+                                re_types.push(type.format_type);
+                            });
+                            var restr = re_types.join('|');
+                            var re = new RegExp(restr);
+                            return re.test(record.data['metadata.format_type']);
+                        }
+                    },
+                    listeners: {
+                        select: function(combo,rec) {
+    //                        wrapper_panel.load_pipeline_subform(config.pipelines);
+                	    }
+                    },
+                    afterload: function() {
+                       	tag_combo.fireEvent('select');
+                    } 
+                });
+                input_fields.push(tag_combo);
+            }            
+        });
         
         // add the input tag parameters to the input_fieldset
         input_fieldset.items = [input_fields];

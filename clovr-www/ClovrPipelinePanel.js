@@ -264,8 +264,27 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
         });
         config.layout = 'border';
         config.buttonAlign = 'center';
+        config.buttons = [{text: 'Delete',
+            handler: function() {
+                Ext.Msg.show({
+                    title: 'Deleting Pipeline',
+                    msg: 'Deleting pipeline',
+                    wait: true
+                });
+                clovr.deletePipeline({params: {
+                    'pipeline_name': config.pipeline.pipeline_name,
+                    'cluster': 'local',
+                    'user_name': config.pipeline.user_name},
+                    'submitcallback': function() {
+                        if(clovrpanel.win) {
+                            clovrpanel.win.close();
+                        }
+                    }
+                });
+            }
+        }];
         if(config.pipeline.state != 'running' && config.pipeline.state != 'completed') {
-            config.buttons = [{text: 'Resume',
+            config.buttons.push({text: 'Resume',
                 handler: function() {
                     Ext.Msg.show({
                         title: 'Restarting Pipeline',
@@ -283,7 +302,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                         }
                     });
                 }
-            }];
+            });
         }
         config.bodyStyle = {
             background: '#0D5685'

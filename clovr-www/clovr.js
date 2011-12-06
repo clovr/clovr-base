@@ -944,6 +944,11 @@ clovr.tagCombo = function(config) {
             }
         }
     });
+    if(config.field && config.field.desc) {
+        config.plugins = ['fieldtip'];
+        config.qtip=config.field.desc;
+        config.qanchor='left';
+    }
     clovr.tagStores.push(store);
     config.clearFilterOnReset = false;
     config.store = store;
@@ -1103,6 +1108,42 @@ clovr.getDatasetInfo = function(config) {
             }
         });
     }
+}
+
+clovr.deletePipeline = function(config) {
+	var params = {
+            cluster: config.cluster,
+    };
+    if(!config.cluster) {
+        config.cluster = 'local';
+    }
+    if(config.criteria) {
+        params.criteria = config.criteria;
+    }
+    else if(config.pipeline_name) {
+        params.criteria = {'pipeline_name': config.pipeline_name};
+    }
+        
+    Ext.Ajax.request({
+        url: '/vappio/pipeline_delete',
+        params: {
+            request: Ext.util.JSON.encode(params)},
+            success: function(r,o) {
+                var rjson = Ext.util.JSON.decode(r.responseText);
+    	        clovr.checkTaskStatus({
+    				task_name: rjson.data,
+    				callback: function() {
+    					var params = {}
+    					if(config.callback) {
+    						params.callback = config.callback;
+    					}
+    					clovr.reloadTagStores(params);
+    				}
+    			});
+        }        
+    });
+
+
 }
 
 clovr.deleteTag = function(config) {
