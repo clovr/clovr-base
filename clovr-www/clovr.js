@@ -1112,16 +1112,16 @@ clovr.getDatasetInfo = function(config) {
 
 clovr.deletePipeline = function(config) {
 	var params = {
-            cluster: config.cluster,
+            cluster: config.params.cluster,
     };
-    if(!config.cluster) {
-        config.cluster = 'local';
+    if(!config.params.cluster) {
+        config.params.cluster = 'local';
     }
-    if(config.criteria) {
-        params.criteria = config.criteria;
+    if(config.params.criteria) {
+        params.criteria = config.params.criteria;
     }
-    else if(config.pipeline_name) {
-        params.criteria = {'pipeline_name': config.pipeline_name};
+    else if(config.params.pipeline_name) {
+        params.criteria = {'pipeline_name': config.params.pipeline_name};
     }
         
     Ext.Ajax.request({
@@ -1137,7 +1137,6 @@ clovr.deletePipeline = function(config) {
     					if(config.callback) {
     						params.callback = config.callback;
     					}
-    					clovr.reloadTagStores(params);
     				}
     			});
         }        
