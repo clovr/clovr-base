@@ -268,7 +268,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             handler: function() {
                 Ext.Msg.show({
                     title: 'Deleting Pipeline',
-                    msg: 'Deleting pipeline',
+                    msg: 'Pipeline is being deleted.',
                     wait: true
                 });
                 clovr.deletePipeline({params: {

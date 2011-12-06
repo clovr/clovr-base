@@ -1127,22 +1127,23 @@ clovr.deletePipeline = function(config) {
     Ext.Ajax.request({
         url: '/vappio/pipeline_delete',
         params: {
-            request: Ext.util.JSON.encode(params)},
+            request: Ext.util.JSON.encode(params),
             success: function(r,o) {
                 var rjson = Ext.util.JSON.decode(r.responseText);
-    	        clovr.checkTaskStatus({
-    				task_name: rjson.data,
-    				callback: function() {
-    					var params = {}
-    					if(config.callback) {
-    						params.callback = config.callback;
-    					}
-    				}
-    			});
-        }        
+                var num = rjson.data.length;
+                Ext.Msg.show({
+                    title: 'Delete successful',
+                    msg: num+'pipeline(s) was deleted successfully.',
+                });
+            },
+            failure: function(r,o) {
+                Ext.Msg.show({
+                    title: 'Server Error',
+                    msg: r.responseText,
+                    icon: Ext.MessageBox.ERROR});
+            }            
+        }
     });
-
-
 }
 
 clovr.deleteTag = function(config) {
