@@ -271,10 +271,11 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
                     msg: 'Pipeline is being deleted.',
                     wait: true
                 });
-                clovr.deletePipeline({params: {
-                    'pipeline_name': config.pipeline.pipeline_name,
-                    'cluster': 'local',
-                    'user_name': config.pipeline.user_name},
+                clovr.deletePipeline({
+                    params: {
+                        'pipeline_name': config.pipeline.pipeline_name,
+                        'cluster': 'local',
+                        'user_name': config.pipeline.user_name},
                     'submitcallback': function() {
                         if(clovrpanel.win) {
                             clovrpanel.win.close();

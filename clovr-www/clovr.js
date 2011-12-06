@@ -1111,32 +1111,38 @@ clovr.getDatasetInfo = function(config) {
 }
 
 clovr.deletePipeline = function(config) {
-	var params = {
-            cluster: config.params.cluster,
-    };
     if(!config.params.cluster) {
         config.params.cluster = 'local';
     }
-    if(config.params.criteria) {
-        params.criteria = config.params.criteria;
+    if(config.params.pipeline_name) {
+        config.params.criteria = {'pipeline_name': config.params.pipeline_name}
+        delete config.params.pipeline_name;
     }
-    else if(config.params.pipeline_name) {
-        params.criteria = {'pipeline_name': config.params.pipeline_name};
-    }
-        
     Ext.Ajax.request({
         url: '/vappio/pipeline_delete',
         params: {
-            request: Ext.util.JSON.encode(params)
+            request: Ext.util.JSON.encode(config.params)
         },
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
-            var num = rjson.data.length;
-            config.params.submitcallback();
+            if(rjson.success) {
+                var num = rjson.data.length;
+                if(config.submitcallback) {
+                    config.submitcallback(r);
+                }
+                Ext.Msg.show({
+                    title: 'Delete successful',
+                    msg: num+' pipeline(s) was deleted successfully.',
+                    buttons: Ext.Msg.OK
+                });
+            }
+            else {
             Ext.Msg.show({
-                title: 'Delete successful',
-                msg: num+'pipeline(s) was deleted successfully.',
-            });
+                title: 'Server Error',
+                msg: rjson.data.msg,
+                icon: Ext.MessageBox.ERROR});            
+            
+            }
         },
         failure: function(r,o) {
             var msg = 'There was an error with your request.';
