@@ -16,6 +16,16 @@
           <description>Script to run before bundling the DIAG image</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTHCERT</name>
+          <description>Authentication certificate</description>
+          <defaultValue>/mnt/keys/diagcert</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>AUTHKEY</name>
+          <description>Authentication key</description>
+          <defaultValue>/mnt/keys/diagkey</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -28,8 +38,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /mnt
-#Need to redirect to /dev/null because of large stdout, progress bar
-sudo -E /opt/vappio-util/vp-bundle-diag -f $IMAGE_NAME $INIT_SCRIPT</command>
+#Need to redirect to /dev/null because of large stdout from progress bar
+sudo -E /opt/vappio-util/vp-bundle-diag -c $AUTHCERT -k $AUTHKEY -f $IMAGE_NAME $INIT_SCRIPT </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
