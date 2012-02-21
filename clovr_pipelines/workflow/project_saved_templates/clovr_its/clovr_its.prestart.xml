@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation='commandSet.xsd'>
+  <commandSet type="serial">
+    <state>incomplete</state>
+    <name>clovr its Prestart</name>
+    <command>
+      <name>check mapping file</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/ergatis/bin/cloVRMapFileCheck.pl</executable>
+      <arg>`cat /mnt/staging/tags/$;MAPPING_TAG$;`</arg>
+    </command>
+    <command>
+      <name>check mapping and fasta consistency</name>
+      <type>RunUnixCommand</type>
+      <executable>/opt/ergatis/bin/clovr_mapfasta_check.pl</executable>
+      <arg>-f /mnt/staging/tags/$;FASTA_TAG$; -m `cat /mnt/staging/tags/$;MAPPING_TAG$;`</arg>
+    </command>
+  </commandSet>
+</commandSetRoot>
