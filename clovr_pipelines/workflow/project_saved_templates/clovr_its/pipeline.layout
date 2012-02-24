@@ -8,23 +8,31 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.uchime_calc_cpu_hrs</name>
+            <name>run_command.pick_high_identity_clusters</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>split_multifasta.uniqueseqs</name>
+            <name>run_command.generatelist1</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>mothur_unique_seqs.default</name>
+            <name>run_command.generatelist2</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>split_multifasta.chimeras</name>
+            <name>run_command.pick_high_identity_reps</name>
+        </commandSet> 
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.format_qiime_reps_for_uchime</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>uchime.default</name>
+            <name>run_command.uchime</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.generatelist3</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
@@ -36,50 +44,84 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>core_qiime.default</name>
+            <name>run_command.pick_genus_level_otus</name>
         </commandSet>
-        <commandSet type="parallel">
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.calculate_cpu_hours</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.set_ergatis_values</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.resize_cluster</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_multifasta.blast</name>
+        </commandSet>
+
+        <commandSet type="serial">
             <state>incomplete</state>
             <commandSet type="serial">
                 <state>incomplete</state>
-                <name>metastats.qiime</name>
+                <name>ncbi-blastn.default</name>
             </commandSet>
             <commandSet type="serial">
-                <state>incomplete</state>
-                <name>skiff.qiime</name>
+               <state>incomplete</state>
+               <name>clovr_metagenomics_tables.taxonomy</name>
             </commandSet>
-            <commandSet type="serial">
-                <state>incomplete</state>
-                <name>histogram_stacked.qiime</name>
-            </commandSet>
-            <commandSet type="serial">
+            <commandSet type="parallel">
                 <state>incomplete</state>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>run_command.qiime_to_otulist</name>
+                    <name>metastats.taxonomy</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_read_otu.default</name>
+                    <name>skiff.taxonomy</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_rarefaction_single.default</name>
+                    <name>piecharts.taxonomy</name>
                 </commandSet>
                 <commandSet type="serial">
                     <state>incomplete</state>
-                    <name>mothur_summary.single</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>run_command.merge_rarefaction_data</name>
-                </commandSet>
-                <commandSet type="serial">
-                    <state>incomplete</state>
-                    <name>leech.default</name>
+                    <name>histogram_stacked.taxonomy</name>
                 </commandSet>
             </commandSet>
         </commandSet>
+
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>run_command.qiime_to_otulist</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>mothur_read_otu.default</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>mothur_rarefaction_single.default</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>mothur_summary.single</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>run_command.merge_rarefaction_data</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>leech.default</name>
+            </commandSet>
+        </commandSet>
+
         <commandSet type="serial">
             <state>incomplete</state>
             <name>tag_data.default</name>

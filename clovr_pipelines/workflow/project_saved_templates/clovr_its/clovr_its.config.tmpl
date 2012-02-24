@@ -10,6 +10,8 @@ QUAL_TAG={"display": "Input Quality Scores Tag", "default": "", "desc": "Input q
 
 MAPPING_TAG={"display": "Mapping Tag", "default": "clovr_its_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["clovr_16s_metadata_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
 
+NUCLEOTIDE_DB_TAG={"display": "Taxonomic (nucleotide) database tag", "default": "clovr-refseqdb", "desc": "Taxonomic reference database", "type": "blastdb_dataset", "type_params": {"choices": ["clovr-silvadb"],"transform_name": "input.NUCLEOTIDE_DB_PATH"}, "require_value": true}
+
 ## This is used for uploading the tags specified above
 ## Don't change this.
 INPUT_TAGS={"display": "Input Tag Vars", "default": "$;FASTA_TAG$;,$;QUAL_TAG$;,$;MAPPING_TAG$;", "visibility": "always_hidden", "type": "string" }
@@ -19,6 +21,9 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;FASTA_TAG$;,$;QUAL_TAG$;,
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
+# This should probably be removed in the near future
+TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to create, you don't need to modify this", "visibility": "always_hidden", "type": "integer"}
+
 
 #########################################################
 ## Output info.
