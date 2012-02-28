@@ -45,7 +45,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         	    }
             },
             afterload: function() {
-               	seq_combo.fireEvent('select');
+//               	seq_combo.fireEvent('select');
             }            
         });
         var mapping_file_field = new Ext.form.TextField({
@@ -276,17 +276,13 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             defaults: {frame: true},
             height: 300,
             width: 400,
+            closeAction: 'hide',
             autoScroll: true,
             title: 'CLoVR metagenomics mapping selection',
             items: new Ext.form.FormPanel({
                 items: formitems
             }),
             buttonAlign: 'center',
-            listeners: {
-                close: function(p) {
-                    
-                }
-            },
             listeners: {
                 close: function(p) {
                     panel.form.track_select.setValue([false,false]);

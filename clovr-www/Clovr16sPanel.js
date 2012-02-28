@@ -322,6 +322,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
             height: 300,
             width: 400,
             autoScroll: true,
+            closeAction: 'hide',
             title: 'Quality scores selection',
             items: new Ext.form.FormPanel({
                 items: formitems
