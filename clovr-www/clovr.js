@@ -1499,6 +1499,17 @@ clovr.getVmInfo = function(config) {
                 });
             }
             else {
+                if(!r.data.shared_folders_enabled) {
+                    var msg = 'It appears as though CloVR\'s shared folders are not enabled.<br/>'+
+                        'Please refer to the documentation below to get things setup correctly:<br/><br/>'+
+                        '<a href=http://clovr.org/virtualbox-version-4-0-and-later/>VirtualBox Setup</a><br/><br/>'+
+			'<a href=http://clovr.org/docs/vmware-clovr-install/>VMWare Setup</a>';
+                    Ext.Msg.show({
+                        title: 'CloVR Shared Folders Error',
+                        msg: msg,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                }
             	if(config && config.callback) {
                 	config.callback(r);
             	}
