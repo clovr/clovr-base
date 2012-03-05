@@ -1499,7 +1499,8 @@ clovr.getVmInfo = function(config) {
                 });
             }
             else {
-                if(!r.data.shared_folders_enabled) {
+                // Commenting this out until shared folders check is cross-platform
+/*                if(!r.data.shared_folders_enabled) {
                     var msg = 'It appears as though CloVR\'s shared folders are not enabled.<br/>'+
                         'Please refer to the documentation below to get things setup correctly:<br/><br/>'+
                         '<a href=http://clovr.org/virtualbox-version-4-0-and-later/>VirtualBox Setup</a><br/><br/>'+
@@ -1509,7 +1510,7 @@ clovr.getVmInfo = function(config) {
                         msg: msg,
                         icon: Ext.MessageBox.ERROR
                     });
-                }
+                }*/
             	if(config && config.callback) {
                 	config.callback(r);
             	}
