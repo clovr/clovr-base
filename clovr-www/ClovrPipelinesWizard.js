@@ -7,6 +7,7 @@
 clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
     
     constructor: function(config) {
+        var OTHER_PROTS = false; // Set this to true to show the other protocols dropdown
         var pipelines;
 
         var clovrpanel = this;
@@ -128,11 +129,14 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
              handler: function() {
                  clovrpanel.getLayout().setActiveItem('clovr_16s');
              }
-            },'-',
-            {menu: prot_menu,
-             text: 'Other Protocols'
             }
             ];
+            if(OTHER_PROTS) {
+                config.tbar.push(('-',
+                            {menu: prot_menu,
+                             text: 'Other Protocols'
+                            }));
+          }
         // Stuff that will go in the header of each portal.
         var tools = [{
             id:'gear',
