@@ -1410,7 +1410,8 @@ clovr.runPipeline = function(config) {
         params: {
             'request': Ext.util.JSON.encode(
                 {'config': config.params,
-				 'bare_run': false,
+		 'bare_run': false,
+		 'overwrite':true,
                  'cluster': 'local'
                 })
         },
