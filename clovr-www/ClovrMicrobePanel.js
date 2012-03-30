@@ -653,11 +653,11 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                     xtype: 'radiogroup',
                     fieldLabel: 'Read Length',
                     items: [
-                        {boxLabel: 'Short',
+                        {boxLabel: 'Short (e.g. Illumina)',
                          name: 'read_length',
                          inputValue: 'short'
                         },
-                        {boxLabel: 'Long',
+                        {boxLabel: 'Long (e.g. Sanger, 454)',
                          name: 'read_length',
                          inputValue: 'long'
                         }
@@ -695,7 +695,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var win = new Ext.Window({
             defaults: {frame: true},
             height: 300,
-            width: 400,
+            width: 450,
             autoScroll: true,
             title: 'We need some additional information about your datasets',
             items: forms,
