@@ -1,0 +1,4 @@
+#!/bin/bash
+
+svn export --force https://vappio.svn.sourceforge.net/svnroot/vappio/trunk/vappio-twisted/vappio_tx/clusters/clusters_cleanup.py /opt/vappio-twisted/vappio_tx/clusters/clusters_cleanup.py 
+/etc/vappio/master/S22-vappio-apps restart
