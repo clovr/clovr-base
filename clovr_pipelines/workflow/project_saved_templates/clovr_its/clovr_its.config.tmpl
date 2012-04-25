@@ -35,7 +35,7 @@ TOTAL_FILES={"display": "Total file", "default": 1, "desc": "Number of file to c
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,uclust_otus,summary_tables,histograms,skiff,metastats,pcoa_plots,rarefactions,mothur_summary,rarefaction_plots", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads", "chimeras", "uclust_otus", "summary_tables", "histograms", "skiff", "metastats", "pcoa_plots", "rarefactions", "mothur_summary", "rarefaction_plots"]}, "visibility": "default_hidden"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "filtered_reads,chimeras,uclust_otus,blast_taxonomy,tables_taxonomy,piecharts_taxonomy,skiff_taxonomy,metastats_taxonomy,histograms_taxonomy,rarefactions,mothur_summary,rarefaction_plots", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["filtered_reads","chimeras","uclust_otus","blast_taxonomy","tables_taxonomy","piecharts_taxonomy","skiff_taxonomy","metastats_taxonomy","histograms_taxonomy","rarefactions","mothur_summary","rarefaction_plots"]}, "visibility": "default_hidden"}
 
 
 [pipeline]
