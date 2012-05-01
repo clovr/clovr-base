@@ -18,7 +18,7 @@ vp-describe-protocols --config-from-protocol=clovr_sleep \
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
-if [ "$?" == "1" ]; then
+if [ "$?" != "0" ]; then
     echo "vp-run-pipeline failed to run"
     exit 1
 fi
