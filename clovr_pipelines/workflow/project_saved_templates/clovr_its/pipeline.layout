@@ -44,6 +44,14 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>run_command.generatelist4</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.screen_out_chimeric_reps</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>run_command.pick_genus_level_otus</name>
         </commandSet>
         <commandSet type="serial">
