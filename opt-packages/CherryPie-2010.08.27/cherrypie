@@ -111,7 +111,7 @@ open OUT, ">$prefix\.in" or die "Can't open temp file $prefix.in!\n";
 my $infile = "$matrixfile"; 
 my $outfile = "$prefix";
 print OUT 
-"source(\"/opt/opt-packages/bioinf-v1r4b1/CherryPie/piechart.r\")
+"source(\"/opt/opt-packages/CherryPie-2010.08.27/piechart.r\")
 piechart(\"$infile\", \"$outfile\")\n";
 close OUT;
 
