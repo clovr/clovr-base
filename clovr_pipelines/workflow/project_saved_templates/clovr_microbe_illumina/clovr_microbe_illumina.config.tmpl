@@ -61,6 +61,8 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
 TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn"] }, "visibility": "default_hidden" }
 
+[cluster]
+MASTER_INSTANCE_TYPE={"default": "large", "require_value": true, "visibility": "default_hidden", "type": "string", "display": "Master Instance Type", "desc": "Instance type to use for the master, guaranteed values are 'default', 'small', 'medium', and 'large'"}
 
 [pipeline]
 -include_in_section /opt/clovr_pipelines/common_config/pipeline.config
