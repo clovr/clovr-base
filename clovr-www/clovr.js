@@ -273,6 +273,11 @@ clovr.localFileSelector = function(config) {
             checked: false
         }),
     });
+    var sorter = new Ext.tree.TreeSorter(selectorTree, {
+        folderSort: true,
+        dir: "asc",
+        property: 'text'
+    });
     return selectorTree;
 }
 /**
