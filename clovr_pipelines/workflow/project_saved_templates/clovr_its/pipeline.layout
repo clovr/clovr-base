@@ -56,14 +56,6 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.calculate_cpu_hours</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.set_ergatis_values</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
             <name>run_command.resize_cluster</name>
         </commandSet>
         <commandSet type="serial">
