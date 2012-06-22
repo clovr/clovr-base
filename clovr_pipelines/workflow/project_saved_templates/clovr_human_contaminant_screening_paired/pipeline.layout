@@ -1,0 +1,37 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>order_paired_list.default</name>
+        </commandSet> 
+        <commandSet type="parallel">
+            <state>incomplete</state>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>split_fasta_fastq.mate1</name>
+            </commandSet>
+            <commandSet type="serial">
+                <state>incomplete</state>
+                <name>split_fasta_fastq.mate2</name>
+            </commandSet>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>split_paired_files.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>bmtagger.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>filter_sequences_by_id.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.default</name>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>

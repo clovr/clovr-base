@@ -1,0 +1,54 @@
+## Template configuration file for
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+[input]
+INPUT_PAIRED_TAG={"display": "Paired Input Tag", "desc": "Input tag of sequences to be filtered (paired)", "type": "dataset", "type_params": {"format_type": ["nuc_fasta", "fastq"], "transform_name": "input.PAIRED_LIST"}, "require_value": true}
+
+
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-bmtagger-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "visibility": "always_hidden", "require_value": true }
+
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;REFERENCE_DB_TAG$;", "visibility": "always_hidden", "type": "string" }
+
+[params]
+INPUT_FORMAT={"display": "Input file format:", "default": "fastq", "desc": "Input file format must be fasta or fastq", "type": "restricted_string", "type_params": {"choices": ["fastq", "fasta"]}, "require_value": true}
+
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Output tags to download
+## Comma separated list (e.g. assembly_contigs,annotation_genbank )
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "screened_files,screened_ids", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["screened_files", "screened_ids"]}, "visibility": "default_hidden"}
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_human_contaminant_screening_paired_0.0", "type": "string", "visibility": "always_hidden"}
+PIPELINE_TEMPLATE={"default": "clovr_human_contaminant_screening_paired", "visibility": "hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_human_contaminant_screening_paired/clovr_human_contaminant_screening_paired.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_human_contaminant_screening_paired/clovr_human_contaminant_screening_paired.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
