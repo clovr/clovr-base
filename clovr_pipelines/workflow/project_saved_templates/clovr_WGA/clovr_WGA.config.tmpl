@@ -22,7 +22,7 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsyalign_maf_tag"]}, "visibility": "default_hidden"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsyalign_maf_tag","workflow_xml_tag"]}, "visibility": "default_hidden"}
 
 
 [pipeline]

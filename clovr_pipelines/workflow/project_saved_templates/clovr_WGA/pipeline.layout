@@ -16,6 +16,10 @@
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
+          <name>mugsy_concat_fasta.default</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
           <name>mugsyalign.default</name>
         </commandSet>
 	<commandSet type="serial">
