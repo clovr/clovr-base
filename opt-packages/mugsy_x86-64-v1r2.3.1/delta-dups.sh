@@ -2,12 +2,12 @@
 #Identify duplicated regions in a pairwise delta file from NUCmer
 
 mugsypath=$MUGSY_INSTALL
-mummerpath=$MUGSY_INSTALL/MUMmer3.20/src/tigr/
+mummerpath=$MUGSY_INSTALL/MUMmer3.20/
 deltafile=$1;
 
 #Run delta-filter -b for duplications that are detected using LIS
 $mummerpath/delta-filter -b $deltafile > $deltafile.b
-#Capture additional duplicated regions by looking for overlapping alignments
+#Capture additional dup/repeat regions by looking for overlapping alignments
 #Alignments that overlap by more than half their lengths are reports as dups
 $mummerpath/delta-filter -m $deltafile > $deltafile.m
 $mummerpath/delta-filter -v -u 50 $deltafile.m > $deltafile.u

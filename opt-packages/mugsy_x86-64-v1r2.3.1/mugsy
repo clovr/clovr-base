@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 if(! -d $ENV{'MUGSY_INSTALL'}){
-    my $default_install = "/opt/opt-packages/mugsy_x86-64-v1r2";
+    my $default_install = "/usr/local/projects/angiuoli/mugsy_trunk/";
     if( -d $default_install){
 	$ENV{'MUGSY_INSTALL'} = $default_install;
 	print STDERR "MUGSY_INSTALL environment variable not set. Using $default_install\n";
@@ -36,7 +36,8 @@ See http://mugsy.sf.net for more information
 =head1 INPUT
 
 Input is one or more (multi)FASTA files, one per genome. Each file
-should contain all the sequences for a single organism/species.
+should contain all the sequences for a single organism/species. The
+filename is used as the genome name.
 
 Limitations on FASTA input:
  input FASTA headers must not contain ':' or '-'
@@ -46,7 +47,8 @@ Common options:
 
     -p|prefix       prefix for output files
 
-    --directory     directory used to store output and temporary files
+    --directory directory used to store output and temporary
+      files. Must be a absolute path
 
     -d|--distance   maximum distance along a single sequence (bp) for
      chaining anchors into locally colinear blocks (LCBs).  This is
@@ -78,7 +80,12 @@ Other options:
 
     -refine run an second iteration of Mugsy on each LCB to refine the
      alignment using either Mugsy (--refine mugsy), FSA (--refine
-     fsa), Pecan (--refine pecan), MLAGAN (--refine mlagan)
+     fsa), Pecan (--refine pecan), MLAGAN (--refine mlagan). Requires
+     necessary tools are in your path:  
+     fsa: fsa
+     pecan: muscle,exonerate, in the path. classpath set for bp.pecan.Pecan.
+     mlagan: mlagan.sh
+
 
     -debug           debug level. > 2 verbose
 
@@ -128,21 +135,17 @@ angiuoli@cs.umd.edu
 
 use strict;
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);
-use lib "$ENV{'MUGSY_INSTALL'}/../../trees";
-use lib "$ENV{'MUGSY_INSTALL'}/trees";
-use lib "/home/sangiuoli/perl/lib64/perl5/site_perl/5.8.8/x86_64-linux-thread-multi";
-use lib "/usr/local/projects/angiuoli/developer/sangiuoli/trees";
-use lib 'trees';
-use lib '../../trees';
 use File::Basename;
 use Pod::Usage;
 use POSIX;
-eval{
-    require TreeParse;
-};
-if (! $@){
-    TreeParse->import();
-}
+
+#Only needed for TBA evaluation
+#eval{
+#    require TreeParse;
+#};
+#if (! $@){
+#    TreeParse->import();
+#}
 
 my %options;
 my $results = GetOptions (\%options, 
@@ -156,7 +159,7 @@ my $results = GetOptions (\%options,
     'skipsearch',
     'skiprefine',
     'allownestedlcbs',
-    'refine',
+    'refine:s',
     'colinear',
     'skipunique',
     'duplications=s',
@@ -176,25 +179,7 @@ my $results = GetOptions (\%options,
 
 pod2usage(-verbose=>3) if($options{'help'});
 
-####################################################
-## We need to append the filenames present in the tag
-## so modifying the code so that it would take input
-## fasta files either from the command line or from
-## the tagged dataset.
-## Modified by: Mahesh Vangala
-#####################################################
-my @inputseqfiles = ();
-unless($options{'fasta_file_list'}) {
-        @inputseqfiles = @ARGV;
-} else {
-        getFastaFilesPath($options{'fasta_file_list'}, \@inputseqfiles);
-}
-
 $options{'debug'} = 0 if(!defined $options{'debug'});
-print LOG "Processing FASTA files ",join(',',@inputseqfiles),"\n" if($options{'debug'});
-
-pod2usage(-verbose=>3, -message => "Need to specify valid input fasta file") if(! scalar(@inputseqfiles));
-
 
 ###EXTERNAL PROGS####
 my $mugsyinstall = $ENV{'MUGSY_INSTALL'};
@@ -242,6 +227,8 @@ my $musclecmd = "$muscleinstall/muscle";
 #because of assumptions made by some downstream parsers.
 #Check for problem characters in -prefix and report errors
 my $problemchars = "\.\?\-";
+#FASTA headers must not contain
+my $fastaproblemchars = "\:\-";
 
 if(defined $options{'directory'}){
     if(! -d "$options{'directory'}"){
@@ -275,6 +262,33 @@ elsif($options{'log'}){
 }else{
     open $logfh,"+>$options{'prefix'}.mugsy.log";
 }
+
+####################################################                                                                                             
+## We need to append the filenames present in the tag                                                                                                
+## so modifying the code so that it would take input                                                                                                           
+## fasta files either from the command line or from                                                                                                             
+## the tagged dataset.                                                                                                                                          
+## Modified by: Mahesh Vangala                                                                                                                                  
+#####################################################                                                                                                           
+my @inputseqfiles = ();
+unless($options{'fasta_file_list'}) {
+    @inputseqfiles = @ARGV;
+} else {
+    getFastaFilesPath($options{'fasta_file_list'}, \@inputseqfiles);
+}
+#Attempt to detect and convert genbank files                                                                                                                    
+for(my $i=0;$i<@inputseqfiles;$i++){
+    if(`head -1 $inputseqfiles[$i]` =~ /^LOCUS\s+/){
+        print STDERR "Attempting to convert $inputseqfiles[$i] to FASTA\n";
+        my $bname = basename($inputseqfiles[$i]);
+        print `bp_seqconvert.pl --from genbank --to fasta < $inputseqfiles[$i] > $options{'directory'}/$bname.fsa`;
+        $inputseqfiles[$i]="$options{'directory'}/$bname.fsa";
+    }
+}
+print LOG "Processing FASTA files ",join(',',@inputseqfiles),"\n" if($options{'debug'});
+
+pod2usage(-verbose=>3, -message => "Need to specify valid input fasta file") if(! scalar(@inputseqfiles));
+
 #Skipsearch automatically sets keepsearchfiles so
 #that search output is preserved
 if($options{'skipsearch'}){
@@ -294,6 +308,9 @@ if(defined $options{'collinear'}){
     $options{'nucmeropts'} .= $options{'nucmeropts'}." -maxmatch";
 }
 die "Cannot pass both --refine and --skiprefine" if(exists $options{'refine'} && exists $options{'skiprefine'});
+if(exists $options{'refine'}){
+    $options{'keeptmpfiles'}=1;
+}
 
 if(!exists $options{'refine'} && !exists $options{'skiprefine'}){
     $options{'skiprefine'}='true';
@@ -326,11 +343,11 @@ my $seqfiles = {};
 my $genome2seqslookup = {}; 
 my $seqlengthlookup = {};
 
-my @allfastafiles;
+#my $allfastafiles = {};
 
 my $cleanregex = '[\-]';
 
-#Aggregate all sequences for a lineage and concatenate together    
+#Cleanup directory
 foreach my $seqfile (@inputseqfiles){
     if(! -e $seqfile){
 	die "Invalid input file. Can't find $seqfile\n";
@@ -342,6 +359,14 @@ foreach my $seqfile (@inputseqfiles){
     $fname =~ s/$cleanregex/_/g;
     my $speciesname = $fname;
     unlink "$options{'directory'}/$speciesname" if(-e "$options{'directory'}/$speciesname");
+}
+#Aggregate all sequences for a lineage and concatenate together    
+foreach my $seqfile (@inputseqfiles){
+    my $fname = basename($seqfile);
+    $fname =~ s/\.[^.]+//g;
+    $fname =~ s/$cleanregex/_/g;
+    my $speciesname = $fname;
+    print STDERR "Parsing sequences for $speciesname ";
     my $header;
     my $seqlen=0;
     my @seqs;
@@ -415,7 +440,7 @@ foreach my $seqfile (@inputseqfiles){
 	$seqfiles->{"$options{'directory'}/$speciesname"}++;
     }
     close FILE; 
-    push @allfastafiles,"$options{'directory'}/$speciesname";
+    print STDERR " num_seqs:",scalar(@{$genome2seqslookup->{$speciesname}}),"\n";
 }
 
 my @genomenodes;
@@ -511,7 +536,7 @@ for(my $i=0;$i<@genomenodes;$i++){
     for(my $j=$start;$j<@genomenodes;$j++){
 	if($j!=$i){
 	    my $genomename2 = $genomenodes[$j];#$genomenodes[$j]->attributes->{'nh_label'};
-	    die if(! exists $genome2seqslookup->{$genomename2});
+	    die "Unable to find sequences for genome $genomename2. Check FASTA file names or headers" if(! exists $genome2seqslookup->{$genomename2});
 	    #print STDERR "$genome2seqslookup->{$genomename2}->[0]->[3]\n";
 	    push @queryfiles,"$options{'directory'}/$genomename2";
 	}
@@ -546,7 +571,7 @@ for(my $i=0;$i<@genomenodes;$i++){
 	}
 	unlink "$absprefix.$genomename1.queries.fsa" if(! defined $options{'keeptmpfiles'});
 	#Keep for --plot
-	if(! defined $options{'plot'} && ! defined $options{'keepsearchfiles'}){
+	if(! defined $options{'plot'} && ! defined $options{'keepsearchfiles'} && ! defined $options{'duplications'}){
 	    unlink "$deltafile" if(! defined $options{'keeptmpfiles'});
 	}
 	unlink "$absprefix.$genomename1.delta" if(! defined $options{'keeptmpfiles'});
@@ -571,7 +596,7 @@ if($method eq "mugsywga"){
     print STDERR "Starting MUGSYWGA: ",`date`;
     my $pwdupsfasta = "$absprefix.dups.xmfa";
     print $logfh `rm -f $allfsafile`;
-    foreach my $fsafile (@allfastafiles){
+    foreach my $fsafile (keys %$seqfiles){
 	#HACK 
 	#Temp fix for headers 
 	my $perlcmd = q|perl -ne 'if(/^\>([^\s\:]+)\:([^\s\:]+)/){if($1 ne $2){ print ">$1.$2 $1\n";} elsif(defined $1 && defined $2){print ">$1.$2\n";}else {print ">$1\n";}}else{die if(/\>/);print $_}'|;
@@ -727,9 +752,9 @@ if($options{'plot'}){
 	print STDERR "Alignment and synteny plot (gnuplot format): $absprefix.$genomename.plot.gp\n";
     }
 }
-if(!exists $options{'refine'}){
-    print $logfh "Iterative refinement realigns each region by running a second iteration of Mugsy and can sometimes improve the alignment. To run a second iteration and produce an output file $absprefix.refined.maf:\n $mugsywgacmd --outfile $absprefix --seq $allfsafile --aln $pwfasta --distance $options{'distance'} --minlength $options{'minlength'} --refine true --infile $absprefix.maf\n";
-}
+#if(!exists $options{'refine'}){
+    #print $logfh "Iterative refinement realigns each region by running a second iteration of Mugsy and can sometimes improve the alignment. To run a second iteration and produce an output file $absprefix.refined.maf:\n $mugsywgacmd --outfile $absprefix --seq $allfsafile --aln $pwfasta --distance $options{'distance'} --minlength $options{'minlength'} --refine true --infile $absprefix.maf\n";
+#}
 
 print STDERR "Finished ",`date`;
 
@@ -949,6 +974,10 @@ sub printFASTA{
     print $logfh "Writing file $fname\n" if($options{'debug'});
 
     open FFILE,">>$fname" or die "Can't open file\n";
+    if($header =~ /([$fastaproblemchars])/){
+	#print STDERR "Invalid FASTA header $header with characters $fastaproblemchars\n";
+	#$header =~ s/([$fastaproblemchars])/_/g;
+    }
     print FFILE ">$header\n";
     foreach my $s (@$seqs){
 	print FFILE $s,"\n";

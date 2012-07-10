@@ -7,7 +7,9 @@
 
 
 use strict;
-use lib '/opt/opt-packages/mugsy_x86-64-v1r2';
+use Cwd 'abs_path';
+use File::Basename;
+use lib( abs_path( dirname( abs_path($0) ) ) );
 use AlignmentTree;
 use Storable qw(store retrieve);
 use Data::Dumper;
