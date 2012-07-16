@@ -3,7 +3,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
 	<commandSet type="serial">
 		<state>incomplete</state>
-		<name>clovr_comparative.prerun</name>
+		<name>clovr_blast_clusters.prerun</name>
 		<command>
 			<name>Upload user data</name>
 			<type>RunUnixCommand</type>

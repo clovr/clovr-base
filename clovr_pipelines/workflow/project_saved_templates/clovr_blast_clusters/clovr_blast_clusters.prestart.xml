@@ -4,7 +4,7 @@
 				xsi:schemaLocation='commandSet.xsd'>
 <commandSet type="serial">
 	<state>incomplete</state>
-	<name>clovr_comparative.prestart</name>
+	<name>clovr_blast_clusters.prestart</name>
 		
 	<command>
 		<name>Download Genbank Files</name>
