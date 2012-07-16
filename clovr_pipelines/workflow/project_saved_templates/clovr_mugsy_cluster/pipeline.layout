@@ -4,9 +4,9 @@
         <name>start</name>
 	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_gb_bsml_input/pipeline.layout">
 	<commandSet type="serial">
-		<state>incomplete</state>
-		<name>run_command.concat_bsml_list</name>
-	</commandSet>
-	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/pipeline.layout">
+          <state>incomplete</state>
+          <name>run_command.concat_bsml_list</name>
+        </commandSet>
+	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsycog/pipeline.layout">
     </commandSet>
 </commandSetRoot>

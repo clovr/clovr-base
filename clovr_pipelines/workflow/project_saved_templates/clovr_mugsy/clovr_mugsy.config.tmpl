@@ -4,16 +4,16 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-GENBANK_TAG={"display": "Input Genbank Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["genbank"], "transform_name": "input.INPUT_FILE_LIST"}, "require_value": true}
-ACC_IDS={"display" : "List of Acc ids of gbk files to download from NCBI", "default" : "", "desc" : "acc_id1.gbk,acc_id2.gbk,...", "type": "string", "require_value": false}
+FSA_TAG={"display": "Input Fasta Tag", "default": "", "desc": "Input Genbank tag", "type": "dataset", "type_params": {"format_type": ["fasta"], "transform_name": "input.INPUT_FSA_LIST"}, "require_value": true}
+
+BSML_TAG={"display": "Input BSML Tag", "default": "", "desc": "Input BSML tag", "type": "dataset", "type_params": {"format_type": ["bsml"], "transform_name": "input.INPUT_BSML_LIST"}, "require_value": true}
 
 #########################################################
 ## Pipeline parameters
 ## Any parameters to be passed to the pipeline
 #########################################################
 [params]
-ORGANISM={"display": "Organism name", "default": "Genus species", "desc": "Name of organism", "type": "organism", "require_value": true}
-OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "Some file mini", "type": "string", "require_value": true}
+OUTPUT_PREFIX={"display": "Output prefix", "default": "prefix", "desc": "Prefix for output files", "type": "string", "require_value": true}
 
 
 #########################################################
@@ -25,7 +25,7 @@ OUTPUT_PREFIX={"display": "Output prefix", "default": "somefile_mini", "desc": "
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag,mugsyprep_map_tag,muscle_bsml_tag,muscle_raw_tag", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsyalign_maf_tag", "mugsyprep_map_tag", "muscle_bsml_tag", "muscle_raw_tag"]}, "visibility": "default_hidden"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsyalign_maf_tag","workflow_xml_tag"]}, "visibility": "default_hidden"}
 
 
 [pipeline]
@@ -38,7 +38,7 @@ PIPELINE_TEMPLATE={"default": "clovr_mugsy", "visibility": "hidden", "desc": "Th
 #prestart,prerun,postrun are all run locally. Use noop.xml for no operation
 #Prestart is run before cluster start
 #Possible actions: tag input data and do QC metrics
-PRESTART_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/clovr_mugsy.prestart.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
 #Prerun is run after cluster start but before pipeline start
 #Possible actions: tag and upload data sets to the cluster
 PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/clovr_mugsy.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}

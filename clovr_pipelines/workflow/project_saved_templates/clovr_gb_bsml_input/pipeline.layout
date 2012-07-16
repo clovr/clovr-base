@@ -3,16 +3,20 @@
         <state>incomplete</state>
         <name>start</name>
 	<commandSet type="serial">
-          <state>incomplete</state>
-          <name>mugsy_concat_fasta.default</name>
-        </commandSet>
+	  <state>incomplete</state>
+	  <name>create_map_file.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>run_command.make_gb_list</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
+	  <name>genbank2bsml.default</name>
+	</commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>mugsyalign.default</name>
-        </commandSet>
-	<commandSet type="serial">
-          <state>incomplete</state>
-          <name>tag_data.clovr_mugsy</name>
+          <name>bsml2fasta.default</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>

@@ -4,15 +4,15 @@
         <name>start</name>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>mugsy_concat_fasta.default</name>
+          <name>bsml2mugsymap.default</name>
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>mugsyalign.default</name>
+          <name>mugsycog.default</name>
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>tag_data.clovr_mugsy</name>
+          <name>tag_data.clovr_mugsycog</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
