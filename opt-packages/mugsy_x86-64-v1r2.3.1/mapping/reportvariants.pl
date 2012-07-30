@@ -5,7 +5,9 @@ use strict;
 use Bio::Perl;
 use Bio::DB::Fasta;
 use Bio::Seq;
-use lib '/usr/local/projects/angiuoli/developer/sangiuoli/mugsy/trunk/mapping/';
+use Cwd 'abs_path';
+use File::Basename;
+use lib( abs_path( dirname( $0 ) ) );
 use Getopt::Long qw(:config no_ignore_case no_auto_abbrev);
 use AlignmentTree;
 
@@ -18,8 +20,9 @@ my $results = GetOptions (\%options,
 pod2usage(-verbose=>1) if($options{'help'});
 
 my $atree = AlignmentTree::deserialize($ARGV[0]);
-
-my $db = Bio::DB::Fasta->new($ARGV[1],'-reindex'=>1); 
+my $fh = Bio::DB::Fasta->newFh($ARGV[1],'-reindex'=>1);
+my $db = {};
+$db->{$_->id} = $_ while( <$fh> );
 
 my $gapthreshold=0;
 if(exists $options{'gaps_allowed'}){
