@@ -1216,6 +1216,10 @@ clovr.PROTOCOL_TO_TRACK =
         'clovr_assembly_velvet' : 'clovr_microbe',
         'clovr_assembly_celera' : 'clovr_microbe'
     };
+clovr.OTHER_PROTOCOLS = 
+    {
+        'clovr_sleep' : true
+    };
 
 clovr.getPipelineToProtocol = function(name) {
     return clovr.PIPELINE_TO_PROTOCOL[name];

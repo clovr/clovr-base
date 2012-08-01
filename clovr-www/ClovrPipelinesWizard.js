@@ -36,6 +36,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
         };
 
         var protocol_to_track = clovr.PROTOCOL_TO_TRACK;
+        var other_protocols = clovr.OTHER_PROTOCOLS;
         
         var prot_menu = new Ext.menu.Menu({});
         
@@ -330,7 +331,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 	                var prot_menu_items = [];
 	                Ext.each(pipelines, function(pipe) {
 	                	configs_by_protocol[pipe.protocol] = pipe.config;
-	                	if(!protocol_to_track[pipe.protocol]) {
+	                	if(!protocol_to_track[pipe.protocol] && other_prots[pipe.protocol]) {
 	                	    prot_menu_items.push({
                                 text: pipe.protocol,
                                 handler: function() {
