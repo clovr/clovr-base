@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+ 
 """generate all files needed to input
 into Phylomark"""
 import sys
