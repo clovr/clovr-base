@@ -999,11 +999,11 @@ sub getAlignmentMatrix {
 	if($skipfilter || $namesfilter->{$alni->[0]}==1){
         #my $seqobj = $db->get_Seq_by_id($alni->[0]);
 	    my $seqobj = $db->{$alni->[0]};
-		unless( $seqobj ) {
-			my $new_id = $alni->[0];
-			$new_id =~ s/^[^\.]+//;
-			$seqobj = $db->{$new_id};
-		}
+	    unless( $seqobj ) {
+		my $new_id = $alni->[0];
+		$new_id =~ s/^[^\.]+\.//;
+		$seqobj = $db->{$new_id};
+	    }
 	    die "Can't find seq $alni->[0]\n" if(!$seqobj);
 	    my $seq = $seqobj->seq();
 	    my $matchcount=0;
