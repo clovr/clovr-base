@@ -1,0 +1,18 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+	<name>start</name>
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>wga_maf2tree.default</name>
+	</commandSet>
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>mugsy_callsnps.default</name>
+	</commandSet>
+	<commandSet type="serial">
+		<state>incomplete</state>
+		<name>tag_data.clovr_WGA_phylo</name>
+	</commandSet>
+    </commandSet>
+</commandSetRoot>
