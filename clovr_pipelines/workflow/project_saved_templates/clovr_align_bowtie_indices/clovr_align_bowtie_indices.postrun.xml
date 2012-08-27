@@ -4,9 +4,8 @@
                 xsi:schemaLocation='commandSet.xsd'>
   <commandSet type="serial">
     <state>incomplete</state>
-    <name>clovr_align_bowtie_indices.postrun</name>
-    <!--Pull in workflow XML needed to download pipeline output-->
-    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" />
+    <name>clovr.postrun</name>
+    <INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" keys="$;NODISTRIB$;=1"/>
     <command>
         <name>post-qc-metric</name>
         <type>RunUnixCommand</type>

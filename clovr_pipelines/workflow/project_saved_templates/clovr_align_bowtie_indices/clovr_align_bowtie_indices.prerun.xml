@@ -11,11 +11,5 @@
       <arg>mkdir -p -m 777 $;TMP_DIR$;</arg>
     </command>
     <INCLUDE file="$;DOCS_DIR$;/clovrtag_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=PRERUN_ITERATOR_XML" />
-    <command>
-      <name>Upload reference data</name>
-      <type>RunUnixCommand</type>
-      <executable>/opt/vappio-py/vappio/cli/uploadTag.py</executable>
-      <arg>--tag-name $;REFERENCE_TAG$; --dst-cluster $;CLUSTER_NAME$; --block --expand</arg>
-    </command>
   </commandSet>
 </commandSetRoot>

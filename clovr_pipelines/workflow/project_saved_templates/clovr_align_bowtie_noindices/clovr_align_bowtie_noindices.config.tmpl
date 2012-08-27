@@ -5,12 +5,12 @@
 #########################################################
 [input]
 INPUT_PAIRED_TAG={"display": "Paired-end Input Tag", "desc": "The input tag describing any paried-end sequence data (fastq)", "type": "dataset list", "type_params": {"format_type": ["fastq"], "transform_name": "input.PAIRED_READS_LIST"}}
-INPUT_READS_TAG={"display": "Input Reads Tag", "desc": "Input reads tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.READS_LIST"}}
-REFERENCE_TAG={"display": "Reference FASTA sequence", "desc": "FASTA sequence to be converted into bowtie indices via bowtie-build.", "type": "dataset", "type_params": { "format_type": ["fasta"], "transform_name": "input.REFERENCE_FILE_LIST"}, "require_value": true}
+INPUT_READS_TAG={"display": "Single-end Input Tag", "desc": "The input tag describing any single-end sequence data (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.READS_LIST"}}
+REFERENCE_TAG={"display": "Reference FASTA sequence", "desc": "FASTA sequence to be converted into bowtie indices via bowtie-build.", "type": "dataset", "type_params": { "format_type": ["fasta"], "transform_name": "input.REFERENCE_FILE"}, "require_value": true}
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
-INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPUT_READS_TAG$;", "visibility": "always_hidden", "type": "string" }
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPUT_READS_TAG$;,$;REFERENCE_TAG$;", "visibility": "always_hidden", "type": "string" }
 
 #########################################################
 ## Pipeline parameters
