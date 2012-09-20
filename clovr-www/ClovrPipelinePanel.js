@@ -194,13 +194,17 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             					clovr.getClusterInfo({
             						cluster_name: child[0],
             						callback: function(response2) {
-										var host = response2.data.master.public_dns;
+										var host = response2.data[0].master.public_dns;
+                                        if(child[0] == "local") {
+                                            host = host.replace("clovr-","");
+                                            host = host.replace(/-/g,".");
+                                        }
 										var ergatis = "<a target='_blank' style='color:black;' href=http://"+host+"/ergatis/cgi/view_pipeline.cgi?instance=/mnt/projects/clovr/workflow/runtime/pipeline/"+
     										response[0].pipeline_id+"/pipeline.xml>Ergatis</a>";
     									var ganglia = "<a target='_blank' style='color:black;' href=http://"+host+"/ganglia>Ganglia</a>";
 			            				if(pipe.children.length > 1) {
 			            				    var new_child = {'cluster_name': child[0],
-			            				                    'state': response2.data.state,
+			            				                    'state': response2.data[0].state,
 			            				                    'ganglia': ganglia,
 			            				                    'ergatis': ergatis
 			            				                    };

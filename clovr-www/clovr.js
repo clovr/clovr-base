@@ -890,7 +890,7 @@ clovr.clusterCombo = function(config) {
             });
             return jsonData;
         },
-        url: "/vappio/listClusters_ws.py",
+        url: "/vappio/cluster_list",
         baseParams: {request: '{}'},
         autoLoad: true,
         listeners: {
@@ -1011,8 +1011,8 @@ clovr.tagSuperBoxSelect = function(config) {
 // Pulls data from clusterInfo_ws.py
 clovr.getClusterInfo = function(config) {
     Ext.Ajax.request({
-        url: '/vappio/clusterInfo_ws.py',
-        params: {request: Ext.util.JSON.encode({cluster: config.cluster_name})},
+        url: '/vappio/cluster_list',
+        params: {request: Ext.util.JSON.encode({cluster_name: config.cluster_name})},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
             config.callback(rjson);
