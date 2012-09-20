@@ -195,7 +195,7 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
             						cluster_name: child[0],
             						callback: function(response2) {
 										var host = response2.data[0].master.public_dns;
-                                        if(child[0] == "local") {
+                                        if(host.match(/clovr-/) ) {
                                             host = host.replace("clovr-","");
                                             host = host.replace(/-/g,".");
                                         }
