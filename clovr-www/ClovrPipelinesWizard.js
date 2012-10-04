@@ -7,7 +7,7 @@
 clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
     
     constructor: function(config) {
-        var OTHER_PROTS = false; // Set this to true to show the other protocols dropdown
+        var OTHER_PROTS = true; // Set this to true to show the other protocols dropdown
         var pipelines;
 
         var clovrpanel = this;

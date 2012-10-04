@@ -1218,7 +1218,12 @@ clovr.PROTOCOL_TO_TRACK =
     };
 clovr.OTHER_PROTOCOLS = 
     {
-        'clovr_sleep' : true
+        'clovr_sleep' : true,
+        'clovr_human_contaminant_screening_paired' : true,
+        'clovr_human_contaminant_screening_single' : true,
+        'clovr_align_bowtie_indices' : true,
+        'clovr_align_bowtie_noindices' : true,
+        'clovr_metagenomics_assembly' : true
     };
 
 clovr.getPipelineToProtocol = function(name) {
