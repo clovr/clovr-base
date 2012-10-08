@@ -1,0 +1,26 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.prepare_soapdenovo_config</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>soapdenovo.default</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.filter_fasta_by_length</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>extract_assembly_stats.default</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.default</name>
+	</commandSet>
+    </commandSet>
+</commandSetRoot>

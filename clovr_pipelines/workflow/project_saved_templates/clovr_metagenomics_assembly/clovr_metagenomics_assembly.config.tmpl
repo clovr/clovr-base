@@ -1,0 +1,67 @@
+## Template configuration file for Metagenomics Assembly Pipeline
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+
+[input]
+INPUT_MATE1_TAG={"display": "Input Reads Tag (Mate 1)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE1"}}
+INPUT_MATE2_TAG={"display": "Input Reads Tag (Mate 2)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE2"}}
+INPUT_SINGLE_TAG={"display": "Input Reads Tag (Single)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_SINGLETON"}}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_MATE1_TAG$;,$;INPUT_MATE2_TAG$;,$;INPUT_SINGLE_TAG$;", "visibility": "always_hidden", "type": "string" }
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+MAX_RD_LEN={"display": "Maximal read length", "default": "100", "desc": "Maximal read length", "type": "integer", "require_value": true}
+AVG_INS={"display": "Average insert size", "default": 200, "desc": "Average insert size, estimate.", "type": "integer", "require_value": true}
+REV_SEQ={"display": "Average insert size", "default": 0, "desc": "Forward/reverse library: 0 or 1. 1 if sequence needs to be reversed", "type": "integer", "type_params": {"min": 0, "max": 1},"require_value": true}
+ASM_FLAGS={"display": "ASM flags", "default": 3, "desc": "In which part(s) the reads are used.", "type": "integer", "type_params": {"min": 0, "max": 3},"require_value": true}
+PAIR_NUM_CUTOFF={"display": "Pair num cutoff", "default": 3, "desc": "Number of mates needed to scaffold across a gap", "type": "integer", "require_value": true}
+MAP_LEN={"display": "Map length", "default": "32", "desc": "Minimum length of read mapping to a contig", "type": "integer", "require_value": true}
+KMER_SIZE={"display": "K-mer size", "default": "23", "desc": "K-mer size. Odd numbers between 13 and 127", "type": "integer","type_params": {"min": 13, "max": 127}, "require_value": true}
+LIMIT={"display": "Size limit", "default": "300", "desc": "Scaffolds less than size limit will be excluded from output.", "type": "integer", "require_value": true}
+
+
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "soapdenovo,extract_assembly_stats", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["soapdenovo","extract_assembly_stats"]}, "visibility": "default_hidden"}
+
+[download]
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_metagenomics_assembly_version_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+
+PIPELINE_TEMPLATE={"default": "clovr_metagenomics_assembly", "visibility": "hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_assembly/clovr_metagenomics_assembly.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_metagenomics_assembly/clovr_metagenomics_assembly.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
