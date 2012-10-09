@@ -1,0 +1,6 @@
+0	CONFIG	cluster.CLUSTER_NAME	microbe_454_batch_0
+0	CONFIG	pipeline.PIPELINE_DESC	Microbe v2.0 454 Batch Run 0
+1	CONFIG	cluster.CLUSTER_NAME	microbe_454_batch_1
+1	CONFIG	pipeline.PIPELINE_DESC	Microbe v2.0 454 Batch Run 1
+2	CONFIG	cluster.CLUSTER_NAME	microbe_454_batch_2
+2	CONFIG	pipeline.PIPELINE_DESC	Microbe v2.0 454 Batch Run 2
