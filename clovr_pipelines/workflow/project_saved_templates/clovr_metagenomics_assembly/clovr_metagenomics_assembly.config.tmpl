@@ -5,9 +5,9 @@
 #########################################################
 
 [input]
-INPUT_MATE1_TAG={"display": "Input Reads Tag (Mate 1)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE1"}}
-INPUT_MATE2_TAG={"display": "Input Reads Tag (Mate 2)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE2"}}
-INPUT_SINGLE_TAG={"display": "Input Reads Tag (Single)", "desc": "The input tag of sequences to be assembled (fastq)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_SINGLETON"}}
+INPUT_MATE1_TAG={"display": "Input Reads Tag (Mate 1)", "desc": "Mate 1 input tag of sequences to be assembled (fastq). Required", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE1"}}
+INPUT_MATE2_TAG={"display": "Input Reads Tag (Mate 2)", "desc": "Mate 2 input tag of sequences to be assembled (fastq). Required", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_MATE2"}}
+INPUT_SINGLE_TAG={"display": "Input Reads Tag (Single)", "desc": "Singleton input tag of sequences to be assembled (fastq). Optional", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_SINGLETON"}}
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
