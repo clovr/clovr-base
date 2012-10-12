@@ -20,7 +20,7 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_MATE1_TAG$;,$;INPUT
 [params]
 MAX_RD_LEN={"display": "Maximal read length", "default": "100", "desc": "Maximal read length", "type": "integer", "require_value": true}
 AVG_INS={"display": "Average insert size", "default": 200, "desc": "Average insert size, estimate.", "type": "integer", "require_value": true}
-REV_SEQ={"display": "Average insert size", "default": 0, "desc": "Forward/reverse library: 0 or 1. 1 if sequence needs to be reversed", "type": "integer", "type_params": {"min": 0, "max": 1},"require_value": true}
+REV_SEQ={"display": "Forward/Reverse Library", "default": 0, "desc": "Forward/reverse library: 0 or 1. 1 if sequence needs to be reversed", "type": "integer", "type_params": {"min": 0, "max": 1},"require_value": true}
 ASM_FLAGS={"display": "ASM flags", "default": 3, "desc": "In which part(s) the reads are used.", "type": "integer", "type_params": {"min": 0, "max": 3},"require_value": true}
 PAIR_NUM_CUTOFF={"display": "Pair num cutoff", "default": 3, "desc": "Number of mates needed to scaffold across a gap", "type": "integer", "require_value": true}
 MAP_LEN={"display": "Map length", "default": "32", "desc": "Minimum length of read mapping to a contig", "type": "integer", "require_value": true}
