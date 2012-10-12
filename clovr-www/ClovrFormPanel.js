@@ -139,7 +139,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
             
             // This is a HACK to detect fields that are tags/datasets.
             if((field.type=='dataset' || tag_regex.exec(field.name)) && field.visibilty != 'default_hidden') {
-
+                config.ignore_fields[field.name] = 1;
                 var tag_combo = clovr.tagCombo({
                     fieldLabel: field.display,
                     field: field,
