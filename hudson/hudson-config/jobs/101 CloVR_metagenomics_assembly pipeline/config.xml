@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties></properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -12,7 +12,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo -u www-data /opt/hudson/clovr_mapping_bowtie_indices.sh</command>
+      <command>sudo -u www-data /opt/hudson/clovr_metagenomics_assembly.sh local local</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
