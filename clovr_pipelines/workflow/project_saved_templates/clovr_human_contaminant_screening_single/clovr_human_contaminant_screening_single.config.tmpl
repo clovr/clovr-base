@@ -4,7 +4,7 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-INPUT_TAG={"display": "Input Tag", "desc": "Input tag of sequences to be filtered", "type": "dataset", "type_params": {"format_type": ["nuc_fasta", "fastq"], "transform_name": "input.INPUT_LIST"}, "require_value": true}
+INPUT_TAG={"display": "Input Tag", "desc": "Input tag describing single-end sequence data to be filtered (fasta or fastq format)", "type": "dataset", "type_params": {"format_type": ["nuc_FASTA", "fastq"], "transform_name": "input.INPUT_LIST"}, "require_value": true}
 
 REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-bmtagger-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "visibility": "always_hidden", "require_value": true }
 
@@ -15,7 +15,7 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_TAG$;,$;REFERENCE_D
 
 
 [params]
-INPUT_FORMAT={"display": "Input file format:", "default": "fastq", "desc": "Input file format must be fasta or fastq", "type": "restricted_string", "type_params": {"choices": ["fastq", "fasta"]}, "require_value": true}
+INPUT_FORMAT={"display": "Input file format:", "default": "fastq", "desc": "Select input format (fasta or fastq)", "type": "restricted_string", "type_params": {"choices": ["fastq", "fasta"]}, "require_value": true}
 
 
 #########################################################
