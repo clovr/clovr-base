@@ -10,5 +10,13 @@
 	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/pipeline.layout">
 	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsycog/pipeline.layout">
 	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_WGA_phylo/pipeline.layout">
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>summarize_mugsy_comparative_pipeline.default</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>tag_data.comparative_summary</name>
+        </commandSet>
     </commandSet>
 </commandSetRoot>
