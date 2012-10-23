@@ -304,7 +304,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                     params['input.INPUT_SFF_TAG'] = tag.data.name;
                 }
                 else if(track.inputValue == 'assemblyannot') {
-                    form_name = 'clovr_microbe454';
+                    form_name = 'clovr_microbe_v2.0_454';
                     title = 'CLoVR Microbe 454 Assembly/Annotation Settings';
                     ignores = {'input.INPUT_SFF_TAG': 1};
                     params['input.INPUT_SFF_TAG'] = tag.data.name;
@@ -316,7 +316,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
                 // Load the annotation only pipeline.
                 if(track.inputValue == 'annot' &&
                    tag.data['metadata.format_type'].toLowerCase() == 'nuc_fasta') {
-                    form_name = 'clovr_microbe_annotation';
+                    form_name = 'clovr_microbe_v2.0_annotation';
                     title = 'CLoVR Microbe Annotation Settings';
                     ignores = {'input.INPUT_FSA_TAG': 1};
                     
@@ -345,7 +345,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
 
                 // Load the Assembly+Annotation pipeline
                 else if(track.inputValue == 'assemblyannot') {
-                    form_name = 'clovr_microbe_illumina';
+                    form_name = 'clovr_microbe_v2.0_illumina';
                     title = 'CLoVR Microbe Velvet Assembler/Annotation Settings';
                     ignores = {'input.SHORT_PAIRED_TAG': 1,
                                'input.LONG_PAIRED_TAG': 1,
