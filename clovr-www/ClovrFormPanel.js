@@ -39,7 +39,6 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
         
         // Generate all the other fields
         var other_fields = clovr.makeDefaultFieldsFromPipelineConfig(config.fields,config.ignore_fields);
-        
         // add the normal ones...
         itemsArray.push(other_fields.normal);
         
@@ -138,8 +137,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
         Ext.each(config.fields, function(field, i, fields) {
             
             // This is a HACK to detect fields that are tags/datasets.
-            if((field.type=='dataset' || tag_regex.exec(field.name)) && field.visibilty != 'default_hidden') {
-                config.ignore_fields[field.name] = 1;
+            if((field.type=='dataset' && field.visibility != 'default_hidden')) { //|| tag_regex.exec(field.name)) && field.visibilty != 'default_hidden') {
                 var tag_combo = clovr.tagCombo({
                     fieldLabel: field.display,
                     field: field,
@@ -152,14 +150,18 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
                     editable: false,
 //                    submitValue: false,
                     lastQuery: '',
-                    allowBlank: false,
+                    allowBlank: ! field.require_value,
+                    listEmptyText: 'No available data of this type',
+                    //emptyText: 'Nothing selected',
                     name: field.name,
                     tpl: '<tpl for="."><div class="x-combo-list-item"><b>{name}</b><br/>Format: {[values["metadata.format_type"]]}</div></tpl>',
                     filter: {
                         fn: function(record) {
                             var re_types = [];
                             Ext.each(field.type_params, function(type,i,params) {
-                                re_types.push(type.format_type);
+                                if(type.format_type) {
+                                    re_types.push(type.format_type.join('|'));
+                                }
                             });
                             var restr = re_types.join('|');
                             var re = new RegExp(restr);
@@ -176,6 +178,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
                     } 
                 });
                 input_fields.push(tag_combo);
+		config.ignore_fields[field.name] = 1;
             }
             else if(field.type=='dataset list' && field.visibilty != 'default_hidden') {
                 config.ignore_fields[field.name] = 1;                
@@ -189,6 +192,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
                     displayField: 'name',
                     forceSelection: true,
                     editable: false,
+                    returnString: true,
 //                    submitValue: false,
                     lastQuery: '',
                     allowBlank: false,
@@ -198,7 +202,9 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
                         fn: function(record) {
                             var re_types = [];
                             Ext.each(field.type_params, function(type,i,params) {
-                                re_types.push(type.format_type);
+                                if(type.format_type) {
+                                    re_types.push(type.format_type.join('|'));
+                                }
                             });
                             var restr = re_types.join('|');
                             var re = new RegExp(restr);
@@ -232,6 +238,10 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
             frame: true,
             buttonAlign: 'center',
             buttons: [{
+                text: 'Clear',
+                handler: function(b,e) {
+                    panel.form.getForm().reset();
+                }},{
                 text: 'Validate',
                 handler: function(b,e) {
                     panel.validate();

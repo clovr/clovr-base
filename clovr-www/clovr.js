@@ -937,7 +937,7 @@ clovr.tagCombo = function(config) {
                 if(config.filter) {
                     store.filter(config.filter);
                 }
-                if(store.getAt(0)) {
+                if(store.getAt(0) && !config.allowBlank) {
                     combo.setValue(store.getAt(0).data.name);
                 }
                 else {

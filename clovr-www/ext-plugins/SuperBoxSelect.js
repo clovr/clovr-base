@@ -704,6 +704,9 @@ Ext.ux.form.SuperBoxSelect = Ext.extend(Ext.ux.form.SuperBoxSelect,Ext.form.Comb
                 if(this.forceFormValue && this.items.getCount() === 0){
                 	vals[this.name] = '';
                 }
+                if(this.returnString) {
+                    vals[this.name] = this.getValue();
+                }
                 return asString ? Ext.urlEncode(vals) : vals ;
             }.createDelegate(this);
         }
@@ -1000,7 +1003,7 @@ Ext.ux.form.SuperBoxSelect = Ext.extend(Ext.ux.form.SuperBoxSelect,Ext.form.Comb
     	this.items.each(function(item){
             item.kill();
         },this);
-        this.resetStore();
+//        this.resetStore();
         this.items.clear();
         this.manageClearBtn();
         return this;
