@@ -4,9 +4,9 @@
 ## Configuration options for the pipeline.
 #########################################################
 [input]
-FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_its_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_fasta"], "transform_name": "input.FASTA_FILE_LIST", "dataset_type": "its"}, "required": true}
+FASTA_TAG={"display": "Input Fasta Tag", "default": "clovr_its_fasta", "desc": "Input fasta tag", "type": "dataset", "type_params": {"format_type": ["nuc_FASTA"], "transform_name": "input.FASTA_FILE_LIST", "dataset_type": "its"}, "required": true}
 
-QUAL_TAG={"display": "Input Quality Scores Tag", "default": "", "desc": "Input quality scores tag", "type": "dataset", "type_params": {"format_type": ["quals"], "transform_name": "input.QUAL_FILE_LIST", "dataset_type": "its"}, "required": false}
+QUAL_TAG={"display": "Input Quality Scores Tag", "default": "", "desc": "Input quality scores tag", "type": "dataset", "type_params": {"format_type": ["quality_scores"], "transform_name": "input.QUAL_FILE_LIST", "dataset_type": "its"}, "required": false}
 
 MAPPING_TAG={"display": "Mapping Tag", "default": "clovr_its_map", "desc": "Mapping tag for pipeline", "type": "dataset", "type_params": {"format_type": ["clovr_16s_metadata_file"], "transform_name": "input.MAPPING_FILE_LIST"}, "required": true}
 
