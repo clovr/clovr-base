@@ -1223,7 +1223,8 @@ clovr.OTHER_PROTOCOLS =
         'clovr_human_contaminant_screening_single' : true,
         'clovr_align_bowtie_indices' : true,
         'clovr_align_bowtie_noindices' : true,
-        'clovr_metagenomics_assembly' : true
+        'clovr_metagenomics_assembly' : true,
+        'clovr_its' : true
     };
 
 clovr.getPipelineToProtocol = function(name) {
