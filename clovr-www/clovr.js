@@ -1012,7 +1012,7 @@ clovr.tagSuperBoxSelect = function(config) {
 clovr.getClusterInfo = function(config) {
     Ext.Ajax.request({
         url: '/vappio/cluster_list',
-        params: {request: Ext.util.JSON.encode({cluster_name: config.cluster_name})},
+        params: {request: Ext.util.JSON.encode({criteria: {cluster_name: config.cluster_name}})},
         success: function(r,o) {
             var rjson = Ext.util.JSON.decode(r.responseText);
             config.callback(rjson);
