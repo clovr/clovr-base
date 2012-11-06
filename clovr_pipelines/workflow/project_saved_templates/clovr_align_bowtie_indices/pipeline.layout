@@ -4,11 +4,15 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.prepare_input_for_bowtie</name>
+            <name>run_command.list_to_tab</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
             <name>bowtie.default</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.create_unmapped_list</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>

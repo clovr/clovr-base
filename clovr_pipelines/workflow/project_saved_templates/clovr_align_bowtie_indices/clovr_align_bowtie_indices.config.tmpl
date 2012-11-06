@@ -4,22 +4,13 @@
 ## Configuration options for the pipeline.
 #########################################################
 
-## Our two input parameters here should deal with the two types of data that 
-## bowtie can handle. 
-##
-## 1.) Paired-end data - $;INPUT_PAIRED_TAG$; - This should be a comma-separated list of tags with 
-##                                              each tag corresponding to one set of paired end data
-## 2.) Non paired-end data - $;INPUT_READS_TAG$; - This tag will capture all non-paired end data and
-##                                                 is just a filelist of all data files
-##
-## Example: tagData.py --name local --tag-name paired_end_bowtie s_2_1_sequences.fastq s_2_2_sequences.fastq
+## Input can either be paired or unpaired tags
 [input]
-INPUT_PAIRED_TAG={"display": "Input Reads Tag (paired)", "desc": "The input tag describing paired-end sequence data (fastq format)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.PAIRED_READS_LIST"}}
-INPUT_READS_TAG={"display": "Input Reads Tag (single)", "desc": "The input tag describing single-end sequence data (fastq format)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.READS_LIST"}}
+INPUT_TAG={"display": "Input Reads Tag (Single or paired)", "desc": "The input tag describing sequence data (fastq format)", "type": "dataset", "type_params": {"format_type": ["fastq"], "transform_name": "input.INPUT_READS"}}
 
 ## This is used for uploading the tags specified above
 ## Don't change this.
-INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_PAIRED_TAG$;,$;INPUT_READS_TAG$;", "visibility": "always_hidden", "type": "string" }
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_TAG$;", "visibility": "always_hidden", "type": "string" }
 
 #########################################################
 ## Pipeline parameters
@@ -42,7 +33,7 @@ MAX_ALIGNS_PER_READ={"display": "Max aligns per read", "default": 1, "desc": "Ma
 ## These are the output tags which will be downloaded
 ## at the end of the pipeline to the local VM.
 ## Possible options:
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam"]}, "visibility": "default_hidden"}
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "bowtie_sam,unmapped,stats", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["bowtie_sam", "unmapped", "stats"]}, "visibility": "default_hidden"}
 
 [download]
 
