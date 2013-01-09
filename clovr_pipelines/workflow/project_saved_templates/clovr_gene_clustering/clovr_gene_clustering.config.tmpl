@@ -1,0 +1,57 @@
+## Template configuration file for clovr_gene_clustering
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+
+## Input can either be paired or unpaired tags
+[input]
+INPUT_TAG={"display": "Input file", "desc": "The input tag describing sequences to be clustered (fasta format)", "type": "dataset", "type_params": {"format_type": ["nuc_FASTA","aa_FASTA"], "transform_name": "input.INPUT_FASTA"}}
+
+## This is used for uploading the tags specified above
+## Don't change this.
+INPUT_TAGS={"display": "Input Tag Vars", "default": "$;INPUT_TAG$;", "visibility": "always_hidden", "type": "string" }
+
+#########################################################
+## Pipeline parameters
+## Any parameters to be passed to the pipeline
+#########################################################
+[params]
+IDENTITY_THRESHOLD={"display": "Identity threshold", "desc": "Specifies the minimum identity between a query sequence and a target sequence. In this case, the target sequence is the clusteroid. Ranges from 0.0 to 1.0", "default":0.95, "type": "float", "type_params":{"min":0.1,"max":1.0},"require_value": true}
+MIN_SEQ_LENGTH={"display": "Minimum sequence length", "default": 19, "desc": "Specifies minimum sequence length to keep. Shorter sequences are discarded.", "type": "integer", "type_params": {"min": 0}, "require_value": true}
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## These are the output tags which will be downloaded
+## at the end of the pipeline to the local VM.
+## Possible options:
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "nonredundant_fasta,clusters_and_hits,stats", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": {"choices": ["nonredundant_fasta", "clusters_and_hits", "stats"]}, "visibility": "default_hidden"}
+
+[download]
+
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_gene_clustering_0.0", "type": "string", "visibility": "always_hidden", "require_value": true}
+
+PIPELINE_TEMPLATE={"default": "clovr_gene_clustering", "visibility": "hidden", "type": "string", "require_value": true}
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_gene_clustering/clovr_gene_clustering.prerun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_gene_clustering/clovr_gene_clustering.postrun.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string", "require_value": true}
