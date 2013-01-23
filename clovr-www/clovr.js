@@ -364,7 +364,7 @@ clovr.uploadFileWindow = function(config) {
              triggerAction: 'all',
              store: new Ext.data.ArrayStore({
                  fields:['id','name'],
-                 data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],
+                 data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],['genbank', 'GenBank'],
                         ['sff','Nucleotide SFF'],['fastq','Nucleotide FASTQ'],['nuc_blastdb','Nucleotide BLAST DB'],['aa_blastdb','Protein BLAST DB'],['clovr_16s_metadata_file','16S Metadata File'],['clovr_metagenomics_metadata_file','Metagenomics Metadata File'],
                         ['quality_scores','Quality Scores']]
              }),
