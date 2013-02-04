@@ -8,10 +8,6 @@
 	</commandSet>
 	<commandSet type="serial">
 	  <state>incomplete</state>
-	  <name>run_command.make_gb_list</name>
-	</commandSet>
-	<commandSet type="serial">
-	  <state>incomplete</state>
 	  <name>genbank2bsml.default</name>
 	</commandSet>
 	<commandSet type="serial">
