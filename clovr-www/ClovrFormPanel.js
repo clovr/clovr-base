@@ -24,7 +24,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
         config.form = clovrform
         // Fields that won't be drawn
         config.ignore_fields = [];
-        
+        this.protocol = config.protocol;
         // We'll use this field to store a reference to the field that is used for tag input.
         this.tag_field = null;
         
@@ -85,21 +85,39 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
 //                                  value: input_tag}]);
     },
     validate: function() {
+        var credential = this.form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+        var cluster_name = clovr.getClusterName({
+            protocol: this.protocol+'_',
+            credential: credential
+        });
+        var params = this.form.getForm().getValues();
+        Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
+                          'cluster.CLUSTER_CREDENTIAL': credential
+                          });
         clovr.validatePipeline({
             pipeline: 'clovr_wrapper',
             wrappername: this.wrappername,
-            cluster: this.cluster_name,
-            params: this.form.getForm().getValues()
+            cluster: cluster_name,
+            params: params
         });    
     
     },
     run: function() {
         var panel = this;
+        var credential = this.form.getForm().findField('cluster.CLUSTER_CREDENTIAL').getValue();
+        var cluster_name = clovr.getClusterName({
+            protocol: this.protocol+'_',
+            credential: credential
+        });
+	var params = this.form.getForm().getValues();
+        Ext.apply(params,{'cluster.CLUSTER_NAME': cluster_name,
+                          'cluster.CLUSTER_CREDENTIAL': credential
+                          });
         clovr.runPipeline({
             pipeline: 'clovr_wrapper',
             wrappername: this.wrappername,
-            cluster: this.cluster_name,
-            params: this.form.getForm().getValues(),
+            cluster: cluster_name,
+            params: params,
             submitcallback: function(r) {
                 panel.form.getForm().reset();
                 panel.submitcallback(r);         
