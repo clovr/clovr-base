@@ -59,7 +59,7 @@ VELVETG_OPTS={"default":"-ins_length 300 -ins_length_sd 50","display": "VelvetG 
 ## Output tags to download
 ## Comma separated list (e.g. assembly_contigs,annotation_genbank )
 ## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
-TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn,formatdb_nuc,formatdb_prot", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn", "formatdb_nuc", "formatdb_prot"] }, "visibility": "default_hidden" }
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn,formatdb_nuc,formatdb_prot,summary_report", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type": "restricted_string list", "type_params": { "choices": ["assembly_contigs", "polypeptide_fasta", "cds_fasta", "annotation_genbank", "annotation_sqn", "formatdb_nuc", "formatdb_prot", "summary_report"] }, "visibility": "default_hidden" }
 
 [cluster]
 MASTER_INSTANCE_TYPE={"default": "large", "require_value": true, "visibility": "default_hidden", "type": "string", "display": "Master Instance Type", "desc": "Instance type to use for the master, guaranteed values are 'default', 'small', 'medium', and 'large'"}
