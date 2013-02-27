@@ -16,6 +16,25 @@ clovr.tagStores = [];
 clovr.credStores = [];
 clovr.requests = [];
 
+clovr.sysMsg = 0;
+
+clovr.setSystemMessage = function(config) {
+    clovr.sysMsg = 1;
+    if(!config) {
+       var now = new Date();
+       var time = now.format('Y/m/d H:i:s T');
+
+        config = {
+            closable: false,
+            maxWidth: 470,
+            minWidth: 470,
+            title: 'Welcome to CloVR!',
+            msg : 'This CloVR image appears to be unavailable or is booting up.<br>I will keep checking automatically and will refresh when it is up.<br><br>Last checked '+time,
+            icon: Ext.MessageBox.WARNING            
+        };
+    }
+    Ext.Msg.show(config);
+}
 
 // Used to add a credential
 clovr.addCredentialWindow = function(config) {
@@ -23,7 +42,6 @@ clovr.addCredentialWindow = function(config) {
     var subforms = [];
     
     var win = {};
-
     var configSet = {
         xtype: 'fieldset',
         title: 'Name Credential',
@@ -601,14 +619,15 @@ clovr.tagData = function(config) {
         	config.callback(r,o);
         },
         failure: function(r,o) {
-			Ext.Msg.show({
-				 title: 'Server Error',
-		         width: 300,
-				 closable: false,
-                 msg: r.responseText,
-                 icon: Ext.MessageBox.ERROR,
-                 buttons: Ext.Msg.OK
-			});        	
+                        clovr.setSystemMessage();
+//			Ext.Msg.show({
+//				 title: 'Server Error',
+//		         width: 300,
+//				 closable: false,
+//                 msg: r.responseText,
+//                 icon: Ext.MessageBox.ERROR,
+//                 buttons: Ext.Msg.OK
+//			});        	
         }
     });
 }
@@ -788,11 +807,12 @@ clovr.getPipelineStatus = function(config) {
             config.callback(rdata);
         },
         failure: function(r,o) {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: response.responseText,
-                icon: Ext.MessageBox.ERROR,
-            	buttons: Ext.Msg.OK});
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: response.responseText,
+//                icon: Ext.MessageBox.ERROR,
+//            	buttons: Ext.Msg.OK});
         }
     });
 }
@@ -1142,10 +1162,11 @@ clovr.deletePipeline = function(config) {
                 });
             }
             else {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: rjson.data.msg,
-                icon: Ext.MessageBox.ERROR});            
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: rjson.data.msg,
+//                icon: Ext.MessageBox.ERROR});            
             
             }
         },
@@ -1154,10 +1175,11 @@ clovr.deletePipeline = function(config) {
             if(r.responseText) {
                 msg = r.responseText;
             }
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: msg,
-                icon: Ext.MessageBox.ERROR});
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: msg,
+//                icon: Ext.MessageBox.ERROR});
         }
     });
 }
@@ -1377,10 +1399,11 @@ clovr.validatePipeline = function(config) {
             }
         },
         failure: function(response) {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: response.responseText,
-                icon: Ext.MessageBox.ERROR});
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: response.responseText,
+//                icon: Ext.MessageBox.ERROR});
         }
     });
 
@@ -1413,10 +1436,11 @@ clovr.resumePipeline = function(config) {
             }
         },
         failure: function(response) {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: response.responseText,
-                icon: Ext.MessageBox.ERROR});
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: response.responseText,
+//                icon: Ext.MessageBox.ERROR});
         }
     });
 }
@@ -1453,12 +1477,14 @@ clovr.runPipeline = function(config) {
             }
         },
         failure: function(response) {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: response.responseText,
-                icon: Ext.MessageBox.ERROR});
+
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: response.responseText,
+//                icon: Ext.MessageBox.ERROR});
         }
-    });
+   });
 }
 
 clovr.reloadCredStores = function(config) {
@@ -1509,11 +1535,21 @@ clovr.getVmInfo = function(config) {
         success: function(response) {
             var r = Ext.util.JSON.decode(response.responseText);
             if(!r.success) {
-                Ext.Msg.show({
-                    title: 'CloVR responded with an error!',
-                    msg: r.data.msg,
-                    icon: Ext.MessageBox.ERROR
-                });
+                if(r.failcallback) {
+                    r.failcallback()
+                }
+                else {
+                    clovr.setSystemMessage();
+//                    var now = new Date();
+//                    var time = now.format('Y/m/d H:i:s T');
+
+//                    var message = 'This CloVR image does not appear to be available right now. I\'ll keep trying to reach it.<br>Last checked at '+time;
+//                    Ext.Msg.show({
+//                        title: 'Oooops!',
+//                        msg: message,
+//                        icon: Ext.MessageBox.WARNING
+//                    });
+               }
             }
             else {
                 // Commenting this out until shared folders check is cross-platform
@@ -1534,10 +1570,12 @@ clovr.getVmInfo = function(config) {
             }
         },
         failure: function(response) {
-            Ext.Msg.show({
-                title: 'Server Error',
-                msg: response.responseText,
-                icon: Ext.MessageBox.ERROR});
+
+            clovr.setSystemMessage();
+//            Ext.Msg.show({
+//                title: 'Server Error',
+//                msg: response.responseText,
+//                icon: Ext.MessageBox.ERROR});
         }
     });	
 
