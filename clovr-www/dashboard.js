@@ -37,6 +37,9 @@ Ext.onReady(function(){
 		    // Get the status of the VM:
 		    clovr.getVmInfo({callback: 
 	    	function(r) {
+                if(clovr.sysMsg) {
+                    document.location.reload();
+                }
 	    		var now = new Date();
 	    		var time = now.format('Y/m/d H:i:s T');
 				if(r.data.patches.length > 0) {
