@@ -163,9 +163,14 @@ function renderName(value, p, record) {
     if(record.data.file_count ==1) {
         fileWord = 'file';
     }
+    var fc = record.data.file_count+ ' '+fileWord;
+    if(record.data.file_count == 0 && record.json.metadata.urls) {
+       fc = 'remote file(s)';
+    } 
+
     return String.format(
-        '<div class=taggrid-title><b>{0}: {1} '+fileWord+'</b><br/>{2}</div>',
-        value,record.data.file_count,desc);
+        '<div class=taggrid-title><b>{0}: {1}</b><br/>{2}</div>',
+        value,fc,desc);
 }
 
 function create_details_view(config,dataset) {
