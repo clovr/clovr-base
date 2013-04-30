@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation='commandSet.xsd'>
+  <commandSet type="serial">
+    <state>incomplete</state>
+    <name>clovr_diginorm.prerun</name>
+    <command>
+      <name>Create temp directory</name>
+      <type>RunUnixCommand</type>
+      <state>incomplete</state>
+      <executable>mkdir</executable>
+      <arg>mkdir -p -m 777 $;TMP_DIR$;</arg>
+    </command>
+    <INCLUDE file="$;DOCS_DIR$;/clovrtag_iterator_template.xml" keys="$;ITERATOR_NAME$;=UPLOAD_TAGS,$;ITERATOR_XML$;=PRERUN_ITERATOR_XML" />
+  </commandSet>
+</commandSetRoot>

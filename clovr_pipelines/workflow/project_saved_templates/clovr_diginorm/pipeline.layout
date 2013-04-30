@@ -1,0 +1,126 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Normalize_by_median_00</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Filter_abundance_01</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Filter_below_abundance_02</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Normalize_by_median_03</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Load_graph_04</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Partition_graph_05</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Merge_partitions_06</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Annotate_partitions_07</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Extract_partitions_08</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Rename_final_group_09</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Load_graph_10</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Partition_graph_11</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Find_knots_12</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Filter_stoptags_13</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Load_graph_14</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Partition_graph_15</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Merge_partitions_16</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Annotate_partitions_17</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Extract_partitions_18</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Clean_up_files_19</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Input_Linker_20</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Strip_partition_files_21</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Get_read_ids_22</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Retrieve_pair_23a</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Retrieve_pair_23b</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Split_fastq_24a</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Split_fastq_24b</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Process_pair_headers_25a</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>run_command.Process_pair_headers_25b</name>
+        </commandSet>
+	<commandSet type="serial">
+            <state>incomplete</state>
+            <name>tag_data.default</name>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>
