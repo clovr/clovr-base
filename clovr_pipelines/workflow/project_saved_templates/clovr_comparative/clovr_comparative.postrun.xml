@@ -6,6 +6,7 @@
     <state>incomplete</state>
     <name>clovr_mugsy_cluster.postrun</name>
 	<INCLUDE file="$;DOCS_DIR$;/clovrdownload_tag_iterator_template.xml" />
+	<INCLUDE file="/opt/ergatis/global_saved_templates/clovr_sybil_deploy/clovr_sybil_deploy.xml" />
 	<INCLUDE file="$;DOCS_DIR$;/clovrterminatecluster.xml" />
    </commandSet>
  </commandSetRoot>

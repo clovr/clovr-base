@@ -7,12 +7,17 @@
           <state>incomplete</state>
           <name>run_command.concat_bsml_list</name>
         </commandSet>
-	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy/pipeline.layout">
-	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsycog/pipeline.layout">
+	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsy_dr/pipeline.layout">
+	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_mugsycog_dr/pipeline.layout">
 	<INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_WGA_phylo/pipeline.layout">
+        <INCLUDE file="/opt/clovr_pipelines/workflow/project_saved_templates/clovr_sybil/pipeline.layout">
 	<commandSet type="serial">
           <state>incomplete</state>
           <name>summarize_mugsy_comparative_pipeline.default</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>make_comparative_circleator_figure.default</name>
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>
