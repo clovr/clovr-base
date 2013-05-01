@@ -166,6 +166,10 @@ function renderName(value, p, record) {
     var fc = record.data.file_count+ ' '+fileWord;
     if(record.data.file_count == 0 && record.json.metadata.urls) {
        fc = 'remote file(s)';
+    }
+    if(record.json.metadata.website) {
+        value = '<a target=_blank href='+record.json.metadata.website+'>'+value+'</a>'
+        fc='<-Click Here';
     } 
 
     return String.format(

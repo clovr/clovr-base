@@ -384,7 +384,7 @@ clovr.uploadFileWindow = function(config) {
                  fields:['id','name'],
                  data: [['aa_FASTA','Protein FASTA'],['nuc_FASTA', 'Nucleotide FASTA'],['genbank', 'GenBank'],
                         ['sff','Nucleotide SFF'],['fastq','Nucleotide FASTQ'],['nuc_blastdb','Nucleotide BLAST DB'],['aa_blastdb','Protein BLAST DB'],['clovr_16s_metadata_file','16S Metadata File'],['clovr_metagenomics_metadata_file','Metagenomics Metadata File'],
-                        ['quality_scores','Quality Scores']]
+                        ['quality_scores','Quality Scores'],['sybil_archive','Sybil Archive']]
              }),
              valueField: 'id',
              displayField: 'name'
@@ -456,14 +456,16 @@ clovr.uploadFileWindow = function(config) {
 					 });
                  }
                  else if(uploadfield.getValue()) {
-                     
                      uploadForm.getForm().submit({
                          waitMsg: 'Uploading File',
                          success: function(r,o) {
                              var path = '/mnt/user_data/';
                              var values = uploadForm.getForm().getFieldValues();
                              var filename = uploadField.getValue();
-                             
+                             var expand = true;
+                             if(values.inputfiletype == 'sybil_archive') {
+                                expand = false;
+                             } 
                              if(config.notag) {
 							 	 uploadForm.getForm().reset();
 								 localFileSelector.getRootNode().cascade(function(n) {
@@ -481,7 +483,7 @@ clovr.uploadFileWindow = function(config) {
 				            	     'urls': urls,
             					     'cluster': 'local',
 								     'action': 'create',
-				            	     'expand': true,
+				            	     'expand': expand,
             				 		 'recursive': true,
 				            	     'tag_name': values.uploadfilename,
 		                    	     'metadata': {
@@ -527,6 +529,11 @@ clovr.uploadFileWindow = function(config) {
                          all_selected.push(node.id);
                      });
                      values = form.getFieldValues();
+                     var expand = true;
+                     if(values.inputfiletype == 'sybil_archive') {
+                         expand = false;
+                     }
+
                      if(config.notag) {
 					 	uploadForm.getForm().reset();
 						localFileSelector.getRootNode().cascade(function(n) {
@@ -545,7 +552,7 @@ clovr.uploadFileWindow = function(config) {
 				             'urls': urls,
             				 'cluster': 'local',
 							 'action': 'create',
-            				 'expand': true,
+            				 'expand': expand,
             				 'recursive': true,
 				             'tag_name': values.uploadfilename,
 		                     'metadata': {
@@ -1247,7 +1254,9 @@ clovr.OTHER_PROTOCOLS =
         'clovr_align_bowtie_noindices' : true,
         'clovr_metagenomics_assembly' : true,
         'clovr_its' : true,
-	'clovr_comparative' : true
+	'clovr_comparative' : true,
+        'clovr_comparative_dr': true,
+	'clovr_sybil_deploy' : true
     };
 
 clovr.getPipelineToProtocol = function(name) {

@@ -32,7 +32,10 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             },
             'clovr_microbe': {
                 'panel_xtype': 'clovrmicrobepanel'
-            }
+            },
+            'clovr_comparative': {
+                'panel_xtype': 'clovrcomparativepanel'
+            }            
         };
 
         var protocol_to_track = clovr.PROTOCOL_TO_TRACK;
