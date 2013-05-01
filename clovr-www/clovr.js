@@ -1254,9 +1254,11 @@ clovr.OTHER_PROTOCOLS =
         'clovr_align_bowtie_noindices' : true,
         'clovr_metagenomics_assembly' : true,
         'clovr_its' : true,
-	'clovr_comparative' : true,
+	    'clovr_comparative' : true,
         'clovr_comparative_dr': true,
-	'clovr_sybil_deploy' : true
+    	'clovr_sybil_deploy' : true,
+        'clovr_diginorm': true,
+        'clovr_gene_clustering': true
     };
 
 clovr.getPipelineToProtocol = function(name) {
