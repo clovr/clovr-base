@@ -4,6 +4,14 @@
         <name>start</name>
 	<commandSet type="serial">
 	  <state>incomplete</state>
+	  <name>fetch_genbank.default</name>
+	</commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>run_command.make_gb_list</name>
+        </commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
 	  <name>create_map_file.default</name>
 	</commandSet>
 	<commandSet type="serial">
