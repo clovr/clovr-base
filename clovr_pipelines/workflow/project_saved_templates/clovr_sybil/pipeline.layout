@@ -1,0 +1,38 @@
+<commandSetRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="commandSet.xsd" type="instance">
+    <commandSet type="serial">
+        <state>incomplete</state>
+        <name>start</name>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>muscle.default</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>run_command.createdb</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>initdb.default</name>
+        </commandSet>
+	<commandSet type="serial">
+          <state>incomplete</state>
+          <name>bsml2chado.annotation</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>bsml2chado.analyses</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>run_command.configsybil</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>run_command.archivesybil</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>tag_data.clovr_sybil</name>
+        </commandSet>
+    </commandSet>
+</commandSetRoot>

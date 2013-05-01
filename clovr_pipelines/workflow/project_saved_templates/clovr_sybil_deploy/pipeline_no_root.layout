@@ -1,0 +1,8 @@
+<commandSet type="serial">
+  <state>incomplete</state>
+  <name>run_command.deploysybil</name>
+</commandSet>
+<commandSet type="serial">
+  <state>incomplete</state>
+  <name>run_command.tagsite</name>
+</commandSet>

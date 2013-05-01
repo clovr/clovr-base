@@ -4,7 +4,11 @@
         <name>start</name>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>mugsy_concat_fasta.default</name>
+          <name>mugsyprep.default</name>
+        </commandSet>
+        <commandSet type="serial">
+          <state>incomplete</state>
+          <name>concatenate_files.fasta</name>
         </commandSet>
 	<commandSet type="serial">
           <state>incomplete</state>

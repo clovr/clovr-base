@@ -1,0 +1,34 @@
+<commandSet type="serial">
+  <state>incomplete</state>
+  <name>Deploy Sybil</name> 
+  <command>
+    <name>Deploy Sybil Site</name>
+    <state>incomplete</state>
+    <type>RunUnixCommand</type>
+    <executable>perl /mnt/configure_sybil.pl</executable>
+    <param>
+      <key>stdout</key>
+      <value>$;TMP_DIR$;/deploy_website.stdout</value>
+    </param>
+    <param>
+      <key>stderr</key>
+      <value>$;TMP_DIR$;/deploy_website.stderr</value>
+    </param>
+    <arg>--server=localhost --username=$;USERNAME$; --password=$;PASSWORD$; --db_name=$;SITE_NAME$; --load_archive=$;PIPELINE_NAME$;_sybil_archive --archive_is_tag --output_dir=$;OUTPUT_DIRECTORY$;</arg>
+  </command>
+  <command>
+    <name>Tag Sybil website</name>
+    <state>incomplete</state>
+    <type>RunUnixCommand</type>
+    <executable>perl /opt/ergatis/bin/tag_website.pl</executable>
+    <param>
+      <key>stdout</key>
+      <value>$;TMP_DIR$;/tag_website.stdout</value>
+    </param>
+    <param>
+      <key>stderr</key>
+      <value>$;TMP_DIR$;/tag_website.stderr</value>
+    </param>
+    <arg>--tag-name=sybil_website --pipeline_id=$;PIPELINE_NAME$; --url=`hostname`/sybil/$;SITE_NAME$; --metadata='format_type=sybil_website,description="A sybil website deployed on `hostname` for $;SITE_NAME$;"'</arg>
+  </command>
+</commandSet>

@@ -4,11 +4,11 @@
         <name>start</name>
 	<commandSet type="serial">
           <state>incomplete</state>
-          <name>mugsycog.default</name>
+          <name>run_command.deploysybil</name>
         </commandSet>
-	<commandSet type="serial">
+        <commandSet type="serial">
           <state>incomplete</state>
-          <name>tag_data.clovr_mugsycog</name>
+          <name>run_command.tagsite</name>
         </commandSet>
     </commandSet>
 </commandSetRoot>
