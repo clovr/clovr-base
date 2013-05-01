@@ -96,27 +96,19 @@
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.Retrieve_pair_23a</name>
+            <name>preserve_reads_in_fastq.reads_1</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.Retrieve_pair_23b</name>
+            <name>preserve_reads_in_fastq.reads_2</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.Split_fastq_24a</name>
+            <name>concatenate_files.reads_1</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.Split_fastq_24b</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.Process_pair_headers_25a</name>
-        </commandSet>
-        <commandSet type="serial">
-            <state>incomplete</state>
-            <name>run_command.Process_pair_headers_25b</name>
+            <name>concatenate_files.reads_2</name>
         </commandSet>
 	<commandSet type="serial">
             <state>incomplete</state>
