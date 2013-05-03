@@ -1933,7 +1933,7 @@ sub isORF(){
 			    #$fsadj+=$f->[4];
 			    #die if(($start-$fmin) >= length($encoding));
 
-			    die if(($start-$fmin) < 0);
+			    die "bad start and fmin $start $fmin $seqname $fsadj $f->[0] $f->[2] $f->[4] $adj\n" if(($start-$fmin) < 0);
 			    
 			    if($f->[4] == 1){
 				#substr($encoding,$start-$fmin+$adj,1,'F');
@@ -1941,8 +1941,11 @@ sub isORF(){
 			    }
 			    elsif($f->[4] == -1){
 				#substr($encoding,$start-$fmin+1+$adj,0) = 'B';
-				substr($gseq,$start-$fmin+1,0) = 'N';
-				$adj++;
+				if($start-$fmin+1 < length($gseq)) {
+                                    substr($gseq,$start-$fmin+1,0) = 'N';
+				    $adj++;
+                                }
+                                else { print STDERR ($start-$fmin+1)." is > ".length($gseq)." so I couldn't add an N\n"; }
 			    }
 			    elsif($f->[4] == 0){
 				#substr($encoding,$start-$fmin,1,'G');
@@ -1957,6 +1960,7 @@ sub isORF(){
 		#    substr($encoding,$sloc,36,'G'x36);
 		    $pmark=1;
 		}
+                print STDERR "OUT of the LOOP\n";
 		$newobj = new Bio::Seq(-seq=>$gseq);
 		#$newobj = $newobj->revcom();
 		print "GSEQPOST:$gseq\n" if($debug);
@@ -2113,7 +2117,7 @@ sub isORF(){
 	    die if($verbose && $newobj->length() < $MINORFLEN);
 	    #Check if valid start codon
 	    if(1){#$codon_table->is_start_codon($newobj->subseq(1,3)) && ($codon_table->is_ter_codon($newobj->subseq($newobj->length()-3+1,$newobj->length())))){
-		*STDERR=*FOO;
+		#*STDERR=*FOO;
 		my $protein_seq_obj;
 		eval{
 		    if(0 && $fs){
@@ -2140,7 +2144,7 @@ sub isORF(){
 		    print "ERROR translate $seqname $fmin,$fmax,$orient ",$newobj->seq(),"\n" if($verbose);
 		    return 0;
 		};
-		*STDERR=*TEMP;
+		#*STDERR=*TEMP;
 
 		return 0 if(!$protein_seq_obj);
 		#print $protein_seq_obj->length()," ",$newobj->length()," ",$fsadj,"\n";

@@ -346,6 +346,7 @@ my $seqlengthlookup = {};
 #my $allfastafiles = {};
 
 my $cleanregex = '[\-]';
+#my $cleanregex = '[\-,]';
 
 #Cleanup directory
 foreach my $seqfile (@inputseqfiles){
@@ -390,18 +391,18 @@ foreach my $seqfile (@inputseqfiles){
 	    @seqs=();
 	    $header='';
 	    chomp $line;
-	    if($line =~ /^>([^:]+):([^:]+):/){
+	    if($line !~ /gi\|/ && $line =~ /^>([^:]+):([^:]+):/){
 		#multiz,tba formatted headers
 		#species name specified, override filename
 		$speciesname = $1;
 		$header = $2;
 		print $logfh "Parsing FASTA entry header:$header speciesname:$speciesname\n" if($options{'debug'});
 	    }
-	    elsif($line =~ /gi\|\d+\|\w+\|([^.]+)\|\S+/){
+	    elsif($line =~ /gi\|\d+\|\w+\|([^.]+)\|(\S+)/){
 		#special handling of ncbi formatted headers
 		#just pull accession
 		$header = $1;
-		print $logfh "Parsing FASTA entry header:$header speciesname:$speciesname\n" if($options{'debug'});
+		print $logfh "Parsing FASTA $2 entry header:$header speciesname:$speciesname\n" if($options{'debug'});
 	    }
 	    elsif($line =~ /^>(\S+)/){
 		#plain ole header
@@ -524,7 +525,7 @@ my @maffiles;
 my @dupmaffiles; #maf files of duplicated regions
 
 chdir($options{'directory'}) or die;
-
+print join("\n",keys %$genome2seqslookup);
 for(my $i=0;$i<@genomenodes;$i++){
     my $genomename1 = $genomenodes[$i];#$genomenodes[$i]->attributes->{'nh_label'};
     print $logfh `date`;
