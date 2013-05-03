@@ -137,7 +137,7 @@ clovr.ClovrBlastPanel = Ext.extend(Ext.Panel, {
                     data: config.sampleData
                 }),
                 valueField: 'name',
-                displayField: 'name',
+                displayField: 'name'
 
             });
             blastform.seqCombo = datasetSelect;

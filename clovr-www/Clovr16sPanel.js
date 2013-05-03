@@ -145,13 +145,13 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
         var chimera_box = new Ext.form.Radio({
             boxLabel: '16S with Chimera Checking',
             inputValue: '',
-            name: '16s_track',
+            name: '16s_track'
         });
         
         var nochimera_box = new Ext.form.Radio({
             boxLabel: '16S without Chimera Checking',
             inputValue: '_nochimeracheck',
-            name: '16s_track',
+            name: '16s_track'
         });
         var track_select = new Ext.form.RadioGroup({
             fieldLabel: 'Select a CLoVR 16S Track',
@@ -614,7 +614,7 @@ clovr.Clovr16sPanel = Ext.extend(Ext.Panel, {
             bodyStyle: 'padding: 5px',
             autoScroll: true,
             frame: true,
-            buttonAlign: 'center',
+            buttonAlign: 'center'
         });
         return form;
     }

@@ -20,7 +20,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                 'panel_xtype': 'clovrmetapanel'
             },
             'clovr_16s': {
-				'panel_xtype': 'clovr16spanel',
+				'panel_xtype': 'clovr16spanel'
 //                'panel': new Ext.TabPanel({
 //                    title: 'CloVR 16s',
 //                    activeTab: 0,

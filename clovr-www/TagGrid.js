@@ -28,7 +28,7 @@ clovr.TagGrid = Ext.extend(Ext.grid.GridPanel, {
                         }
                     	}});*/
                 	return data;
-            	},
+            	}
             }),
             groupField: "type",
             groupDir: "DESC",

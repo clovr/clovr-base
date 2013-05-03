@@ -289,7 +289,7 @@ clovr.localFileSelector = function(config) {
             cls: 'folder',
             id: '/mnt/user_data/',
             checked: false
-        }),
+        })
     });
     var sorter = new Ext.tree.TreeSorter(selectorTree, {
         folderSort: true,
@@ -364,7 +364,7 @@ clovr.uploadFileWindow = function(config) {
     
     var urlField = new Ext.form.TextArea({
     	fieldLabel: 'Or, paste URLs <br/>(1 per line)',
-        width: 200,
+        width: 200
     });
 
     
@@ -601,7 +601,7 @@ clovr.pipelineWindow = function(config) {
         height:400,
         title: 'Pipeline Information',
         width: 600,
-        layout: 'fit',
+        layout: 'fit'
     });
     var pipePanel = new clovr.ClovrPipelinePanel({
 	    cluster: 'local',
@@ -1335,7 +1335,7 @@ clovr.makeDefaultFieldsFromPipelineConfig = function(fields,ignore_fields,prefix
                 xtype: 'textfield',
                 fieldLabel: dname,
                 name: prefix + field.name,
-                value: field['default'],
+                value: field['default']
             };
             if(field.desc) {
                 field_config.plugins = ['fieldtip'];

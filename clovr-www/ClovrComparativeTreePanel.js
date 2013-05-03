@@ -40,7 +40,7 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                     treepanel.getRootNode().firstChild.expandChildNodes(false);
                 }
             },
-            rootVisible : false,
+            rootVisible : false
         };
         
         if(config.local_data_url) {
@@ -164,7 +164,7 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
             forceSelection : true,
             triggerAction : 'all',
             typeAhead : true,
-            typeAheadDelay : 300, 
+            typeAheadDelay : 300
         });
   
         if(config.local_data_url) {

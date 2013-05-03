@@ -21,7 +21,7 @@ Ext.onReady(function(){
         width: 150,
         value: 'localhost',
         id: 'hostname',
-        fieldLabel: 'Host',
+        fieldLabel: 'Host'
     });
 
 	var statuspanel = new Ext.Container({
@@ -62,7 +62,7 @@ Ext.TaskMgr.start(infotask);
             listeners: {
                 load: {scope:this, fn:function(s, o, opts) {
                 }}
-            },
+            }
     });
     // This is the host that we're going to pull data from
 
@@ -79,7 +79,7 @@ Ext.TaskMgr.start(infotask);
 //        width: 400,
 //        split: true,
 //        margins: '0 5 0 0',
-        region: 'center',
+        region: 'center'
 //        title: 'Dashboard'
     });
     
@@ -120,7 +120,7 @@ Ext.TaskMgr.start(infotask);
     // Grid with running/complete pipelines in it
     var pipegrid = new clovr.ClovrPipelinesGrid({
 //        height: 200,
-        split: true,
+        split: true
 //        collapsed: true,
 //        collapseMode: 'mini',
 //        margins: '0 5 0 0'

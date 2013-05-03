@@ -165,7 +165,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
     createInputFields: function(config) {
         var thispanel = this;
         var input_fieldset = {xtype: 'fieldset',
-             title: 'Input Data Sets',
+             title: 'Input Data Sets'
         };
         var genbank_fieldset = {xtype: 'fieldset',
             title: 'Select Genomes from RefSeq',
@@ -233,7 +233,7 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
 						type : 'int'
 					}],
 					mode: 'local',
-					autoLoad: false,
+					autoLoad: false
 				});
 				var genbank_combo = new Ext.ux.form.SuperBoxSelect({
 					field: field,

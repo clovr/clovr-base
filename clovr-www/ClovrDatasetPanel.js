@@ -67,7 +67,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
             deferredRender:false,
             title: 'Pipelines',
             frame: true,
-            items: [header_panel,pipelines_panel,footer_panel],
+            items: [header_panel,pipelines_panel,footer_panel]
         });
 		var pipe_store = new Ext.data.JsonStore({
             root: function(data) {
@@ -210,7 +210,7 @@ clovr.ClovrDatasetPanel = Ext.extend(Ext.Panel, {
                 var rec = metadata_grid.getStore().recordType;
                 var p = new rec({
                     name: 'Key',
-                    value: 'value',
+                    value: 'value'
                 });
                 metadata_grid.stopEditing();
                 metadata_grid.getStore().insert(0, p);

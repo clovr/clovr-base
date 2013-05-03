@@ -62,7 +62,7 @@ clovr.ClovrCredentialGrid = Ext.extend(Ext.grid.GridPanel, {
 	                 	})
 	                 }
     	            }
-                ],
+                ]
 
             }));
     }

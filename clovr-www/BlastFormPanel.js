@@ -107,7 +107,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
                     data: config.sampleData
                 }),
                 valueField: 'name',
-                displayField: 'name',
+                displayField: 'name'
 
             });
             clovrform.seqCombo = datasetSelect;
@@ -351,7 +351,7 @@ clovr.BlastClovrFormPanel = Ext.extend(Ext.FormPanel, {
         if(conf.dataset_name) {
             Ext.getCmp('datasettag').setValue(conf.dataset_name);
         }
-    },
+    }
 
 });
 

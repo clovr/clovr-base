@@ -82,12 +82,12 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
         var annot_both_box = new Ext.form.Radio({
             boxLabel: 'Assembly+Annotation',
             inputValue: 'assemblyannot',
-            name: 'microbe_track',
+            name: 'microbe_track'
         });
         var annot_annot_box = new Ext.form.Radio({
             boxLabel: 'Annotation only',
             inputValue: 'annot',
-            name: 'microbe_track',
+            name: 'microbe_track'
         });
         var track_select = new Ext.form.RadioGroup({
             fieldLabel: 'Select a CLoVR Microbe Track',
@@ -160,7 +160,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             allowBlank: false,
             store: new Ext.data.ArrayStore({
                 fields: ['name'],
-                data: [['Illumina'],['454'],['other']],
+                data: [['Illumina'],['454'],['other']]
             }),
             value: 'Illumina',
             listeners: {
@@ -528,9 +528,9 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             allowBlank: false,
             store: new Ext.data.ArrayStore({
                 fields: ['name'],
-                data: [['short'],['long']],
+                data: [['short'],['long']]
             }),
-            value: 'short',
+            value: 'short'
         };
         var paired_end_combo = {
             xtype: 'combo',
@@ -548,7 +548,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             allowBlank: false,
             store: new Ext.data.ArrayStore({
                 fields: ['name'],
-                data: [['paired'],['unpaired']],
+                data: [['paired'],['unpaired']]
             }),
             value: 'paired'
         };
@@ -587,7 +587,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             bodyStyle: 'padding: 5px',
             autoScroll: true,
             frame: true,
-            buttonAlign: 'center',
+            buttonAlign: 'center'
         });
         return form;
     },
@@ -624,7 +624,7 @@ clovr.ClovrMicrobePanel = Ext.extend(Ext.Panel, {
             bodyStyle: 'padding: 5px',
             autoScroll: true,
             frame: true,
-            buttonAlign: 'center',
+            buttonAlign: 'center'
         });
         return form;
     },

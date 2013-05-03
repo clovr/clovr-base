@@ -73,13 +73,13 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
         var orf_box = new Ext.form.Radio({
             boxLabel: 'Metagenomics with ORFs',
             inputValue: 'orf',
-            name: 'metagenomics_track',
+            name: 'metagenomics_track'
         });
         
         var noorf_box = new Ext.form.Radio({
             boxLabel: 'Metagenomics without ORFs',
             inputValue: 'noorf',
-            name: 'metagenomics_track',
+            name: 'metagenomics_track'
         });
         var track_select = new Ext.form.RadioGroup({
             fieldLabel: 'Select a CLoVR Metagenomics Track',
@@ -445,7 +445,7 @@ clovr.ClovrMetaPanel = Ext.extend(Ext.Panel, {
             bodyStyle: 'padding: 5px',
             autoScroll: true,
             frame: true,
-            buttonAlign: 'center',
+            buttonAlign: 'center'
         });
         return form;
     }
