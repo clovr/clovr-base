@@ -5,7 +5,7 @@
     <name>Deploy Sybil Site</name>
     <state>incomplete</state>
     <type>RunUnixCommand</type>
-    <executable>perl /mnt/configure_sybil.pl</executable>
+    <executable>$;BIN_DIR$;/configure_sybil</executable>
     <param>
       <key>stdout</key>
       <value>$;TMP_DIR$;/deploy_website.stdout</value>
