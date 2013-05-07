@@ -3,7 +3,7 @@
  * and make a form out of it.
  */
 
-clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
+clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
 
     constructor: function(config) {
         var title = new Ext.Container({
@@ -363,4 +363,4 @@ clovr.ClovrFormPanel = Ext.extend(Ext.Container, {
 
 });
 
-Ext.reg('clovrcomparativepanel', clovr.ClovrFormPanel);
+Ext.reg('clovrcomparativepanel', clovr.ClovrComparativePanel);
