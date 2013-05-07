@@ -1243,7 +1243,8 @@ clovr.PROTOCOL_TO_TRACK =
         'clovr_microbe454': 'clovr_microbe',
         'clovr_microbe_illumina' : 'clovr_microbe',
         'clovr_assembly_velvet' : 'clovr_microbe',
-        'clovr_assembly_celera' : 'clovr_microbe'
+        'clovr_assembly_celera' : 'clovr_microbe',
+        'clovr_comparative' : 'clovr_comparative'
     };
 clovr.OTHER_PROTOCOLS = 
     {

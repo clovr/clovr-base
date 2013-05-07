@@ -268,7 +268,13 @@ clovr.ClovrPipelinePanel = Ext.extend(Ext.Panel, {
         });
         config.layout = 'border';
         config.buttonAlign = 'center';
-        config.buttons = [{text: 'Delete',
+        config.buttons = [{text: 'OK',
+            handler: function() {
+                if(clovrpanel.win) {
+                    clovrpanel.win.close();
+                } 
+            }},
+            {text: 'Delete',
             handler: function() {
                 Ext.Msg.show({
                     title: 'Deleting Pipeline',

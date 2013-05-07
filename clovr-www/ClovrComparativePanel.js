@@ -6,6 +6,9 @@
 clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
 
     constructor: function(config) {
+        config.fields = config.pipelines['clovr_comparative'];
+        config.protocol = 'clovr_comparative';
+        config.id = 'clovr_comparative_form';
         var title = new Ext.Container({
             height: '30px',
             name: 'form_title',
@@ -67,7 +70,7 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
         clovrform.add(itemsArray);
         
         // Call the parent constructor.
-        clovr.ClovrFormPanel.superclass.constructor.call(this, Ext.apply(config, {
+        clovr.ClovrComparativePanel.superclass.constructor.call(this, Ext.apply(config, {
             items: [title,clovrform],
             buttonAlign: 'center',
             style: {

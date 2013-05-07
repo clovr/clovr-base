@@ -102,7 +102,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
             },
             '-',
             'Click to configure a pipeline:',
-            {text: '<div class="header_button_text">CloVR Microbe</div>',
+            {text: '<div class="header_button_text">Microbe</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_microbe_icon_sml.png',
@@ -110,7 +110,15 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_microbe');
              }
             },
-            {text: '<div class="header_button_text">CloVR Search</div>',
+            {text: '<div class="header_button_text">Comparative</div>',
+             cls: 'x-btn-text-icon',
+             iconAlign: 'left',
+             icon: '/clovr/images/clovr_icon_sml.png',
+             handler: function() {
+                 clovrpanel.getLayout().setActiveItem('clovr_comparative_form');
+             }
+            },
+            {text: '<div class="header_button_text">Search</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_search_icon_sml.png',
@@ -118,7 +126,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_search');
              }
             },
-            {text: '<div class="header_button_text">CloVR Metagenomics</div>',
+            {text: '<div class="header_button_text">Metagenomics</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_metagenomics_icon_sml.png',
@@ -126,7 +134,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
                  clovrpanel.getLayout().setActiveItem('clovr_metagenomics');
              }
             },
-            {text: '<div class="header_button_text">CloVR 16S</div>',
+            {text: '<div class="header_button_text">16S</div>',
              cls: 'x-btn-text-icon',
              iconAlign: 'left',
              icon: '/clovr/images/clovr_16s_icon_sml.png',
@@ -358,6 +366,7 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 	                prot_menu.add(prot_menu_items);
 					for(track in track_to_panels) {
         	            if(!track_to_panels[track].panel) {
+                                    console.log(track_to_panels[track].panel_xtype);
    	        	            clovrpanel.add({
        	        	            xtype: track_to_panels[track].panel_xtype,
 //       	        	            style:'padding: 10px 10px 10px 5px',

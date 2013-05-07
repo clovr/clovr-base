@@ -135,7 +135,7 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                     type : 'int'
                 }],
                 proxy: new Ext.data.ScriptTagProxy({
-                    url: 'http://driley-lx.igs.umaryland.edu:8080/cgi-bin/clovr_comparative/cgi-bin/SendGridJson.cgi',
+                    url: URL+'/SendGridJson.cgi',
                     listeners: {'load' : function(proxy,obj,opts) {
 //                              console.log(obj.info);
 //                              gridStore.loadData(obj.info,true);
