@@ -1259,7 +1259,8 @@ clovr.OTHER_PROTOCOLS =
         'clovr_comparative_dr': true,
     	'clovr_sybil_deploy' : true,
         'clovr_diginorm': true,
-        'clovr_gene_clustering': true
+        'clovr_gene_clustering': true,
+	'clovr_humann': true
     };
 
 clovr.getPipelineToProtocol = function(name) {
