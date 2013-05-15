@@ -366,7 +366,6 @@ clovr.ClovrPipelinesWizard = Ext.extend(Ext.Panel, {
 	                prot_menu.add(prot_menu_items);
 					for(track in track_to_panels) {
         	            if(!track_to_panels[track].panel) {
-                                    console.log(track_to_panels[track].panel_xtype);
    	        	            clovrpanel.add({
        	        	            xtype: track_to_panels[track].panel_xtype,
 //       	        	            style:'padding: 10px 10px 10px 5px',
