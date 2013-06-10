@@ -2063,7 +2063,11 @@ sub isORF(){
 			    elsif($f->[4] == -1){
 				#substr($encoding,$fmax - $start,1,'B');
 				#substr($encoding,$fmax- $start,0) = 'B';
-				substr($gseq,$start-$fmin+1,0) = 'N';
+                                if($start-$fmin+1 < length($gseq)) {
+                                    substr($gseq,$start-$fmin+1,0) = 'N';
+                                    $adj++;
+                                }
+                                else { print STDERR ($start-$fmin+1)." is > ".length($gseq)." so I couldn't add an N\n"; }
 			    }
 			    elsif($f->[4] == 0){
 				#substr($encoding,$fmax - $start-1,1,'I');
