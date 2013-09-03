@@ -16,6 +16,10 @@
 	</commandSet>
 	<commandSet type="serial">
 	  <state>incomplete</state>
+	  <name>validate_genbank.default</name>
+	</commandSet>
+	<commandSet type="serial">
+	  <state>incomplete</state>
 	  <name>genbank2bsml.default</name>
 	</commandSet>
 	<commandSet type="serial">
