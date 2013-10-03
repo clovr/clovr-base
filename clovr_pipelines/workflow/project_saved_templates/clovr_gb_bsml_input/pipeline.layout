@@ -20,6 +20,10 @@
 	</commandSet>
 	<commandSet type="serial">
 	  <state>incomplete</state>
+	  <name>tag_data.clovr_validation</name>
+	</commandSet>	
+	<commandSet type="serial">
+	  <state>incomplete</state>
 	  <name>genbank2bsml.default</name>
 	</commandSet>
 	<commandSet type="serial">
