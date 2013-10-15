@@ -34,7 +34,7 @@ INPUT_TAGS={"display": "Input Tag Vars", "default": "$;GENBANK_TAGS$;,$;BSML_TAG
 -include_in_section /opt/clovr_pipelines/common_config/output.config
 
 ## Downloading of workflow xmls can be accomplished by adding 'workflow_xml_tag' to TAGS_TO_DOWNLOAD
-TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "mugsyalign_maf_tag,mugsy_mapped_features,mugsy_mapped_cogformat,cluster_fasta,snps_file,wga_tree, wga_tree_svg, wga_tree_pdf, summary_files, summary_report, sybil_archive, circleator_pdf, circleator_png", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["mugsy_mapped_features","mugsy_mapped_cogformat","cluster_fasta","workflow_xml_tag","mugsyalign_maf_tag","snps_file","wga_tree", "wga_tree_svg", "wga_tree_pdf", "summary_files", "summary_report", "sybil_archive", "circleator_pdf", "circleator_png"]}, "visibility": "default_hidden"}
+TAGS_TO_DOWNLOAD={"display": "Download tags", "default": "validation_changelog, mugsyalign_maf_tag,mugsy_mapped_features,mugsy_mapped_cogformat,cluster_fasta,snps_file,wga_tree, wga_tree_svg, wga_tree_pdf, summary_files, summary_report, sybil_archive, circleator_pdf, circleator_png", "desc": "Comma separated list of tags that should be downloaded", "type": "restricted_string list", "type_params": {"choices": ["validation_changelog", "mugsy_mapped_features","mugsy_mapped_cogformat","cluster_fasta","workflow_xml_tag","mugsyalign_maf_tag","snps_file","wga_tree", "wga_tree_svg", "wga_tree_pdf", "summary_files", "summary_report", "sybil_archive", "circleator_pdf", "circleator_png"]}, "visibility": "default_hidden"}
 
 
 [pipeline]
