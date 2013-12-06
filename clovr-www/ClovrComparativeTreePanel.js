@@ -123,7 +123,7 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
             // Below is a version of the tree store that uses ScriptTagProxy instead of a normal http request.
             searchStore =  new Ext.data.ArrayStore({
                 proxy: new Ext.data.ScriptTagProxy({
-                    url : URL+'/GetLineage.cgi',
+                    url : URL+'/GetLineage.cgi'
                 }),
                 id : 0,
                 fields : ['nodeName']
@@ -136,7 +136,7 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                     type : 'int'
                 }],
                 proxy: new Ext.data.ScriptTagProxy({
-                    url: URL+'/SendGridJson.cgi'
+                    url: URL+'/SendGridJson.cgi',
                     listeners: {'load' : function(proxy,obj,opts) {
 //                              console.log(obj.info);
 //                              gridStore.loadData(obj.info,true);
