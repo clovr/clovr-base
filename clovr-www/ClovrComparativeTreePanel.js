@@ -7,8 +7,8 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
     constructor: function(config) {
         var container = this;
 //          var URL = 'http://driley-lx.igs.umaryland.edu:8080/cgi-bin/clovr_comparative/cgi-bin/';
-//        var URL = 'http://cb2.igs.umaryland.edu/cgi-bin/clovr_comparative/cgi-bin/';
-        var URL = './clovr_comparative/cgi-bin/';
+        var URL = 'http://cb2.igs.umaryland.edu/cgi-bin/clovr_comparative/cgi-bin/';
+//        var URL = './clovr_comparative/cgi-bin/';
         var treeLoader;
         var treeStore;
         var searchStore;
@@ -89,9 +89,9 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                     var store = new Ext.data.JsonStore({
                         autoLoad: false,
                         fields: ['id','text','children'],
-                       // proxy: new Ext.data.ScriptTagProxy({
+                        proxy: new Ext.data.ScriptTagProxy({
                             url: URL+'/NcbiJsonSender.cgi'
-                       // })
+                        })
                     });
 
                     store.load({
@@ -115,16 +115,16 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                             name : 'seqLen',
                             type : 'int'
                     }],
-                //proxy: new Ext.data.ScriptTagProxy({
+                proxy: new Ext.data.ScriptTagProxy({
                     url: URL+'/SendGridJson.cgi'
-                //})
+                })
             });
             
             // Below is a version of the tree store that uses ScriptTagProxy instead of a normal http request.
             searchStore =  new Ext.data.ArrayStore({
-                //proxy: new Ext.data.ScriptTagProxy({
+                proxy: new Ext.data.ScriptTagProxy({
                     url : URL+'/GetLineage.cgi',
-                //}),
+                }),
                 id : 0,
                 fields : ['nodeName']
             }); 
@@ -135,14 +135,14 @@ clovr.ClovrComparativeTreePanel = Ext.extend(Ext.Panel, {
                     name : 'seqLen',
                     type : 'int'
                 }],
-                //proxy: new Ext.data.ScriptTagProxy({
+                proxy: new Ext.data.ScriptTagProxy({
                     url: URL+'/SendGridJson.cgi'
-               //     listeners: {'load' : function(proxy,obj,opts) {
+                    listeners: {'load' : function(proxy,obj,opts) {
 //                              console.log(obj.info);
 //                              gridStore.loadData(obj.info,true);
 //                              return false;
-               //         }}
-                //})
+                        }}
+                })
             }); 
         }
         
