@@ -1,0 +1,60 @@
+## Configuration file for Illumina Microbe
+#########################################################
+## Input information.
+## Configuration options for the pipeline.
+#########################################################
+
+## The input tag name for sff input data
+## Should already be tagged data
+## See tagData.py --help for more info
+[input]
+INPUT_PAIRED_FASTQ_TAG={"display": "Input Tag", "desc": "The input tag for this pipeline. Expected: Illumina reads in FASTQ format", "type": "dataset", "type_params": { "format_type": ["fastq"], "transform_name": "input.INPUT_FILE_LIST" }, "require_value": true }
+
+## For the annotation portion of the pipeline.
+REFERENCE_DB_TAG={"display": "Reference database", "default": "clovr-dx-db", "desc": "Reference database to use", "type": "dataset", "type_params": { "transform_name": "input.DATABASE_PATH", "transform_type": "tag_base_dir" }, "visibility": "always_hidden", "require_value": true }
+
+[params]
+MIN_SEED_LENGTH={"display": "Minimum Seed Length", "default": 19, "desc": "Minimum seed length. Matches shorter than INT will be missed.", "type": "integer", "required_value": true}
+
+MISMATCH_PENALTY={"display": "Mismatch Penalty", "default": 4, "desc": "Mismatch penalty.", "type": "integer", "required_value": true}
+
+GAP_OPEN_PENALTY={"display": "Gap Open Penalty", "default": 6, "desc": "Gap open penalty.", "type": "integer", "required_value": true}
+
+GAP_EXTENSION_PENALTY={"display": "Gap Extension Penalty", "default": 1, "type": "integer", "required_value": true}
+
+OUTPUT_PREFIX={"display": "Output prefix for the organism", "default": "clovr-dx", "desc": "Organisms have a prefix on them", "type": "string", "require_value": true }
+
+#########################################################
+## Output info.
+## Specifies where locally the data will end up and also
+## logging information
+#########################################################
+[output]
+-include_in_section /opt/clovr_pipelines/common_config/output.config
+
+## Output tags to download
+## Comma separated list (e.g. assembly_contigs,annotation_genbank )
+## Choices: assembly_contigs,polypeptide_fasta,cds_fasta,annotation_genbank,annotation_sqn
+TAGS_TO_DOWNLOAD={"display": "Tags to download", "default": "average_coverage,breadth", "desc": "The pipeline generates a number of output files, you can choose which of these outputs to download", "type":"restricted_string list", "type_params": { "choices": ["average_coverage","breadth"] }, "visibility": "default_hidden" }
+
+[cluster]
+MASTER_INSTANCE_TYPE={"default": "large", "require_value": true, "visibility": "default_hidden", "type": "string", "display": "Master Instance Type", "desc": "Instance type to use for the master, guaranteed values are 'default', 'small', 'medium', and 'large'"}
+
+[pipeline]
+-include_in_section /opt/clovr_pipelines/common_config/pipeline.config
+
+SOP_VERSION={"default": "clovr_dx_illumina", "type": "string", "visibility": "always_hidden"}
+PIPELINE_TEMPLATE={"default": "clovr_dx_illumina", "visibility": "hidden", "type": "string" }
+
+#prestart,prerun,postrun are all run locally. Use noop.xml for no operation
+#Prestart is run before cluster start
+#Possible actions: tag input data and do QC metrics
+PRESTART_TEMPLATE_XML={"default": "/opt/ergatis/docs/noop.xml", "visibility": "always_hidden", "type": "string" }
+#Prerun is run after cluster start but before pipeline start
+#Possible actions: tag and upload data sets to the cluster
+PRERUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_dx_illumina/clovr_dx_illumina.prerun.xml", "visibility": "always_hidden", "type": "string" }
+#Postrun is run after pipeline completion and after downlaod data
+#Possible actions: local a local database, web browser.reorganize data for local ergatis
+POSTRUN_TEMPLATE_XML={"default": "/opt/clovr_pipelines/workflow/project_saved_templates/clovr_dx_illumina/clovr_dx_illumina.postrun.xml", "visibility": "always_hidden", "type": "string" }
+
+DOWNLOAD_TAG_ITERATOR_XML={"default": "/opt/ergatis/docs/clovrdownload_tag.iterator.xml", "visibility": "always_hidden", "type": "string"}
