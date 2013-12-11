@@ -4,11 +4,15 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>fastq_pairs_to_delimited_list.default</name>
+            <name>samtools_file_convert.sam_to_bam</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
-            <name>run_command.get_coverage</name>
+            <name>samtools_file_convert.bam_sort</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
+            <name>get_bam_coverage_dx.default</name>
         </commandSet>
         <commandSet type="serial">
             <state>incomplete</state>
