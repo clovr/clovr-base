@@ -1249,6 +1249,8 @@ clovr.PROTOCOL_TO_TRACK =
 clovr.OTHER_PROTOCOLS = 
     {
         'clovr_sleep' : true,
+        'clovr_assembly_bwa_illumina' : true,
+        'clovr_assembly_bwa_iontorrent' : true,
         'clovr_human_contaminant_screening_paired' : true,
         'clovr_human_contaminant_screening_single' : true,
         'clovr_align_bowtie_indices' : true,
@@ -1260,7 +1262,10 @@ clovr.OTHER_PROTOCOLS =
     	'clovr_sybil_deploy' : true,
         'clovr_diginorm': true,
         'clovr_gene_clustering': true,
-	'clovr_humann': true
+        'clovr_humann': true,
+        'clovr_dx_coverage': true,
+        'clovr_dx_illumina': true,
+        'clovr_dx_iontorrent': true
     };
 
 clovr.getPipelineToProtocol = function(name) {
