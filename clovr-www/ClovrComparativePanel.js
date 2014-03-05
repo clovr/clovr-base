@@ -23,7 +23,6 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
             region: 'north',
             html: config.protocol
         });
-        var thispanel = this;
         var clovrform = this.createForm();
         config.form = clovrform
         // Fields that won't be drawn
@@ -36,7 +35,9 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
         var rets = this.createInputFields(config);
         var input_fieldset = rets[0];
         var genbank_fieldset = rets[1];
-        var itemsArray = [input_fieldset,genbank_fieldset];
+        var accession_fieldset = rets[2];
+        
+        var itemsArray = [input_fieldset, genbank_fieldset, accession_fieldset];
         
         // Generate the cluster fields
         var cluster_fieldset = this.createClusterFields(config);
@@ -108,7 +109,29 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
         store.each(function(r,i,a) {
             genbank_ids.push(r.id);
         });
+        
+        // Add manually-typed accession IDs to array
+        genbank_ids = genbank_ids.concat(panel.accessionArray);
 
+		// Remove duplicates, if user typed in accession ID already present in IDs added from RefSeq tree
+		var tmp_array = [];
+		for (var i = 0; i < genbank_ids.length; i++) {
+			var seen = 0;
+			tmp_array.some(function(n) {
+				if (genbank_ids[i] == n) {
+					//console.log (genbank_ids[i] + "was seen already once before");
+					seen = 1;
+					return;
+				}
+			});
+			if (! seen) {
+		        tmp_array.push(genbank_ids[i]);			
+			}
+		}	
+		genbank_ids = tmp_array;
+		
+		console.log("GENBANK_IDS: " + genbank_ids.join(','));
+		
         Ext.apply(params,{'input.GENBANK_IDS': genbank_ids.join(',')});
         clovr.validatePipeline({
             pipeline: 'clovr_wrapper',
@@ -131,12 +154,32 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
                           });
         var genbank_ids = [];
         panel.selectedseqsgrid.getStore().each(function(r,i,a) {
-            genbank_ids.push(r.id);
+            genbank_ids.push(r.id);	// Push Accession IDs obtained from RefSeqTree
         })
-            Ext.apply(params,{'input.GENBANK_IDS': genbank_ids.join(',')});
-            clovr.runPipeline({
-            pipeline: 'clovr_wrapper',
-            wrappername: this.wrappername,
+        
+        // Add manually-typed accession IDs to array
+        genbank_ids = genbank_ids.concat(panel.accessionArray);
+        
+		// Remove duplicates, if user typed in accession ID already present in IDs added from RefSeq tree
+		var tmp_array = [];
+		for (var i = 0; i < genbank_ids.length; i++) {
+			var seen = 0;
+			tmp_array.some(function(n) {
+				if (genbank_ids[i] == n) {
+					seen = 1;
+					return;
+				}
+			});
+			if (! seen) {
+		        tmp_array.push(genbank_ids[i]);			
+			}
+		}		
+		genbank_ids = tmp_array;
+		
+        Ext.apply(params,{'input.GENBANK_IDS': genbank_ids.join(',')});
+        clovr.runPipeline({
+        	pipeline: 'clovr_wrapper',
+        	wrappername: this.wrappername,
             cluster: cluster_name,
             params: params,
             submitcallback: function(r) {
@@ -176,12 +219,44 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
             layout: 'anchor',
             anchorSize: {height: 300}
         };
+        
+        var accession_text = new Ext.form.TextField ({
+        	fieldLabel: "Accession IDs",
+        	name: 'accession_input',
+        	emptyText: "Input comma-separated list of Accession IDs and click 'Apply' to save.",
+        	width: 400
+        });
+
+		var accession_array = [];
+        var accession_fieldset = {
+        	xtype: 'fieldset',
+         	title: 'List of Accession IDs to add',   
+         	items: [accession_text],
+        	buttons: [ {
+        		text: "Apply",
+        		handler: function() {
+        			if (accession_text.getValue() != ''){
+        				accession_array = accession_text.getValue().split(/,\s*/);
+        				//console.log(accession_array.join("\t"));
+        			} else {
+        				accession_array = [];
+        				//console.log("No accessions");
+        			}
+        		    thispanel.accessionArray = accession_array;	// assign array as property of this panel		        			
+        		}
+        	}, {
+        		text: "Clear",
+        		handler: function() {
+        		    accession_text.reset();
+        		}
+        	}]
+        };
+        
         var input_regexp = /^input.INPUT_/;
         var tag_regex = /.*TAG$/;
 
         var input_fields = [];
         Ext.each(config.fields, function(field, i, fields) {
-            
             // This is a HACK to detect fields that are tags/datasets.
             if((field.type=='dataset' && field.visibility != 'default_hidden')) { //|| tag_regex.exec(field.name)) && field.visibilty != 'default_hidden') {
                 var tag_combo = clovr.tagCombo({
@@ -224,43 +299,13 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
                     } 
                 });
                 input_fields.push(tag_combo);
-		config.ignore_fields[field.name] = 1;
+				config.ignore_fields[field.name] = 1;
             }
 			else if(field.name=='input.GENBANK_IDS') {
-
-
 				config.ignore_fields[field.name] = 1;
-				var genbank_id_store = new Ext.data.JsonStore({
-					fields: ['orgName', 'refseqId', {
-						name : 'seqLen',
-						type : 'int'
-					}],
-					mode: 'local',
-					autoLoad: false
-				});
-				var genbank_combo = new Ext.ux.form.SuperBoxSelect({
-					field: field,
-					mode: 'local',
-					editable: true,
-					returnString: true,
-					store: genbank_id_store
-				});
-				var genbank_field = new Ext.form.CompositeField({
-					fieldLabel: 'Genbank IDs to download',
-					msgTarget: 'under',
-					invalidClass: '',
-					items: [
-					    genbank_combo,
-					    {xtype: 'button',
-					    text: 'Select Sequences',
-						    handler: function() {
-						        thispanel.showComparativeTreeWindow({id_store: genbank_id_store});
-						   }
-					   }
-				   ]
-				});
+				// newpanel replaces genbank_field.
 				var newpanel = new clovr.ClovrComparativeTreePanel({width: '500px',height: '300px'});
-				thispanel.selectedseqsgrid = newpanel.grid;
+				thispanel.selectedseqsgrid = newpanel.grid;	//Set SelectedGrid as property of the ClovrComparativePanel
 				var container = new Ext.Container({
 				    anchor: '100%',
 				    layout: 'fit',
@@ -316,7 +361,7 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
         
         // add the input tag parameters to the input_fieldset
         input_fieldset.items = [input_fields];
-        return [input_fieldset,genbank_fieldset];
+        return [input_fieldset, genbank_fieldset, accession_fieldset];
     },
     createForm: function() {
         var panel = this;
@@ -343,7 +388,7 @@ clovr.ClovrComparativePanel = Ext.extend(Ext.Container, {
             }}]
         });    
     },
-    // Display a window for selection of genomes
+    // Display a window for selection of genomes (not currently being used)
     showComparativeTreeWindow: function(config) {
         var win = new Ext.Window({
             layout: 'fit',
