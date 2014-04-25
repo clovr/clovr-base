@@ -56,7 +56,6 @@ Moose 0.92
 OLE::Storage_Lite 0.18
 Params::Util 1.00
 Params::Validate 0.92
-Perl 5.10.0
 PerlIO::gzip 0.18
 PostScript::Metrics 0.06
 Probe::Perl 0.01
@@ -87,7 +86,7 @@ Try::Tiny 0.02
 UNIVERSAL::can 1.15
 UNIVERSAL::isa 1.03
 URI 1.40
-XML-DOM 
+XML::DOM 
 XML::DOM::XPath 0.14
 XML::Filter::BufferText 1.01
 XML::RSS 1.46
