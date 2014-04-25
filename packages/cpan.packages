@@ -36,7 +36,6 @@ GD::Text
 GD::Graph
 Graph 0.91
 Graph::Kruskal 2.0
-Grid::Request 0.7
 HTML::Template 2.9
 Inline::C 0.50
 IO::Stringy 2.110
@@ -64,7 +63,6 @@ Probe::Perl 0.01
 SOAP::Lite 0.710.10
 SVG 2.49
 SVG::Graph 0.02
-Schedule::DRMAAc 0.81
 Scope::Guard 0.03
 Set::Scalar 1.24
 Spreadsheet::ParseExcel 0.55
