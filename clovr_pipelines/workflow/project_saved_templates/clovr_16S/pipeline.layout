@@ -4,6 +4,10 @@
         <name>start</name>
         <commandSet type="serial">
             <state>incomplete</state>
+            <name>run_command.dos2unix</name>
+        </commandSet>
+        <commandSet type="serial">
+            <state>incomplete</state>
             <name>qiime_mothur_cnvr.default</name>
         </commandSet>
         <commandSet type="serial">
