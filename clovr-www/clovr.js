@@ -1,4 +1,4 @@
-/*!
+/*
  * clovr.js
  * 
  * A collection of functions primarily used to interact with the
@@ -431,7 +431,39 @@ clovr.uploadFileWindow = function(config) {
                        }
                       }
                   ]},
-				  urlField
+				  urlField,
+		  {xtype: 'button',
+		   fieldLabel: 'Or, FTP Upload <br><i>(Only files >2GB)</i>',
+		   text: 'Display details',
+		   handler: function() {
+			var host = window.location.hostname;
+    			Ext.Ajax.request({
+        			url: '/util/get_pass.py',
+        			success: function(r,o) {
+            				var rjson = Ext.util.JSON.decode(r.responseText);
+            				var pass = rjson.data[0].password;
+					if(pass.match(/^test/)) {
+				     		Ext.Msg.show({
+					 		title: 'FTP Server Error',
+					 		msg: 'FTP server is not set up.',
+					 		icon: Ext.MessageBox.ERROR,
+					 		buttons: Ext.Msg.OK
+				     		});
+					} else {
+						Ext.MessageBox.alert('FTP Upload Details', 'Use an FTP client to upload files >2GB in size only.<br><br>Hostname: '+host+'<br>Username: clovr<br>Password: '+pass);	
+					}
+        			},
+				failure: function(r,o) {
+				     Ext.Msg.show({
+					 title: 'FTP Server Error',
+					 msg: 'FTP server is not set up.',
+					 icon: Ext.MessageBox.ERROR,
+					 buttons: Ext.Msg.OK
+				     });
+				}
+    			});
+		   }	
+		 }
              ]}],
         buttons: [
             {text: 'Tag',
