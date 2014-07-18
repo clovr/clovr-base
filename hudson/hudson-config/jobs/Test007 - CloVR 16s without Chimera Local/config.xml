@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Launching of a CloVR 16s pipeine without chimera checking using local credentials.  This test uses a single fasta file.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+set -e
+source /opt/vappio-scripts/clovrEnv.sh
+
+vp-add-dataset -o --tag-name=clovr_16S_no_chimera_input_local /opt/hudson/16S_data/AMP_Lung.small.fasta
+vp-add-dataset -o --tag-name=clovr_16S_no_chimera_mapping /opt/hudson/16S_data/IGS.qmap
+
+DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+
+vp-describe-protocols --config-from-protocol=clovr_16S_nochimeracheck \
+    -c input.FASTA_TAG=clovr_16S_no_chimera_input_local \
+    -c input.MAPPING_TAG=clovr_16S_no_chimera_mapping \
+    -c cluster.CLUSTER_NAME=&apos;local&apos; \
+    -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR 16S No Chimera Test local&quot; \
+    &gt; /tmp/$$.pipeline.conf.${DATE}
+
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
+
+if [ &quot;$?&quot; == &quot;1&quot; ]; then
+    echo &quot;vp-run-pipeline failed to run&quot;
+    exit 1
+fi
+
+vp-describe-task --name local --exit-code --block $TASK_NAME
+
+exit $?
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

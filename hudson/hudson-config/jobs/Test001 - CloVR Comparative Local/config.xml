@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+set -e
+source /opt/vappio-scripts/clovrEnv.sh
+
+DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+
+vp-add-dataset --tag-name=bifidobacter_genbank_tag_local -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
+
+
+vp-describe-protocols --config-from-protocol=clovr_comparative \
+    -c input.GENBANK_TAGS=bifidobacter_genbank_tag_local \
+    -c params.OUTPUT_PREFIX=bifidobacter \
+    -c cluster.CLUSTER_NAME=&apos;local&apos; \
+    -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Comparative Test local&quot; \
+    &gt; /tmp/$$.pipeline.conf.${DATE}
+
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
+
+if [ &quot;$?&quot; == &quot;1&quot; ]; then
+        echo &quot;vp-run-pipeline failed to run&quot;
+        exit 1
+fi
+
+vp-describe-task --name local --exit-code --block $TASK_NAME
+
+exit $?
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>sadkins@som.umaryland.edu</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

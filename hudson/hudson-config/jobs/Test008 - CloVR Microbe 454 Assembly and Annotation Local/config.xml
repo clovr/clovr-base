@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Launch a CloVR Microbe pipeline with 454 assembly and Annotation using local credentials</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+set -e
+source /opt/vappio-scripts/clovrEnv.sh
+
+DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+
+vp-add-dataset --tag-name=hudson_sff_test_local /opt/hudson/BD413_wt_contig170.sff -o
+
+vp-describe-protocols --config-from-protocol=clovr_microbe_v2.0_454 \
+    -c input.INPUT_SFF_TAG=hudson_sff_test_local \
+    -c params.OUTPUT_PREFIX=BD413_mini \
+    -c params.SPEC_FILE=&apos;/dev/null/&apos; \
+    -c params.SKIP_BANK=true \
+    -c params.ORGANISM=&quot;Acinetobacter baylii&quot; \
+    -c params.TRIM=&apos;chop&apos; \
+    -c params.CLEAR=&apos;454&apos; \
+    -c params.LINKER=&apos;titanium&apos; \
+    -c params.INSERT_SIZE=&apos;8000 1000&apos; \
+    -c cluster.CLUSTER_NAME=&apos;local&apos; \
+    -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
+    -c cluster.TERMINATE_ONFINISH=false \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Microbe 454 Assembly and Annotation Test local&quot; \
+    &gt; /tmp/$$.pipeline.conf.${DATE}
+
+TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
+
+if [ &quot;$?&quot; == &quot;1&quot; ]; then
+    echo &quot;vp-run-pipeline failed to run&quot;
+    exit 1
+fi
+
+vp-describe-task --name local --exit-code --block $TASK_NAME
+
+exit $?
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
