@@ -18,7 +18,7 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
-vp-add-dataset --tag-name=hudson_sff_test_local /opt/hudson/BD413_wt_contig170.sff -o
+vp-add-dataset --tag-name=hudson_sff_test_local /mnt/user_data/microbe/454/Acinetobacter250k.sff -o
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_v2.0_454 \
     -c input.INPUT_SFF_TAG=hudson_sff_test_local \
