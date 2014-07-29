@@ -1,16 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <version>1.374</version>
-  <numExecutors>1</numExecutors>
+  <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
-  <systemMessage>
-Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;&lt;/p&gt;</systemMessage>
+  <systemMessage>Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos;&gt;CloVR&lt;/a&gt;&lt;/p&gt;</systemMessage>
   <jdks/>
   <clouds/>
   <slaves/>
-  <quietPeriod>5</quietPeriod>
+  <quietPeriod>0</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
     <hudson.model.AllView>
@@ -81,6 +80,7 @@ Automated testing and image builds for &lt;a href=&apos;http://clovr.sf.net&apos
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <string>CloVR Test Runner</string>
       </jobNames>
       <jobFilters/>
       <columns>

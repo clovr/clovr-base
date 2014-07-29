@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>NUM_PIPELINE_RUNS</name>
+          <description>Number of times to run this pipeline.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_NAME</name>
+          <description>Name of the test to be run multiple times</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+escaped_pipeline_name=&quot;$(perl -MURI::Escape -e &apos;print uri_escape($ARGV[0]);&apos; &quot;$TEST_NAME&quot;)&quot;
+pipeline_url=&quot;http://localhost:8888/job/${escaped_pipeline_name}/buildWithParameters&quot;
+
+STATUS=`curl -s http://localhost:8888/checkJobName?value=${escaped_pipeline_name} | grep -c &quot;A job already exists&quot;`
+
+if [ $STATUS -eq 0 ]
+then
+    echo &quot;Could not find test ${TEST_NAME}&quot;
+    exit 42;
+fi
+
+for ((i=1;i&lt;=$NUM_PIPELINE_RUNS;i++))
+do
+    DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+
+    curl &quot;${pipeline_url}?HIDDEN=${DATE}&quot;
+    sleep 5
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
