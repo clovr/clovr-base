@@ -28,6 +28,9 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
+wget -O /mnt/user_data/Acinetobacter454.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/Acinetobacter454/Acinetobacter454.tar.gz
+tar xfv /mnt/user_data/Acinetobacter454.tar.gz -C /mnt/user_data/
+
 vp-add-dataset --tag-name=hudson_sff_test_local_${DATE} /opt/hudson/BD413_wt_contig170.sff -o
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_v2.0_454 \
