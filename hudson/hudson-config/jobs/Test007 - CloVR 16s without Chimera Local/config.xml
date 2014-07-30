@@ -49,9 +49,8 @@ TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.
 
 if [ &quot;$?&quot; == &quot;1&quot; ]; then
     echo &quot;vp-run-pipeline failed to run&quot;
-    exit 1
-
     rm -rf ${DATA_DIR}
+    exit 1
 fi
 
 vp-describe-task --name local --exit-code --block $TASK_NAME
