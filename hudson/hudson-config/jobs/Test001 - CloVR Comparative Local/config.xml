@@ -1,25 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials</description>
+  <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials&#xd;
+&#xd;
+Used 6 Rhizobium full Genbank (.gbk) files for testing.  The accession IDs are:&#xd;
+NC_011369,NC_012850,NC_008380,NC_007761,NC_010994,NC_020059</description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>HIDDEN</name>
-          <description>Parameter to differentiate between builds</description>
-          <defaultValue>1</defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
-  <concurrentBuild>true</concurrentBuild>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
@@ -28,12 +21,12 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
-vp-add-dataset --tag-name=bifidobacter_genbank_tag_local_${DATE} -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
+vp-add-dataset --tag-name=rhizobium_genbank_tag_local -o /mnt/user_data/comparative/rhizobium/NC_011369.gbk /mnt/user_data/comparative/rhizobium/NC_012850.gbk /mnt/user_data/comparative/rhizobium/NC_007761.gbk /mnt/user_data/comparative/rhizobium/NC_008380.gbk /mnt/user_data/comparative/rhizobium/NC_010994.gbk /mnt/user_data/comparative/rhizobium/NC_020059.gbk 
 
 
 vp-describe-protocols --config-from-protocol=clovr_comparative \
-    -c input.GENBANK_TAGS=bifidobacter_genbank_tag_local_${DATE} \
-    -c params.OUTPUT_PREFIX=bifidobacter \
+    -c input.GENBANK_TAGS=rhizobium_genbank_tag_local \
+    -c params.OUTPUT_PREFIX=rhizobium \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
@@ -53,12 +46,6 @@ exit $?
 </command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.Mailer>
-      <recipients>sadkins@som.umaryland.edu</recipients>
-      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
-      <sendToIndividuals>false</sendToIndividuals>
-    </hudson.tasks.Mailer>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>
