@@ -3,13 +3,23 @@
   <actions/>
   <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>HIDDEN</name>
+          <description>Parameter to differentiate between builds</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
-  <concurrentBuild>false</concurrentBuild>
+  <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
@@ -18,16 +28,16 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
-vp-add-dataset --tag-name=bifidobacter_genbank_tag_local -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
+vp-add-dataset --tag-name=bifidobacter_genbank_tag_local_${DATE} -o /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_adolescentis_ATCC_15703/AP009256.gbk /opt/hudson/pangenome_data/bifidobacter_genbank_files/Bifidobacterium_longum_infantis_ATCC_15697/CP001095.gbk
 
 
 vp-describe-protocols --config-from-protocol=clovr_comparative \
-    -c input.GENBANK_TAGS=bifidobacter_genbank_tag_local \
+    -c input.GENBANK_TAGS=bifidobacter_genbank_tag_local_${DATE} \
     -c params.OUTPUT_PREFIX=bifidobacter \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
-    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Comparative Test local&quot; \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Comparative Test local ${DATE}&quot; \
     &gt; /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
