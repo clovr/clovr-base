@@ -16,31 +16,38 @@
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-wget -0 /mnt/user_data/InfantGut16S.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-16S/InfantGutMicrobiome/InfantGut16S.tar.gz
-tar xvf /mnt/user_data/InfantGut16S.tar.gz -C /mnt/user_data/
-
-vp-add-dataset -o --tag-name=clovr_16S_chimera_input_local /mnt/user_data/InfantGut16S.fasta
-vp-add-dataset -o --tag-name=clovr_16S_chimera_mapping /mnt/user_data/InfantGut16S.map
-
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+DATA_DIR=`mktemp -p /mnt/user_data -d`
+
+echo &quot;Downloading data...&quot;
+wget -O ${DATA_DIR}/InfantGut16S.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-16S/InfantGutMicrobiome/InfantGut16S.tar.gz
+
+echo &quot;Extracting data...&quot;
+tar xvf ${DATA_DIR}/InfantGut16S.tar.gz -C ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
+
+vp-add-dataset -o --tag-name=clovr_16S_chimera_input_local_${DATE} ${DATA_DIR}/InfantGut16S.fasta
+vp-add-dataset -o --tag-name=clovr_16S_chimera_mapping ${DATA_DIR}/InfantGut16S.map
 
 vp-describe-protocols --config-from-protocol=clovr_16S \
-    -c input.FASTA_TAG=clovr_16S_chimera_input_local \
+    -c input.FASTA_TAG=clovr_16S_chimera_input_local_${DATE} \
     -c input.MAPPING_TAG=clovr_16S_chimera_mapping \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
-    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR 16S Chimera Test local&quot; \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR 16S Chimera Test local ${DATE}&quot; \
     &gt; /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ &quot;$?&quot; == &quot;1&quot; ]; then
     echo &quot;vp-run-pipeline failed to run&quot;
+    rm -rf ${DATA_DIR}
     exit 1
 fi
 
 vp-describe-task --name local --exit-code --block $TASK_NAME
+rm -rf ${DATA_DIR}
 
 exit $?
 

@@ -18,32 +18,38 @@ Human Gut metagenomic inputs can be found at http://cb2.igs.umaryland.edu/clovr/
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-wget -O /mnt/user_data/InfantGutMetagenome.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/InfantGutMetagenome/InfantGutMetagenome.tar.gz
-tar xfv /mnt/user_data/InfantGutMetagenome.tar.gz -C /mnt/user_data/ 
-
-vp-add-dataset -o --tag-name=clovr_metagenomics_orfs_fasta_local /mnt/user_data/metagenomic/Infant_fasta/Age100d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age118d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age371d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age3d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age413d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age432d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age441d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age454d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age6d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age85d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age92d.fasta /mnt/user_data/metagenomic/Infant_fasta/Age98d.fasta
-
-vp-add-dataset -o --tag-name=clovr_metagenomics_orfs_map /mnt/user_data/metagenomic/InfantGutMetagenome.map
-
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+DATA_DIR=`mktemp -p /mnt/user_data -d`
+
+echo &quot;Downloading data...&quot;
+wget --quiet -O ${DATA_DIR}/InfantGutMetagenome.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/InfantGutMetagenome/InfantGutMetagenome.tar.gz
+
+echo &quot;Extracting data...&quot;
+tar xfv ${DATA_DIR}/InfantGutMetagenome.tar.gz -C ${DATA_DIR}
+chmod -R 777 ${DATA_DIR} 
+
+vp-add-dataset -o --tag-name=clovr_metagenomics_orfs_fasta_local_${DATE} ${DATA_DIR}/Age100d.fasta ${DATA_DIR}/Age118d.fasta ${DATA_DIR}/Age371d.fasta ${DATA_DIR}/Age3d.fasta ${DATA_DIR}/Age413d.fasta ${DATA_DIR}/Age432d.fasta ${DATA_DIR}/Age441d.fasta ${DATA_DIR}/Age454d.fasta ${DATA_DIR}/Age6d.fasta ${DATA_DIR}/Age85d.fasta ${DATA_DIR}/Age92d.fasta ${DATA_DIR}/Age98d.fasta
+vp-add-dataset -o --tag-name=clovr_metagenomics_orfs_map ${DATA_DIR}/InfantGutMetagenome.map
 
 vp-describe-protocols --config-from-protocol=clovr_metagenomics_orfs \
-    -c input.FASTA_TAG=clovr_metagenomics_orfs_fasta_local \
+    -c input.FASTA_TAG=clovr_metagenomics_orfs_fasta_local_${DATE} \
     -c input.MAPPING_TAG=clovr_metagenomics_orfs_map \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
-    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Metagenomics Orfs Test local&quot; \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Metagenomics Orfs Test local ${DATE}&quot; \
     &gt; /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ &quot;$?&quot; == &quot;1&quot; ]; then
     echo &quot;vp-run-pipeline failed to run&quot;
+    rm -rf ${DATA_DIR}
     exit 1
 fi
 
 vp-describe-task --name local --exit-code --block $TASK_NAME
+rm -rf ${DATA_DIR}
 
 exit $?
 
