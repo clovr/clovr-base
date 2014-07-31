@@ -29,11 +29,16 @@ NC_011369,NC_012850,NC_008380,NC_007761,NC_010994,NC_020059</description>
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
+wget -O /mnt/user_data/neisseria_comparative.tgz http://cb2.igs.umaryland.edu/neisseria_comparative.tgz
+tar xfv /mnt/user_data/neisseria_comparative.tgz -C /mnt/user_data/ 
+
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
+vp-add-dataset -o --tag-name=clovr_comparative_genbank_local /mnt/user_data/neisseria_comparative/NC_003112.2.gbk /mnt/user_data/neisseria_comparative/NC_003116.1.gbk /mnt/user_data/neisseria_comparative/NC_008767.1.gbk /mnt/user_data/neisseria_comparative/NC_010120.1.gbk /mnt/user_data/neisseria_comparative/NC_013016.1.gbk
+
 vp-describe-protocols --config-from-protocol=clovr_comparative \
-    -c input.GENBANK_IDS=NC_011369,NC_012850,NC_008380,NC_007761,NC_010994,NC_020059 \
-    -c params.OUTPUT_PREFIX=rhizobium \
+    -c input.GENBANK_TAGS=clovr_comparative_genbank_local \
+    -c params.OUTPUT_PREFIX=neisseria \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
