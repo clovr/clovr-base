@@ -3,13 +3,23 @@
   <actions/>
   <description>Launches a CloVR Microbial pipeline with Illumina assembly only using local credentials</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>HIDDEN</name>
+          <description>Parameter to differentiate between builds</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
-  <concurrentBuild>false</concurrentBuild>
+  <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
@@ -18,16 +28,16 @@ source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 
-vp-add-dataset -o --tag-name=clovr_microbe_illumina_tag_local /opt/hudson/illumina_data/partial_reads_1.fastq /opt/hudson/illumina_data/partial_reads_2.fastq 
+vp-add-dataset -o --tag-name=clovr_microbe_illumina_tag_local_${DATE} /opt/hudson/illumina_data/partial_reads_1.fastq /opt/hudson/illumina_data/partial_reads_2.fastq 
 
 vp-describe-protocols --config-from-protocol=clovr_assembly_velvet \
-    -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_tag_local \
+    -c input.SHORT_PAIRED_TAG=clovr_microbe_illumina_tag_local_${DATE} \
     -c params.OUTPUT_PREFIX=test \
     -c microbe_track=&apos;assembly&apos; \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
-    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Micorbe Illumina Assembly Test local&quot; \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Micorbe Illumina Assembly Test local ${DATE}&quot; \
     &gt; /tmp/$$.pipeline.conf.${DATE}
 
 
