@@ -29,7 +29,10 @@ source /opt/vappio-scripts/clovrEnv.sh
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 DATA_DIR=`mktemp -p /mnt/user_data -d`
 
+echo &quot;Downloading dataset...&quot;
 wget --quiet -O ${DATA_DIR}/InfantGut16S.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-16S/InfantGutMicrobiome/InfantGut16S.tar.gz
+
+echo &quot;Extracting dataset...&quot;
 tar xfv ${DATA_DIR}/InfantGut16S.tar.gz -C ${DATA_DIR}
 chmod -R 777 ${DATA_DIR}
 

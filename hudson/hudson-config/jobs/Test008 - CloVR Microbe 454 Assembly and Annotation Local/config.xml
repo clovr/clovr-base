@@ -1,17 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Launch a CloVR Microbe pipeline with 454 (Celera) assembly and Annotation using local credentials&#xd;
-&#xd;
-Acinetobacter 454 can be found in http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/Acinetobacter454/Acinetobacter454.tar.gz</description>
+  <description>Launch a CloVR Microbe pipeline with 454 (Celera) assembly and Annotation using local credentials</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>HIDDEN</name>
+          <description>Parameter to differentiate between builds</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
-  <concurrentBuild>false</concurrentBuild>
+  <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
@@ -19,14 +27,19 @@ set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+DATA_DIR=`mktemp -p /mnt/user_data -d`
 
-wget -O /mnt/user_data/Acinetobacter454.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/Acinetobacter454/Acinetobacter454.tar.gz
-tar xfv /mnt/user_data/Acinetobacter454.tar.gz -C /mnt/user_data/
+echo &quot;Downloading dataset...&quot;
+wget --quiet -O ${DATA_DIR}/Acinetobacter454.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Microbe/Acinetobacter454/Acinetobacter454.tar.gz
+
+echo &quot;Extracting dataset...&quot;
+tar xfv ${DATA_DIR}/Acinetobacter454.tar.gz -C ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 
 vp-add-dataset --tag-name=hudson_sff_test_local_${DATE} /opt/hudson/BD413_wt_contig170.sff -o
 
 vp-describe-protocols --config-from-protocol=clovr_microbe_v2.0_454 \
-    -c input.INPUT_SFF_TAG=hudson_sff_test_local \
+    -c input.INPUT_SFF_TAG=hudson_sff_test_local_${DATE} \
     -c params.OUTPUT_PREFIX=BD413_mini \
     -c params.SPEC_FILE=&apos;/dev/null&apos; \
     -c params.SKIP_BANK=true \
@@ -38,17 +51,19 @@ vp-describe-protocols --config-from-protocol=clovr_microbe_v2.0_454 \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
-    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Microbe 454 Assembly and Annotation Test local&quot; \
+    -c pipeline.PIPELINE_DESC=&quot;Hudson CloVR Microbe 454 Assembly and Annotation Test local ${DATE}&quot; \
     &gt; /tmp/$$.pipeline.conf.${DATE}
 
 TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.conf.${DATE} --overwrite`
 
 if [ &quot;$?&quot; == &quot;1&quot; ]; then
     echo &quot;vp-run-pipeline failed to run&quot;
+    rm -rf ${DATA_DIR}
     exit 1
 fi
 
 vp-describe-task --name local --exit-code --block $TASK_NAME
+rm -rf ${DATA_DIR}
 
 exit $?
 
