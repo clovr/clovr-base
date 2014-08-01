@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials&#xd;
-&#xd;
-Used 6 Rhizobium full Genbank (.gbk) files for testing.  The accession IDs are:&#xd;
-NC_011369,NC_012850,NC_008380,NC_007761,NC_010994,NC_020059</description>
+  <description>This is a test that starts and executes a CloVR Comparative pipeline run with local credentials</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.model.ParametersDefinitionProperty>
