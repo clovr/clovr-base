@@ -29,16 +29,22 @@ NC_011369,NC_012850,NC_008380,NC_007761,NC_010994,NC_020059</description>
 set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
-wget -O /mnt/user_data/neisseria_comparative.tgz http://cb2.igs.umaryland.edu/neisseria_comparative.tgz
-tar xfv /mnt/user_data/neisseria_comparative.tgz -C /mnt/user_data/ 
-
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
+DATA_DIR=`mktemp -p /2mnt/user_data -d`
 
-vp-add-dataset -o --tag-name=clovr_comparative_genbank_local /mnt/user_data/neisseria_comparative/NC_003112.2.gbk /mnt/user_data/neisseria_comparative/NC_003116.1.gbk /mnt/user_data/neisseria_comparative/NC_008767.1.gbk /mnt/user_data/neisseria_comparative/NC_010120.1.gbk /mnt/user_data/neisseria_comparative/NC_013016.1.gbk
+echo "Downloading data..."
+wget --quiet -O ${DATA_DIR}/neisseria_comparative.tgz http://cb2.igs.umaryland.edu/neisseria_comparative.tgz
+
+echo "Extracting data..."
+tar xfv ${DATA_DIR}/neisseria_comparative.tgz -C ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
+
+vp-add-dataset -o --tag-name=clovr_comparative_genbank_local_${DATE} ${DATA_DIR}/neisseria_comparative/NC_003112.2.gbk ${DATA_DIR}/neisseria_comparative/NC_003116.1.gbk ${DATA_DIR}/neisseria_comparative/NC_008767.1.gbk ${DATA_DIR}/neisseria_comparative/NC_010120.1.gbk ${DATA_DIR}/neisseria_comparative/NC_013016.1.gbk
 
 vp-describe-protocols --config-from-protocol=clovr_comparative \
-    -c input.GENBANK_TAGS=clovr_comparative_genbank_local \
+    -c input.GENBANK_TAGS=clovr_comparative_genbank_local_${DATE} \
     -c params.OUTPUT_PREFIX=neisseria \
+    -c params.SITE_NAME=clovr_sybil_${DATE} \
     -c cluster.CLUSTER_NAME=&apos;local&apos; \
     -c cluster.CLUSTER_CREDENTIAL=&apos;local&apos; \
     -c cluster.TERMINATE_ONFINISH=false \
@@ -49,10 +55,12 @@ TASK_NAME=`vp-run-pipeline --print-task-name --pipeline-config /tmp/$$.pipeline.
 
 if [ &quot;$?&quot; == &quot;1&quot; ]; then
         echo &quot;vp-run-pipeline failed to run&quot;
+        rm -rf ${DATA_DIR}
         exit 1
 fi
 
 vp-describe-task --name local --exit-code --block $TASK_NAME
+rm -rf ${DATA_DIR}
 
 exit $?
 </command>
