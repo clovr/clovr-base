@@ -30,7 +30,7 @@ set -e
 source /opt/vappio-scripts/clovrEnv.sh
 
 DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
-DATA_DIR=`mktemp -p /2mnt/user_data -d`
+DATA_DIR=`mktemp -p /mnt/user_data -d`
 
 echo "Downloading data..."
 wget --quiet -O ${DATA_DIR}/neisseria_comparative.tgz http://cb2.igs.umaryland.edu/neisseria_comparative.tgz
