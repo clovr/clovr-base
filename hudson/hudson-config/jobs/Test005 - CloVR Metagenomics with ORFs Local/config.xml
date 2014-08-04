@@ -22,7 +22,7 @@ DATE=`date +&quot;%m-%d-%Y-%T&quot; | sed -e &apos;s/:/_/g&apos;`
 DATA_DIR=`mktemp -p /mnt/user_data -d`
 
 echo &quot;Downloading data...&quot;
-wget --quiet -O ${DATA_DIR}/InfantGutMetagenome.tar.gz http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/InfantGutMetagenome/InfantGutMetagenome.tar.gz
+wget --quiet -O ${DATA_DIR}/InfantGutMetagenome.tar.gz https://dl.dropboxusercontent.com/u/15490934/InfantGutMetagenome.tar.gz
 
 echo &quot;Extracting data...&quot;
 tar xfv ${DATA_DIR}/InfantGutMetagenome.tar.gz -C ${DATA_DIR}
