@@ -5,7 +5,17 @@
 &#xd;
 Human Gut metagenomic inputs can be found at http://cb2.igs.umaryland.edu/clovr/Public_Benchmarks/CloVR-Metagenomics/InfantGutMetagenome/InfantGutMetagenome.tar.gz</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>HIDDEN</name>
+          <description>Parameter to differentiate between builds</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
