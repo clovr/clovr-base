@@ -438,7 +438,7 @@ clovr.uploadFileWindow = function(config) {
 		   handler: function() {
 			var host = window.location.hostname;
     			Ext.Ajax.request({
-        			url: '/util/get_pass.py',
+        			url: '/clovr/util/get_pass.py',
         			success: function(r,o) {
             				var rjson = Ext.util.JSON.decode(r.responseText);
             				var pass = rjson.data[0].password;

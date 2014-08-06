@@ -4,7 +4,7 @@ import json
 import os
 import cgi
 
-fdata = open('/etc/pure-ftpd/pureftpd.passwd').readline().strip()
+fdata = open('/etc/pure-ftpd/ftp_passwd').readline().strip()
 
 print "Content-Type: application/json"
 print 
