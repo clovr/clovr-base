@@ -1,2 +1,0 @@
-setenv PATH "$PATH"":""/usr/local/bioinf/tRNAscan-SE/bin"
-setenv MANPATH "$MANPATH"":""/usr/local/bioinf/tRNAscan-SE/man"

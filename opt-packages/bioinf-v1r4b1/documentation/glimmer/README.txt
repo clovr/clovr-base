@@ -1,1 +1,0 @@
-/usr/local/bioinf/glimmer/glimmer/README

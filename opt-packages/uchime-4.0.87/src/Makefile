@@ -1,2 +1,0 @@
-uchime:
-	./mk

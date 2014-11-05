@@ -1,3 +1,0 @@
-#!/bin/bash
-
-perl -I `cd $(dirname $0) && pwd | sed -e 's/bin/lib/'` $0.pl $*

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export LD_PRELOAD=/opt/bmtagger/libstdc++.so.6.0.13
-/opt/bmtagger/srprism.bin $@
